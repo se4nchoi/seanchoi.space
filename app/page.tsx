@@ -17,16 +17,19 @@ export default function Page() {
         />
       </div>
 
-      <p className="prose prose-neutral dark:prose-invert mb-4">
-        {`A 🇰🇷Korean-born, 🇨🇦Canadian-raised software engineer with a passion for optimizing workflows. 
-        Expected graduate of the University of Toronto's Computer Engineering program in 2025.`}
-        <br></br>
-        {`Interested in exploring what web, AI, automotive, financial, and semi-conductor 
-        will offer in the near future, especially having had `}
+      <p className="prose prose-neutral dark:prose-invert mb-2">
+        A 🇰🇷Korean-born, 🇨🇦Canadian-raised software engineer with a passion for optimizing workflows.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert mb-2">
+        Expected graduate of the University of Toronto's Computer Engineering program in 2025.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert mb-2">
+        Interested in exploring what web, AI, automotive, financial, and semi-conductor 
+        will offer in the near future, especially having had{' '}
         <Link href={"/work"}>
           related experience
         </Link>
-        {` in web and automotive.`}
+        {' '}in web and automotive.
       </p>
       <p className="prose prose-neutral dark:prose-invert">
         An occasional chef, a football fanatic, and an optimistic part-time adventurer — always looking for new experiences and challenges!
