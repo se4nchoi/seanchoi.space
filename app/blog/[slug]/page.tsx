@@ -108,7 +108,7 @@ export default function Blog({ params }) {
             url: `https://seanchoi.space/blog/${post.slug}`,
             author: {
               '@type': 'Person',
-              name: 'Lee Robinson',
+              name: 'Sean Choi',
             },
           }),
         }}

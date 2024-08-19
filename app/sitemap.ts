@@ -6,7 +6,7 @@ export default async function sitemap() {
     lastModified: post.metadata.publishedAt,
   }));
 
-  let routes = ['', '/blog', '/uses', '/about'].map((route) => ({
+  let routes = ['', '/blog', '/uses', '/work'].map((route) => ({
     url: `https://seanchoi.space${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }));
