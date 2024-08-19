@@ -5,7 +5,7 @@ export default function robots() {
         userAgent: '*',
       },
     ],
-    sitemap: 'https://leerob.io/sitemap.xml',
-    host: 'https://leerob.io',
+    sitemap: 'https://seanchoi.space/sitemap.xml',
+    host: 'https://seanchoi.space',
   };
 }
