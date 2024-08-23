@@ -14,7 +14,7 @@ Credit to [leerob.io](https://github.com/leerob/leerob.io)
 This application requires Node.js v18.17+.
 
 ```bash
-git clone https://github.com/leerob/seanchoi.space.git
+git clone https://github.com/se4nchoi/seanchoi.space.git
 cd seanchoi.space
 bun install
 bun run setup # Remove all of my personal information
