@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://seanchoi.space'),
   title: {
     default: 'Sean Choi',
-    template: 'A blog, a portfolio for Sean',
+    template: '%s | Sean Choi',
   },
   description: 'A blog, a portfolio for Sean',
   openGraph: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
   verification: {
-    google: 'eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw',
+    google: '',
     
   },
 };

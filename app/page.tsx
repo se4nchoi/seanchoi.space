@@ -7,23 +7,23 @@ import {
 export default function Page() {
   return (
     <section>
-      <h1 className="mb-8 font-medium text-2xl tracking-tighter">hi, this is Sean 🙌</h1>
-      <div className="my-4 w-48 h-48 overflow-hidden rounded-full">
+      <h1 className="mb-8 font-medium text-3xl tracking-tighter">hi, this is Sean 🙌</h1>
+      <div className="my-4 w-52 h-52 overflow-hidden rounded-full">
         <Image 
           src="/avatar.jpg" 
-          width={240}
-          height={240}
+          width={280}
+          height={280}
           alt="face image of Sean"        
         />
       </div>
 
-      <p className="prose prose-neutral dark:prose-invert mb-2">
+      <p className="prose prose-neutral dark:prose-invert mb-4">
         A 🇰🇷Korean-born, 🇨🇦Canadian-raised software engineer with a passion for optimizing workflows.
       </p>
-      <p className="prose prose-neutral dark:prose-invert mb-2">
+      <p className="prose prose-neutral dark:prose-invert mb-4">
         Expected graduate of the University of Toronto's Computer Engineering program in 2025.
       </p>
-      <p className="prose prose-neutral dark:prose-invert mb-2">
+      <p className="prose prose-neutral dark:prose-invert mb-4">
         Interested in exploring what web, AI, automotive, financial, and semi-conductor 
         will offer in the near future, especially having had{' '}
         <Link href={"/work"}>
@@ -71,56 +71,61 @@ const ImageSection = () => {
           className='rounded-lg object-cover'
         />
       </div>
-      <div className='relative sm:row-span-2 row-span-1'>
-        <Image
-            alt="Team photo after 2022 Korean Olypmics silver medals"
-            src={"/about/about_05.jpg"}
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover sm:object-center"
-          />
+      
+      <div className="relative row-span-2">
+        <Image 
+          alt="Me dressed as TopGun on halloween"
+          src={"/about/about_07.jpg"}
+          fill
+          sizes="(max-width: 768px) 213, 33vw"
+          priority
+          className='rounded-lg object-cover object-top sm:object-center'
+        />
       </div>
+
       <div className='relative'>
         <Image  
-          alt="Me on top of Nogodan doing a pose"
-          src={"/about/about_01.jpg"}
+          alt="Me with the silver medal trophy for 2022 Korean Olympics"
+          src={"/about/about_06.jpg"}
           fill
           sizes="(max-width: 768px) 213, 33vw"
           priority
           className='rounded-lg object-cover'
         />
       </div>
+
       <div className="relative row-span-2">
-        <Image 
-            alt="Me dressed as TopGun on halloween"
-            src={"/about/about_07.jpg"}
-            fill
-            sizes="(max-width: 768px) 213, 33vw"
-            priority
-            className='rounded-lg object-cover object-top sm:object-center'
-          />
-        </div>
-        <div className="relative row-span-2">
-          <Image
-            alt="Me with the silver medal trophy for 2022 Korean Olympics"
-            src={"/about/about_06.jpg"}
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="relative h-40">
-          <Image
-            alt="Team photo after silver medal match at 2022 Korean Olympics"
-            src={"/about/about_04.jpg"}
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
+        <Image
+          alt="Me with the EMG RUTA40 camping EV crew at 2022 Daegu Camping Exhibition"
+          src={"/about/about_10.jpg"}
+          fill
+          sizes="(max-width: 768px) 213px, 33vw"
+          priority
+          className="rounded-lg object-cover"
+        />
+      </div>
+
+      <div className='relative sm:row-span-2 row-span-1'>
+        <Image
+          alt="Team photo after 2022 Korean Olypmics silver medals"
+          src={"/about/about_05.jpg"}
+          fill
+          sizes="(max-width: 768px) 213px, 33vw"
+          priority
+          className="rounded-lg object-cover sm:object-center"
+        />
+      </div>
+
+      <div className="relative h-40">
+        <Image
+          alt="Group photo after silver medal match at 2022 Korean Olympics"
+          src={"/about/about_04.jpg"}
+          fill
+          sizes="(max-width: 768px) 213px, 33vw"
+          priority
+          className="rounded-lg object-cover"
+        />
+      </div>
       
     </section>
   );
