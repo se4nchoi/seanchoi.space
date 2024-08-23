@@ -1,5 +1,5 @@
 # Blog and portfolio.
-Credit to [seanchoi.space](https://github.com/leerob/seanchoi.space)
+Credit to [leerob.io](https://github.com/leerob/leerob.io)
 
 
 - **Framework**: [Next.js](https://nextjs.org/)
@@ -20,8 +20,6 @@ bun install
 bun run setup # Remove all of my personal information
 bun dev
 ```
-
-Create a `.env.local` file similar to [`.env.example`](https://github.com/leerob/seanchoi.space/blob/main/.env.example).
 
 ## Database Schema
 
