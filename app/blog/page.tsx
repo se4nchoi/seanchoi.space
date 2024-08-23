@@ -14,9 +14,13 @@ export default function BlogPage() {
 
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter">
-        read my blog
+      <h1 className="font-medium text-3xl mb-8 tracking-tighter">
+        blog
       </h1>
+      <p className="prose prose-neutral dark:prose-invert">
+        A place where I jot down stuff. 
+      </p>
+      <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
       {allBlogs
         .sort((a, b) => {
           if (
@@ -35,6 +39,9 @@ export default function BlogPage() {
             <div className="w-full flex flex-col">
               <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
                 {post.metadata.title}
+              </p>
+              <p className="text-neutral-700 dark:text-neutral-300 tracking-tight text-xs">
+                {post.metadata.publishedAt}
               </p>
               <Suspense fallback={<p className="h-6" />}>
                 <Views slug={post.slug} />
