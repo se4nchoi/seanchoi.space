@@ -27,40 +27,40 @@ async function fetchPublishedPages() {
   }
 
   for (const page of response.results) {
-  const props = (page as any).properties;
-  const title = props.Title.title[0]?.plain_text || 'untitled';
-  const publishedAt = props.PublishedAt?.date?.start || '';
-  const summary = props.Summary?.rich_text[0]?.plain_text || '';
-  const image = props.Image?.url || '';
-  const slug = props.Slug?.rich_text?.[0]?.plain_text
-    ? sanitizeSlug(props.Slug.rich_text[0].plain_text)
-    : sanitizeSlug(title);
-    
-  // Build frontmatter block
-  const frontmatter = [
-    '---',
-    `title: "${title}"`,
-    `slug: "${slug}"`,
-    publishedAt ? `publishedAt: "${publishedAt}"` : '',
-    summary ? `summary: "${summary}"` : '',
-    image ? `image: "${image}"` : '',
-    '---'
-  ].filter(Boolean).join('\n');
+    const props = (page as any).properties;
+    const title = props.Title.title[0]?.plain_text || 'untitled';
+    const publishedAt = props.PublishedAt?.date?.start || '';
+    const summary = props.Summary?.rich_text[0]?.plain_text || '';
+    const image = props.Image?.url || '';
+    const slug = props.Slug?.rich_text?.[0]?.plain_text
+      ? sanitizeSlug(props.Slug.rich_text[0].plain_text)
+      : sanitizeSlug(title);
+      
+    // Build frontmatter block
+    const frontmatter = [
+      '---',
+      `title: "${title}"`,
+      `slug: "${slug}"`,
+      publishedAt ? `publishedAt: "${publishedAt}"` : '',
+      summary ? `summary: "${summary}"` : '',
+      image ? `image: "${image}"` : '',
+      '---'
+    ].filter(Boolean).join('\n');
 
-  const mdBlocks = await n2m.pageToMarkdown(page.id);
-  const mdString = n2m.toMarkdownString(mdBlocks);
-  const markdown =
-    typeof mdString === 'string'
-      ? mdString
-      : [mdString.parent, ...(Array.isArray(mdString.children) ? mdString.children : [])].join('\n\n');
+    const mdBlocks = await n2m.pageToMarkdown(page.id);
+    const mdString = n2m.toMarkdownString(mdBlocks);
+    const markdown =
+      typeof mdString === 'string'
+        ? mdString
+        : [mdString.parent, ...(Array.isArray(mdString.children) ? mdString.children : [])].join('\n\n');
 
-  const fileName = `${title.replace(/\s+/g, '-').toLowerCase()}.mdx`;
-  fs.writeFileSync(
-    path.join('content', fileName),
-    `${frontmatter}\n\n${markdown}`
-  );
-  console.log(`Wrote: content/${fileName}`);
-}
+    const fileName = `${title.replace(/\s+/g, '-').toLowerCase()}.mdx`;
+    fs.writeFileSync(
+      path.join('content', fileName),
+      `${frontmatter}\n\n${markdown}`
+    );
+    console.log(`Wrote: content/${fileName}`);
+  }
 };
 
 function sanitizeSlug(str: string) {
