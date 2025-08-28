@@ -1,11 +1,13 @@
 import './global.css';
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
 import { Navbar } from './components/nav';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SandpackCSS } from './blog/[slug]/sandpack';
+
+import { Roboto_Mono, Noto_Sans } from 'next/font/google';
+const robotoMono = Roboto_Mono({ subsets: ['latin'], variable: '--font-roboto-mono' });
+const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-noto-sans' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://seanchoi.space'),
@@ -55,8 +57,8 @@ export default function RootLayout({
       lang="en"
       className={cx(
         'text-black bg-white dark:text-white dark:bg-[#111010]',
-        GeistSans.variable,
-        GeistMono.variable
+        robotoMono.variable,
+        notoSans.variable
       )}
     >
       <head>
