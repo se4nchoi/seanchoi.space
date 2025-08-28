@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: path.join(__dirname, '../.env.local') });
 
-const notion = new Client({ auth: process.env.NOTION_TOKEN });
+const notion = new Client({ auth: process.env.NOTION_INTEGRATION_SECRET });
 const n2m = new NotionToMarkdown({ notionClient: notion });
 const databaseId = process.env.NOTION_DATABASE_ID!;
 
