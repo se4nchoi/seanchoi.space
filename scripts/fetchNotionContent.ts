@@ -4,7 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: path.join(__dirname, '../.env.local') });
+dotenv.config({ path: path.join(import.meta.dirname, '../.env.local') });
+
 
 const notion = new Client({ auth: process.env.NOTION_INTEGRATION_SECRET });
 const n2m = new NotionToMarkdown({ notionClient: notion });
