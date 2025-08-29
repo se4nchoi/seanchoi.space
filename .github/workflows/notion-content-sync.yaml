@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Compile TypeScript
-        run: npm run tsc-compile
+        run: npm run ts-compile
 
       - name: Run Notion sync script
         run: node dist/scripts/fetchNotionContent.js
