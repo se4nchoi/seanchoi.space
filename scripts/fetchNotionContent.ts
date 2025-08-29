@@ -1,18 +1,10 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import fs from 'fs';
-
-import dotenv from 'dotenv';
 import path from 'path';
 
-// Only load dotenv in a development environment.
-// The CI environment on GitHub Actions will provide the secrets directly.
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({ path: path.join(import.meta.dirname, '../.env.local') });
-}
+const contentDir = path.join(process.cwd(), 'content');
 
-// Now you can safely access your variables, which will be available
-// either from the .env.local file (locally) or from the GitHub Actions secrets.
 const notionIntegrationSecret = process.env.NOTION_INTEGRATION_SECRET;
 const notionDatabaseId = process.env.NOTION_DATABASE_ID;
 
@@ -28,7 +20,7 @@ function sanitizeSlug(str: string) {
 }
 
 async function fetchPublishedPages() {
-  const syncLogPath = path.join('content', 'notion-sync.json');
+  const syncLogPath = path.join(contentDir, 'notion-sync.json');
   let syncLog: Record<string, string> = {};
   if (fs.existsSync(syncLogPath)) {
     syncLog = JSON.parse(fs.readFileSync(syncLogPath, 'utf-8'));
@@ -55,7 +47,7 @@ async function fetchPublishedPages() {
       : sanitizeSlug(title);
 
     const lastEdited = page.last_edited_time;
-    const filePath = path.join('content', `${slug}.mdx`);
+    const filePath = path.join(contentDir, `${slug}.mdx`);
 
     const frontmatter = [
       '---',
