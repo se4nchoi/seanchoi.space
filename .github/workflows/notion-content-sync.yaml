@@ -7,8 +7,6 @@ on:
 
 jobs:
   notion-sync:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     env:
       NOTION_INTEGRATION_SECRET: ${{ secrets.NOTION_INTEGRATION_SECRET }}
