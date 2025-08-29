@@ -2,6 +2,7 @@
 
 import { useFormStatus } from 'react-dom';
 import { useState, useEffect } from 'react';
+import { deleteGuestbookEntries } from 'app/db/actions';
 
 export default function Form({ entries }) {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
@@ -101,6 +102,7 @@ export default function Form({ entries }) {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
+        await deleteGuestbookEntries(selectedInputs);
       }}
     >
       <DeleteButton isActive={selectedInputs.length !== 0} />
