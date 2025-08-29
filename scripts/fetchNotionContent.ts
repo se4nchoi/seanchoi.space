@@ -1,15 +1,24 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import fs from 'fs';
-import path from 'path';
+
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config({ path: path.join(import.meta.dirname, '../.env.local') });
+// Only load dotenv in a development environment.
+// The CI environment on GitHub Actions will provide the secrets directly.
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: path.join(import.meta.dirname, '../.env.local') });
+}
 
+// Now you can safely access your variables, which will be available
+// either from the .env.local file (locally) or from the GitHub Actions secrets.
+const notionIntegrationSecret = process.env.NOTION_INTEGRATION_SECRET;
+const notionDatabaseId = process.env.NOTION_DATABASE_ID;
 
-const notion = new Client({ auth: process.env.NOTION_INTEGRATION_SECRET });
+const notion = new Client({ auth: notionIntegrationSecret });
 const n2m = new NotionToMarkdown({ notionClient: notion });
-const databaseId = process.env.NOTION_DATABASE_ID!;
+const databaseId = notionDatabaseId!;
 
 function sanitizeSlug(str: string) {
   return str
