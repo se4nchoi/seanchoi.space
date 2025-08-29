@@ -6,7 +6,6 @@ type Metadata = {
   publishedAt: string;
   summary: string;
   image?: string;
-  slug?: string;
 };
 
 function parseFrontmatter(fileContent: string) {
@@ -27,34 +26,26 @@ function parseFrontmatter(fileContent: string) {
   return { metadata: metadata as Metadata, content };
 }
 
-function getMDXFiles(dir: string) {
+function getMDXFiles(dir) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
 }
 
-function readMDXFile(filePath: string) {
+function readMDXFile(filePath) {
   let rawContent = fs.readFileSync(filePath, 'utf-8');
   return parseFrontmatter(rawContent);
 }
 
-function extractTweetIds(content: string) {
+function extractTweetIds(content) {
   let tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
-  return tweetMatches
-    ? tweetMatches
-        .map((tweet) => {
-          const match = tweet.match(/[0-9]+/g);
-          return match ? match[0] : null;
-        })
-        .filter((id): id is string => id !== null)
-    : [];
+  return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || [];
 }
 
-function getMDXData(dir: string) {
+function getMDXData(dir) {
   let mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
     let { metadata, content } = readMDXFile(path.join(dir, file));
+    let slug = path.basename(file, path.extname(file));
     let tweetIds = extractTweetIds(content);
-    // Use frontmatter slug if available, fallback to filename
-    let slug = metadata.slug || path.basename(file, path.extname(file));
     return {
       metadata,
       slug,

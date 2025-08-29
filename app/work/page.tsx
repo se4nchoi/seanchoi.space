@@ -52,7 +52,6 @@ export default function Page() {
             that were consuming an average of 4 hours weekly
           </li>
         </ul>
-        <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
         <div className="flex align-middle text-center gap-4">        
           <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-slate-50 border-neutral-800">
@@ -102,7 +101,6 @@ export default function Page() {
             driving customer satisfaction <b>from below 50% to 85%+</b>
           </li>
         </ul>
-        <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
         <div className="flex align-middle text-center gap-4">        
           <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-transparent">

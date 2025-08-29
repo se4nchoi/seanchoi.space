@@ -21,7 +21,7 @@ export default function Page() {
         A 🇰🇷Korean-born, 🇨🇦Canadian-raised software engineer with a passion for optimizing workflows.
       </p>
       <p className="prose prose-neutral dark:prose-invert mb-4">
-        Expected graduate of the University of Toronto's Computer Engineering program in 2026.
+        Expected graduate of the University of Toronto's Computer Engineering program in 2025.
       </p>
       <p className="prose prose-neutral dark:prose-invert mb-4">
         Interested in exploring what web, AI, automotive, financial, and semi-conductor 
@@ -32,7 +32,7 @@ export default function Page() {
         {' '}in web and automotive.
       </p>
       <p className="prose prose-neutral dark:prose-invert">
-        An occasional chef, a football fanatic, and an optimistic part-time adventurer — always looking for new experiences and challenges.
+        An occasional chef, a football fanatic, and an optimistic part-time adventurer — always looking for new experiences and challenges!
       </p>
       <ImageSection />
       <div className='flex justify-center align-middle mt-8'>
