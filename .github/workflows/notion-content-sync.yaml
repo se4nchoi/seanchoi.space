@@ -32,9 +32,6 @@ jobs:
       - name: Run Notion sync script
         run: node dist/scripts/fetchNotionContent.js
       
-      - name: Print generated file content
-        run: cat content/your-file-name.mdx
-      
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions[bot]'
