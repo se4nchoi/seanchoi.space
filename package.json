@@ -5,8 +5,7 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "build-only": "next build",
-    "start": "next start",
-    "ts-compile": "tsc"
+    "start": "next start"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
