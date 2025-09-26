@@ -1,103 +1,132 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
+import {
+  FaGithub, FaLinkedin, FaEnvelope
+} from 'react-icons/fa6';
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <section>
+      <h1 className="mb-8 font-medium text-3xl tracking-tighter">hi, this is Sean 🙌</h1>
+      <div className="my-4 w-52 h-52 overflow-hidden rounded-full">
+        <Image 
+          src="/avatar.jpg" 
+          width={280}
+          height={280}
+          alt="face image of Sean"        
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <p className="prose prose-neutral dark:prose-invert mb-4">
+        A 🇰🇷Korean-born, 🇨🇦Canadian-raised software engineer with a passion for optimizing workflows.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert mb-4">
+        Expected graduate of the University of Toronto's Computer Engineering program in 2026.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert mb-4">
+        Interested in exploring what web, AI, automotive, financial, and semi-conductor 
+        will offer in the near future, especially having had{' '}
+        <Link href={"/work"}>
+          related experience
+        </Link>
+        {' '}in web and automotive.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        An occasional chef, a football fanatic, and an optimistic part-time adventurer — always looking for new experiences and challenges.
+      </p>
+      <ImageSection />
+      <div className='flex justify-center align-middle mt-8'>
+        <p className='prose prose-neutral dark:prose-invert'>
+          if you want to connect or know more about me, feel free to reach out at:
+        </p>
+      </div>
+      <div className='flex justify-center align-middle gap-8 my-2'>
+          <Link href={`mailto:se4n.choi@gmail.com`} target='_blank'>
+            <span className='sr-only'>mail</span>
+            <FaEnvelope size={'1.75rem'}/>
+          </Link>
+          <Link href={`https://github.com/se4nchoi`} target='_blank'>
+            <span className='sr-only'>github</span>
+            <FaGithub size={'1.75rem'}/>
+          </Link>
+          <Link href={`https://www.linkedin.com/in/se4nchoi/`} target='_blank'>
+            <span className='sr-only'>linkedIn</span>
+            <FaLinkedin size={'1.75rem'}/>
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </section>
   );
 }
+
+const ImageSection = () => {
+  return (
+    <section className='grid grid-cols-2 grid-rows-4 sm:grid-rows-3 sm:grid-cols-3 gap-4 my-8'>
+      <div className='relative h-40'>
+        <Image  
+          alt="Me on top of mount Buk-han doing Mbappe pose"
+          src={"/about/about_00.jpg"}
+          fill
+          sizes="(max-width: 768px) 213, 33vw"
+          priority
+          className='rounded-lg object-cover'
+        />
+      </div>
+      
+      <div className="relative row-span-2">
+        <Image 
+          alt="Me dressed as TopGun on halloween"
+          src={"/about/about_07.jpg"}
+          fill
+          sizes="(max-width: 768px) 213, 33vw"
+          priority
+          className='rounded-lg object-cover object-top sm:object-center'
+        />
+      </div>
+
+      <div className='relative'>
+        <Image  
+          alt="Me with the silver medal trophy for 2022 Korean Olympics"
+          src={"/about/about_06.jpg"}
+          fill
+          sizes="(max-width: 768px) 213, 33vw"
+          priority
+          className='rounded-lg object-cover'
+        />
+      </div>
+
+      <div className="relative row-span-2">
+        <Image
+          alt="Me with the EMG RUTA40 camping EV crew at 2022 Daegu Camping Exhibition"
+          src={"/about/about_10.jpg"}
+          fill
+          sizes="(max-width: 768px) 213px, 33vw"
+          priority
+          className="rounded-lg object-cover"
+        />
+      </div>
+
+      <div className='relative sm:row-span-2 row-span-1'>
+        <Image
+          alt="Team photo after 2022 Korean Olypmics silver medals"
+          src={"/about/about_05.jpg"}
+          fill
+          sizes="(max-width: 768px) 213px, 33vw"
+          priority
+          className="rounded-lg object-cover sm:object-center"
+        />
+      </div>
+
+      <div className="relative h-40">
+        <Image
+          alt="Group photo after silver medal match at 2022 Korean Olympics"
+          src={"/about/about_04.jpg"}
+          fill
+          sizes="(max-width: 768px) 213px, 33vw"
+          priority
+          className="rounded-lg object-cover"
+        />
+      </div>
+      
+    </section>
+  );
+};
