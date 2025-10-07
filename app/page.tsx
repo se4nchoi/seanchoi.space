@@ -1,64 +1,163 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  FaGithub, FaLinkedin, FaEnvelope
-} from 'react-icons/fa6';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa6';
+
+const works = [
+  {
+    name: 'Hoek Agency',
+    description: 'Software Engineer',
+    link: '/work#hoek',
+  },
+  {
+    name: 'EMG Global',
+    description: 'Software Engineer',
+    link: '/work#emg',
+  },
+  {
+    name: 'Korea Defense Intelligence Command',
+    description: 'Intelligence Specialist',
+    link: '/work#kdic',
+  },
+];
+
+const skills = {
+  Languages: ['JavaScript', 'TypeScript', 'Python'],
+  Frameworks: ['React.js', 'Next.js', 'Node.js', 'Express'],
+  Tools: ['Git', 'Docker', 'PostgreSQL', 'AWS'],
+};
 
 export default function Page() {
   return (
-    <section>
-      <h1 className="mb-8 font-medium text-3xl tracking-tighter">hi, this is Sean 🙌</h1>
+    <section className='text-neutral-900 dark:text-neutral-200'>
+      <h1 className="mb-8 font-medium text-2xl tracking-tighter">
+        👋 hi, I'm Sean
+      </h1>
       <div className="my-4 w-52 h-52 overflow-hidden rounded-full">
         <Image 
           src="/avatar.jpg" 
           width={280}
           height={280}
-          alt="face image of Sean"        
+          alt="profile image of Sean"        
         />
       </div>
-
-      <p className="prose prose-neutral dark:prose-invert mb-4">
-        A 🇰🇷Korean-born, 🇨🇦Canadian-raised software engineer with a passion for optimizing workflows.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert mb-4">
-        Expected graduate of the University of Toronto's Computer Engineering program in 2026.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert mb-4">
-        Interested in exploring what web, AI, automotive, financial, and semi-conductor 
-        will offer in the near future, especially having had{' '}
-        <Link href={"/work"}>
-          related experience
-        </Link>
-        {' '}in web and automotive.
-      </p>
       <p className="prose prose-neutral dark:prose-invert">
-        An occasional chef, a football fanatic, and an optimistic part-time adventurer — always looking for new experiences and challenges.
+        I'm a software engineer, optimist, and part-time adventurer. I'm currently studying Computer Engineering at the University of Toronto, expecting to graduate in 2026.
       </p>
-      <ImageSection />
-      <div className='flex justify-center align-middle mt-8'>
-        <p className='prose prose-neutral dark:prose-invert'>
-          if you want to connect or know more about me, feel free to reach out at:
+      <div className="prose prose-neutral dark:prose-invert">
+        <p>
+          I'm passionate about optimizing workflows and building things that people love. I've had the opportunity to work on exciting projects in both web and automotive industries.
+          A unique experience in the military has also shaped my problem-solving skills and ability to carve out innovative solutions in extraordinary environments.
         </p>
       </div>
-      <div className='flex justify-center align-middle gap-8 my-2'>
-          <Link href={`mailto:se4n.choi@gmail.com`} target='_blank'>
-            <span className='sr-only'>mail</span>
-            <FaEnvelope size={'1.75rem'}/>
-          </Link>
-          <Link href={`https://github.com/se4nchoi`} target='_blank'>
-            <span className='sr-only'>github</span>
-            <FaGithub size={'1.75rem'}/>
-          </Link>
-          <Link href={`https://www.linkedin.com/in/se4nchoi/`} target='_blank'>
-            <span className='sr-only'>linkedIn</span>
-            <FaLinkedin size={'1.75rem'}/>
-          </Link>
+      <div className="my-8">
+        <h2 className="font-medium text-2xl mb-4">Work Experience</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {works.map((work) => (
+            <Link href={work.link} key={work.name}>
+              <div className="border border-neutral-500 dark:border-neutral-700 rounded-lg p-4 h-full flex flex-col justify-between">
+                <div>
+                  <h3 className="font-medium text-lg mb-2">{work.name}</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">{work.description}</p>
+                </div>
+                <div className="mt-4 flex items-center text-sm text-neutral-500 dark:text-neutral-300">
+                  Read More <ArrowIcon />
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
-    </section>
+      </div>
+      <div className="my-8">
+        <h2 className="font-medium text-2xl mb-4">Skills</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {Object.entries(skills).map(([category, skills]) => (
+            <div key={category}>
+              <h3 className="font-medium text-lg mb-2">{category}</h3>
+              <ul className="list-disc list-inside">
+                {skills.map((skill) => (
+                  <li key={skill} className="text-sm text-neutral-600 dark:text-neutral-400">{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+      <ImageGrid />    
+      <div className="prose prose-neutral dark:prose-invert">
+        <p>
+          I'm always open to connecting and learning about new opportunities. Feel free to reach out!
+        </p>
+      </div>
+      <div className="my-8 flex flex-col justify-center gap-2.5 sm:flex-row sm:space-y-0 sm:space-x-0">
+        <Link
+          href="https://github.com/se4nchoi"
+          className="flex items-center justify-center w-full sm:w-auto px-4 py-2 border border-neutral-500 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-lg"
+        >
+          <FaGithub className="mr-2" />
+          GitHub
+        </Link>
+        <Link
+          href="https://www.linkedin.com/in/se4nchoi/"
+          className="flex items-center justify-center w-full sm:w-auto px-4 py-2 border border-neutral-500 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-lg"
+        >
+          <FaLinkedin className="mr-2" />
+          LinkedIn
+        </Link>
+        <Link
+          href="mailto:se4n.choi@gmail.com"
+          className="flex items-center justify-center w-full sm:w-auto px-4 py-2 border border-neutral-500 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-lg"
+        >
+          <FaEnvelope className="mr-2" />
+          Email
+        </Link>
+      </div>
+      <ul className="flex flex-row mt-12 space-x-6">
+        <li>
+          <Link
+            className="flex items-center hover:text-neutral-900 dark:hover:text-neutral-100 transition-all"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="/blog"
+          >
+            <ArrowIcon />
+            <p className="h-7 ml-2">read my blog</p>
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="flex items-center hover:text-neutral-900 dark:hover:text-neutral-100 transition-all"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="/work"
+          >
+            <ArrowIcon />
+            <p className="h-7 ml-2">see my work</p>
+          </Link>
+        </li>
+      </ul>
+
+      </section>
   );
 }
 
-const ImageSection = () => {
+const ArrowIcon = () => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className='ml-1'
+    >
+      <path
+        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807V0.488636H11.8438V9.49432H10.3438V3.13068L2.07102 11.3494Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+const ImageGrid = () => {
   return (
     <section className='grid grid-cols-2 grid-rows-4 sm:grid-rows-3 sm:grid-cols-3 gap-4 my-8'>
       <div className='relative h-40'>
@@ -129,4 +228,4 @@ const ImageSection = () => {
       
     </section>
   );
-};
+}

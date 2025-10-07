@@ -15,8 +15,8 @@ export default function Page() {
           
         </p>
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
-        
-        <div className="flex align-middle text-center gap-4">        
+
+        <div id='hoek' className="flex align-middle text-center gap-4">
           <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-slate-50 border-neutral-800 border-1">
             <Image 
               alt="hoek agency logo"
@@ -54,7 +54,7 @@ export default function Page() {
         </ul>
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
-        <div className="flex align-middle text-center gap-4">        
+        <div id="emg" className="flex align-middle text-center gap-4">        
           <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-slate-50 border-neutral-800 border-1">
             <Image 
               alt="emg global logo"
@@ -104,7 +104,7 @@ export default function Page() {
         </ul>
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
-        <div className="flex align-middle text-center gap-4">        
+        <div id="kdic" className="flex align-middle text-center gap-4">        
           <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-transparent">
             <Image 
               alt="KDIC logo"
