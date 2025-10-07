@@ -32,7 +32,7 @@ export default function Page() {
       <h1 className="mb-8 font-medium text-2xl tracking-tighter">
         👋 hi, I'm Sean
       </h1>
-      <div className="my-4 w-52 h-52 overflow-hidden rounded-full">
+      <div className="my-8 w-52 h-52 overflow-hidden rounded-full">
         <Image 
           src="/avatar.jpg" 
           width={280}
@@ -46,7 +46,7 @@ export default function Page() {
       <div className="prose prose-neutral dark:prose-invert">
         <p>
           I'm passionate about optimizing workflows and building things that people love. I've had the opportunity to work on exciting projects in both web and automotive industries.
-          A unique experience in the military has also shaped my problem-solving skills and ability to carve out innovative solutions in extraordinary environments.
+          A unique experience in the military has also helped to shape my problem-solving skills and ability to carve out innovative solutions in non-traditional environments.
         </p>
       </div>
       <div className="my-8">
@@ -67,6 +67,10 @@ export default function Page() {
           ))}
         </div>
       </div>
+      {/* TODO : Projects section
+        - website notion sync project
+        - AI integration project
+      */}
       <div className="my-8">
         <h2 className="font-medium text-2xl mb-4">Skills</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">

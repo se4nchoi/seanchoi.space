@@ -37,8 +37,8 @@ export default function Page() {
           to gain further work experience, especially with a heightened interest in web technology. 
           Joined Hoek Agency who specialized in company branding/brand design, as an internal product developer.
           <br/><br/>
-          A more comprehensive look on what I did at Hoek can be found {' '}
-          <Link href={'/blog/hoek-retrospect'}>in my retrospect</Link>.
+          A more comprehensive look on what I did at Hoek can be found in my {' '}
+          <Link className="underline" href={'/blog/hoek-retrospect'}>retrospect</Link>.
           <br/><br/>
           Key highlights:
         </p>
@@ -78,8 +78,8 @@ export default function Page() {
           Through many hands-on experience at this mobility start-up I was able to quickly learn everything  
           from linux FTP servers, fundamental web development, React.js webapp on Android, as well as a series of EV 
           hardware-software integrations — a big growth from being just an engineering student. 
-          More detailed recap of my experience at EMG can be found {' '}
-          <Link href={'/blog/emg-retrospect'}>in my retrospect</Link>.
+          More detailed recap of my experience at EMG can be found in my {' '}
+          <Link className="underline" href={'/blog/emg-retrospect'}>retrospect</Link>.
           <br/><br/>
           Key highlights:
         </p>
