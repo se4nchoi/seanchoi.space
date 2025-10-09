@@ -102,10 +102,10 @@ pre, code {
 }
 
 .prose h2 {
-  @apply font-medium tracking-tighter text-2xl my-2;
+  @apply font-medium tracking-tighter text-2xl mt-6;
 }
 .prose h3 {
-  @apply font-medium tracking-tighter text-xl my-2;
+  @apply font-medium tracking-tighter text-xl mt-4;
 }
 
 .prose strong {

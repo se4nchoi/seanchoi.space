@@ -42,7 +42,7 @@ export default function Page() {
             A more comprehensive look on what I did at Hoek can be found in my {' '}
             <Link className="underline" href={'/blog/hoek-retrospect'}>retrospect</Link>.
           </p>
-          <p>
+          <p className="font-semibold pt-2">
             Key highlights:
           </p>
         <ul className="list-disc ml-4 mt-4 mb-8 text-md">
@@ -88,7 +88,7 @@ export default function Page() {
           More detailed recap of my experience at EMG can be found in my {' '}
           <Link className="underline" href={'/blog/emg-retrospect'}>retrospect</Link>.
         </p>
-        <p>
+        <p className="font-semibold pt-2">
           Key highlights:
         </p>
       
@@ -139,7 +139,7 @@ export default function Page() {
           While being careful not to cause security flaws by constantly checking in with the IT department, 
           leveraged MS Office (notably Excel, VBA) and Hangul (JavaScript) to streamline workflow.
         </p>
-        <p>
+        <p className="font-semibold pt-2">
           Key highlights:
         </p>
         <ul className="list-disc ml-4 mt-4 mb-8 text-md">
