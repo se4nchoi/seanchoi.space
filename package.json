@@ -5,17 +5,21 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "build:scripts": "tsc --project tsconfig.scripts.json"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
+    "@notionhq/client": "^5.1.0",
     "@tailwindcss/typography": "^0.5.18",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "dotenv": "^16.4.5",
     "geist": "^1.5.1",
     "next": "15.5.3",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.4.6",
+    "notion-to-md": "^3.1.9",
     "postgres": "^3.4.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",

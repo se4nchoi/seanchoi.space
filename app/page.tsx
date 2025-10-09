@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa6';
 
 const works = [
@@ -33,12 +34,14 @@ export default function Page() {
         👋 hi, I'm Sean
       </h1>
       <div className="my-8 w-52 h-52 overflow-hidden rounded-full">
-        <Image 
-          src="/avatar.jpg" 
-          width={280}
-          height={280}
-          alt="profile image of Sean"        
-        />
+        <Suspense fallback={<div className="w-52 h-52 bg-neutral-200 dark:bg-neutral-800 rounded-full animate-pulse" />}>
+          <Image 
+            src="/avatar.jpg" 
+            width={280}
+            height={280}
+            alt="profile image of Sean"        
+          />
+        </Suspense>
       </div>
       <p className="prose prose-neutral dark:prose-invert">
         I'm a software engineer, optimist, and part-time adventurer. I'm currently studying Computer Engineering at the University of Toronto, expecting to graduate in 2026.

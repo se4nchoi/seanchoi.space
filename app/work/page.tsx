@@ -27,22 +27,25 @@ export default function Page() {
           </div>
           <div className="flex-col">
             <div className="flex font-medium text-xl tracking-tight">Hoek Agency</div>
-            <div className="flex text-neutral-600 dark:text-neutral-400 text-sm tracking-tight">
+            <div className="flex text-neutral-600 dark:text-neutral-400 text-md tracking-tight">
               Software Engineer
             </div>
           </div>
         </div>
-        <p className="text-sm mt-4 mb-0">
+        <div className="text-md mt-4 mb-0">
+        <p>
           After completing the 1 year co-op at EMG, decided to stay 1 more year during summer 2022 - summer 2023 
           to gain further work experience, especially with a heightened interest in web technology. 
           Joined Hoek Agency who specialized in company branding/brand design, as an internal product developer.
-          <br/><br/>
-          A more comprehensive look on what I did at Hoek can be found in my {' '}
-          <Link className="underline" href={'/blog/hoek-retrospect'}>retrospect</Link>.
-          <br/><br/>
-          Key highlights:
         </p>
-        <ul className="list-disc ml-4 mt-4 mb-8 text-sm">
+          <p>
+            A more comprehensive look on what I did at Hoek can be found in my {' '}
+            <Link className="underline" href={'/blog/hoek-retrospect'}>retrospect</Link>.
+          </p>
+          <p className="font-semibold pt-2">
+            Key highlights:
+          </p>
+        <ul className="list-disc ml-4 mt-4 mb-8 text-md">
           <li>
             developed a full-stack application for the company's HR department 
             as co-product lead which delivered <b>10% reduction on operating costs</b>
@@ -52,6 +55,8 @@ export default function Page() {
             that were consuming an average of 4 hours weekly
           </li>
         </ul>
+        </div>
+
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
         <div id="emg" className="flex align-middle text-center gap-4">        
@@ -65,25 +70,29 @@ export default function Page() {
           </div>
           <div className="flex-col">
             <div className="flex font-medium text-xl tracking-tight">EMG Global</div>
-            <div className="flex text-neutral-600 dark:text-neutral-400 text-sm tracking-tight">
+            <div className="flex text-neutral-600 dark:text-neutral-400 text-md tracking-tight">
               Software Engineer
             </div>
           </div>
         </div>
-        <p className="text-sm mt-4 mb-0">
-          Worked at EMG Global during summer 2021 - summer 2022 
+        <div className="text-md mt-4 mb-0">
+        <p>
+          Worked at EMG Global during summer 2021 - summer 2022
           as a part of the Professional Experience Year co-op program at the University of Toronto.
           Wanted to be back with family during COVID while adding professional experience.
-          <br /><br />
+        </p>
+        <p>
           Through many hands-on experience at this mobility start-up I was able to quickly learn everything  
           from linux FTP servers, fundamental web development, React.js webapp on Android, as well as a series of EV 
           hardware-software integrations — a big growth from being just an engineering student. 
           More detailed recap of my experience at EMG can be found in my {' '}
           <Link className="underline" href={'/blog/emg-retrospect'}>retrospect</Link>.
-          <br/><br/>
+        </p>
+        <p className="font-semibold pt-2">
           Key highlights:
         </p>
-        <ul className="list-disc ml-4 mt-4 mb-8 text-sm">
+      
+        <ul className="list-disc ml-4 mt-4 mb-8 text-md">
           <li>
             delivered the frontend of a pilot provincial project dashboard (smart-city campaign), which 
             contributed in city of Daegu being selected as 1 of 4 finalists out of 20 municipalities to 
@@ -102,6 +111,7 @@ export default function Page() {
             driving customer satisfaction <b>from below 50% to 85%+</b>
           </li>
         </ul>
+        </div>
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
         <div id="kdic" className="flex align-middle text-center gap-4">        
@@ -115,21 +125,24 @@ export default function Page() {
           </div>
           <div className="flex-col">
             <div className="flex font-medium text-xl tracking-tight">Korea Defense Intelligence Command</div>
-            <div className="flex text-neutral-600 dark:text-neutral-400 text-sm tracking-tight">
+            <div className="flex text-neutral-600 dark:text-neutral-400 text-md tracking-tight">
               Intelligence Specialist
             </div>
           </div>
         </div>
-        <p className="text-sm mt-4 mb-0">
+        <div className="text-md mt-4 mb-0">
+        <p>
           Carried out a KOR-US intelligence specialist role from 2016 - 2018 during my mandatory military service.
           Being a secure, slow-pace, sure-footing environment had built up inefficiencies within the office and residence.
-          <br/><br/>
+        </p>
+        <p>
           While being careful not to cause security flaws by constantly checking in with the IT department, 
           leveraged MS Office (notably Excel, VBA) and Hangul (JavaScript) to streamline workflow.
-          <br/><br/>
+        </p>
+        <p className="font-semibold pt-2">
           Key highlights:
         </p>
-        <ul className="list-disc ml-4 mt-4 mb-8 text-sm">
+        <ul className="list-disc ml-4 mt-4 mb-8 text-md">
           <li>
             developed automation macros using VBA and JavaScript to minimize repetitive formatting and 
             translations, reducing average minutes per report by <b>67% from 30 to 10</b>
@@ -139,6 +152,7 @@ export default function Page() {
             Soldier's Merit of Honour by striving to remove unproductive practices within residence
           </li>
         </ul>
+        </div>
 
       </div>
 

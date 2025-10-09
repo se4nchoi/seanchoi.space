@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { TweetComponent } from './tweet';
 import { highlight } from 'sugar-high';
 import React from 'react';
 import { LiveCode } from './sandpack';
@@ -54,7 +53,7 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 }
 
 function RoundedImage(props: React.ComponentProps<typeof Image>) {
-  return <Image className="rounded-lg" {...props} />;
+  return <Image className="rounded-lg relative" {...props} />;
 }
 
 type CalloutProps = {
@@ -106,7 +105,7 @@ function ProsCard({ title, pros }: ProConCardProps) {
   );
 }
 
-function ConsCard({ title, cons }: ProConCardProps) {
+ function ConsCard({ title, cons }: ProConCardProps) {
   return (
     <div className="border border-red-200 dark:border-red-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6 my-6 w-full">
       <span>{`You might not use ${title} if...`}</span>
@@ -181,7 +180,6 @@ let components = {
   Callout,
   ProsCard,
   ConsCard,
-  StaticTweet: TweetComponent,
   code: Code,
   Table,
   LiveCode,

@@ -22,7 +22,7 @@ html {
   min-width: 360px;
   overflow-y: scroll;
   font-family: var(--font-geist-sans);
-  background: #f0f0f0;
+  background: #fdfdfd;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -39,7 +39,17 @@ html {
 
 pre, code {
   font-family: var(--font-geist-mono);
+  font-size: 0.9em;
 }
+
+.prose {
+  @apply text-neutral-700 dark:text-neutral-300
+}
+
+.prose p {
+  @apply my-2
+}
+
 .prose .anchor {
   @apply absolute invisible no-underline;
 
@@ -59,7 +69,7 @@ pre, code {
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  @apply text-neutral-500 dark:text-neutral-200;
   content: '#';
 }
 
@@ -73,6 +83,7 @@ pre, code {
 
 .prose code {
   @apply px-1 py-0.5 rounded-lg;
+  background-color: rgba(135, 131, 120, 0.15);
 }
 
 .prose pre code {
@@ -90,21 +101,35 @@ pre, code {
   @apply m-0;
 }
 
-.prose h2,
-h3,
-h4 {
-  @apply font-medium tracking-tighter;
+.prose h2 {
+  @apply font-medium tracking-tighter text-2xl mt-6;
+}
+.prose h3 {
+  @apply font-medium tracking-tighter text-xl mt-4;
 }
 
 .prose strong {
-  @apply font-medium;
+  @apply font-bold;
+}
+.prose blockquote {
+  @apply border-l-4 border-neutral-800 dark:border-neutral-300 bg-neutral-200 dark:bg-neutral-800 px-2 py-4 my-2;
+}
+.prose blockquote p {
+  @apply m-0;
+}
+.prose hr {
+  @apply border-t border-neutral-800 dark:border-neutral-700 my-8;
+}
+.prose ul {
+  @apply list-disc list-outside my-4 pl-4;
+}
+.prose ul li {
+  @apply my-1;
+}
+.prose p > img {
+  @apply mx-auto my-4 rounded-lg;
 }
 
-.prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
-}
 
 pre::-webkit-scrollbar {
   display: none;

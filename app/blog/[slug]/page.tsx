@@ -88,7 +88,6 @@ export default function Blog({ params }: { params: { slug: string } }) {
   if (!post) {
     notFound();
   }
-
   return (
     <section>
       <script
@@ -113,7 +112,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
           }),
         }}
       />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+      <h1 className="title text-neutral-700 dark:text-neutral-200 font-medium text-3xl tracking-tighter max-w-[650px] ">
         {post.metadata.title}
       </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
