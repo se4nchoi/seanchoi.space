@@ -31,9 +31,6 @@ jobs:
 
       - name: Run Notion sync script
         run: node dist/scripts/fetchNotionContents.js
-
-      - name: Print generated file content
-        run: find content -name "*.mdx" -print0 | xargs -0 cat
       
       - name: Commit and push changes
         run: |
