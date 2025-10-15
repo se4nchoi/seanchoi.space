@@ -40,7 +40,7 @@ export default function Page() {
         </p>
           <p>
             A more comprehensive look on what I did at Hoek can be found in my {' '}
-            <Link className="underline" href={'/blog/hoek-retrospect'}>retrospect</Link>.
+            <Link className="underline" href={'/blog/retrospect-hoek-agency'}>retrospect</Link>.
           </p>
           <p className="font-semibold pt-2">
             Key highlights:
@@ -86,7 +86,7 @@ export default function Page() {
           from linux FTP servers, fundamental web development, React.js webapp on Android, as well as a series of EV 
           hardware-software integrations — a big growth from being just an engineering student. 
           More detailed recap of my experience at EMG can be found in my {' '}
-          <Link className="underline" href={'/blog/emg-retrospect'}>retrospect</Link>.
+          <Link className="underline" href={'/blog/retrospect-emg-global'}>retrospect</Link>.
         </p>
         <p className="font-semibold pt-2">
           Key highlights:
