@@ -69,20 +69,14 @@ With this set up complete on your Notion developer profile, you can now access i
 As of September 3, 2025, Notion has bumped up their API versioning (a breaking change) to use `data_source_id` . My older script was failing to fetch the pages as it was only referring to the `database_id`.
 
 
-You can grab your `data_source_id` from the Notion data source as described [here](https://developers.notion.com/docs/upgrade-guide-2025-09-03), but I got mine like so:
+You can grab your `data_source_id` from the Notion data source as described [here](https://developers.notion.com/docs/upgrade-guide-2025-09-03), but I got mine by accessing _Settings (of the data source) → Manage data sources → Copy data source ID,_ like so:
 
 
 ![](/notion-images/how-to-use-notion-as-your-blog-post-database-28ef7f81-c89e-80b5-bb7d-cc34d6a256bd.png)
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28ef7f81-c89e-8048-9950-e605a456fbad.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database-298f7f81-c89e-80ec-81f7-ed9470013a06.png)
 
-
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28ef7f81-c89e-80e3-9219-c9ac677ec54f.png)
-
-1. Settings (of the data source)
-2. Manage data sources
-3. Copy data source ID
 
 ## Fetching Pages from Data Source
 
