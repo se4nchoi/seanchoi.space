@@ -18,7 +18,7 @@ While there may be other ways to set up blogging, I wanted to leverage both Noti
 An abstracted architectural overview of my blogging set up is something like this:
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28df7f81-c89e-80f5-b85b-cf2ccf84e149.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database/28df7f81-c89e-80f5-b85b-cf2ccf84e149.png)
 
 
 I figured the setup was not complex enough to need a dedicated backend. I resorted to `'use server'` Next.js directive and `psql` package to service blog posts viewcounts — which I will probably discuss more on a different post. 
@@ -45,19 +45,19 @@ Let’s go one by one to see how I’ve used them in my project.
 You need to first set up a Notion Integration and obtain your personal `NOTION_INTEGRATION_SECRET` from [Notion Integrations](https://www.notion.so/profile/integrations) .
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28df7f81-c89e-8096-8a88-f19f94b4298f.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database/28df7f81-c89e-8096-8a88-f19f94b4298f.png)
 
 
 If you create an integration (or already have an integration) you can obtain your notion secret in the integration settings. You need this integration secret to connect to your Notion database/page in your code. 
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28df7f81-c89e-8011-83a2-e4d613917b3a.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database/28df7f81-c89e-8011-83a2-e4d613917b3a.png)
 
 
 Then you need to select which Notion database / page you want this integration to have access to.
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28df7f81-c89e-8066-a0dd-c3d8f810e5dc.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database/28df7f81-c89e-8066-a0dd-c3d8f810e5dc.png)
 
 
 With this set up complete on your Notion developer profile, you can now access it with code!
@@ -72,10 +72,10 @@ As of September 3, 2025, Notion has bumped up their API versioning (a breaking c
 You can grab your `data_source_id` from the Notion data source as described [here](https://developers.notion.com/docs/upgrade-guide-2025-09-03), but I got mine by accessing _Settings (of the data source) → Manage data sources → Copy data source ID,_ like so:
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-28ef7f81-c89e-80b5-bb7d-cc34d6a256bd.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database/28ef7f81-c89e-80b5-bb7d-cc34d6a256bd.png)
 
 
-![](/notion-images/how-to-use-notion-as-your-blog-post-database-298f7f81-c89e-80ec-81f7-ed9470013a06.png)
+![](/notion-images/how-to-use-notion-as-your-blog-post-database/298f7f81-c89e-80ec-81f7-ed9470013a06.png)
 
 
 ## Fetching Pages from Data Source
