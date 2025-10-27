@@ -1,4 +1,4 @@
-import { Client } from '@notionhq/client';
+import { Client, collectPaginatedAPI } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import fs from 'fs';
 import path from 'path';
@@ -71,11 +71,13 @@ const fetchPublishedPages = async () => {
     const slug = props.Slug?.rich_text?.[0]?.plain_text
       ? sanitizeSlug(props.Slug.rich_text[0].plain_text)
       : sanitizeSlug(title);
+    const pageID = props?.ID || 'no-id';
+    const uniqueId = pageID ? props.ID.unique_id.prefix+'-'+props.ID.unique_id.number : 'no-id';
 
     const lastEdited = page.last_edited_time;
     const filePath = path.join(contentDir, `${slug}.mdx`);
 
-    const needsUpdate = !syncLog[slug] || new Date(lastEdited).getTime() > new Date(syncLog[slug]).getTime();
+    const needsUpdate = !syncLog[uniqueId] || new Date(lastEdited).getTime() > new Date(syncLog[uniqueId]).getTime();
 
     if (needsUpdate) {
       n2m.setCustomTransformer("image", async (block) => {
@@ -88,7 +90,7 @@ const fetchPublishedPages = async () => {
           const extension = path.extname(url.pathname);
 
           // Create a directory for the page's images
-          const pageImageDir = path.join(imageDir, slug);
+          const pageImageDir = path.join(imageDir, uniqueId);
           if (!fs.existsSync(pageImageDir)) {
             fs.mkdirSync(pageImageDir, { recursive: true });
           }
@@ -97,13 +99,13 @@ const fetchPublishedPages = async () => {
           const localImageFilepath = path.join(pageImageDir, localImageFilename);
           
           await downloadImage(imageUrl, localImageFilepath);
-          const localImagePath = `/notion-images/${slug}/${localImageFilename}`;
-          console.log(`Downloaded image for ${slug} to ${localImagePath}`);
+          const localImagePath = `/notion-images/${uniqueId}/${localImageFilename}`;
+          console.log(`Downloaded image for ${uniqueId} to ${localImagePath}`);
           
           const imageCaption = image.caption.map((c: any) => c.plain_text).join('');
           return `![${imageCaption}](${localImagePath})`;
         } catch (e) {
-          console.error(`Failed to process image for ${slug}:`, e);
+          console.error(`Failed to process image for ${uniqueId}:`, e);
           return false;
         }
       });
@@ -126,7 +128,7 @@ const fetchPublishedPages = async () => {
       
       const newContent = `${frontmatter}\n\n${markdown}`;
       fs.writeFileSync(filePath, newContent);
-      syncLog[slug] = lastEdited;
+      syncLog[uniqueId] = lastEdited;
       console.log(`Wrote: ${filePath}`);
     } else {
       console.log(`Skipped (no Notion changes): ${filePath}`);
