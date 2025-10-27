@@ -1,0 +1,120 @@
+---
+title: "How to Persist Images on notion-to-md Files "
+slug: "how-to-persist-images-on-notion-to-md-files"
+publishedAt: "2025-10-27"
+summary: "Tutorial on how to make Notion page image links permanent"
+---
+
+
+Having set up the pipeline for using Notion as a database for my blog posts, I was greeted with a new problem: My blog posts were not showing any images!
+
+
+![Oh no!](/notion-images/how-to-persist-images-on-notion-to-md-files/299f7f81-c89e-80ac-b15f-d554adf2950e.png)
+
+
+### The Problem
+
+
+As described in my [previous post](https://www.seanchoi.space/blog/how-to-use-notion-as-your-blog-post-database), I am using Notion as my blog post database. This setup uses the Notion API to fetch page content and the `notion-to-md` package to convert it into `mdx` files with the original text, structure, and images.
+
+
+What I didn't initially realize was that images embedded in Notion pages are hosted on their AWS S3 bucket, and these image links expire after just one hour. While the images appeared fine after running the generation script on my dev server, the images inside the posts were like a timebomb that would be gone in one hour.
+
+
+### The Fix
+
+
+To achieve image persistence, the solution was straightforward: We must have a permanent image link we can always reference to. My version of the permanent link came in the form of self-hosted images.
+
+
+I needed to tweak my script logic to include downloading and assigning the URLs for images embedded inside Notion pages.
+
+
+### The Code
+
+
+The implementation created extra directories, and assigned the appropriate links while downloading and converting the Notion page. 
+
+
+To solve this, I needed to set a custom transformer for `n2m` to hijack the default image conversion logic. This allows me to inject my own custom download function before the MDX file is written, ensuring the image conversion step saves them as permanent asset.
+
+
+```typescript
+// other environment variables and path
+const imageDir = path.join(process.cwd(), 'public', 'notion-images');
+
+// helper function to download images
+const downloadImage = async (url: string, filepath: string) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${response.statusText}`);
+    }
+    const buffer = await response.arrayBuffer();
+    fs.writeFileSync(filepath, Buffer.from(buffer));
+  } catch (error) {
+    console.error(`Error downloading image ${url}:`, error);
+  }
+};
+
+// main logic
+const fetchPublishedPages = async () => {
+
+	if (!fs.existsSync(imageDir)) {
+    fs.mkdirSync(imageDir, { recursive: true });
+  }
+  
+  // ...frontmatter parsing
+  
+  const needsUpdate = !syncLog[slug] || new Date(lastEdited).getTime() > new Date(syncLog[slug]).getTime();
+  
+  if (needsUpdate) {
+      n2m.setCustomTransformer("image", async (block) => {
+        const { image } = block as any;
+        const imageUrl = image.file.url;
+        const blockId = block.id;
+        
+        try {
+          const url = new URL(imageUrl);
+          const extension = path.extname(url.pathname);
+
+          // Create a directory for the page's images
+          const pageImageDir = path.join(imageDir, slug);
+          if (!fs.existsSync(pageImageDir)) {
+            fs.mkdirSync(pageImageDir, { recursive: true });
+          }
+
+          const localImageFilename = `${blockId}${extension}`;
+          const localImageFilepath = path.join(pageImageDir, localImageFilename);
+          
+          await downloadImage(imageUrl, localImageFilepath);
+          const localImagePath = `/notion-images/${slug}/${localImageFilename}`;
+          console.log(`Downloaded image for ${slug} to ${localImagePath}`);
+          
+          const imageCaption = image.caption.map((c: any) => c.plain_text).join('');
+          return `![${imageCaption}](${localImagePath})`;
+        } catch (e) {
+          console.error(`Failed to process image for ${slug}:`, e);
+          return false;
+        }
+      });
+
+      // ...notion-to-md block conversion logic
+}
+```
+
+
+You can view the full code implementation on my [Github repo](https://github.com/se4nchoi/seanchoi.space/blob/main/scripts/fetchNotionContents.ts).
+
+
+### Closing Remarks
+
+
+In order for us to use images it needs to _live_ somewhere — and happened that Notion S3 buckets were only a temporary place. Self-hosting the images resolved the issue for me, while it increased the network data usages on Vercel. Should the day come when I would need to switch to a paid plan for Vercel, it would be a great day to mark a milestone of traffics!
+
+
+Hope this helps anyone who might experience a similar issue!
+
+
+Thanks for reading.
+
