@@ -167,3 +167,7 @@ table {
 .title {
   text-wrap: balance;
 }
+
+.prose > p > img {
+  @apply border-1 dark:border-neutral-200 border-neutral-800;
+}
