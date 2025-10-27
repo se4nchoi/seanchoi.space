@@ -86,11 +86,18 @@ const fetchPublishedPages = async () => {
         try {
           const url = new URL(imageUrl);
           const extension = path.extname(url.pathname);
-          const localImageFilename = `${slug}-${blockId}${extension}`;
-          const localImageFilepath = path.join(imageDir, localImageFilename);
+
+          // Create a directory for the page's images
+          const pageImageDir = path.join(imageDir, slug);
+          if (!fs.existsSync(pageImageDir)) {
+            fs.mkdirSync(pageImageDir, { recursive: true });
+          }
+
+          const localImageFilename = `${blockId}${extension}`;
+          const localImageFilepath = path.join(pageImageDir, localImageFilename);
           
           await downloadImage(imageUrl, localImageFilepath);
-          const localImagePath = `/notion-images/${localImageFilename}`;
+          const localImagePath = `/notion-images/${slug}/${localImageFilename}`;
           console.log(`Downloaded image for ${slug} to ${localImagePath}`);
           
           const imageCaption = image.caption.map((c: any) => c.plain_text).join('');
