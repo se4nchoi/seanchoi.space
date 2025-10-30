@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# seanchoi.space
 
-## Getting Started
+This is my personal website and blog, built with Next.js and using Notion as a CMS.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **Blog with Notion:** The blog posts are fetched from a Notion database, using `notion-to-md` to convert the content to Markdown.
+*   **Code Sandboxes:** The blog posts can include interactive code sandboxes using `@codesandbox/sandpack-react`.
+*   **Analytics:** The website uses Vercel Analytics and Speed Insights to track user traffic and performance.
+*   **CI/CD:** The website is automatically deployed to Vercel, and the Notion content is synced using a GitHub Actions workflow.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **Framework:** [Next.js](https://nextjs.org/)
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **CMS:** [Notion](https://www.notion.so/)
+*   **Database:** [Vercel Postgres (NEON)](https://vercel.com/storage/postgres)
+*   **Deployment:** [Vercel](https://vercel.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Running Locally
 
-## Learn More
+1.  Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    git clone https://github.com/se4nchoi/seanchoi.space.git
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  Install the dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+3.  Create a `.env.local` file and add the following environment variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    NOTION_API_KEY=
+    NOTION_DATASOURCE_ID=
+    POSTGRES_URL=
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4.  Run the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+5.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+*   **Website:** [seanchoi.space](https://seanchoi.space)
+*   **GitHub:** [@se4nchoi](https://github.com/se4nchoi)
