@@ -73,7 +73,9 @@ export default function Page() {
       {/* TODO : Projects section
         - website notion sync project
         - AI integration project
+
         - comments for blog posts
+        - tag filters for blog posts
       */}
       <div className="my-8">
         <h2 className="font-medium text-2xl mb-4">Skills</h2>
