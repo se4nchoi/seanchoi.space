@@ -24,7 +24,8 @@ const works = [
 const skills = {
   Languages: ['JavaScript', 'TypeScript', 'Python'],
   Frameworks: ['React.js', 'Next.js', 'Node.js', 'Express'],
-  Tools: ['Git', 'Docker', 'PostgreSQL', 'AWS'],
+  Databases: ['PostgreSQL', 'MySQL'],
+  Tools: ['Git', 'Docker', 'Figma', 'AWS'],
 };
 
 export default function Page() {
