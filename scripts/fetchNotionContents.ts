@@ -18,7 +18,7 @@ const notionDataSourceId = process.env.NOTION_DATASOURCE_ID;
 const notion = new Client({ 
   auth: notionIntegrationSecret,
   notionVersion: '2025-09-03',
- });
+});
 const n2m = new NotionToMarkdown({ notionClient: notion });
 const dataSourceId = notionDataSourceId!;
 
