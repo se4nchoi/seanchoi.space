@@ -13,7 +13,7 @@ export default function Page() {
       <div className="prose prose-neutral dark:prose-invert">
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
-        <div id='hoek' className="flex justify-between align-middle text-center">
+        <div id='hoek' className="flex justify-between align-middle text-left">
           <div className="flex gap-4">
             <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-slate-50 border-neutral-800 border-1">
               <Image 
@@ -34,7 +34,7 @@ export default function Page() {
             Aug 2022 - Aug 2023
           </div>
         </div>
-        <div className="text-md mt-4 mb-0 text-justify">
+        <div className="text-md mt-4 mb-0">
         <p>
           After completing the 1 year co-op at EMG, decided to stay 1 more year during summer 2022 - summer 2023 
           to gain further work experience, especially with a heightened interest in web technology. 
@@ -61,7 +61,7 @@ export default function Page() {
 
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
-        <div id="emg" className="flex justify-between align-middle text-center">
+        <div id="emg" className="flex justify-between align-middle text-left">
           <div className="flex gap-4">
             <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-slate-50 border-neutral-800 border-1">
               <Image 
@@ -82,7 +82,7 @@ export default function Page() {
             Jul 2021 - Jul 2022
           </div>
         </div>
-        <div className="text-md mt-4 mb-0 text-justify">
+        <div className="text-md mt-4 mb-0">
         <p>
           Worked at EMG Global during summer 2021 - summer 2022
           as a part of the Professional Experience Year co-op program at the University of Toronto.
@@ -121,7 +121,7 @@ export default function Page() {
         </div>
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
 
-        <div id="kdic" className="flex justify-between align-middle text-center">
+        <div id="kdic" className="flex justify-between align-middle text-left">
           <div className="flex gap-4">
             <div className="grid place-items-center w-12 h-12 overflow-hidden rounded-full bg-transparent">
               <Image 
@@ -142,7 +142,7 @@ export default function Page() {
             Jan 2016 - Oct 2018
           </div>
         </div>
-        <div className="text-md mt-4 mb-0 text-justify">
+        <div className="text-md mt-4 mb-0">
         <p>
           Carried out a KOR-US intelligence specialist role from 2016 - 2018 during my mandatory military service.
           Being a secure, slow-pace, sure-footing environment had built up inefficiencies within the office and residence.

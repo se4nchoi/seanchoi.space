@@ -2,6 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Navbar } from './components/nav';
 import { Analytics } from '@vercel/analytics/react';
+import { Chat } from './components/Chat/Chat';
+import { ChatGreeting } from './components/Chat/ChatGreeting';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SandpackCSS } from './blog/[slug]/sandpack';
 
@@ -78,6 +80,8 @@ export default function RootLayout({
             {children}
             <Analytics />
             <SpeedInsights />
+            <ChatGreeting />
+            <Chat />
           </main>
       </body>
     </html>

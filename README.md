@@ -8,12 +8,14 @@ This is my personal website and blog, built with Next.js and using Notion as a C
 *   **Code Sandboxes:** The blog posts can include interactive code sandboxes using `@codesandbox/sandpack-react`.
 *   **Analytics:** The website uses Vercel Analytics and Speed Insights to track user traffic and performance.
 *   **CI/CD:** The website is automatically deployed to Vercel, and the Notion content is synced using a GitHub Actions workflow.
+*   **AI Chatbot:** This site features an AI chatbot (powered by Gemini and ##) that can be configured to give visitors detailed answers to questions tailored to the portfolio projects, career aspirations and stories, fit, and more.
 
 ## Tech Stack
 
 *   **Framework:** [Next.js](https://nextjs.org/)
 *   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 *   **CMS:** [Notion](https://www.notion.so/)
+*   **AI Chat, RAG:** [Google Gemini](https://gemini.google.com)
 *   **Database:** [Vercel Postgres (NEON)](https://vercel.com/storage/postgres)
 *   **Deployment:** [Vercel](https://vercel.com/)
 
@@ -34,9 +36,10 @@ This is my personal website and blog, built with Next.js and using Notion as a C
 3.  Create a `.env.local` file and add the following environment variables:
 
     ```bash
-    NOTION_API_KEY=
+    NOTION_INTEGRATION_SECRET=
     NOTION_DATASOURCE_ID=
     POSTGRES_URL=
+    GEMINI_API_KEY=
     ```
 
 4.  Run the development server:
