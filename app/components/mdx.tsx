@@ -105,7 +105,7 @@ function ProsCard({ title, pros }: ProConCardProps) {
   );
 }
 
- function ConsCard({ title, cons }: ProConCardProps) {
+function ConsCard({ title, cons }: ProConCardProps) {
   return (
     <div className="border border-red-200 dark:border-red-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6 my-6 w-full">
       <span>{`You might not use ${title} if...`}</span>

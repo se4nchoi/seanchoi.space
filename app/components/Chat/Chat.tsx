@@ -91,7 +91,7 @@ export function Chat() {
       {/* Chat Bubble Toggle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 bg-neutral-800 text-white dark:bg-neutral-200 dark:text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 cursor-pointer"
+        className="fixed bottom-6 right-6 z-50 bg-neutral-800 text-white dark:bg-neutral-200 dark:text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 cursor-pointer"
         aria-label="Toggle chat"
       >
         {isOpen ? <FaTimes size={24} /> : <FaComment size={24} />}
@@ -100,17 +100,17 @@ export function Chat() {
       {/* Chat Window */}
       {isOpen && (
         <div
-          className={`fixed bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-xl flex flex-col transition-transform duration-300 ease-in-out
+          className={`fixed z-50 bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-xl flex flex-col transition-transform duration-300 ease-in-out
             bottom-24 right-6
           ${
             isFullScreen
-              ? 'w-[calc(100vw-36rem)] max-w-[calc(100vw-6rem)] h-[80vh]'
+              ? 'inset-4 '
               : 'w-80 h-[28rem]'
           }`}
         >
           {/* Header */}
           <div className="p-4 border-b border-neutral-300 dark:border-neutral-700 flex justify-between items-center">
-            <h3 className="font-medium text-lg">Chat with Sean's AI</h3>
+            <h3 className="font-medium text-lg">Sean's AI</h3>
             <button
               onClick={() => setIsFullScreen(!isFullScreen)}
               className="text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200 transition-transform hover:scale-110 cursor-pointer"
@@ -121,7 +121,10 @@ export function Chat() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 p-4 overflow-y-auto overscroll-contain">
+            <div className="text-xs text-center text-neutral-500 dark:text-neutral-400 mb-4">
+              Note: The AI may be slow to respond or experience frequent network issues.
+            </div>
             {messages.map((msg, index) => (
               <div key={index} className="flex">
                 <div className={`mb-3 py-1 px-4 rounded-lg max-w-[85%] prose dark:prose-invert prose-sm [&>p]:my-0
