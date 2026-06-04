@@ -170,7 +170,7 @@ export function Chat() {
                   setIsResized(height > SINGLE_LINE_HEIGHT);
                 }}
                 disabled={isLoading}
-                placeholder="Ask me anything..."
+                placeholder="Ask me about Sean..."
                 className={`flex-1 p-2 border border-neutral-400 dark:border-neutral-600 rounded-l-md bg-transparent focus:outline-none focus:ring-0 disabled:opacity-50 resize-none ${isResized ? 'rounded-tr-md' : 'rounded-tr-none'}`}
               />
               <button
