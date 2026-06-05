@@ -61,8 +61,8 @@ const fetchPublishedPages = async () => {
     },
   });
 
-  for (const page of response.results) {
-    if (page.object !== 'page' || !('properties' in page)) continue;
+  const syncPromises = response.results.map(async (page) => {
+    if (page.object !== 'page' || !('properties' in page)) return;
     const props = page.properties as Record<string, any>;
 
     const title = props.Title?.title?.[0]?.plain_text || 'untitled';
@@ -80,7 +80,8 @@ const fetchPublishedPages = async () => {
     const needsUpdate = !syncLog[uniqueId] || new Date(lastEdited).getTime() > new Date(syncLog[uniqueId]).getTime();
 
     if (needsUpdate) {
-      n2m.setCustomTransformer("image", async (block) => {
+      const localN2M = new NotionToMarkdown({ notionClient: notion });
+      localN2M.setCustomTransformer("image", async (block) => {
         const { image } = block as any;
         const imageUrl = image.file.url;
         const blockId = block.id;
@@ -119,8 +120,8 @@ const fetchPublishedPages = async () => {
         '---'
       ].filter(Boolean).join('\n');
 
-      const mdBlocks = await n2m.pageToMarkdown(page.id);
-      const mdString = n2m.toMarkdownString(mdBlocks);
+      const mdBlocks = await localN2M.pageToMarkdown(page.id);
+      const mdString = localN2M.toMarkdownString(mdBlocks);
       const markdown =
         typeof mdString === 'string'
           ? mdString
@@ -133,7 +134,9 @@ const fetchPublishedPages = async () => {
     } else {
       console.log(`Skipped (no Notion changes): ${filePath}`);
     }
-  }
+  });
+
+  await Promise.all(syncPromises);
 
   fs.writeFileSync(syncLogPath, JSON.stringify(syncLog, null, 2));
 }

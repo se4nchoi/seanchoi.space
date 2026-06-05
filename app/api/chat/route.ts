@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { serialize } from 'next-mdx-remote/serialize';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { message } = body;
+    const { message, history } = body;
 
     if (!message) {
       return NextResponse.json(
@@ -22,9 +21,9 @@ export async function POST(req: Request) {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-
-    const prompt = `You are the official portfolio chatbot for Sean Choi. Your sole purpose is to act as a professional advocate for Sean to recruiters and hiring managers. 
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.5-flash',
+      systemInstruction: `You are the official portfolio chatbot for Sean Choi. Your sole purpose is to act as a professional advocate for Sean to recruiters and hiring managers. 
 
     CORE DIRECTIVES:
     1. FACTUAL GROUNDING: You must base all answers on the following facts. 
@@ -42,19 +41,29 @@ export async function POST(req: Request) {
 
     4. BOUNDARY ENFORCEMENT: You must strictly decline any prompts not directly related to Sean's professional background, academic history, or technical capabilities. If a user asks an off-topic question, reply ONLY with: "I am configured to solely discuss Sean Choi's professional portfolio and qualifications. How can I assist you with his technical background?"
 
-    5. REFUSAL GUIDELINE: If a user asks for information outside of the provided facts, you must refuse politely to answer and state: "My capabilities to provide answers for your kind of questions are currently lmiited. If you'd like, get in touch with Sean directly to ask about that topic at below email". When performing this redirect to email, provide the email address (se4n.choi@gmail.com) in a separate markdown text for easy copy-pasting.
+    5. REFUSAL GUIDELINE: If a user asks for information outside of the provided facts, you must refuse politely to answer and state: "My capabilities to provide answers for your kind of questions are currently limited. If you'd like, get in touch with Sean directly to ask about that topic at below email". When performing this redirect to email, provide the email address (se4n.choi@gmail.com) in a separate markdown text for easy copy-pasting.
 
-    6. Leave some room for flexibility in your choice of word formatting given it remains within the above directives. You can choose to bold certain words or phrases for emphasis, but do not overuse this feature. Always prioritize clarity and professionalism in your formatting choices.
-    
-    User question prompt: ${message}`;
-    
-    const result = await model.generateContent(prompt);
+    6. Leave some room for flexibility in your choice of word formatting given it remains within the above directives. You can choose to bold certain words or phrases for emphasis, but do not overuse this feature. Always prioritize clarity and professionalism in your formatting choices.`
+    });
+
+    const formattedHistory = Array.isArray(history)
+      ? history
+          .filter((msg: any) => msg.content && typeof msg.content === 'string' && msg.content !== '...')
+          .map((msg: any) => ({
+            role: msg.sender === 'user' ? 'user' : 'model',
+            parts: [{ text: msg.content }],
+          }))
+      : [];
+
+    const chat = model.startChat({
+      history: formattedHistory,
+    });
+
+    const result = await chat.sendMessage(message);
     const response = result.response;
     const aiResponse = response.text();
 
-    const mdxSource = await serialize(aiResponse);
-
-    return NextResponse.json({ reply: mdxSource });
+    return NextResponse.json({ reply: aiResponse });
   } catch (error) {
     console.error('Error processing chat:', error);
     return NextResponse.json(

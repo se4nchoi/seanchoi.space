@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "build:scripts": "tsc -p scripts"
+    "build:scripts": "tsc -p scripts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
@@ -24,6 +25,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
     "react-textarea-autosize": "^8.5.9",
     "react-tweet": "^3.2.2",
     "sugar-high": "^0.9.3"
@@ -34,6 +36,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^1.6.0"
   }
 }
