@@ -9,11 +9,11 @@ import {
   FaExpand,
   FaCompress,
 } from 'react-icons/fa';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import ReactMarkdown from 'react-markdown';
 import TextareaAutosize from 'react-textarea-autosize';
 
 type Message = {
-  content: string | MDXRemoteSerializeResult;
+  content: string;
   sender: 'user' | 'ai';
 };
 
@@ -63,7 +63,7 @@ export function Chat() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: input, history: messages }),
       });
 
       if (!response.ok) {
@@ -102,11 +102,10 @@ export function Chat() {
         <div
           className={`fixed z-50 bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-xl flex flex-col transition-transform duration-300 ease-in-out
             bottom-24 right-6
-          ${
-            isFullScreen
+          ${isFullScreen
               ? 'inset-4 '
               : 'w-80 h-[28rem]'
-          }`}
+            }`}
         >
           {/* Header */}
           <div className="p-4 border-b border-neutral-300 dark:border-neutral-700 flex justify-between items-center">
@@ -123,15 +122,14 @@ export function Chat() {
           {/* Messages */}
           <div className="flex-1 p-4 overflow-y-auto overscroll-contain">
             <div className="text-xs text-center text-neutral-500 dark:text-neutral-400 mb-4">
-              Note: The AI may be slow to respond or experience frequent network issues.
+              Note: The AI may be slow to respond or experience network issues.
             </div>
             {messages.map((msg, index) => (
               <div key={index} className="flex">
                 <div className={`mb-3 py-1 px-4 rounded-lg max-w-[85%] prose dark:prose-invert prose-sm [&>p]:my-0
-                  ${
-                    msg.sender === 'user'
-                      ? 'bg-blue-500 text-white ml-auto'
-                      : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-200'
+                  ${msg.sender === 'user'
+                    ? 'bg-blue-500 text-white ml-auto'
+                    : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-200'
                   }`}
                 >
                   {msg === ThinkingMessage ? (
@@ -141,11 +139,7 @@ export function Chat() {
                       <div className="w-2 h-2 bg-neutral-500 rounded-full animate-pulse"></div>
                     </div>
                   ) : (
-                    typeof msg.content === 'string' ? (
-                      <p>{msg.content}</p>
-                    ) : (
-                      <MDXRemote {...msg.content} />
-                    )
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
                   )}
                 </div>
               </div>
