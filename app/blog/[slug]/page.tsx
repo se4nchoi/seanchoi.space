@@ -13,8 +13,9 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 export async function generateMetadata({
   params,
-}: { params: { slug: string } }): Promise<Metadata | undefined> {
-  let post = getBlogPosts().find((post) => post.slug === params.slug);
+}: { params: Promise<{ slug: string }> }): Promise<Metadata | undefined> {
+  const { slug } = await params;
+  let post = getBlogPosts().find((post) => post.slug === slug);
   if (!post) {
     return;
   }
@@ -85,8 +86,9 @@ function formatDate(date: string) {
   }
 }
 
-export default function Blog({ params }: { params: { slug: string } }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug);
+export default async function Blog({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  let post = getBlogPosts().find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
