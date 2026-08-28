@@ -1,60 +1,39 @@
-# seanchoi.space
+# seanchoi.space — Portfolio v2
 
-This is my personal website and blog, built with Next.js and using Notion as a CMS.
+Personal engineering portfolio of Sean Choi.
 
-## Features
+## Purpose & Architecture
+Portfolio v2 is a static-first, evidence-backed engineering portfolio and blog built with Next.js App Router and TypeScript. It replaces v1 with a clean-slate architecture focused on verifiable experience, performance, and accessibility.
 
-*   **Blog with Notion:** The blog posts are fetched from a Notion database, using `notion-to-md` to convert the content to Markdown.
-*   **Code Sandboxes:** The blog posts can include interactive code sandboxes using `@codesandbox/sandpack-react`.
-*   **Analytics:** The website uses Vercel Analytics and Speed Insights to track user traffic and performance.
-*   **CI/CD:** The website is automatically deployed to Vercel, and the Notion content is synced using a GitHub Actions workflow.
-*   **AI Chatbot:** This site features an AI chatbot (powered by Gemini and ##) that can be configured to give visitors detailed answers to questions tailored to the portfolio projects, career aspirations and stories, fit, and more.
+## Toolchain & Versions
+- **Node.js**: 24 LTS (`engines.node: 24.x`)
+- **Package Manager**: pnpm `10.34.5`
+- **Framework**: Next.js `16.3.3` (App Router)
+- **UI & Language**: React `19.2.8`, TypeScript `5.9.3`
+- **Styling**: Tailwind CSS `4.3.3` (CSS-first)
+- **Linting**: ESLint `9.39.5` with `eslint-config-next` `16.3.3`
 
-## Tech Stack
+## Development Commands
+```bash
+# Install dependencies
+pnpm install
 
-*   **Framework:** [Next.js](https://nextjs.org/)
-*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-*   **CMS:** [Notion](https://www.notion.so/)
-*   **AI Chat, RAG:** [Google Gemini](https://gemini.google.com)
-*   **Database:** [Vercel Postgres (NEON)](https://vercel.com/storage/postgres)
-*   **Deployment:** [Vercel](https://vercel.com/)
+# Run development server
+pnpm dev
 
-## Running Locally
+# Typecheck codebase
+pnpm typecheck
 
-1.  Clone the repository:
+# Run ESLint
+pnpm lint
 
-    ```bash
-    git clone https://github.com/se4nchoi/seanchoi.space.git
-    ```
+# Build for production
+pnpm build
 
-2.  Install the dependencies:
+# Run all quality checks
+pnpm check
+```
 
-    ```bash
-    npm install
-    ```
-
-3.  Create a `.env.local` file and add the following environment variables:
-
-    ```bash
-    NOTION_INTEGRATION_SECRET=
-    NOTION_DATASOURCE_ID=
-    POSTGRES_URL=
-    GEMINI_API_KEY=
-    ```
-
-4.  Run the development server:
-
-    ```bash
-    npm run dev
-    ```
-
-5.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-*   **Website:** [seanchoi.space](https://seanchoi.space)
-*   **GitHub:** [@se4nchoi](https://github.com/se4nchoi)
+## Legacy V1 Checkpoint & Source Quarantine
+- **Production Checkpoint**: V1 remains recoverable from the local `v1-production-2026-08-28` checkpoint tag and the existing Git history. The tag has not yet been pushed.
+- **Legacy Content Quarantine**: Historical MDX and media are preserved under `legacy-content/` for review and controlled migration in later work packages. They are excluded from runtime compilation.
