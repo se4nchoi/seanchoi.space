@@ -1,0 +1,42 @@
+---
+id: "example-article-en"
+slug: "example-article"
+locale: "en"
+publicationStatus: "draft"
+claimState: "pending"
+syntheticPlaceholder: true
+reviewedOn: "2026-08-29"
+title: "Example Article"
+summary: "A synthetic preview article showing the typography and structure of the static blog platform."
+publishedOn: "2026-08-28"
+topics:
+  - "evidence"
+  - "engineering"
+source: "original"
+assetPaths: []
+---
+
+## Make the boundary visible
+
+Every technical claim in a portfolio should correspond to inspectable evidence. When evidence cannot be published, state clearly why and what boundaries were maintained.
+
+<Callout type="note">
+This is a server-rendered callout demonstrating contextual guidance without client-side scripts.
+</Callout>
+
+## Record the decision
+
+Technical writing should record the context, constraints, trade-offs, and verification steps that led to a decision.
+
+```typescript
+interface DecisionRecord {
+  context: string;
+  constraints: string[];
+  decision: string;
+  validation: string;
+}
+```
+
+## Verify what the page promises
+
+When a page states that a system operates statically or deterministically, the build pipeline must prove that statement directly.

@@ -13,7 +13,7 @@ describe("i18n Dictionaries Completeness & Parity", () => {
     expect(enKeys.sort()).toEqual(koKeys.sort());
 
     for (const key of enKeys) {
-      if (key === "skeleton") continue;
+      if (key === "skeleton" || key === "blogUI") continue;
       expect(enDict[key]).toBeTypeOf("string");
       expect((enDict[key] as string).trim().length).toBeGreaterThan(0);
 
@@ -41,12 +41,33 @@ describe("i18n Dictionaries Completeness & Parity", () => {
     }
   });
 
+  it("provides complete, nonblank nested blogUI dictionary entries for both en and ko", () => {
+    const enBlog = dictionaries.en.blogUI;
+    const koBlog = dictionaries.ko.blogUI;
+
+    const enKeys = Object.keys(enBlog) as (keyof typeof enBlog)[];
+    const koKeys = Object.keys(koBlog) as (keyof typeof koBlog)[];
+
+    expect(enKeys.sort()).toEqual(koKeys.sort());
+    expect(enKeys.length).toBe(18);
+
+    for (const key of enKeys) {
+      expect(enBlog[key]).toBeTypeOf("string");
+      expect(enBlog[key].trim().length).toBeGreaterThan(0);
+
+      expect(koBlog[key]).toBeTypeOf("string");
+      expect(koBlog[key].trim().length).toBeGreaterThan(0);
+    }
+  });
+
   it("returns appropriate dictionary via getDictionary", () => {
     for (const locale of LOCALES) {
       const dict = getDictionary(locale);
       expect(dict).toBeDefined();
       expect(dict.skipToContent).toBe(dictionaries[locale].skipToContent);
       expect(dict.skeleton.eyebrow).toBe(dictionaries[locale].skeleton.eyebrow);
+      expect(dict.blogUI.emptyTitle).toBe(dictionaries[locale].blogUI.emptyTitle);
+      expect(dict.blogUI.calloutNote).toBe(dictionaries[locale].blogUI.calloutNote);
     }
   });
 });

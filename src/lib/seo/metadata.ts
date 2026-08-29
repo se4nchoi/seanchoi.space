@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import type { AppLocale } from "@/i18n/config";
-import { getAlternatePath, normalizePathname } from "@/i18n/routing";
+import { type AppLocale } from "@/i18n/config";
+import { localizePathname } from "@/i18n/routing";
 
 export const SITE_URL = "https://seanchoi.space";
 
@@ -9,20 +9,55 @@ export interface PageMetadataOptions {
   pathname: string;
   title: string;
   description: string;
+  alternatePaths?: {
+    en?: string | null;
+    ko?: string | null;
+    "x-default"?: string | null;
+  };
+  feedDiscovery?: boolean;
 }
 
 export function createPageMetadata({
+  locale,
   pathname,
   title,
   description,
+  alternatePaths,
+  feedDiscovery = false,
 }: PageMetadataOptions): Metadata {
-  const normalizedPath = normalizePathname(pathname);
-  const enPath = getAlternatePath(normalizedPath, "en");
-  const koPath = getAlternatePath(normalizedPath, "ko");
+  const canonicalPath = localizePathname(pathname, locale);
+  const canonicalUrl = `${SITE_URL}${canonicalPath === "/" ? "" : canonicalPath}`;
 
-  const canonicalUrl = `${SITE_URL}${normalizedPath === "/" ? "" : normalizedPath}`;
-  const enUrl = `${SITE_URL}${enPath === "/" ? "" : enPath}`;
-  const koUrl = `${SITE_URL}${koPath === "/" ? "" : koPath}`;
+  // Build languages map
+  const languages: Record<string, string> = {};
+
+  if (alternatePaths) {
+    if (alternatePaths.en) {
+      languages.en = `${SITE_URL}${alternatePaths.en === "/" ? "" : alternatePaths.en}`;
+    }
+    if (alternatePaths.ko) {
+      languages.ko = `${SITE_URL}${alternatePaths.ko === "/" ? "" : alternatePaths.ko}`;
+    }
+    if (alternatePaths["x-default"]) {
+      languages["x-default"] = `${SITE_URL}${alternatePaths["x-default"] === "/" ? "" : alternatePaths["x-default"]}`;
+    } else if (languages.en) {
+      languages["x-default"] = languages.en;
+    } else {
+      languages["x-default"] = canonicalUrl;
+    }
+  } else {
+    // Standard automatic bilingual pairing for core pages
+    const enPath = localizePathname(pathname, "en");
+    const koPath = localizePathname(pathname, "ko");
+    languages.en = `${SITE_URL}${enPath === "/" ? "" : enPath}`;
+    languages.ko = `${SITE_URL}${koPath === "/" ? "" : koPath}`;
+    languages["x-default"] = `${SITE_URL}${enPath === "/" ? "" : enPath}`;
+  }
+
+  // Ensure current locale is always in languages if not explicitly omitted
+  if (!languages[locale]) {
+    languages[locale] = canonicalUrl;
+  }
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -30,11 +65,19 @@ export function createPageMetadata({
     description,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        en: enUrl,
-        ko: koUrl,
-        "x-default": enUrl,
-      },
+      languages,
+      ...(feedDiscovery
+        ? {
+            types: {
+              "application/atom+xml": [
+                {
+                  url: `${SITE_URL}/feed.xml`,
+                  title: "seanchoi.space — Blog Atom Feed",
+                },
+              ],
+            },
+          }
+        : {}),
     },
   };
 }

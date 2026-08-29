@@ -50,6 +50,27 @@ export interface SkeletonDictionary {
   evidenceLabel: string;
 }
 
+export interface BlogDictionary {
+  emptyTitle: string;
+  emptyBody: string;
+  publishedOn: string;
+  updatedOn: string;
+  tableOfContents: string;
+  relatedWriting: string;
+  topics: string;
+  feedTitle: string;
+  feedSubscribe: string;
+  translationUnavailable: string;
+  translationUnavailableNotice: string;
+  backToBlog: string;
+  calloutNote: string;
+  calloutWarning: string;
+  calloutInfo: string;
+  calloutTip: string;
+  viewEnglishBlog: string;
+  viewKoreanBlog: string;
+}
+
 export interface UIDictionary {
   skipToContent: string;
   primaryNavigation: string;
@@ -71,6 +92,7 @@ export interface UIDictionary {
   backHome: string;
   footerPolicy: string;
   skeleton: SkeletonDictionary;
+  blogUI: BlogDictionary;
 }
 
 export const dictionaries: Record<AppLocale, UIDictionary> = {
@@ -154,6 +176,28 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
         "Real portfolio content will distinguish the role, team context, individual contribution, and supporting evidence. This synthetic preview demonstrates that structure only.",
       evidenceLabel: "Example verification artifact",
     },
+    blogUI: {
+      emptyTitle: "Blog",
+      emptyBody:
+        "No articles have been published yet. Writing will be published here through the local publishing workflow after review.",
+      publishedOn: "Published",
+      updatedOn: "Updated",
+      tableOfContents: "Table of Contents",
+      relatedWriting: "Related Writing",
+      topics: "Topics",
+      feedTitle: "seanchoi.space — Blog",
+      feedSubscribe: "Subscribe via Atom",
+      translationUnavailable: "Translation unavailable",
+      translationUnavailableNotice:
+        "This article is currently only available in English.",
+      backToBlog: "Back to blog",
+      calloutNote: "Note",
+      calloutWarning: "Warning",
+      calloutInfo: "Info",
+      calloutTip: "Tip",
+      viewEnglishBlog: "View English blog →",
+      viewKoreanBlog: "한국어 블로그 보기 →",
+    },
   },
   ko: {
     skipToContent: "본문으로 건너뛰기",
@@ -232,6 +276,27 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       contributionBoundaryBody:
         "실제 포트폴리오 콘텐츠에서는 역할, 팀 맥락, 개인 기여, 이를 뒷받침하는 근거를 구분합니다. 이 합성 미리보기는 해당 구조만 보여 줍니다.",
       evidenceLabel: "예시 검증 자료",
+    },
+    blogUI: {
+      emptyTitle: "블로그",
+      emptyBody:
+        "아직 게시된 글이 없습니다. 검토 후 로컬 게시 워크플로를 통해 이곳에 글이 게시됩니다.",
+      publishedOn: "작성일",
+      updatedOn: "수정일",
+      tableOfContents: "목차",
+      relatedWriting: "관련 글",
+      topics: "주제",
+      feedTitle: "seanchoi.space — Blog",
+      feedSubscribe: "Atom 피드 구독",
+      translationUnavailable: "번역 미제공",
+      translationUnavailableNotice: "이 글은 현재 한국어로만 제공됩니다.",
+      backToBlog: "블로그 목록으로",
+      calloutNote: "참고",
+      calloutWarning: "주의",
+      calloutInfo: "안내",
+      calloutTip: "팁",
+      viewEnglishBlog: "View English blog →",
+      viewKoreanBlog: "한국어 블로그 보기 →",
     },
   },
 };

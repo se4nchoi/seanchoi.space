@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import type { ComponentType } from "react";
+import type { MDXComponents } from "mdx/types";
 import { HomePageView } from "./home-page-view";
 import { ExperiencePageView } from "./experience-page-view";
 import { ProjectsIndexView } from "./projects-index-view";
@@ -215,20 +217,38 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
   });
 
   describe("BlogIndexView & ArticleView", () => {
-    it("renders Blog index with localized article link and no search/filter controls", () => {
-      const enHtml = renderToStaticMarkup(<BlogIndexView locale="en" />);
+    it("renders Blog index with localized article link in preview mode and no search/filter controls", () => {
+      const enHtml = renderToStaticMarkup(<BlogIndexView locale="en" preview={true} />);
       expect(enHtml).toContain('href="/blog/example-article"');
       expect(enHtml).not.toContain("<input");
       expect(enHtml).not.toContain("<select");
 
-      const koHtml = renderToStaticMarkup(<BlogIndexView locale="ko" />);
+      const koHtml = renderToStaticMarkup(<BlogIndexView locale="ko" preview={true} />);
       expect(koHtml).toContain('href="/ko/blog/example-article"');
     });
 
-    it("renders Blog article with back link, time element, disclaimer, and strictly ordered prose sections", () => {
-      const html = renderToStaticMarkup(
-        <BlogArticleView locale="en" slug="example-article" />
-      );
+    it("renders Blog article with back link, time element, disclaimer, and strictly ordered prose sections", async () => {
+      const MockMdx = ({ components }: { components?: MDXComponents }) => {
+        const H2 = (components?.h2 || "h2") as React.ElementType;
+        return (
+          <>
+            <H2>Make the boundary visible</H2>
+            <H2>Record the decision</H2>
+            <H2>Verify what the page promises</H2>
+          </>
+        );
+      };
+
+      const view = await BlogArticleView({
+        locale: "en",
+        slug: "example-article",
+        preview: true,
+        loadComponent: async () => ({
+          default: MockMdx as ComponentType<{ components?: MDXComponents }>,
+        }),
+      });
+      const html = renderToStaticMarkup(view);
+
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("Example Article");
@@ -254,10 +274,19 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(idxSec3).toBeGreaterThan(idxSec2);
     });
 
-    it("renders Korean Blog article with localized back navigation and zero English leaks", () => {
-      const html = renderToStaticMarkup(
-        <BlogArticleView locale="ko" slug="example-article" />
-      );
+    it("renders Korean Blog article with localized back navigation and zero English leaks", async () => {
+      const MockMdx = () => <div>본문</div>;
+
+      const view = await BlogArticleView({
+        locale: "ko",
+        slug: "example-article",
+        preview: true,
+        loadComponent: async () => ({
+          default: MockMdx as ComponentType<{ components?: MDXComponents }>,
+        }),
+      });
+      const html = renderToStaticMarkup(view);
+
       expect(html).toContain("예시 글");
       expect(html).toContain('aria-label="이전 페이지 탐색"');
       expect(html).not.toContain('aria-label="Back navigation"');

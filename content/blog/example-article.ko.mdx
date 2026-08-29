@@ -1,0 +1,43 @@
+---
+id: "example-article-ko"
+slug: "example-article"
+locale: "ko"
+translationOf: "example-article-en"
+publicationStatus: "draft"
+claimState: "pending"
+syntheticPlaceholder: true
+reviewedOn: "2026-08-29"
+title: "예시 글"
+summary: "정적 블로그 플랫폼의 조판과 구조를 보여주는 합성 미리보기 글입니다."
+publishedOn: "2026-08-28"
+topics:
+  - "근거"
+  - "엔지니어링"
+source: "original"
+assetPaths: []
+---
+
+## 범위를 명확히 표시하기
+
+포트폴리오의 모든 기술적 주장은 검증 가능한 근거와 일치해야 합니다. 근거를 공개할 수 없는 경우, 그 이유와 유지된 경계를 명확히 설명해야 합니다.
+
+<Callout type="note">
+클라이언트 스크립트 없이 맥락 정보를 전달하는 서버 렌더링 콜아웃입니다.
+</Callout>
+
+## 결정 기록하기
+
+기술 문서는 결정으로 이어진 맥락, 제약 조건, 절충점 및 검증 단계를 명확히 기록해야 합니다.
+
+```typescript
+interface DecisionRecord {
+  context: string;
+  constraints: string[];
+  decision: string;
+  validation: string;
+}
+```
+
+## 페이지가 약속하는 내용 검증하기
+
+페이지가 시스템이 정적이고 결정론적으로 작동한다고 명시하는 경우, 빌드 파이프라인이 이를 직접 입증해야 합니다.

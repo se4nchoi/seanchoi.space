@@ -4,7 +4,7 @@
 
 **Planning authority:** `docs/portfolio-v2-exploration-report.md`
 
-**Status:** WP1, WP2, WP3, and WP4 accepted; WP4 checkpoint pending
+**Status:** WP1–WP5 accepted; WP5 checkpoint commit pending explicit authorization
 
 ## 1. Delivery model
 
@@ -185,28 +185,31 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 
 ### WP5 — Blog platform and historical URL behavior
 
-**Goal:** Replace the fragile content loader and preserve blog continuity.
+**Goal:** Replace the fragile content loader, launch an intentionally empty blog platform, and retire historical URLs honestly.
 
 **Gemini work**
 
 - Implement validated local MDX loading under `content/blog`.
 - Support local images, code, figures, callouts, headings, metadata, draft state, locale, topics, and translation relationships.
 - Add RSS/Atom, blog sitemap entries, related content, and restrained topic navigation.
-- Keep Sandpack only if a retained post demonstrably needs it; load it only on those pages.
-- Add the old-to-new slug redirect manifest and tests.
+- Exclude Sandpack because no retained source article demonstrates a need for it.
+- Add a historical-route retirement manifest and tests; do not invent unrelated redirects.
+- Preserve all five legacy article ideas only under `legacy-content/`; publish none at v2 launch.
 - Remove Notion sync from the v2 publication path; do not build its replacement.
 
 **Sean input**
 
-- Classify each existing article: revise for launch, keep as draft, or retire with a justified redirect.
-- Approve revised retrospective facts and contribution boundaries.
+- Article dispositions approved on 2026-08-29: preserve all five as draft ideas and publish no launch article.
+- Any later article, retrospective, RAG/chatbot work, or technical-project post requires a separately reviewed content iteration.
 
 **Acceptance gate**
 
-- `/blog` and retained historical URLs behave correctly.
+- `/blog` and `/ko/blog` render reviewed localized empty states.
+- `/feed.xml` is valid with zero entries and the sitemap emits no article routes.
+- All five historical article URLs return honest 404s without content or metadata leakage.
 - Blog builds without Notion or a database.
-- Missing images, bad frontmatter, duplicate slugs, and broken redirects fail validation.
-- Revised posts pass the publication contract.
+- Missing images, bad frontmatter, duplicate slugs, invalid translations, and registry gaps fail validation.
+- No draft, synthetic, retired, or legacy article leaks into production routes, metadata, feed, or sitemap.
 
 ### WP6 — Verified career content and résumé PDF
 
@@ -337,4 +340,4 @@ Reject or revise a package when any answer is unsatisfactory. Do not carry known
 
 ## 7. Immediate next action
 
-WP1 through WP4 are accepted. WP4 now provides the complete bilingual representative journeys using draft, pending, synthetic-only records in development and isolated preview builds. Codex independently verified the full 100-test quality pipeline, ordinary and preview production builds, localized Korean HTTP output, and production gating: core production routes retain factual-review status pages, while synthetic detail routes and /_review return HTTP 404 without synthetic leakage. The Node next start runtime logs an internal NoFallbackError when those intentionally omitted dynamic paths are requested; the HTTP behavior is correct, and this remains an explicit deployment-verification risk. The next action is a separately authorized WP4 checkpoint commit. Only after that checkpoint should Codex prepare the decision-complete WP5 specification. Pending identity and career facts remain hard gates for real content and the résumé.
+WP1 through WP5 are accepted. WP5 provides the bilingual static blog platform, strict local MDX/content integrity pipeline, deterministic Atom feed and sitemap behavior, exact historical-URL retirement, and development/preview-only Example Article fixtures while launch intentionally contains zero public articles. Codex independently verified `git diff --check`, typecheck, lint, 172 tests, the production content guard, ordinary and `VERCEL_ENV=preview` production builds, the production HTTP matrix including all five historical 404s, bilingual preview article rendering, and TOC-to-heading anchor alignment. Next.js still logs an internal `NoFallbackError` when intentionally omitted dynamic paths return the correct HTTP 404; retain this as a deployment-verification risk for WP9. The next action is a separately authorized WP5 checkpoint commit. After that checkpoint, Codex may prepare WP6, but pending identity, career facts, evidence, privacy decisions, and résumé inputs remain hard gates for publishable content.

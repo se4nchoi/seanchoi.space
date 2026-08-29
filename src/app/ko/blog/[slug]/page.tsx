@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BlogArticleView } from "@/components/pages/blog-article-view";
+import {
+  getBlogArticles,
+  getBlogArticleBySlug,
+  getArticleTranslationCounterpart,
+} from "@/lib/content/blog";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
-import { skeletonArticleKo } from "@/data/skeleton-preview";
-import { BlogArticleView } from "@/components/pages/blog-article-view";
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
-  if (!isSkeletonPreviewEnabled()) {
-    return [];
-  }
-  return [{ slug: "example-article" }];
+export async function generateStaticParams() {
+  const preview = isSkeletonPreviewEnabled();
+  const articles = getBlogArticles("ko", { preview });
+  return articles.map((article) => ({
+    slug: article.slug,
+  }));
 }
 
 export async function generateMetadata({
@@ -20,14 +25,39 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  if (!isSkeletonPreviewEnabled() || slug !== "example-article") {
+  const preview = isSkeletonPreviewEnabled();
+  const articleData = getBlogArticleBySlug("ko", slug, { preview });
+
+  if (!articleData) {
     return {};
   }
+
+  const { record } = articleData;
+  const counterpart = getArticleTranslationCounterpart(
+    record,
+    undefined,
+    !preview
+  );
+
+  // If a valid counterpart exists, point to its exact slug; otherwise, omit alternate language
+  const alternatePaths = counterpart
+    ? {
+        en: `/blog/${counterpart.slug}`,
+        ko: `/ko/blog/${record.slug}`,
+        "x-default": `/blog/${counterpart.slug}`,
+      }
+    : {
+        ko: `/ko/blog/${record.slug}`,
+        "x-default": `/ko/blog/${record.slug}`,
+      };
+
   return createPageMetadata({
     locale: "ko",
-    pathname: `/ko/blog/${slug}`,
-    title: skeletonArticleKo.title,
-    description: skeletonArticleKo.summary,
+    pathname: `/blog/${record.slug}`,
+    title: record.title,
+    description: record.summary,
+    alternatePaths,
+    feedDiscovery: true,
   });
 }
 
@@ -37,8 +67,12 @@ export default async function KoreanBlogArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (!isSkeletonPreviewEnabled() || slug !== "example-article") {
+  const preview = isSkeletonPreviewEnabled();
+  const articleData = getBlogArticleBySlug("ko", slug, { preview });
+
+  if (!articleData) {
     notFound();
   }
-  return <BlogArticleView locale="ko" slug={slug} />;
+
+  return <BlogArticleView locale="ko" slug={slug} preview={preview} />;
 }

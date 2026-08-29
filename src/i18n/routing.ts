@@ -1,4 +1,5 @@
 import type { AppLocale } from "./config";
+import { ARTICLE_ROUTE_PAIRS } from "@/lib/content/article-routes";
 
 export interface RoutePair {
   en: string;
@@ -11,7 +12,10 @@ export const ROUTE_PAIRS: RoutePair[] = [
   { en: "/projects", ko: "/ko/projects" },
   { en: "/projects/example-project", ko: "/ko/projects/example-project" },
   { en: "/blog", ko: "/ko/blog" },
-  { en: "/blog/example-article", ko: "/ko/blog/example-article" },
+  ...ARTICLE_ROUTE_PAIRS.map((p) => ({
+    en: `/blog/${p.enSlug}`,
+    ko: `/ko/blog/${p.koSlug}`,
+  })),
 ];
 
 export function normalizePathname(rawPath: string): string {
@@ -31,6 +35,23 @@ export function getLocaleFromPathname(pathname: string): AppLocale {
     return "ko";
   }
   return "en";
+}
+
+export function removeLocaleFromPathname(pathname: string): string {
+  const normalized = normalizePathname(pathname);
+  if (normalized === "/ko") return "/";
+  if (normalized.startsWith("/ko/")) {
+    return normalized.slice(3);
+  }
+  return normalized;
+}
+
+export function localizePathname(pathname: string, targetLocale: AppLocale): string {
+  const normalized = removeLocaleFromPathname(pathname);
+  if (targetLocale === "en") {
+    return normalized;
+  }
+  return normalized === "/" ? "/ko" : `/ko${normalized}`;
 }
 
 export function getAlternatePath(pathname: string, targetLocale: AppLocale): string {
