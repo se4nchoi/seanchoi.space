@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { Container } from "@/components/ui/container";
-import { PageIntro } from "@/components/ui/page-intro";
+import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
+import { ExperiencePageView } from "@/components/pages/experience-page-view";
+import { StatusPageView } from "@/components/pages/status-page-view";
 
 const dict = getDictionary("ko");
 
@@ -14,9 +15,8 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function KoreanExperiencePage() {
-  return (
-    <Container size="default">
-      <PageIntro title={dict.experience} summary={dict.experienceStatus} />
-    </Container>
-  );
+  if (isSkeletonPreviewEnabled()) {
+    return <ExperiencePageView locale="ko" />;
+  }
+  return <StatusPageView title={dict.experience} summary={dict.experienceStatus} />;
 }

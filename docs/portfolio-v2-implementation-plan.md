@@ -4,7 +4,7 @@
 
 **Planning authority:** `docs/portfolio-v2-exploration-report.md`
 
-**Status:** WP1, WP2, and WP3 accepted; WP4 specification pending
+**Status:** WP1, WP2, WP3, and WP4 accepted; WP4 checkpoint pending
 
 ## 1. Delivery model
 
@@ -337,4 +337,4 @@ Reject or revise a package when any answer is unsatisfactory. Do not carry known
 
 ## 7. Immediate next action
 
-WP1, WP2, and WP3 are accepted. WP3D replaced the ineffective catch-all workaround with one semantic bilingual `global-not-found.tsx`, the framework-supported multiple-root-layout boundary. Codex independently verified all 77 tests, the complete quality pipeline, and actual development and production HTTP responses: both `/not-real` and `/ko/not-real` return the intended bilingual document with HTTP 404, while normal English and Korean routes retain their localized shells. The cumulative WP1–WP3 foundation is ready for its first checkpoint commit. After that checkpoint is committed and made available to the continuation environment, Codex should prepare the decision-complete WP4 specification before Gemini begins implementation. Pending identity and career facts remain hard gates for real content and the résumé.
+WP1 through WP4 are accepted. WP4 now provides the complete bilingual representative journeys using draft, pending, synthetic-only records in development and isolated preview builds. Codex independently verified the full 100-test quality pipeline, ordinary and preview production builds, localized Korean HTTP output, and production gating: core production routes retain factual-review status pages, while synthetic detail routes and /_review return HTTP 404 without synthetic leakage. The Node next start runtime logs an internal NoFallbackError when those intentionally omitted dynamic paths are requested; the HTTP behavior is correct, and this remains an explicit deployment-verification risk. The next action is a separately authorized WP4 checkpoint commit. Only after that checkpoint should Codex prepare the decision-complete WP5 specification. Pending identity and career facts remain hard gates for real content and the résumé.

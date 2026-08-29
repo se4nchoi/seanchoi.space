@@ -6,6 +6,7 @@ export interface ProjectCardProps {
   title: string;
   summary: string;
   status: "planned" | "in-progress" | "completed" | "archived";
+  statusLabel?: string;
   role: string;
   tags?: string[];
   href?: string;
@@ -17,6 +18,7 @@ export function ProjectCard({
   title,
   summary,
   status,
+  statusLabel,
   role,
   tags = [],
   href,
@@ -31,7 +33,9 @@ export function ProjectCard({
     >
       <div>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <Tag variant={status === "completed" ? "accent" : "muted"}>{status}</Tag>
+          <Tag variant={status === "completed" ? "accent" : "muted"}>
+            {statusLabel ?? status}
+          </Tag>
           <span className="text-[length:var(--text-small)] text-[var(--muted)] font-mono">{role}</span>
         </div>
         <HeadingTag className="mt-3 text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)] leading-[var(--leading-tight)]">

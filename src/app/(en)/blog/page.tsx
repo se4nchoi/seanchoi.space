@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { Container } from "@/components/ui/container";
-import { PageIntro } from "@/components/ui/page-intro";
+import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
+import { BlogIndexView } from "@/components/pages/blog-index-view";
+import { StatusPageView } from "@/components/pages/status-page-view";
 
 const dict = getDictionary("en");
 
@@ -14,9 +15,8 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function EnglishBlogPage() {
-  return (
-    <Container size="default">
-      <PageIntro title={dict.blog} summary={dict.blogStatus} />
-    </Container>
-  );
+  if (isSkeletonPreviewEnabled()) {
+    return <BlogIndexView locale="en" />;
+  }
+  return <StatusPageView title={dict.blog} summary={dict.blogStatus} />;
 }

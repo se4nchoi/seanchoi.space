@@ -1,5 +1,55 @@
 import type { AppLocale } from "./config";
 
+export interface SkeletonDictionary {
+  eyebrow: string;
+  notice: string;
+  baseline: string;
+  direction: string;
+  viewProject: string;
+  resumeLabel: string;
+  resumeUnavailable: string;
+  selectedEvidence: string;
+  experienceSnapshot: string;
+  professionalExperience: string;
+  educationAndTraining: string;
+  capabilityEvidence: string;
+  recentWriting: string;
+  viewExperience: string;
+  viewAllProjects: string;
+  viewBlog: string;
+  contactUnavailable: string;
+  context: string;
+  status: string;
+  role: string;
+  contributionBoundary: string;
+  problemAndConstraints: string;
+  decisions: string;
+  validation: string;
+  outcome: string;
+  limitations: string;
+  evidence: string;
+  evidenceUnavailable: string;
+  synthetic: string;
+  personal: string;
+  inProgress: string;
+  completed: string;
+  fullTime: string;
+  training: string;
+  projectEvidence: string;
+  artifact: string;
+  backToProjects: string;
+  backToBlog: string;
+  articleDisclaimer: string;
+  syntheticOverview: string;
+  contactStatus: string;
+  backNavigation: string;
+  topics: string;
+  reviewedRoutes: string;
+  previewOnly: string;
+  contributionBoundaryBody: string;
+  evidenceLabel: string;
+}
+
 export interface UIDictionary {
   skipToContent: string;
   primaryNavigation: string;
@@ -20,6 +70,7 @@ export interface UIDictionary {
   notFoundBody: string;
   backHome: string;
   footerPolicy: string;
+  skeleton: SkeletonDictionary;
 }
 
 export const dictionaries: Record<AppLocale, UIDictionary> = {
@@ -47,6 +98,62 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       "The requested page does not exist or is not available in this language.",
     backHome: "Return home",
     footerPolicy: "English-first. Korean content is published after review.",
+    skeleton: {
+      eyebrow: "Synthetic preview",
+      notice:
+        "All Example-labeled content is synthetic, non-publishable, and shown only to review the portfolio structure.",
+      baseline:
+        "Synthetic professional baseline for layout review; not a real biography.",
+      direction:
+        "Example direction toward evidence-backed software and systems work.",
+      viewProject: "View Example Project",
+      resumeLabel: "Résumé PDF",
+      resumeUnavailable:
+        "Pending verified content; no file is available.",
+      selectedEvidence: "Selected example evidence",
+      experienceSnapshot: "Example experience snapshot",
+      professionalExperience: "Professional experience",
+      educationAndTraining: "Education and training",
+      capabilityEvidence: "Example capability with evidence",
+      recentWriting: "Example writing",
+      viewExperience: "View experience structure",
+      viewAllProjects: "View all example projects",
+      viewBlog: "View example writing",
+      contactUnavailable:
+        "Contact details remain unavailable until factual review is complete.",
+      context: "Context",
+      status: "Status",
+      role: "Role",
+      contributionBoundary: "Contribution boundary",
+      problemAndConstraints: "Problem and constraints",
+      decisions: "Decisions",
+      validation: "Validation",
+      outcome: "Outcome",
+      limitations: "Limitations",
+      evidence: "Evidence",
+      evidenceUnavailable:
+        "No inspectable artifact is attached to this synthetic record.",
+      synthetic: "synthetic",
+      personal: "personal",
+      inProgress: "in progress",
+      completed: "completed",
+      fullTime: "full-time",
+      training: "training",
+      projectEvidence: "project evidence",
+      artifact: "artifact",
+      backToProjects: "Back to projects",
+      backToBlog: "Back to Blog",
+      articleDisclaimer: "Synthetic article — structure review only.",
+      syntheticOverview: "Synthetic overview",
+      contactStatus: "Contact status",
+      backNavigation: "Back navigation",
+      topics: "Topics",
+      reviewedRoutes: "Reviewed routes",
+      previewOnly: "Preview only",
+      contributionBoundaryBody:
+        "Real portfolio content will distinguish the role, team context, individual contribution, and supporting evidence. This synthetic preview demonstrates that structure only.",
+      evidenceLabel: "Example verification artifact",
+    },
   },
   ko: {
     skipToContent: "본문으로 건너뛰기",
@@ -70,6 +177,62 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     notFoundBody: "요청한 페이지가 없거나 이 언어로 제공되지 않습니다.",
     backHome: "홈으로 돌아가기",
     footerPolicy: "영문을 기본으로 하며, 한국어 콘텐츠는 검토 후 공개합니다.",
+    skeleton: {
+      eyebrow: "합성 미리보기",
+      notice:
+        "‘예시’로 표시된 모든 콘텐츠는 합성된 비공개 자료이며 포트폴리오 구조 검토에만 사용됩니다.",
+      baseline:
+        "레이아웃 검토를 위한 합성 경력 기준이며 실제 소개가 아닙니다.",
+      direction:
+        "근거 중심의 소프트웨어 및 시스템 작업을 향한 예시 방향입니다.",
+      viewProject: "예시 프로젝트 보기",
+      resumeLabel: "이력서 PDF",
+      resumeUnavailable:
+        "검증된 콘텐츠를 기다리는 중이며 파일은 제공되지 않습니다.",
+      selectedEvidence: "선택된 예시 근거",
+      experienceSnapshot: "예시 경력 요약",
+      professionalExperience: "경력",
+      educationAndTraining: "학력 및 교육",
+      capabilityEvidence: "근거가 있는 예시 역량",
+      recentWriting: "예시 글",
+      viewExperience: "경력 구조 보기",
+      viewAllProjects: "모든 예시 프로젝트 보기",
+      viewBlog: "예시 글 보기",
+      contactUnavailable:
+        "사실 검토가 완료될 때까지 연락처를 제공하지 않습니다.",
+      context: "맥락",
+      status: "상태",
+      role: "역할",
+      contributionBoundary: "기여 범위",
+      problemAndConstraints: "문제와 제약 조건",
+      decisions: "결정",
+      validation: "검증",
+      outcome: "결과",
+      limitations: "한계",
+      evidence: "근거",
+      evidenceUnavailable:
+        "이 합성 기록에는 검토 가능한 실제 자료가 첨부되지 않았습니다.",
+      synthetic: "합성",
+      personal: "개인",
+      inProgress: "진행 중",
+      completed: "완료",
+      fullTime: "정규직 예시",
+      training: "교육",
+      projectEvidence: "프로젝트 근거",
+      artifact: "자료",
+      backToProjects: "프로젝트로 돌아가기",
+      backToBlog: "블로그로 돌아가기",
+      articleDisclaimer: "합성 글 — 구조 검토 전용입니다.",
+      syntheticOverview: "합성 개요",
+      contactStatus: "연락처 상태",
+      backNavigation: "이전 페이지 탐색",
+      topics: "주제",
+      reviewedRoutes: "검토 경로",
+      previewOnly: "미리보기 전용",
+      contributionBoundaryBody:
+        "실제 포트폴리오 콘텐츠에서는 역할, 팀 맥락, 개인 기여, 이를 뒷받침하는 근거를 구분합니다. 이 합성 미리보기는 해당 구조만 보여 줍니다.",
+      evidenceLabel: "예시 검증 자료",
+    },
   },
 };
 

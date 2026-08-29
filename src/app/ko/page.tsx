@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { Container } from "@/components/ui/container";
-import { PageIntro } from "@/components/ui/page-intro";
+import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
+import { HomePageView } from "@/components/pages/home-page-view";
+import { StatusPageView } from "@/components/pages/status-page-view";
 
 const dict = getDictionary("ko");
 
@@ -14,9 +15,8 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function KoreanHomePage() {
-  return (
-    <Container size="default">
-      <PageIntro title={dict.homeTitle} summary={dict.homeStatus} />
-    </Container>
-  );
+  if (isSkeletonPreviewEnabled()) {
+    return <HomePageView locale="ko" />;
+  }
+  return <StatusPageView title={dict.homeTitle} summary={dict.homeStatus} />;
 }

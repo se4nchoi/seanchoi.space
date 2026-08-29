@@ -10,6 +10,7 @@ import { ProjectCard } from "./project-card";
 import { ArticleCard } from "./article-card";
 import { Figure } from "./figure";
 import { Prose } from "./prose";
+import { ResumeAction } from "./resume-action";
 import { LanguageSwitch } from "../shell/language-switch";
 
 describe("Presentation UI Components (Server Rendering & Contract)", () => {
@@ -189,6 +190,39 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
     it("renders LanguageSwitch with 44px min-height target classes", () => {
       const html = renderToStaticMarkup(<LanguageSwitch currentLocale="en" />);
       expect(html).toContain("min-h-[44px]");
+    });
+  });
+
+  describe("ResumeAction Component (Unavailable & Future Available States)", () => {
+    it("renders unavailable state without href as non-interactive text with no anchor, button, download, or href", () => {
+      const html = renderToStaticMarkup(
+        <ResumeAction
+          label="Résumé PDF"
+          statusText="Pending verified content; no file is available."
+        />
+      );
+      expect(html).toContain("Résumé PDF");
+      expect(html).toContain("Pending verified content; no file is available.");
+      expect(html).not.toContain("<a");
+      expect(html).not.toContain("<button");
+      expect(html).not.toContain("download");
+      expect(html).not.toContain("disabled");
+      expect(html).not.toContain("href=");
+    });
+
+    it("renders accessible download anchor with 44px min-height when href is provided", () => {
+      const html = renderToStaticMarkup(
+        <ResumeAction
+          label="Résumé PDF"
+          statusText="Download verified résumé"
+          href="/assets/resume.pdf"
+        />
+      );
+      expect(html).toContain("<a");
+      expect(html).toContain('href="/assets/resume.pdf"');
+      expect(html).toContain("download");
+      expect(html).toContain("min-h-[44px]");
+      expect(html).toContain("Résumé PDF");
     });
   });
 

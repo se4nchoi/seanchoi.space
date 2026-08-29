@@ -9,7 +9,9 @@ export const ROUTE_PAIRS: RoutePair[] = [
   { en: "/", ko: "/ko" },
   { en: "/experience", ko: "/ko/experience" },
   { en: "/projects", ko: "/ko/projects" },
+  { en: "/projects/example-project", ko: "/ko/projects/example-project" },
   { en: "/blog", ko: "/ko/blog" },
+  { en: "/blog/example-article", ko: "/ko/blog/example-article" },
 ];
 
 export function normalizePathname(rawPath: string): string {
@@ -49,7 +51,15 @@ export function getAlternatePath(pathname: string, targetLocale: AppLocale): str
     }
   }
 
-  // 2. Fallback for /blog/<slug> or /ko/blog/<slug> to Blog index
+  // 2. Fallback for /projects/<slug> or /ko/projects/<slug> to Projects index
+  if (currentLocale === "en" && normalized.startsWith("/projects/")) {
+    return targetLocale === "ko" ? "/ko/projects" : "/projects";
+  }
+  if (currentLocale === "ko" && normalized.startsWith("/ko/projects/")) {
+    return targetLocale === "en" ? "/projects" : "/ko/projects";
+  }
+
+  // 3. Fallback for /blog/<slug> or /ko/blog/<slug> to Blog index
   if (currentLocale === "en" && normalized.startsWith("/blog/")) {
     return targetLocale === "ko" ? "/ko/blog" : "/blog";
   }
@@ -57,7 +67,7 @@ export function getAlternatePath(pathname: string, targetLocale: AppLocale): str
     return targetLocale === "en" ? "/blog" : "/ko/blog";
   }
 
-  // 3. Generic fallback to home
+  // 4. Generic fallback to home
   return targetLocale === "ko" ? "/ko" : "/";
 }
 

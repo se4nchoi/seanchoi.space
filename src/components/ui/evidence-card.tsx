@@ -6,12 +6,14 @@ import { ExternalLink } from "./external-link";
 export interface EvidenceCardProps {
   label: string;
   level: "professional" | "project" | "training" | "exposure";
+  levelLabel?: string;
   sourceKind:
     | "repository"
     | "demo"
     | "artifact"
     | "public-document"
     | "direct-confirmation";
+  sourceKindLabel?: string;
   url?: HttpsUrl;
   className?: string;
 }
@@ -19,7 +21,9 @@ export interface EvidenceCardProps {
 export function EvidenceCard({
   label,
   level,
+  levelLabel,
   sourceKind,
+  sourceKindLabel,
   url,
   className = "",
 }: EvidenceCardProps) {
@@ -32,8 +36,8 @@ export function EvidenceCard({
           {label}
         </span>
         <div className="flex items-center gap-1.5">
-          <Tag variant="muted">{sourceKind}</Tag>
-          <Tag variant="accent">{level}</Tag>
+          <Tag variant="muted">{sourceKindLabel ?? sourceKind}</Tag>
+          <Tag variant="accent">{levelLabel ?? level}</Tag>
         </div>
       </div>
       {url && (

@@ -11,12 +11,10 @@ import { ArticleCard } from "@/components/ui/article-card";
 import { Figure } from "@/components/ui/figure";
 import { Prose } from "@/components/ui/prose";
 import { dictionaries } from "@/i18n/dictionaries";
+import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
 
 export default function ComponentReviewPage() {
-  const isDev = process.env.NODE_ENV === "development";
-  const isPreview = process.env.VERCEL_ENV === "preview";
-
-  if (!isDev && !isPreview) {
+  if (!isSkeletonPreviewEnabled()) {
     notFound();
   }
 
@@ -214,13 +212,15 @@ export default function ComponentReviewPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
-              {(Object.keys(enDict) as (keyof typeof enDict)[]).map((key) => (
-                <tr key={key}>
-                  <td className="p-3 font-mono text-[var(--muted)]">{key}</td>
-                  <td className="p-3">{enDict[key]}</td>
-                  <td className="p-3">{koDict[key]}</td>
-                </tr>
-              ))}
+              {(Object.keys(enDict) as (keyof typeof enDict)[])
+                .filter((key) => typeof enDict[key] === "string")
+                .map((key) => (
+                  <tr key={key}>
+                    <td className="p-3 font-mono text-[var(--muted)]">{key}</td>
+                    <td className="p-3">{enDict[key] as string}</td>
+                    <td className="p-3">{koDict[key] as string}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
