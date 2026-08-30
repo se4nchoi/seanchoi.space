@@ -8,7 +8,7 @@
 
 **Implementation:** Gemini or another explicitly assigned implementation agent
 
-**Initial status:** Structure approved; factual verification remains incomplete
+**Initial status:** WP6 factual baseline approved; official training-program identity and Korean editorial review remain incomplete
 
 **Last reviewed:** 2026-08-30
 
@@ -60,157 +60,127 @@ Silence is not verification. If a field is absent from this contract, treat it a
 
 | Field | Current value or rule | State | Required verification/action |
 | --- | --- | --- | --- |
-| Public display name | `Sean Choi` | `pending` | Sean must confirm exact capitalization and whether this is the universal public form |
-| Korean name | Not yet recorded | `pending` | Sean must supply the exact Hangul form and preferred order |
-| Legal/alternate English name | Handoff references `Yehyun Choi` | `restricted` until confirmed | Sean decides whether it appears anywhere public; do not infer legal-name use |
-| Public email | Legacy site uses `se4n.choi@gmail.com` | `pending` | Sean must confirm the address remains correct for recruiting contact |
-| Public location | `South Korea` | `verified` | May publish at country level only |
-| City | Not approved | `restricted` | Do not infer or publish from the Busan program or other context |
-| Phone number | None public | `prohibited` | Application materials only |
-| Street/full address | None public | `prohibited` | Never publish |
-| Work authorization/immigration details | None public | `prohibited` | Application process only |
-| GitHub | Legacy site uses `https://github.com/se4nchoi` | `pending` | Confirm canonical profile URL and intended visibility |
-| LinkedIn | Legacy site uses `https://www.linkedin.com/in/se4nchoi/` | `pending` | Confirm URL and reconcile facts before launch |
-| Current domain | `seanchoi.space` | `verified` for v2 launch planning | Keep through v2 stabilization; any 2027 move is separate |
+| Public display name | `Sean Choi` | `verified` | Use as the primary public name |
+| Korean name | `최예현` | `verified` | Exact approved Hangul form |
+| Legal/romanized name | `Yehyun Choi` | `verified` | May appear where useful; do not displace the primary public name |
+| Public email | `se4n.choi@gmail.com` | `verified` | Approved recruiting contact |
+| Public location | `South Korea` | `verified` | Preferred public location |
+| City | `Daegu, South Korea` is accurate | `verified`, normally omit | Use only when a later content job needs city precision |
+| Phone, street address, work authorization/immigration details | None public | `prohibited` | Never publish |
+| GitHub | `https://github.com/se4nchoi` | `verified` | Approved canonical profile |
+| LinkedIn | `https://www.linkedin.com/in/se4nchoi/` | `verified` URL | Stale “final-year student” wording must not override June 2026 degree conferral |
+| Current domain | `seanchoi.space` | `verified` for v2 launch planning | Keep through v2 stabilization |
 
 ## 5. Core professional positioning
 
-### Approved direction
+### Approved factual baseline
 
-The current working impression is:
+> Sean Choi is a Computer Engineering graduate with approximately two years of professional software-development experience across frontend applications, full-stack internal tooling, and user-interface integration with operational APIs and streams. He is extending that foundation through in-progress Physical AI and smart-factory training focused on software, equipment, and OT integration.
 
-> Sean Choi is a Computer Engineering graduate with approximately two years of professional experience building full-stack applications and operational integrations. He is extending that foundation toward software that connects data, APIs, and physical systems.
+State: `approved-direction`. Its factual components are verified; final English narrative requires Sean's approval.
 
-State: `approved-direction`.
-
-This statement is not automatically publishable verbatim. Verify each component below before release:
-
-| Component | State | Verification needed |
+| Component | State | Approved boundary |
 | --- | --- | --- |
-| Computer Engineering graduate | `pending` | Official degree name, institution, completion/conferral status, and date |
-| Approximately two years of professional experience | `pending` | Reconcile employment dates and what counts as professional software experience |
-| Full-stack applications | `pending` | Identify verified roles/projects and contribution boundaries |
-| Operational integrations | `pending` | Name representative systems/APIs/interfaces without inflating ownership |
-| Extending toward software connecting data, APIs, and physical systems | `verified` as trajectory | Support with current study/project evidence before making it prominent |
+| Computer Engineering graduate | `verified` | Approved BASc wording in Section 6; conferred June 2026; never publish CGPA |
+| Approximately two years' professional experience | `verified` | Approved EMG and Hoek dates; month precision |
+| Frontend applications | `verified` | EMG and Hoek within Section 7 boundaries |
+| Full-stack internal tooling | `verified`, bounded | Hoek attendance product included actual Koa/MySQL backend work; not a contractual title |
+| Operational API/stream integration | `verified`, bounded | EMG frontend consumed APIs/streams built by senior/backend engineers; Sean implemented React UI/control integration for the real-vehicle door-lock feature |
+| Physical AI/smart-factory direction | `verified` as trajectory | In-progress training, not professional specialization |
 
 ### Positioning boundaries
 
-| Language | State | Rule |
-| --- | --- | --- |
-| “Software engineer” | `pending` | May publish after titles/experience are reconciled |
-| “Full-stack engineer/developer” | `pending` | Must be supported by verified work boundaries |
-| “Systems integration experience” | `pending` | Must specify actual integration work accurately |
-| “Physical AI engineer,” “robotics engineer,” or “automation engineer” | `prohibited` as current lead identity | Reconsider only after substantial verified evidence or professional experience |
-| “Embedded engineer,” “PLC engineer,” “SCADA engineer,” or semiconductor specialist | `prohibited` without new evidence | Training/exposure never justifies professional title |
-| “Expert” or equivalent mastery claims | `prohibited` | Prefer evidence and scope |
+| Language | State/rule |
+| --- | --- |
+| “Software developer” | `verified`; safe general identity and EMG website title |
+| “Software engineer” | `restricted` as default/general or contractual website title; targeted résumé use only |
+| “Full-stack engineer/developer” | `verified`, bounded Hoek prose only; not a recovered contractual title |
+| “Systems integration experience” | `verified`, bounded; name interfaces/team boundaries and never imply EMG backend, firmware, embedded, or full-system ownership |
+| Professional robotics, embedded, automation, PLC, SCADA, or edge-AI titles | `prohibited` |
+| “Expert” or equivalent | `prohibited` |
 
 ## 6. Education and training
 
-| Record | Legacy/context claim | State | Publication boundary/action |
-| --- | --- | --- | --- |
-| University of Toronto | Computer Engineering | `pending` | Verify official program/degree name, dates, and graduation/conferral status |
-| Graduation status | Handoff says graduate; v1 says expecting 2026 | `pending` and conflicting | Must resolve before any v2 publication |
-| Busan program | Current/future trajectory context | `pending` | Record official program name, provider, dates, curriculum, status, and completed outputs before publication |
-| Manufacturing/automation study | General trajectory | `approved-direction` | Describe only completed hands-on work; label training explicitly |
-| Robotics/Physical AI study | General trajectory | `approved-direction` | Do not imply professional deployment or production ownership |
-| Coursework/tools not yet used | None | `prohibited` | Do not list prospectively |
+| Record | Approved value | State/boundary |
+| --- | --- | --- |
+| University of Toronto | `Bachelor of Applied Science (BASc), Computer Engineering — University of Toronto, 2026` | `verified`; completed/conferred June 2026; supersedes stale “final-year student” wording |
+| CGPA | `2.22` in private evidence | `prohibited`; do not publish |
+| Program label | `Physical AI & Smart Factory Training Program — June–December 2026` | `verified` interim label; official name/provider `pending` |
+| Dates/status | June 22–December 24, 2026; in progress | `verified`; public month precision |
+| Study areas | PLC/ladder logic, sensors/IoT, industrial networking, Linux/WSL, Docker, AI/ML, OpenVINO, equipment/OT integration concepts | `verified` training scope; not professional expertise |
+| Classroom LAN Chat | FastAPI, WebSocket, SQLite; used successfully by 22 trainees | `verified` training output; no broader impact inference |
+| 대나무지식인 | Four-person classroom Q&A MVP; Sean handled backend/database integration | `verified` training output; preserve boundary |
+| Exercises | PLC, Arduino, sensor, local-network implementation | `verified` training output; not production |
+| ROS 2, robotics controls, edge-AI current learning | Current learning | `restricted` to learning context; not professional expertise/completed-project evidence |
 
-Training records require `status` (`planned`, `in-progress`, `completed`) and an evidence level. Only `in-progress` or `completed` items may appear, and their wording must match the current status.
+Training records require accurate `planned`, `in-progress`, or `completed` status and an evidence level. Do not list unused coursework/tools prospectively.
 
 ## 7. Professional experience ledger
 
-All entries below originate from v1 or the exploration handoff and remain `pending` until Sean verifies dates, titles, employer naming, contribution boundaries, disclosure permission, and supporting evidence.
+### Hoek Agency (획기획)
 
-### Hoek Agency
-
-| Field | Legacy value | State |
+| Field | Approved value | State/boundary |
 | --- | --- | --- |
-| Organization | Hoek Agency | `pending` |
-| Title | Software Engineer | `pending` |
-| Dates | August 2022 – August 2023 | `pending` |
-| General work | Internal product/full-stack application work | `pending` |
-| “Product lead” or end-to-end ownership | Legacy claim | `pending`; do not publish until role boundary is verified |
-| 10% operating-cost reduction | Legacy claim | `prohibited` until a credible source/method is documented |
-| 15% workflow improvement | Legacy claim | `prohibited` until a credible source/method is documented |
-| Four hours weekly saved | Legacy claim | `prohibited` until a credible source/method is documented |
-
-Required verification: actual team and role structure; frontend/backend/database responsibilities; deployment/maintenance involvement; named product disclosure; what Sean individually owned; which outcomes can be substantiated.
+| Organization | `Hoek Agency (획기획)` | `verified`; omit 제조도 from heading |
+| Title | `Software Developer — Frontend to Full-Stack` | `verified` safe public title; contractual title unrecovered |
+| Dates | September 2022–August 2023 | `verified`; actual start Sep 5; final day unavailable |
+| Attendance product | Frontend plus actual Koa/MySQL backend development | `verified`; bounded full-stack prose |
+| “Full-Stack Engineer” contractual title; product-lead/end-to-end ownership | Not verified | `prohibited` |
+| Unsupported percentages/metrics | Legacy claims | `prohibited` |
 
 ### EMG Global
 
-| Field | Legacy value | State |
+| Field | Approved value | State/boundary |
 | --- | --- | --- |
-| Organization | EMG Global | `pending` |
-| Title | Software Engineer | `pending` |
-| Dates | July 2021 – July 2022 | `pending` |
-| Context | University co-op/PEY | `pending` |
-| Frontend/dashboard work | Legacy claim | `pending`; define exact interface and contribution |
-| Smart-city project participation | Legacy claim | `pending`; distinguish team/project result from individual impact |
-| jQuery/React and Spring/Spring Boot migration | Legacy claim | `pending`; verify Sean’s contribution to each layer |
-| Vite migration/startup improvement | Legacy claim | `pending`; verify measurement and ownership before using numbers |
-| EV/API/vehicle integration | Handoff direction | `pending`; state interfaces and boundaries precisely |
-| Android WebView/native Android ownership | Legacy wording is ambiguous | `prohibited` unless exact implementation boundary supports it |
-| Daegu finalist/funding attribution | Legacy claim | `prohibited` as individual-impact language; project context may be used only with sourced, bounded wording |
-| 90% startup improvement, 30 to 1 second | Legacy claim | `prohibited` until measurement and attribution are verified |
-| Customer satisfaction below 50% to 85%+ | Legacy claim | `prohibited` until source, sample, causality, and permission are verified |
-
-Required verification: employer/product disclosure permission; exact frontend, WebView, API, file-transfer, or vehicle-interface contributions; team boundaries; deploy context; externally inspectable artifacts.
+| Organization/title | `EMG Global`; official `개발자`; website `Software Developer` | `verified`; “Software Engineer” only in separately approved targeted résumés |
+| Dates | July 2021–July 31, 2022 | `verified`; publish July 2021–July 2022; supersedes Aug 2021 start/July 12 end |
+| Frontend/API/stream integration | Frontend interfaces integrated with APIs/streams built by senior/backend engineers | `verified`; no backend, WebSocket, or data-pipeline ownership |
+| Door-lock feature | Embedded team built module; backend exposed HTTPS API; Sean built React UI/control integration; worked on real vehicle | `verified`; preserve all boundaries |
+| Firmware/embedded ownership, exact CCTV counts, personal funding/selection attribution, satisfaction/performance metrics | Not approved/unsupported | `prohibited` |
 
 ### Korea Defense Intelligence Command
 
-| Field | Legacy value | State |
-| --- | --- | --- |
-| Organization naming | Korea Defense Intelligence Command | `pending` and disclosure-sensitive |
-| Title | Intelligence Specialist | `pending` |
-| Dates | January 2016 – October 2018 | `pending` |
-| VBA/JavaScript document automation | Legacy claim | `pending`; security/disclosure review required |
-| Lead Sergeant / 20 members | Legacy claim | `pending` |
-| Soldier’s Merit of Honour | Legacy claim | `pending`; verify official English name |
-| 67% time reduction, 30 to 10 minutes | Legacy claim | `prohibited` until measurement and disclosure are verified |
-
-Required verification: safe public organization/title wording, confidentiality constraints, official award translation, and whether automation details may be discussed publicly.
+`Korea Defense Intelligence Command — Sergeant / English Interpreter, October 2016–July 2018` is `verified` compact additional experience. It may support bilingual communication, translation, and structured-environment work. Keep brief; automation/operational metrics and unverified leadership/award claims are `prohibited`.
 
 ## 8. Projects and case studies
 
-No flagship project is approved yet.
+No WP7 flagship is approved. WP6 may include verified Section 6 training outputs as compact evidence records, not inflated case studies or professional deployments.
 
-Expected candidates may emerge from Busan program work and side projects around October–December. A project becomes publishable only after Codex prepares and Sean approves a case-study specification containing:
+Detailed case studies require separate approved specifications with context, contribution boundaries, artifact-grounded decisions, verification, limitations, disclosure-safe evidence, actual technologies, and localization status.
 
-- project title and status;
-- context: professional, personal, training, or academic;
-- Sean’s role and explicit contribution boundary;
-- problem and constraints;
-- architecture/implementation decisions grounded in artifacts;
-- verification/testing performed;
-- outcome without invented metrics;
-- limitations and unfinished areas;
-- public repository, demo, screenshot, diagram, or disclosure-safe evidence;
-- technologies actually used;
-- English copy and Korean translation status.
+### Explicit restrictions
 
-### Explicit project restrictions
-
-- Do not publish placeholder projects. Use `Example Project` plus `syntheticPlaceholder: true` only in non-production fixtures.
-- Do not call a simulator a production deployment.
-- Do not call an AMR simulator a production ACS or real fleet manager.
-- Do not imply independently designed industrial architecture when following a course, lab, or supplied specification.
-- Do not list planned features as completed.
-- Do not choose a flagship solely because its keywords match a target role.
+- No public placeholders, planned features as completed, or simulator-as-production claims.
+- Do not call an AMR simulator a production ACS/fleet manager or imply independently designed industrial architecture from guided work.
+- Do not include CAN/STM32/FreeRTOS as completed WP6 projects.
+- STM32/MCP2515 was exploratory: basic SPI/mode communication was tested; end-to-end CAN transmission/reception was not completed or physically revalidated.
+- A simulated-data telemetry dashboard is only a prototype if retained.
+- FreeRTOS completion/inspectable evidence is unverified.
+- Exclude embedded/CAN work unless later approved explicitly as unfinished lab exploration.
 
 ## 9. Skills and evidence levels
 
 Skills are evidence references, not self-ratings.
 
-| Level | Meaning | Public treatment |
-| --- | --- | --- |
-| `professional` | Used in paid work with a verified context and boundary | Eligible for prominent use |
-| `project` | Demonstrated in a substantial inspectable project | Eligible when linked to the project |
-| `training` | Used in current/completed coursework, lab, or guided program | Label as training |
-| `exposure` | Read, observed, or used briefly | Normally exclude from prominent displays |
+| Level | Meaning/public treatment |
+| --- | --- |
+| `professional` | Verified paid-work use; eligible with context |
+| `project` | Substantial inspectable project; link evidence |
+| `training` | Current/completed coursework/lab; label training |
+| `exposure` | Brief use/learning; normally omit prominently |
 
-Legacy v1 lists JavaScript, TypeScript, Python, React, Next.js, Node.js, Express, PostgreSQL, MySQL, Git, Docker, Figma, and AWS. Every item is `pending` for v2 until it has an approved evidence reference and appropriate level. Repository use alone may demonstrate use in this project but does not prove professional experience.
+| Skill/area | Level and approved boundary |
+| --- | --- |
+| Frontend development/React interfaces | `professional`; EMG and Hoek |
+| API/stream integration | `professional`; EMG frontend consumption only; senior/backend engineers built APIs/streams |
+| Koa/MySQL backend development | `professional`; Hoek attendance product only |
+| FastAPI/WebSocket/SQLite | `training`; Classroom LAN Chat; never transfer backend/WebSocket ownership to EMG |
+| PLC/ladder, Arduino, sensors/IoT, local networking | `training`; completed exercises |
+| Linux/WSL, Docker, industrial networking, AI/ML, OpenVINO, equipment/OT concepts | `training`; in-progress scope, not established expertise |
+| ROS 2, robotics controls, edge-AI | `exposure`/current learning; normally omit prominently |
+| C/C++, STM32, SPI, CAN, FreeRTOS | `exposure`/unfinished lab; normally omit WP6 |
 
-Do not publish proficiency percentages, star ratings, years-of-experience estimates per tool, or “expert” labels.
+Unmapped technologies remain `pending`. Repository use alone does not prove professional experience. Never publish proficiency ratings, percentages, per-tool experience estimates, or “expert” labels.
 
 ## 10. Historical articles
 
@@ -270,22 +240,19 @@ Before a factual content change is publishable, verify:
 - [ ] Project links and artifacts are accessible and disclosure-safe.
 - [ ] Synthetic placeholders and drafts cannot enter production.
 
-## 15. Evidence needed from Sean
+## 15. Evidence and approvals still needed from Sean
 
-The next factual review should collect, without committing private documents to the repository:
+The Sections 4–9 baseline supersedes corresponding legacy résumé, profile, and site claims. Remaining WP6 inputs:
 
-1. Preferred English display name and Korean name.
-2. Confirmed public email, GitHub, and LinkedIn URL.
-3. Official University of Toronto degree/program name and graduation/conferral status/date.
-4. Employer names, titles, start/end dates, employment types, and safe location conventions.
-5. For each role: team context, actual responsibilities, individual contribution boundaries, technologies, and disclosure limits.
-6. Sources or withdrawal decisions for every legacy metric.
-7. Safe official wording for military role, organization, leadership scope, and award.
-8. Official Busan program name, provider, dates, current status, curriculum, and completed artifacts.
-9. Reviewed LinkedIn facts and, only if Sean supplies one transiently, private résumé reconciliation notes.
-10. Candidate project evidence as projects mature.
+1. Exact official Busan program name/provider.
+2. Approval of proposed English narrative and role descriptions.
+3. Human review of Korean translations after English approval.
+4. Optional recovered Hoek contractual title; until then Section 7 governs.
+5. Disclosure-safe artifacts if training outputs become more than compact records.
+6. LinkedIn reconciliation of stale student wording.
+7. WP7 flagship-project evidence as projects mature.
 
-Private evidence may be reviewed transiently and summarized into approved facts. Do not copy sensitive documents, identifiers, or unnecessary personal data into Git.
+Private evidence may be reviewed transiently and summarized into approved facts. Never copy sensitive documents, identifiers, or unnecessary personal data into Git.
 
 ## 16. Change control
 
@@ -301,5 +268,12 @@ Record consequential approvals here:
 | 2026-08-28 | Canonical writing route | `pending` | `verified` | Retain `/blog` | Sean |
 | 2026-08-28 | About | `pending` | `verified` | Defer; short homepage context only | Sean |
 | 2026-08-30 | Public résumé output | `required` | `verified omitted` | No public PDF, route, action, asset, metadata, or analytics event; private application résumés stay outside Git | Sean |
+| 2026-08-30 | Identity/contact | `pending/restricted` | `verified` | Sean Choi; Yehyun Choi; 최예현; approved email, profiles, and South Korea location | Sean |
+| 2026-08-30 | University degree | `pending/conflicting` | `verified` | BASc Computer Engineering, University of Toronto, 2026; conferred June; omit CGPA | Sean |
+| 2026-08-30 | Hoek employment | `pending` | `verified`, bounded | Approved organization, safe title, dates, and attendance-product backend boundary | Sean |
+| 2026-08-30 | EMG employment | `pending` | `verified`, bounded | Software Developer; July 2021–July 2022; frontend API/stream and vehicle UI boundaries | Sean |
+| 2026-08-30 | Military service | `pending` | `verified`, compact | Sergeant / English Interpreter, October 2016–July 2018 | Sean |
+| 2026-08-30 | Current training | `pending` | `verified`, in progress | Interim label, dates, study areas and outputs; official name/provider pending | Sean |
+| 2026-08-30 | Embedded/CAN claims | `pending` | `prohibited` as completed work | Unfinished lab/prototype boundaries only | Sean |
 
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.
