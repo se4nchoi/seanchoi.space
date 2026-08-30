@@ -14,7 +14,7 @@ import { dictionaries } from "@/i18n/dictionaries";
 
 describe("Page Components Server Rendering & Semantic Structure", () => {
   describe("HomePageView", () => {
-    it("renders English Home hierarchy, single h1, notice, project link, non-interactive resume, and strictly ordered sections", () => {
+    it("renders English Home hierarchy, single h1, notice, project link, and strictly ordered sections", () => {
       const html = renderToStaticMarkup(<HomePageView locale="en" />);
 
       // Single h1
@@ -28,12 +28,12 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
         "All Example-labeled content is synthetic, non-publishable, and shown only to review the portfolio structure."
       );
 
-      // Project link & Resume placement
+      // Project link placement
       expect(html).toContain('href="/projects/example-project"');
       expect(html).toContain("View Example Project");
-      expect(html).toContain("Résumé PDF");
-      expect(html).toContain("Pending verified content; no file is available.");
-      expect(html).not.toContain('href="/assets/resume.pdf"');
+      expect(html).not.toContain("Résumé");
+      expect(html).not.toContain("이력서");
+      expect(html).not.toContain(".pdf");
 
       // Compact fact strip with reviewed routes & preview only
       expect(html).toContain("Example Organization · full-time");

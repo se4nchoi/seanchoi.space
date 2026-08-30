@@ -80,17 +80,16 @@ Initial page types:
 - `/blog` — article index and restrained topic discovery
 - `/blog/[slug]` — article
 - `/feed.xml` — RSS/Atom
-- public résumé PDF action — no duplicated web-résumé page by default
 
 About is deferred. Do not add it without a later approved content job. Keep `/blog` canonical. Redirect `/work` to `/experience`. Preserve changed article slugs with explicit permanent redirects. Do not emit nonexistent routes such as v1’s `/uses` sitemap entry.
 
-### Résumé and privacy
+### Career evidence and privacy
 
 - The portfolio provides deeper evidence than a submitted résumé; it does not repeat it verbatim.
-- Offer a downloadable public résumé PDF for visitors who discover the site independently.
+- Do not publish a résumé PDF, résumé route, résumé download action, résumé asset, or résumé metadata in v2. Application-specific résumés remain private and outside this repository.
 - Public contact data is limited to email and `South Korea`.
 - Do not publish phone number, street address, or work-authorization/immigration details.
-- Site, public PDF, and reviewed LinkedIn facts must agree before launch.
+- Site and reviewed LinkedIn facts must agree before launch.
 
 ### Deferred features
 
@@ -142,7 +141,7 @@ The current approved clean-slate foundation versions are Next.js `16.3.3`, React
 
 Prefer server components. Add client components only for genuine browser interaction. Do not add infrastructure or dependencies to appear sophisticated.
 
-Keep factual data separate from narrative MDX. Validate identity, experience, education/training, skills, projects, articles, links, localization, evidence references, and résumé metadata.
+Keep factual data separate from narrative MDX. Validate identity, experience, education/training, skills, projects, articles, links, localization, and evidence references.
 
 Build-time checks should cover duplicate IDs/slugs, bad dates, broken evidence references, invalid translation relationships, missing assets/alt intent, broken links/redirects, future dates, and draft/synthetic leakage.
 
@@ -151,7 +150,7 @@ Build-time checks should cover duplicate IDs/slugs, bad dates, broken evidence r
 Use a restrained editorial/engineering hybrid:
 
 - strong typography and reading rhythm;
-- neutral base with one accessible accent;
+- neutral near-white/near-black base derived from v1 with one accessible restrained blue accent; do not use green or teal as the brand/UI accent;
 - modest mono treatment for evidence metadata;
 - authentic project artifacts instead of generic industrial imagery;
 - diagrams only for real system/data boundaries;
@@ -175,7 +174,7 @@ Do not disable, skip, loosen, or delete a failing check without explaining the r
 
 ## 10. Analytics and SEO
 
-Use minimal Vercel Web Analytics and Speed Insights. Approved event candidates: résumé download, repository/demo click, email/contact click, and language switch. Never include email addresses, sensitive identifiers, or personal data in event properties.
+Use minimal Vercel Web Analytics and Speed Insights. Approved event candidates: repository/demo click, email/contact click, and language switch. Never include email addresses, sensitive identifiers, or personal data in event properties.
 
 SEO baseline: localized titles/descriptions, self-canonicals, reciprocal language alternates, robots, sitemap, feed, real 404s, stable routes, tested permanent redirects, social metadata, factual structured data, and protected/noindexed previews.
 
@@ -189,7 +188,7 @@ Follow `docs/portfolio-v2-implementation-plan.md` in order:
 4. WP3 — design system and bilingual shell
 5. WP4 — representative page skeletons
 6. WP5 — blog platform and historical URLs
-7. WP6 — verified career content and résumé PDF
+7. WP6 — verified career content and public contact paths
 8. WP7 — flagship project case studies
 9. WP8 — SEO, analytics, accessibility, performance
 10. WP9 — migration rehearsal, cutover, rollback

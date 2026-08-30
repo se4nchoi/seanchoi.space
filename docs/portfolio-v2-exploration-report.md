@@ -1,8 +1,8 @@
 # Portfolio v2 Exploration Report
 
-**Status:** Architecture amended for a clean-slate v2; foundation implementation pending
+**Status:** WP1–WP5 accepted and checkpointed; product/design decisions amended 2026-08-30; WP6A specified
 
-**Repository:** `seanchoi.space`, clean `main` at `c89816d`
+**Repository baseline:** `seanchoi.space`, branch `v2`, WP5 checkpoint `8b850080657bf758b635509d46f6e33f5da61293`
 
 **Date:** 2026-08-28
 
@@ -10,7 +10,7 @@
 
 Build v2 as a new application in this repository on the `v2` branch, using pull requests and isolated Vercel previews while `main` continues to serve v1. The v1 tag preserves the old implementation; its application tree and dependency graph are not migration inputs. Choose Next.js App Router and TypeScript on their current merits, then make launch v2 static-first: no database, accounts, comments, live view counts, chatbot, or Notion integration. Use Git-tracked, schema-validated data for career facts and MDX for projects and articles. Treat any future Notion-to-MDX tool as a separate peripheral service and a possible v3 concern.
 
-Prioritize visitors in this order: recruiter performing a 20–30 second skim, hiring manager assessing evidence, then technical peer reviewing depth. The primary market is Korea plus international roles, with English as the default and Korean as a reviewed localization. Use **Home, Experience, Projects, Blog** as primary navigation, with a visible résumé PDF action rather than a duplicated web-résumé section. Defer About unless it earns a distinct job.
+Prioritize visitors in this order: recruiter performing a 20–30 second skim, hiring manager assessing evidence, then technical peer reviewing depth. The primary market is Korea plus international roles, with English as the default and Korean as a reviewed localization. Use **Home, Experience, Projects, Blog** as primary navigation. The site itself supplies career evidence and a verified contact path; v2 has no public résumé output. Defer About unless it earns a distinct job.
 
 Adopt a restrained editorial/engineering hybrid: excellent reading hierarchy with modest system-oriented evidence labels and diagrams. Avoid dashboard or terminal cosplay, gratuitous motion, and visual claims of industrial experience unsupported by content.
 
@@ -19,12 +19,12 @@ Adopt a restrained editorial/engineering hybrid: excellent reading hierarchy wit
 | Repository | Same repository, v2 branch | Yes | Separate ownership/deployment boundary |
 | Framework | Fresh Next.js App Router application | Yes, costly later | Prototype proves another framework materially simpler/faster |
 | Rendering | Prerender all launch content | Yes | Proven request-time requirement |
-| Career data | Typed local data plus publication contract | Yes | Trusted external canonical résumé source |
+| Career data | Typed local data plus publication contract | Yes | Reviewed LinkedIn facts and Sean-supplied evidence candidates |
 | Projects/articles | Validated MDX and local assets | Yes | Multiple editors or high volume justify a CMS |
 | Notion | Omit from v2; possible external v3 importer | Yes | A later authoring workflow proves the maintenance worthwhile |
 | Runtime services | None at launch | Yes | Measurable user need and operating budget |
 | Localization | English default plus reviewed Korean locale | Yes | Maintenance cost exceeds recruiting value |
-| Résumé | Public redacted PDF link; no duplicate web résumé | Yes | Recruiter testing shows a web version materially improves access |
+| Résumé | Omitted from the public v2 product; application résumés remain private and outside the repository | Yes | A later approved product decision establishes a public need |
 
 ## 2. Confirmed facts versus assumptions
 
@@ -47,7 +47,7 @@ Adopt a restrained editorial/engineering hybrid: excellent reading hierarchy wit
 | Instructions | `AGENTS.md` still says student/upcoming graduation, PGWP targeting, PostgreSQL, undecided tests, and “Jules” | Stale project context; reconcile separately before implementation. |
 | Verification | Dependencies are absent and installation was prohibited | No build/test result is claimed. Establish a green v1 baseline later. |
 
-Working assumptions needing confirmation: production deploys `main` through Vercel; existing public URLs merit continuity; a canonical public résumé PDF exists or will be created; and all provisional positioning still requires verification against the content contract.
+Working assumptions needing confirmation: production deploys `main` through Vercel; existing public URLs merit continuity; and all provisional positioning still requires verification against the content contract.
 
 Decisions confirmed by Sean: Korea plus international is the primary market; English is the default site language with Korean localization; Notion is outside v2; `/blog` remains canonical; public contact data is email plus `South Korea`; no phone or work-authorization details are public; minimal Vercel analytics is preferred; About is deferred; flagship projects are not yet selected; and historical retrospectives require revision and may receive new slugs with redirects.
 
@@ -56,14 +56,14 @@ Decisions confirmed by Sean: Korea plus international is the primary market; Eng
 The recruiter comes first because this visitor determines whether deeper evaluation occurs. The hiring manager comes second because relevance and credibility convert a skim into an interview. The technical peer comes third because implementation depth matters after the candidate is understood.
 
 ```text
-20–30 s: identity → professional baseline → direction → strongest evidence → résumé/contact
+20–30 s: identity → professional baseline → direction → strongest evidence → contact
 2 min:   experience boundaries → selected projects → evidence-backed skills → role fit
 5–15 m:  case-study decisions → constraints → architecture → validation → repository/demo
 ```
 
 | Visitor | First question | Required path | Failure to avoid |
 | --- | --- | --- | --- |
-| Recruiter | Who is Sean and is he relevant? | Hero → evidence → résumé/contact | Aspirational keywords hiding professional experience |
+| Recruiter | Who is Sean and is he relevant? | Hero → evidence → contact | Aspirational keywords hiding professional experience |
 | Hiring manager | What did he personally do? | Evidence item → boundaries → outcomes/links | Team outcomes presented as sole ownership |
 | Technical peer | Can I inspect his reasoning? | Case study → tradeoffs/tests → repo/demo/writing | Tool lists without evidence |
 
@@ -87,11 +87,10 @@ This is more credible than leading with “Physical AI/robotics engineer,” whi
 | `/projects/[slug]` | Required | Context, role, constraints, decisions, validation, outcome, links |
 | `/blog` | Required | Article index with restrained topics/sections |
 | `/blog/[slug]` | Required | Accessible articles and related content |
-| Public résumé PDF | Required action, not necessarily a route | Redacted application-style summary for recruiters who discover the site independently |
 | `/feed.xml` | Required | RSS/Atom discovery |
 | `/about` | Deferred | Only for a distinct durable personal story |
 
-The name links home; primary navigation contains Experience, Projects, and Blog. Put the language switcher and résumé PDF action in the header without giving either equal visual weight to every navigation item. Put GitHub, LinkedIn, email, RSS, and privacy notes in the footer/contact area.
+The name links home; primary navigation contains Experience, Projects, and Blog. Keep the language switcher discoverable without giving it equal visual weight to every navigation item. Put GitHub, LinkedIn, email, RSS, and privacy notes in the footer/contact area.
 
 Experience may link to project case studies or retrospectives, but facts remain canonical in career data. Projects and articles cross-link through a small controlled taxonomy of roughly 5–8 durable topics. Add simple tags/filters only when the collection is large enough; do not build full-text search for a small launch corpus. Do not launch a separate skills page.
 
@@ -101,13 +100,13 @@ Exclude at launch: chatbot/RAG, accounts, comments, likes, view counts, database
 
 ## 6. Homepage content hierarchy
 
-**First viewport:** name and professional baseline; two-sentence positioning; View projects and Download résumé actions; an optional compact strip of verified facts; and a discoverable `EN / 한국어` switch. Answer “who, proven at what level, moving toward what, and where is the evidence?”
+**First viewport:** name and professional baseline; two-sentence positioning; a View projects action; an optional compact strip of verified facts; and a discoverable `EN / 한국어` switch. Add a contact action only after its destination is verified. Answer “who, proven at what level, moving toward what, and where is the evidence?”
 
-**First 30 seconds:** two or three selected evidence cards; concise experience snapshot; explicit separation between professional experience and current training; visible résumé/contact paths.
+**First 30 seconds:** two or three selected evidence cards; concise experience snapshot; explicit separation between professional experience and current training; a visible verified contact path.
 
 **Two-minute scan:** selected projects with status, role, evidence type, and inspectable links; evidence-backed capability groups; two or three articles; short human note and contact footer.
 
-Move complete employment narratives to Experience; architecture and tradeoffs to case studies; full skill inventory to résumé/evidence metadata; the photo collection to optional About; and the detailed transition narrative to Experience or a focused article. The homepage must be neither a shallow link directory nor a duplicate résumé.
+Move complete employment narratives to Experience; architecture and tradeoffs to case studies; full skill inventory to evidence metadata; the photo collection to optional About; and the detailed transition narrative to Experience or a focused article. The homepage must not become a shallow link directory or exhaustive career chronology.
 
 ## 7. Content model and canonical-source rules
 
@@ -116,23 +115,22 @@ Use build-time schema validation, such as Zod. Keep facts separate from narrativ
 | Content | Format | Canonical source | Derived uses |
 | --- | --- | --- | --- |
 | Identity/positioning | Validated local data | Reviewed site data | Hero, metadata, Person JSON-LD |
-| Employment | Validated local data | Content-contract-governed career data | Experience, home summary, résumé |
-| Education/training | Validated local data | Reviewed career data | Experience, résumé |
-| Skills | Data with evidence references | Reviewed career data | Facets, résumé, filters |
+| Employment | Validated local data | Content-contract-governed career data | Experience, home summary |
+| Education/training | Validated local data | Reviewed career data | Experience |
+| Skills | Data with evidence references | Reviewed career data | Facets, filters |
 | Projects | Frontmatter plus MDX | Reviewed local MDX | Index, case study, related content |
 | Articles | Frontmatter plus MDX | Git after review | Index, feed, sitemap, JSON-LD |
 | Navigation/social | Site data | Reviewed local data | Header/footer/contact |
-| Résumé | Career data plus presentation config | Structured career data | Redacted verified/generated PDF |
 
-The public output is a redacted PDF rather than a duplicated web résumé. The site’s Experience and project pages provide the deeper evidence that a submitted résumé cannot.
+The site’s Experience and project pages provide the public evidence system. Application-specific résumés remain private, are not stored in the repository, and may be reviewed only as transient evidence candidates when Sean supplies them.
 
 Localized core content should share stable record IDs while storing reviewed `en` and `ko` fields. Article records need `locale`, `translationOf`, and translation-availability metadata so alternate versions can be linked without pretending every post has been translated.
 
-Minimum concepts: `SiteIdentity`; `Experience` with dates, contributions, evidence references and verification status; `EducationOrTraining` with status and evidence level; `Skill` with evidence references; `Project` with role, boundary, status, links, topics, draft and synthetic-placeholder flag; `Article` with dates, topics, source and optional Notion source ID; and `ResumeMetadata` with revision/effective date/PDF path.
+Minimum concepts: `SiteIdentity`; `Experience` with dates, contributions, evidence references and verification status; `EducationOrTraining` with status and evidence level; `Skill` with evidence references; `Project` with role, boundary, status, links, topics, draft and synthetic-placeholder flag; `Article` with dates, topics, source and optional Notion source ID.
 
 Evidence levels should describe source, not subjective mastery: `professional`, `project`, `training`, and `exposure`. Prominent skills require evidence references. Do not use percentage ratings or “expert.”
 
-Before real migration, create `docs/portfolio-content-contract.md` containing authoritative identity/contact, employment and education facts; allowed contribution boundaries; allowed/disputed/prohibited metrics with sources; professional/project/training/exposure distinctions; confidentiality rules; canonical role labels; résumé/LinkedIn/site consistency checklist; reviewer, verification date, and change log.
+Before real migration, create `docs/portfolio-content-contract.md` containing authoritative identity/contact, employment and education facts; allowed contribution boundaries; allowed/disputed/prohibited metrics with sources; professional/project/training/exposure distinctions; confidentiality rules; canonical role labels; LinkedIn/site consistency checklist; reviewer, verification date, and change log.
 
 Builds must reject invalid dates, duplicate slugs/IDs, broken evidence references, missing required summaries/assets, future publication dates, and production-visible synthetic placeholders. Placeholder records must be unmistakable (for example, **Example Project**) and marked `syntheticPlaceholder: true`. Schemas validate consistency, not truth; human review remains required.
 
@@ -165,7 +163,9 @@ Consider a headless CMS only when multiple non-technical editors, scheduled work
 | Engineering/system | Distinctive, supports diagrams/evidence | Can become theatre or overstate specialization | Conditional |
 | Editorial/engineering hybrid | Readable plus distinctive evidence treatment | Requires consistent grammar | **Recommended** |
 
-Principles: typography leads; one readable sans and restrained mono role; neutral base plus one accessible accent; project records foreground status/role/evidence; diagrams represent real boundaries; authentic screenshots beat stock industry imagery; motion respects reduced motion; tokens cover type/space/color/focus; WCAG 2.2 AA is baseline; and responsive layouts are content-driven.
+Principles: typography leads; one readable sans and restrained mono role; a v1-derived near-white/near-black neutral base plus one restrained accessible blue accent; no green or teal brand/UI accent; project records foreground status/role/evidence; diagrams represent real boundaries; authentic screenshots beat stock industry imagery; motion respects reduced motion; tokens cover type/space/color/focus; WCAG 2.2 AA is baseline; and responsive layouts are content-driven.
+
+Approved palette tokens are: light background `#fdfdfd`, surface `#ffffff`, foreground `#171717`, muted `#525252`, border `#d4d4d4`, accent/focus `#0b63b6`, and accent foreground `#ffffff`; dark background `#111010`, surface `#181717`, foreground `#f5f5f5`, muted `#a3a3a3`, border `#404040`, accent/focus `#7bb8ff`, and accent foreground `#111010`. The blue is intentionally darker/lighter than v1's selection color where necessary for readable interactive text and focus contrast.
 
 Potential references to reuse after review: narrow reading measure, Geist, dark-mode concept, and prose primitives. Do not carry forward small gray text, heavy photo grid, floating chatbot, or current styling unchanged. Several current homepage JPGs are roughly 2–4 MB and require selection, resizing, and compression.
 
@@ -196,14 +196,14 @@ Assets need stable local paths, dimensions, alt-text intent, ownership/source no
 1. Vitest unit/schema tests for content, dates, evidence references, URLs, and structured data.
 2. Integrity tests for duplicate routes, links, assets, alt text, placeholders, and generated ownership.
 3. Component/accessibility tests for key semantics/interactions.
-4. Playwright smoke tests for main journeys, redirects, PDF, menu/theme keyboard use, 404, article, and project.
+4. Playwright smoke tests for main journeys, redirects, menu/theme keyboard use, 404, article, and project.
 5. CI: TypeScript, lint, tests, production build, link check, and preview Lighthouse/axe budgets.
 
 Keep Vitest and add Playwright. Do not duplicate identical assertions across layers.
 
 SEO baseline: unique metadata and canonical URLs; factual `Person`, `ProfilePage`, `BlogPosting`, and relevant project structured data; sitemap containing only canonical pages; robots; RSS/Atom; social images; stable slugs; breadcrumbs on deep pages; real 404s. Protect or noindex previews.
 
-Analytics: retain Speed Insights during validation and use minimal Vercel Web Analytics rather than adding Google Analytics. Measure page/referrer traffic plus a very small event set: résumé download, project repository/demo click, email/contact click, and language switch. Vercel documents aggregated, cookieless analytics without cross-site or permanent visitor identity ([Vercel Web Analytics](https://vercel.com/docs/analytics), [privacy details](https://vercel.com/docs/analytics/privacy-policy)). Do not send email addresses, slugs containing personal data, or other sensitive event properties.
+Analytics: retain Speed Insights during validation and use minimal Vercel Web Analytics rather than adding Google Analytics. Measure page/referrer traffic plus a very small event set: project repository/demo click, email/contact click, and language switch. Vercel documents aggregated, cookieless analytics without cross-site or permanent visitor identity ([Vercel Web Analytics](https://vercel.com/docs/analytics), [privacy details](https://vercel.com/docs/analytics/privacy-policy)). Do not send email addresses, slugs containing personal data, or other sensitive event properties.
 
 Use pull requests with automatic Vercel previews; Vercel provides isolated preview URLs for Git changes ([Vercel deployments](https://vercel.com/docs/deployments/overview)). Required checks gate merge, and only `main` deploys production.
 
@@ -218,9 +218,9 @@ Use pull requests with automatic Vercel previews; Vercel provides isolated previ
 
 Transfer only content and content assets that fit the new route/content job and pass factual, ownership, accessibility, and performance review. Article slugs and URL history are migration data, not reusable code. Do not carry over the chatbot, database/view counters, Notion sync, hard-coded career copy, parsers, components, styles, tests, workflows, package manifest, or lockfiles. Reimplement any later-needed capability against the v2 contracts.
 
-Before cutover, inventory the production sitemap, search-indexed URLs, top landing pages if analytics is retained, and links from GitHub, LinkedIn, and résumé. Do not blanket-redirect missing pages to home.
+Before cutover, inventory the production sitemap, search-indexed URLs, top landing pages if analytics is retained, and links from GitHub and LinkedIn. Do not blanket-redirect missing pages to home.
 
-Cutover requires approved content contract; verified real content; matching web/PDF résumé and LinkedIn checklist; tested redirect inventory; green checks; no serious accessibility issues; met performance budgets; verified metadata/structured data/feed/sitemap/robots/social previews; browser/viewport and keyboard/screen-reader smoke checks; verified external links; and recorded rollback ownership.
+Cutover requires approved content contract; verified real content; matching site and reviewed LinkedIn checklist; tested redirect inventory; green checks; no serious accessibility issues; met performance budgets; verified metadata/structured data/feed/sitemap/robots/social previews; browser/viewport and keyboard/screen-reader smoke checks; verified external links; and recorded rollback ownership.
 
 Merge/promote the tested release through the existing production project if verified. If it fails, promote/redeploy the tagged v1 artifact or revert the merge through a normal reviewed commit. Keep the v2 branch and add a regression test before retrying.
 
@@ -239,7 +239,7 @@ Because the old domain must remain active for a reliable migration, budget for a
 | Risk | Mitigation | Tradeoff |
 | --- | --- | --- |
 | Aspiration outruns evidence | Lead with baseline; label training; evidence links | Less aggressive keywords initially |
-| Site/PDF/LinkedIn drift | Contract and canonical data | External profiles still need human review |
+| Site/LinkedIn drift | Contract and canonical data | External profiles still need human review |
 | Long v2 branch diverges | Small v1 fixes and deliberate sync | Some duplication |
 | Importer becomes a product | Optional/manual, narrow blocks, fixtures | Some formatting stays manual |
 | Static is mistaken for bland | Progressive enhancement where useful | No vanity dynamic features |
@@ -250,11 +250,11 @@ Because the old domain must remain active for a reliable migration, budget for a
 
 ## 13. Phased backlog
 
-**Phase 0 — Guardrails:** reconcile stale `AGENTS.md` separately; checkpoint v1; approve content contract; define English/Korean editorial ownership and translation acceptance rules; inventory URLs, résumé/LinkedIn, and assets. Exit when implementation requires no factual, localization, or ownership guesses.
+**Phase 0 — Guardrails:** reconcile stale `AGENTS.md` separately; checkpoint v1; approve content contract; define English/Korean editorial ownership and translation acceptance rules; inventory URLs, LinkedIn, and assets. Exit when implementation requires no factual, localization, or ownership guesses.
 
 **Phase 1 — Representative skeleton:** establish branch, tokens, localized routing, language switch, layout/navigation/footer, schemas, fixtures, placeholder guard, representative page types, metadata/feed foundation, tests and CI. Exit with a complete bilingual synthetic preview.
 
-**Phase 2 — Real content:** populate verified career data; select and write case studies; audit/migrate articles/assets; verify PDF. Exit with reviewed real content on every required route.
+**Phase 2 — Real content:** populate verified career data; select and write case studies; audit/migrate articles/assets. Exit with reviewed real content on every required route.
 
 **Phase 3 — Bilingual content and historical revision:** complete reviewed Korean core pages; define per-article translation status; revise historical retrospectives under the contract; add any changed-slug redirects. Exit when every language switch and historical URL has deterministic behavior.
 
@@ -264,7 +264,7 @@ Because the old domain must remain active for a reliable migration, budget for a
 
 ## 14. Explicit launch definition of done
 
-- A recruiter can identify baseline, direction, strongest evidence, résumé, and contact within 30 seconds.
+- A recruiter can identify baseline, direction, strongest evidence, and contact within 30 seconds.
 - All required routes and selected case studies/articles contain reviewed real content.
 - Every claim/metric is contract-approved; contribution boundaries and experience levels are clear.
 - No draft, unsupported testimonial/metric, or synthetic placeholder can publish.
@@ -276,9 +276,8 @@ Because the old domain must remain active for a reliable migration, budget for a
 - Canonicals, metadata, social images, structured data, sitemap, feed, robots, and 404 behavior are verified.
 - Known v1 URLs remain or redirect to the nearest equivalent; previews are not indexed.
 - Production source/settings, v1 checkpoint, rollback owner/procedure, and post-launch checklist are documented.
-- Public PDF, site, and reviewed LinkedIn facts agree.
+- Site and reviewed LinkedIn facts agree.
 - English and Korean core routes are reviewed, statically rendered, correctly linked with `lang`/`hreflang`, and never depend on runtime machine translation.
-- Public résumé PDF exposes only approved information: email and `South Korea`, with no phone number or work-authorization details.
 - Minimal analytics records only the approved aggregate page data and small event set.
 
 ## 15. Resolved decisions and remaining content gate
@@ -288,7 +287,7 @@ Because the old domain must remain active for a reliable migration, budget for a
 | Market/language | Korea plus international; English default; reviewed Korean toggle/routes |
 | Notion | Omitted from v2; possible external peripheral importer in v3 |
 | Writing URL | Retain `/blog`; organize with restrained topics/sections |
-| Public résumé | Keep a redacted PDF link; no duplicated web résumé; publish email and `South Korea` only |
+| Public résumé | Omit it from v2: no PDF, route, download action, asset, metadata, or analytics event; application résumés remain private and outside Git |
 | Analytics | Minimal Vercel Web Analytics plus performance telemetry |
 | About | Deferred; short homepage context in v2 |
 | Historical retrospectives | Revise under the publication contract; allow new slugs with explicit redirects |

@@ -1,6 +1,6 @@
 # Portfolio Publication Content Contract
 
-**Purpose:** Control factual publication across `seanchoi.space`, the public résumé PDF, localized pages, project case studies, and retained historical articles.
+**Purpose:** Control factual publication across `seanchoi.space`, localized pages, project case studies, retained historical articles, and public professional profiles.
 
 **Owner:** Sean Choi
 
@@ -10,7 +10,7 @@
 
 **Initial status:** Structure approved; factual verification remains incomplete
 
-**Last reviewed:** 2026-08-28
+**Last reviewed:** 2026-08-30
 
 ## 1. Authority and use
 
@@ -18,7 +18,7 @@ This contract is the canonical publication boundary for portfolio v2. It does no
 
 Use it before:
 
-- writing or revising homepage, Experience, project, biography, or résumé copy;
+- writing or revising homepage, Experience, project, biography, or public-profile copy;
 - migrating legacy content;
 - translating factual content into Korean;
 - generating structured data or metadata containing career facts;
@@ -52,6 +52,7 @@ Silence is not verification. If a field is absent from this contract, treat it a
 | Korean is a reviewed localization | `verified` | Use human-reviewed Korean routes; no runtime machine translation |
 | Primary audience order is recruiter, hiring manager, technical peer | `verified` | May guide information hierarchy; not public biography copy |
 | Portfolio should provide deeper evidence than the submitted résumé | `verified` | Do not duplicate the résumé as a web page by default |
+| Public résumé output is omitted from v2 | `verified` | No public PDF, résumé route/action/asset, or résumé metadata; private application résumés remain outside the repository |
 | About is deferred from v2 | `verified` | Short personal/trajectory context may appear on the homepage |
 | Notion is outside v2 | `verified` | No Notion dependency or importer in the v2 application |
 
@@ -235,33 +236,21 @@ Slugs may change. Every changed public slug requires an explicit, tested, path-p
 - Articles need locale and translation relationship metadata.
 - If no translated article exists, the language switch must not fabricate one.
 
-## 12. Résumé contract
+## 12. Private résumé boundary
 
-The public résumé is a downloadable PDF, not a duplicated web-résumé route by default.
+V2 has no public résumé PDF, résumé route, résumé download action, résumé asset, or résumé metadata.
 
-Allowed public details:
+- Application-specific résumés remain private and outside this repository.
+- A private résumé may be reviewed transiently as an evidence candidate, but it is not automatically authoritative.
+- Do not copy private documents, phone numbers, addresses, immigration details, references, or restricted employer/client information into Git.
 
-- confirmed public display name;
-- confirmed recruiting email;
-- location `South Korea`;
-- verified experience, education, projects, and evidence-backed skills;
-- confirmed public professional links.
-
-Excluded public details:
-
-- phone number;
-- street address or precise residential location;
-- work-authorization or immigration status;
-- references’ personal information;
-- restricted employer, military, client, or project information.
-
-The site, public PDF, and reviewed LinkedIn facts must agree. Application-specific résumé versions may contain additional private details outside this repository’s public content system.
+The published site and reviewed LinkedIn facts must agree. Public site contact remains limited to a confirmed recruiting email and `South Korea`.
 
 ## 13. Analytics and visitor claims
 
 V2 may use minimal Vercel Web Analytics and Speed Insights. Analytics data must not be converted into public popularity or impact claims without a separate approved reason and adequate context.
 
-Approved event categories are résumé download, project repository/demo click, email/contact click, and language switch. Do not send email addresses, personal identifiers, application details, or sensitive query parameters.
+Approved event categories are project repository/demo click, email/contact click, and language switch. Do not send email addresses, personal identifiers, application details, or sensitive query parameters.
 
 ## 14. Publication acceptance checklist
 
@@ -273,10 +262,10 @@ Before a factual content change is publishable, verify:
 - [ ] Contribution boundaries distinguish Sean, team, employer, client, and public-program outcomes.
 - [ ] Metrics include a credible source/method and disclosure approval, or are omitted.
 - [ ] Professional, project, training, and exposure evidence are labeled correctly.
-- [ ] No restricted or prohibited data appears in page copy, metadata, structured data, images, filenames, PDF, or analytics.
+- [ ] No restricted or prohibited data appears in page copy, metadata, structured data, images, filenames, public assets, or analytics.
 - [ ] English copy is approved before Korean translation.
 - [ ] Korean copy has human review and preserves the English boundary.
-- [ ] Site, public PDF, and reviewed LinkedIn are consistent.
+- [ ] Site and reviewed LinkedIn are consistent.
 - [ ] Changed public URLs have tested redirects.
 - [ ] Project links and artifacts are accessible and disclosure-safe.
 - [ ] Synthetic placeholders and drafts cannot enter production.
@@ -293,7 +282,7 @@ The next factual review should collect, without committing private documents to 
 6. Sources or withdrawal decisions for every legacy metric.
 7. Safe official wording for military role, organization, leadership scope, and award.
 8. Official Busan program name, provider, dates, current status, curriculum, and completed artifacts.
-9. Public résumé source and LinkedIn reconciliation notes.
+9. Reviewed LinkedIn facts and, only if Sean supplies one transiently, private résumé reconciliation notes.
 10. Candidate project evidence as projects mature.
 
 Private evidence may be reviewed transiently and summarized into approved facts. Do not copy sensitive documents, identifiers, or unnecessary personal data into Git.
@@ -311,5 +300,6 @@ Record consequential approvals here:
 | 2026-08-28 | Notion in v2 | `pending` | `verified` | Omit; possible separate v3 peripheral | Sean |
 | 2026-08-28 | Canonical writing route | `pending` | `verified` | Retain `/blog` | Sean |
 | 2026-08-28 | About | `pending` | `verified` | Defer; short homepage context only | Sean |
+| 2026-08-30 | Public résumé output | `required` | `verified omitted` | No public PDF, route, action, asset, metadata, or analytics event; private application résumés stay outside Git | Sean |
 
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.

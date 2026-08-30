@@ -4,7 +4,7 @@
 
 **Planning authority:** `docs/portfolio-v2-exploration-report.md`
 
-**Status:** WP1–WP5 accepted; WP5 checkpoint commit pending explicit authorization
+**Status:** WP1–WP5 accepted and checkpointed; WP6A product/design correction specified before factual WP6 implementation
 
 ## 1. Delivery model
 
@@ -129,7 +129,7 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 
 **Gemini work**
 
-- Implement typed schemas for site identity, experience, education/training, skills, projects, blog posts, links, and résumé metadata.
+- Implement typed schemas for site identity, experience, education/training, skills, projects, blog posts, links.
 - Implement stable IDs, evidence references, locale fields, drafts, and `syntheticPlaceholder` handling.
 - Add integrity checks for duplicate IDs/slugs, dates, broken evidence references, missing assets, and forbidden production fixtures.
 - Add only synthetic `Example Project` fixtures.
@@ -170,16 +170,15 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 
 **Gemini work**
 
-- Build representative Home, Experience, Projects index, project detail, Blog index, blog article, 404, and résumé-download presentation.
+- Build representative Home, Experience, Projects index, project detail, Blog index, blog article, and 404.
 - Implement the approved homepage hierarchy for first viewport, 30-second scan, and two-minute scan.
 - Keep About absent.
 - Use synthetic content only and keep it blocked from production.
-- Make the public résumé an obvious PDF action, not a duplicated `/resume` webpage.
 
 **Acceptance gate**
 
 - Recruiter, hiring-manager, and technical-review paths can be demonstrated on preview.
-- Homepage does not duplicate Experience or résumé content.
+- Homepage does not duplicate Experience content.
 - Every page type has a clear job and semantic heading structure.
 - Mobile and desktop review passes before real content is introduced.
 
@@ -211,26 +210,34 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 - Missing images, bad frontmatter, duplicate slugs, invalid translations, and registry gaps fail validation.
 - No draft, synthetic, retired, or legacy article leaks into production routes, metadata, feed, or sitemap.
 
-### WP6 — Verified career content and résumé PDF
+### WP6 — Verified career content and public contact paths
 
-**Goal:** Replace fixtures with factual launch content.
+**Goal:** Correct the public-product boundary, then replace fixtures with factual launch content.
 
-**Gemini work**
+**WP6A correction package**
+
+- Remove the public résumé component, copy, schema/registry field, fixtures, tests, and any analytics or route expectation. Do not add a PDF, `/resume` route, replacement document action, or unverified contact destination.
+- Replace the green/teal UI accent with the exact neutral-and-blue palette approved in the exploration report. Preserve the clean editorial structure, system dark mode, accessibility behavior, and existing route architecture.
+- Make no dependency, factual-content, information-architecture, or later-package change.
+
+**Gemini work after WP6A acceptance**
 
 - Populate only contract-approved identity, experience, education/training, skills, and links.
 - Derive shared summaries from canonical records rather than copying facts across files.
-- Integrate a public résumé PDF that contains email and `South Korea`, but no phone or work-authorization details.
+- Expose public contact paths only after their labels and destinations are verified.
 - Add Korean translations only after English factual content is approved; mark translation review status.
 
 **Sean input**
 
 - Supply and approve every publishable fact and translation.
-- Reconcile the site, PDF, LinkedIn, and application résumé.
+- Reconcile the site with reviewed LinkedIn facts. A private application résumé may be supplied transiently as an evidence candidate but remains outside Git and is not public output.
 
 **Acceptance gate**
 
+- The public résumé feature and metadata footprint are absent.
+- The approved neutral-and-blue palette passes representative light/dark visual and contrast review without a green/teal UI accent.
 - No pending/disputed fact is public.
-- Site, PDF, and reviewed LinkedIn facts agree.
+- Site and reviewed LinkedIn facts agree.
 - Korean copy is human-reviewed and not merely machine output.
 - Public privacy rules are enforced.
 
@@ -269,7 +276,7 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 
 - Implement canonical URLs, `hreflang`, localized metadata, social images, robots, sitemap, feed, breadcrumbs, and factual structured data.
 - Retain minimal Vercel Web Analytics and Speed Insights.
-- Track only approved events: résumé download, repository/demo outbound click, email/contact click, and language switch.
+- Track only approved events: repository/demo outbound click, email/contact click, and language switch.
 - Complete automated and manual accessibility checks.
 - Optimize images, fonts, JavaScript, and route loading against explicit budgets.
 - Ensure preview deployments are protected or noindexed.
@@ -304,7 +311,7 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 - All launch definition-of-done items in the exploration report pass.
 - The tested artifact is the artifact promoted to production.
 - V1 tag/deployment remains recoverable.
-- Production verification covers routes, redirects, metadata, language alternates, PDF, outbound links, analytics, errors, and performance.
+- Production verification covers routes, redirects, metadata, language alternates, outbound links, analytics, errors, and performance.
 
 ## 5. Gemini implementation handoff template
 
@@ -340,4 +347,4 @@ Reject or revise a package when any answer is unsatisfactory. Do not carry known
 
 ## 7. Immediate next action
 
-WP1 through WP5 are accepted. WP5 provides the bilingual static blog platform, strict local MDX/content integrity pipeline, deterministic Atom feed and sitemap behavior, exact historical-URL retirement, and development/preview-only Example Article fixtures while launch intentionally contains zero public articles. Codex independently verified `git diff --check`, typecheck, lint, 172 tests, the production content guard, ordinary and `VERCEL_ENV=preview` production builds, the production HTTP matrix including all five historical 404s, bilingual preview article rendering, and TOC-to-heading anchor alignment. Next.js still logs an internal `NoFallbackError` when intentionally omitted dynamic paths return the correct HTTP 404; retain this as a deployment-verification risk for WP9. The next action is a separately authorized WP5 checkpoint commit. After that checkpoint, Codex may prepare WP6, but pending identity, career facts, evidence, privacy decisions, and résumé inputs remain hard gates for publishable content.
+WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP5 provides the bilingual static blog platform, strict local MDX/content integrity pipeline, deterministic Atom feed and sitemap behavior, exact historical-URL retirement, and development/preview-only Example Article fixtures while launch intentionally contains zero public articles. Codex independently verified `git diff --check`, typecheck, lint, 172 tests, the production content guard, ordinary and `VERCEL_ENV=preview` production builds, the production HTTP matrix including all five historical 404s, bilingual preview article rendering, and TOC-to-heading anchor alignment. Next.js still logs an internal `NoFallbackError` when intentionally omitted dynamic paths return the correct HTTP 404; retain this as a deployment-verification risk for WP9. The next action is WP6A: remove the public résumé footprint and apply the approved neutral-and-blue palette. After WP6A is accepted, pending identity, career facts, evidence, privacy decisions, verified public contact destinations, and reviewed translations remain hard gates for publishable WP6 content.

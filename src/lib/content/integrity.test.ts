@@ -4,7 +4,7 @@ import { canonicalContentRegistry } from "@/data/content";
 import { createSyntheticRegistry } from "./fixtures";
 
 const FIXED_TEST_NOW = new Date("2026-08-28T00:00:00Z");
-const AVAILABLE_ASSETS = new Set(["/example-asset.png", "/resume.pdf"]);
+const AVAILABLE_ASSETS = new Set(["/example-asset.png"]);
 
 describe("Content Integrity Validator", () => {
   it("passes for canonical empty registry", () => {

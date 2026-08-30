@@ -30,7 +30,7 @@ describe("i18n Dictionaries Completeness & Parity", () => {
     const koKeys = Object.keys(koSkeleton) as (keyof typeof koSkeleton)[];
 
     expect(enKeys.sort()).toEqual(koKeys.sort());
-    expect(enKeys.length).toBe(47);
+    expect(enKeys.length).toBe(45);
 
     for (const key of enKeys) {
       expect(enSkeleton[key]).toBeTypeOf("string");

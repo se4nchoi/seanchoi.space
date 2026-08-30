@@ -334,19 +334,6 @@ export const articleRecordSchema = commonRecordSchema
   .strict();
 export type ArticleRecord = z.infer<typeof articleRecordSchema>;
 
-// --- Résumé Metadata ---
-
-export const resumeMetadataSchema = commonRecordSchema
-  .extend({
-    revision: z.string().trim().min(1, "Revision cannot be blank"),
-    effectiveDate: calendarDateSchema,
-    assetPath: assetPathSchema,
-    locale: localeSchema,
-    evidenceIds: z.array(recordIdSchema),
-  })
-  .strict();
-export type ResumeMetadata = z.infer<typeof resumeMetadataSchema>;
-
 // --- Content Registry ---
 
 export const contentRegistrySchema = z
@@ -359,7 +346,6 @@ export const contentRegistrySchema = z
     skills: z.array(skillRecordSchema),
     projects: z.array(projectRecordSchema),
     articles: z.array(articleRecordSchema),
-    resumes: z.array(resumeMetadataSchema),
   })
   .strict();
 export type ContentRegistry = z.infer<typeof contentRegistrySchema>;

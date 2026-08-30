@@ -44,7 +44,6 @@ describe("Skeleton Preview Infrastructure & Policy", () => {
         ...skeletonPreviewRegistry.skills,
         ...skeletonPreviewRegistry.projects,
         ...skeletonPreviewRegistry.articles,
-        ...skeletonPreviewRegistry.resumes,
       ];
 
       expect(allRecords.length).toBeGreaterThan(0);
@@ -64,7 +63,6 @@ describe("Skeleton Preview Infrastructure & Policy", () => {
       expect(canonicalContentRegistry.skills).toEqual([]);
       expect(canonicalContentRegistry.projects).toEqual([]);
       expect(canonicalContentRegistry.articles).toEqual([]);
-      expect(canonicalContentRegistry.resumes).toEqual([]);
     });
 
     it("fails validation if any synthetic record is marked public", () => {

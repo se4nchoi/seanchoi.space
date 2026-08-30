@@ -6,8 +6,6 @@ export interface SkeletonDictionary {
   baseline: string;
   direction: string;
   viewProject: string;
-  resumeLabel: string;
-  resumeUnavailable: string;
   selectedEvidence: string;
   experienceSnapshot: string;
   professionalExperience: string;
@@ -129,9 +127,6 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       direction:
         "Example direction toward evidence-backed software and systems work.",
       viewProject: "View Example Project",
-      resumeLabel: "Résumé PDF",
-      resumeUnavailable:
-        "Pending verified content; no file is available.",
       selectedEvidence: "Selected example evidence",
       experienceSnapshot: "Example experience snapshot",
       professionalExperience: "Professional experience",
@@ -230,9 +225,6 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       direction:
         "근거 중심의 소프트웨어 및 시스템 작업을 향한 예시 방향입니다.",
       viewProject: "예시 프로젝트 보기",
-      resumeLabel: "이력서 PDF",
-      resumeUnavailable:
-        "검증된 콘텐츠를 기다리는 중이며 파일은 제공되지 않습니다.",
       selectedEvidence: "선택된 예시 근거",
       experienceSnapshot: "예시 경력 요약",
       professionalExperience: "경력",

@@ -17,7 +17,6 @@ import {
   skillRecordSchema,
   projectRecordSchema,
   articleRecordSchema,
-  resumeMetadataSchema,
   contentRegistrySchema,
 } from "./schemas";
 import {
@@ -29,7 +28,6 @@ import {
   syntheticSkillFixture,
   syntheticProjectFixture,
   syntheticArticleFixture,
-  syntheticResumeFixture,
   createSyntheticRegistry,
 } from "./fixtures";
 
@@ -97,7 +95,7 @@ describe("Content Schemas Primitives", () => {
   describe("assetPathSchema", () => {
     it("accepts valid absolute asset paths", () => {
       expect(assetPathSchema.parse("/images/logo.png")).toBe("/images/logo.png");
-      expect(assetPathSchema.parse("/resume.pdf")).toBe("/resume.pdf");
+      expect(assetPathSchema.parse("/images/diagram.svg")).toBe("/images/diagram.svg");
     });
 
     it("rejects relative paths and path traversal attempts", () => {
@@ -294,29 +292,6 @@ describe("Content Schemas Primitives", () => {
       expect(() =>
         siteIdentitySchema.parse({
           ...syntheticSiteIdentityFixture,
-          streetAddress: "123 Main St",
-        })
-      ).toThrow();
-    });
-
-    it("rejects privacy violations in resumeMetadataSchema (phone, workAuthorization, streetAddress)", () => {
-      expect(() =>
-        resumeMetadataSchema.parse({
-          ...syntheticResumeFixture,
-          phone: "+82-10-1234-5678",
-        })
-      ).toThrow();
-
-      expect(() =>
-        resumeMetadataSchema.parse({
-          ...syntheticResumeFixture,
-          workAuthorization: "Citizen",
-        })
-      ).toThrow();
-
-      expect(() =>
-        resumeMetadataSchema.parse({
-          ...syntheticResumeFixture,
           streetAddress: "123 Main St",
         })
       ).toThrow();

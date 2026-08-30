@@ -116,7 +116,6 @@ export function validateContentRegistry(
     ...registry.skills,
     ...registry.projects,
     ...registry.articles,
-    ...registry.resumes,
   ];
 
   // 2. Duplicate ID Check (globally unique across all collections)
@@ -473,12 +472,6 @@ export function validateContentRegistry(
         });
       }
     }
-  }
-
-  // Resumes
-  for (const resume of registry.resumes) {
-    checkEvidenceIds(resume.evidenceIds, `resumes.${resume.id}.evidenceIds`, resume.id);
-    checkAssetPath(resume.assetPath, `resumes.${resume.id}.assetPath`, resume.id);
   }
 
   if (issues.length > 0) {

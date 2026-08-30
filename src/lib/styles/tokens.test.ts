@@ -12,26 +12,26 @@ describe("Design Tokens & Global CSS System", () => {
   });
 
   it("declares all required light-mode semantic color tokens", () => {
-    expect(cssContent).toContain("--background: #f7f7f4");
+    expect(cssContent).toContain("--background: #fdfdfd");
     expect(cssContent).toContain("--surface: #ffffff");
-    expect(cssContent).toContain("--foreground: #1a1c19");
-    expect(cssContent).toContain("--muted: #5f625c");
-    expect(cssContent).toContain("--border: #d7dad3");
-    expect(cssContent).toContain("--accent: #0b6b57");
+    expect(cssContent).toContain("--foreground: #171717");
+    expect(cssContent).toContain("--muted: #525252");
+    expect(cssContent).toContain("--border: #d4d4d4");
+    expect(cssContent).toContain("--accent: #0b63b6");
     expect(cssContent).toContain("--accent-foreground: #ffffff");
-    expect(cssContent).toContain("--focus-ring: #0b6b57");
+    expect(cssContent).toContain("--focus-ring: #0b63b6");
   });
 
   it("declares all required dark-mode semantic color tokens under prefers-color-scheme", () => {
     expect(cssContent).toContain("@media (prefers-color-scheme: dark)");
-    expect(cssContent).toContain("--background: #101310");
-    expect(cssContent).toContain("--surface: #171b17");
-    expect(cssContent).toContain("--foreground: #f0f3ee");
-    expect(cssContent).toContain("--muted: #aab2a8");
-    expect(cssContent).toContain("--border: #343a35");
-    expect(cssContent).toContain("--accent: #7bdcb5");
-    expect(cssContent).toContain("--accent-foreground: #101310");
-    expect(cssContent).toContain("--focus-ring: #7bdcb5");
+    expect(cssContent).toContain("--background: #111010");
+    expect(cssContent).toContain("--surface: #181717");
+    expect(cssContent).toContain("--foreground: #f5f5f5");
+    expect(cssContent).toContain("--muted: #a3a3a3");
+    expect(cssContent).toContain("--border: #404040");
+    expect(cssContent).toContain("--accent: #7bb8ff");
+    expect(cssContent).toContain("--accent-foreground: #111010");
+    expect(cssContent).toContain("--focus-ring: #7bb8ff");
   });
 
   it("declares typography scale, line-height, and tracking tokens", () => {

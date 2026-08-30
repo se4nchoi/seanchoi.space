@@ -334,5 +334,4 @@ export const skeletonPreviewRegistry: ContentRegistry = {
   skills: [skeletonSkill],
   projects: [skeletonProjectEn, skeletonProjectKo],
   articles: [skeletonArticleEn, skeletonArticleKo],
-  resumes: [],
 };

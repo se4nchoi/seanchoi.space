@@ -8,7 +8,6 @@ import { ArticleCard } from "@/components/ui/article-card";
 import { ExperienceEntry } from "@/components/ui/experience-entry";
 import { EvidenceCard } from "@/components/ui/evidence-card";
 import { Tag } from "@/components/ui/tag";
-import { ResumeAction } from "@/components/ui/resume-action";
 import {
   skeletonSiteIdentity,
   skeletonEvidence,
@@ -67,10 +66,6 @@ export function HomePageView({ locale }: HomePageViewProps) {
           >
             {dict.skeleton.viewProject}
           </Link>
-          <ResumeAction
-            label={dict.skeleton.resumeLabel}
-            statusText={dict.skeleton.resumeUnavailable}
-          />
         </div>
         <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-4 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
           {dict.skeleton.notice}

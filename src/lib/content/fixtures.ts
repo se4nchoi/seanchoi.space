@@ -7,7 +7,6 @@ import type {
   SkillRecord,
   ProjectRecord,
   ArticleRecord,
-  ResumeMetadata,
   SiteIdentity,
 } from "./schemas";
 
@@ -168,19 +167,6 @@ export const syntheticArticleFixture: ArticleRecord = {
   assetPaths: ["/example-asset.png"],
 };
 
-export const syntheticResumeFixture: ResumeMetadata = {
-  id: "example-resume",
-  publicationStatus: "draft",
-  claimState: "pending",
-  syntheticPlaceholder: true,
-  reviewedOn: "2026-08-28",
-  revision: "v1.0",
-  effectiveDate: "2026-08-28",
-  assetPath: "/resume.pdf",
-  locale: "en",
-  evidenceIds: ["example-evidence"],
-};
-
 export function createSyntheticRegistry(): ContentRegistry {
   return {
     siteIdentity: { ...syntheticSiteIdentityFixture },
@@ -191,6 +177,5 @@ export function createSyntheticRegistry(): ContentRegistry {
     skills: [{ ...syntheticSkillFixture }],
     projects: [{ ...syntheticProjectFixture }],
     articles: [{ ...syntheticArticleFixture }],
-    resumes: [{ ...syntheticResumeFixture }],
   };
 }

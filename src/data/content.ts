@@ -9,5 +9,4 @@ export const canonicalContentRegistry: ContentRegistry = {
   skills: [],
   projects: [],
   articles: [],
-  resumes: [],
 };
