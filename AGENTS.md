@@ -35,12 +35,14 @@ If these sources conflict, identify the conflict instead of silently choosing on
 ## 4. Collaboration model
 
 - Sean owns factual truth, publication approval, project evidence, privacy decisions, and final editorial judgment.
-- Codex owns all “brain” work: product reasoning, requirements, information architecture, technical architecture, content modeling, factual interpretation, positioning, copy specifications, design direction, task decomposition, acceptance criteria, review, scope control, and risk identification.
-- Gemini or another implementation agent is the implementation layer. It receives a bounded, decision-complete specification and implements only that specification.
+- Codex owns product and editorial authority: requirements, information architecture, consequential technical architecture, content-model semantics, factual interpretation, positioning, approved copy, design direction, acceptance criteria, scope control, and risk identification.
+- Gemini or another implementation agent owns implementation inside an approved work package. It should translate the approved outcome and guardrails into a complete, maintainable implementation rather than wait for file-by-file instructions.
 
-Gemini must not independently choose positioning, routes, content ownership, schema semantics, visual direction, dependencies, architecture, factual wording, evidence level, or scope. When an implementation exposes a missing decision, Gemini must stop and return the decision to Codex rather than fill the gap.
+Within an approved package, Gemini may independently choose file organization, component composition, reuse, local refactors, test structure, responsive implementation, and ordinary TypeScript, Next.js, CSS, and tooling solutions. It may remove duplication or simplify code when the approved behavior, architecture, factual meaning, publication safeguards, and scope remain intact. It should report meaningful choices and may recommend broader improvements.
 
-Codex should resolve ambiguous requirements and prepare the relevant contract/specification before Gemini edits application code. Gemini may make local mechanical choices only when they do not alter product behavior, architecture, factual meaning, or approved scope.
+Gemini must stop and return a decision to Codex before changing public facts or copy, claim states, contribution boundaries, translations, routes, information architecture, localization policy, privacy rules, design direction, dependencies, runtime services, schema policy, consequential architecture, approved scope, or acceptance strength. It must also stop before publishing pending/restricted/synthetic content or weakening tests, validation, accessibility, SEO, or production safeguards.
+
+Codex handoffs should be outcome-oriented. Supply the approved objective, content/data, invariants, consequential decisions, exclusions, and acceptance evidence. Prescribe exact files or mechanics only when risk, migration safety, or compatibility requires it. Codex reviews proportionally: routine implementation receives diff-and-check review; factual rendering is checked against the content contract; routing, publication boundaries, metadata, and production behavior require independent runtime verification; architecture and dependency changes require advance approval.
 
 After each work package, report changed files, behavior changes, commands and exact results, assumptions, known risks, and satisfied/unsatisfied acceptance criteria.
 
@@ -215,3 +217,13 @@ Flagship projects are not selected. They are expected to emerge from Busan work 
 A task is complete only when requested work is finished, relevant checks and exact results are reported, no unsupported facts were introduced, accessibility/localization/SEO/privacy/production effects were considered, user changes remain intact, and remaining failures or decisions are explicit.
 
 Portfolio v2 is not production-ready merely because pages render. The full launch definition of done is in `docs/portfolio-v2-exploration-report.md`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

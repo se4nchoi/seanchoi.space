@@ -8,9 +8,9 @@
 
 **Implementation:** Gemini or another explicitly assigned implementation agent
 
-**Initial status:** WP6 factual baseline approved; official training-program identity and Korean editorial review remain incomplete
+**Initial status:** WP6 factual/content baseline approved for preview implementation; final English/Korean editorial density, visual fit, and program-name rendering remain pre-publication work
 
-**Last reviewed:** 2026-08-30
+**Last reviewed:** 2026-08-31
 
 ## 1. Authority and use
 
@@ -23,6 +23,8 @@ Use it before:
 - translating factual content into Korean;
 - generating structured data or metadata containing career facts;
 - giving an implementation agent content to render.
+
+Factual approval and editorial finality are separate. WP6 may render contract-safe baseline copy in preview so real content can expose layout, density, and authoring problems. Preview implementation does not make every sentence launch-final. Before publication, review the rendered English and Korean pages, compare their information density and hierarchy with relevant portfolio references, and explicitly approve the final copy and visual treatment.
 
 Repository code, v1 pages, README text, old résumés, LLM-generated drafts, chatbot prompts, and historical posts are evidence candidates—not automatic authority.
 
@@ -60,9 +62,9 @@ Silence is not verification. If a field is absent from this contract, treat it a
 
 | Field | Current value or rule | State | Required verification/action |
 | --- | --- | --- | --- |
-| Public display name | `Sean Choi` | `verified` | Use as the primary public name |
-| Korean name | `최예현` | `verified` | Exact approved Hangul form |
-| Legal/romanized name | `Yehyun Choi` | `verified` | May appear where useful; do not displace the primary public name |
+| English public display name | `Sean Choi` | `verified` | Use visibly on English routes |
+| Korean public display name | `최예현` | `verified` | Use visibly on Korean routes |
+| Legal/romanized name | `Yehyun Choi` | `verified`, non-public | Internal structured identity only; do not display on English or Korean routes unless later approved |
 | Public email | `se4n.choi@gmail.com` | `verified` | Approved recruiting contact |
 | Public location | `South Korea` | `verified` | Preferred public location |
 | City | `Daegu, South Korea` is accurate | `verified`, normally omit | Use only when a later content job needs city precision |
@@ -72,6 +74,14 @@ Silence is not verification. If a field is absent from this contract, treat it a
 | Current domain | `seanchoi.space` | `verified` for v2 launch planning | Keep through v2 stabilization |
 
 ## 5. Core professional positioning
+
+### Approved English lead
+
+> **Software developer connecting web interfaces with operational systems.**
+>
+> Computer Engineering graduate with professional experience across frontend applications, full-stack product development, and API integration. Currently extending that foundation through in-progress training in automation, Physical AI, and smart-factory systems.
+
+State: `verified` and approved for English publication on 2026-08-31. Supporting page copy must continue to preserve the role and evidence boundaries below.
 
 ### Approved factual baseline
 
@@ -105,11 +115,11 @@ State: `approved-direction`. Its factual components are verified; final English 
 | --- | --- | --- |
 | University of Toronto | `Bachelor of Applied Science (BASc), Computer Engineering — University of Toronto, 2026` | `verified`; completed/conferred June 2026; supersedes stale “final-year student” wording |
 | CGPA | `2.22` in private evidence | `prohibited`; do not publish |
-| Program label | `Physical AI & Smart Factory Training Program — June–December 2026` | `verified` interim label; official name/provider `pending` |
+| Program label/provider | `부산인력개발원 - Intel: AI 융합 DX 마스터클래스` | `verified` official Korean display; public English rendering remains `pending` |
 | Dates/status | June 22–December 24, 2026; in progress | `verified`; public month precision |
 | Study areas | PLC/ladder logic, sensors/IoT, industrial networking, Linux/WSL, Docker, AI/ML, OpenVINO, equipment/OT integration concepts | `verified` training scope; not professional expertise |
-| Classroom LAN Chat | FastAPI, WebSocket, SQLite; used successfully by 22 trainees | `verified` training output; no broader impact inference |
-| 대나무지식인 | Four-person classroom Q&A MVP; Sean handled backend/database integration | `verified` training output; preserve boundary |
+| Classroom LAN Chat | Self-directed FastAPI, WebSocket, SQLite application used by 22 classmates | `verified` personal/project output completed during the program period but outside its curriculum; no broader impact inference |
+| Classroom Q&A Board (`대나무지식인`) | Self-directed four-person classroom Q&A MVP; Sean handled backend/database integration | `verified` personal/project output completed during the program period but outside its curriculum; preserve team boundary |
 | Exercises | PLC, Arduino, sensor, local-network implementation | `verified` training output; not production |
 | ROS 2, robotics controls, edge-AI current learning | Current learning | `restricted` to learning context; not professional expertise/completed-project evidence |
 
@@ -140,7 +150,13 @@ Training records require accurate `planned`, `in-progress`, or `completed` statu
 
 ### Korea Defense Intelligence Command
 
-`Korea Defense Intelligence Command — Sergeant / English Interpreter, October 2016–July 2018` is `verified` compact additional experience. It may support bilingual communication, translation, and structured-environment work. Keep brief; automation/operational metrics and unverified leadership/award claims are `prohibited`.
+`Korea Defense Intelligence Command — Sergeant / English Interpreter, October 2016–July 2018` is `verified` additional experience. The approved Korean display is `KDIC (국군정보사령부) — 영어어학병`. It may support bilingual communication, translation, structured-environment work, and the bounded automation contribution below.
+
+- Built JavaScript utilities for Hangul text decomposition and dictionary-driven Korean-to-English replacement actions.
+- Built VBA utilities for file renaming and Windows Explorer workflow actions to reduce repetitive steps in the translation process.
+- Coordinated with on-premise Korean and U.S. technology/IT teams to establish what execution was permitted in a restricted environment where PowerShell was prohibited and other execution methods required alignment.
+- The workflow and tool categories are approved for disclosure. Document contents, translated material, operational context beyond this boundary, and other sensitive details are `restricted` and must never be published.
+- No time-saving percentage or other performance metric is approved. Unverified leadership and award claims remain `prohibited`.
 
 ## 8. Projects and case studies
 
@@ -174,7 +190,8 @@ Skills are evidence references, not self-ratings.
 | Frontend development/React interfaces | `professional`; EMG and Hoek |
 | API/stream integration | `professional`; EMG frontend consumption only; senior/backend engineers built APIs/streams |
 | Koa/MySQL backend development | `professional`; Hoek attendance product only |
-| FastAPI/WebSocket/SQLite | `training`; Classroom LAN Chat; never transfer backend/WebSocket ownership to EMG |
+| FastAPI/WebSocket/SQLite | `project`; self-directed Classroom LAN Chat outside the curriculum; never transfer backend/WebSocket ownership to EMG |
+| JavaScript/VBA workflow automation | `professional`; bounded military translation workflow only; never disclose processed content or sensitive operational context |
 | PLC/ladder, Arduino, sensors/IoT, local networking | `training`; completed exercises |
 | Linux/WSL, Docker, industrial networking, AI/ML, OpenVINO, equipment/OT concepts | `training`; in-progress scope, not established expertise |
 | ROS 2, robotics controls, edge-AI | `exposure`/current learning; normally omit prominently |
@@ -233,7 +250,7 @@ Before a factual content change is publishable, verify:
 - [ ] Metrics include a credible source/method and disclosure approval, or are omitted.
 - [ ] Professional, project, training, and exposure evidence are labeled correctly.
 - [ ] No restricted or prohibited data appears in page copy, metadata, structured data, images, filenames, public assets, or analytics.
-- [ ] English copy is approved before Korean translation.
+- [x] English copy is approved before Korean translation.
 - [ ] Korean copy has human review and preserves the English boundary.
 - [ ] Site and reviewed LinkedIn are consistent.
 - [ ] Changed public URLs have tested redirects.
@@ -244,13 +261,12 @@ Before a factual content change is publishable, verify:
 
 The Sections 4–9 baseline supersedes corresponding legacy résumé, profile, and site claims. Remaining WP6 inputs:
 
-1. Exact official Busan program name/provider.
-2. Approval of proposed English narrative and role descriptions.
-3. Human review of Korean translations after English approval.
-4. Optional recovered Hoek contractual title; until then Section 7 governs.
-5. Disclosure-safe artifacts if training outputs become more than compact records.
-6. LinkedIn reconciliation of stale student wording.
-7. WP7 flagship-project evidence as projects mature.
+1. Human review of Korean translations against the approved English source.
+2. Approved English rendering of `부산인력개발원 - Intel: AI 융합 DX 마스터클래스`.
+3. Optional recovered Hoek contractual title; until then Section 7 governs.
+4. Disclosure-safe artifacts if training outputs become more than compact records.
+5. LinkedIn reconciliation of stale student wording.
+6. WP7 flagship-project evidence as projects mature.
 
 Private evidence may be reviewed transiently and summarized into approved facts. Never copy sensitive documents, identifiers, or unnecessary personal data into Git.
 
@@ -275,5 +291,14 @@ Record consequential approvals here:
 | 2026-08-30 | Military service | `pending` | `verified`, compact | Sergeant / English Interpreter, October 2016–July 2018 | Sean |
 | 2026-08-30 | Current training | `pending` | `verified`, in progress | Interim label, dates, study areas and outputs; official name/provider pending | Sean |
 | 2026-08-30 | Embedded/CAN claims | `pending` | `prohibited` as completed work | Unfinished lab/prototype boundaries only | Sean |
+| 2026-08-31 | English homepage lead | `approved-direction` | `verified` publication wording | Software developer connecting web interfaces with operational systems; approved supporting paragraph in Section 5 | Sean |
+| 2026-08-31 | Locale-visible names | `verified`, display undecided | `verified`, route-specific | `Sean Choi` on English routes; `최예현` on Korean routes; keep `Yehyun Choi` non-visible | Sean |
+| 2026-08-31 | Military automation | `prohibited/pending` | `verified`, bounded | JavaScript Hangul/dictionary actions and VBA file/Explorer workflow automation; disclose tools/workflow only, never content | Sean |
+| 2026-08-31 | Classroom applications | `training` | `project`, bounded | Self-directed projects completed outside the curriculum during the program period; retain classroom/team boundaries | Sean |
+| 2026-08-31 | Complete WP6B English copy | `editorial draft` | `verified` factual/content baseline | Approved homepage, experience, education/training, self-directed-project, skills, and identity/contact source copy for preview implementation; not final launch prose | Sean |
+| 2026-08-31 | Korean role labels | `editorial draft` | `verified` | Hoek `개발자`; military `KDIC (국군정보사령부) — 영어어학병`; military automation/security wording approved | Sean |
+| 2026-08-31 | Classroom project Korean classification | `self-directed project` | `verified` display wording | Use `사이드 프로젝트`; retain classroom-use and four-person contribution boundaries | Sean |
+| 2026-08-31 | Training program identity | `interim/pending` | `verified` Korean identity | `부산인력개발원 - Intel: AI 융합 DX 마스터클래스`; English rendering pending | Sean |
+| 2026-08-31 | WP6 editorial maturity | `final-copy gate before implementation` | `preview baseline` | Implement safe content now; revisit wording, content quantity, hierarchy, visual layout, and portfolio-reference comparisons before publication | Sean |
 
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.

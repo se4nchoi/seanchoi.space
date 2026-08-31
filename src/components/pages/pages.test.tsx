@@ -14,151 +14,225 @@ import { dictionaries } from "@/i18n/dictionaries";
 
 describe("Page Components Server Rendering & Semantic Structure", () => {
   describe("HomePageView", () => {
-    it("renders English Home hierarchy, single h1, notice, project link, and strictly ordered sections", () => {
+    it("renders English Home hierarchy, single h1, verified identity, primary actions, and strictly ordered sections", () => {
       const html = renderToStaticMarkup(<HomePageView locale="en" />);
 
       // Single h1
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
-      expect(html).toContain("Example Person");
-      expect(html).toContain("Synthetic preview");
+      expect(html).toContain("Sean Choi");
+      expect(html).toContain("Software developer connecting web interfaces with operational systems.");
+      expect(html).toContain("Computer Engineering graduate with professional experience");
+      expect(html).toContain("University of Toronto, 2026");
 
-      // Notice
-      expect(html).toContain(
-        "All Example-labeled content is synthetic, non-publishable, and shown only to review the portfolio structure."
-      );
+      // No synthetic notice or example content on real home
+      expect(html).not.toContain("Synthetic preview");
+      expect(html).not.toContain("All Example-labeled content is synthetic");
+      expect(html).not.toContain("Example Person");
+      expect(html).not.toContain("Example Project");
+      expect(html).not.toContain("Example Article");
 
-      // Project link placement
-      expect(html).toContain('href="/projects/example-project"');
-      expect(html).toContain("View Example Project");
+      // No prohibited privacy data
       expect(html).not.toContain("Résumé");
       expect(html).not.toContain("이력서");
       expect(html).not.toContain(".pdf");
+      expect(html).not.toContain("CGPA");
+      expect(html).not.toContain("2.22");
+      expect(html).not.toContain("hynix");
 
-      // Compact fact strip with reviewed routes & preview only
-      expect(html).toContain("Example Organization · full-time");
-      expect(html).toContain("Example verification artifact (project evidence)");
-      expect(html).toContain("Reviewed routes");
-      expect(html).toContain("Preview only");
-      expect(html).toContain('aria-label="Synthetic overview"');
-
-      // Selected Evidence section
-      expect(html).toContain("Selected example evidence");
-
-      // Experience snapshot with separate training
-      expect(html).toContain("Example experience snapshot");
-      expect(html).toContain("Example Systems Lab");
+      // Action links
       expect(html).toContain('href="/experience"');
+      expect(html).toContain("View experience");
+      expect(html).toContain('href="/projects"');
+      expect(html).toContain("View projects");
 
-      // Capability with evidence
-      expect(html).toContain("Example capability with evidence");
-      expect(html).toContain("Example interface validation");
+      // Public profile links
+      expect(html).toContain("mailto:se4n.choi@gmail.com");
+      expect(html).toContain("https://github.com/se4nchoi");
+      expect(html).toContain("https://www.linkedin.com/in/se4nchoi/");
 
-      // Example writing
-      expect(html).toContain("Example writing");
-      expect(html).toContain('href="/blog"');
+      // Verified Experience snapshot
+      expect(html).toContain("Verified Experience Snapshot");
+      expect(html).toContain("Hoek Agency");
+      expect(html).toContain("EMG Global");
+      expect(html).toContain("Korea Defense Intelligence Command");
 
-      // Contact unavailable with aria-label
-      expect(html).toContain('aria-label="Contact status"');
-      expect(html).toContain(
-        "Contact details remain unavailable until factual review is complete."
-      );
-      expect(html).not.toContain("mailto:");
+      // Current training section (labeled in progress)
+      expect(html).toContain("Current Training &amp; Trajectory");
+      expect(html).toContain("Physical AI &amp; Smart Factory Training Program");
+      expect(html).toContain("In progress");
+
+      // Skills with evidence level
+      expect(html).toContain("Skills &amp; Evidence Level");
+      expect(html).toContain("Professional evidence");
+      expect(html).toContain("Frontend Development / React");
+      expect(html).toContain("API &amp; Stream Integration");
+
+      // Contact & Profiles section
+      expect(html).toContain("Contact &amp; Public Profiles");
+      expect(html).toContain("Based in South Korea");
 
       // Strict Section Order Verification
-      const idxFirstViewport = html.indexOf("Example Person");
-      const idxFactStrip = html.indexOf('aria-label="Synthetic overview"');
-      const idxSelectedEvidence = html.indexOf("Selected example evidence");
-      const idxExpSnapshot = html.indexOf("Example experience snapshot");
-      const idxCapability = html.indexOf("Example capability with evidence");
-      const idxRecentWriting = html.indexOf("Example writing");
-      const idxContact = html.indexOf('aria-label="Contact status"');
+      const idxHero = html.indexOf("Sean Choi");
+      const idxExpSnapshot = html.indexOf("Verified Experience Snapshot");
+      const idxTraining = html.indexOf("Current Training &amp; Trajectory");
+      const idxSkills = html.indexOf("Skills &amp; Evidence Level");
+      const idxContact = html.indexOf("Contact &amp; Public Profiles");
 
-      expect(idxFirstViewport).toBeGreaterThan(-1);
-      expect(idxFactStrip).toBeGreaterThan(idxFirstViewport);
-      expect(idxSelectedEvidence).toBeGreaterThan(idxFactStrip);
-      expect(idxExpSnapshot).toBeGreaterThan(idxSelectedEvidence);
-      expect(idxCapability).toBeGreaterThan(idxExpSnapshot);
-      expect(idxRecentWriting).toBeGreaterThan(idxCapability);
-      expect(idxContact).toBeGreaterThan(idxRecentWriting);
+      expect(idxHero).toBeGreaterThan(-1);
+      expect(idxExpSnapshot).toBeGreaterThan(idxHero);
+      expect(idxTraining).toBeGreaterThan(idxExpSnapshot);
+      expect(idxSkills).toBeGreaterThan(idxTraining);
+      expect(idxContact).toBeGreaterThan(idxSkills);
     });
 
-    it("renders Korean Home hierarchy and localized synthetic strings with zero English leakage", () => {
+    it("renders Korean Home hierarchy with verified Korean copy, single h1, and zero English leakages", () => {
       const html = renderToStaticMarkup(<HomePageView locale="ko" />);
-      expect(html).toContain("예시 인물");
-      expect(html).toContain("합성 미리보기");
-      expect(html).toContain('href="/ko/projects/example-project"');
-      expect(html).toContain("선택된 예시 근거");
-      expect(html).toContain("예시 경력 요약");
+
+      // Single h1
+      const h1Matches = html.match(/<h1/g) || [];
+      expect(h1Matches.length).toBe(1);
+      expect(html).toContain("최예현");
+      expect(html).toContain("소프트웨어 개발자");
+      expect(html).toContain("프론트엔드를 기반으로 풀스택 개발과 시스템 연동까지 경험을 확장해 온 소프트웨어 개발자.");
+      expect(html).toContain("응용과학 학사(BASc), 컴퓨터공학 — 토론토대학교, 2026");
+
+      // Action links
       expect(html).toContain('href="/ko/experience"');
-      expect(html).toContain('href="/ko/blog"');
+      expect(html).toContain("경력 보기");
+      expect(html).toContain('href="/ko/projects"');
+      expect(html).toContain("프로젝트 보기");
 
-      // Korean accessible labels & fact strip
-      expect(html).toContain('aria-label="합성 개요"');
-      expect(html).toContain('aria-label="연락처 상태"');
-      expect(html).toContain("검토 경로");
-      expect(html).toContain("미리보기 전용");
+      // Experience snapshot
+      expect(html).toContain("주요 경력 요약");
+      expect(html).toContain("Hoek Agency (획기획)");
+      expect(html).toContain("EMG Global");
+      expect(html).toContain("KDIC (국군정보사령부)");
 
-      // Korean card badges and labels
+      // Current training
+      expect(html).toContain("현재 교육 및 학습 방향");
+      expect(html).toContain("부산인력개발원 - Intel");
+      expect(html).toContain("AI 융합 DX 마스터클래스");
       expect(html).toContain("진행 중");
-      expect(html).toContain("예시 검증 자료");
-      expect(html).toContain("프로젝트 근거");
-      expect(html).toContain("자료");
 
-      // Verify no English label leaks
-      expect(html).not.toContain('aria-label="Synthetic Overview"');
-      expect(html).not.toContain('aria-label="Contact Status"');
-      expect(html).not.toContain(">in-progress<");
-      expect(html).not.toContain(">artifact<");
-      expect(html).not.toContain(">project<");
-      expect(html).not.toContain("Example verification artifact");
+      // Skills & contact
+      expect(html).toContain("기술 역량 및 근거 수준");
+      expect(html).toContain("실무 근거");
+      expect(html).toContain("프로젝트 근거");
+      expect(html).toContain("교육 근거");
+      expect(html).toContain("연락처 및 프로필");
+      expect(html).toContain("대한민국 거주");
+
+      // No synthetic notices or English leaks
+      expect(html).not.toContain("Synthetic preview");
+      expect(html).not.toContain("Example Person");
+      expect(html).not.toContain("Example Project");
     });
   });
 
   describe("ExperiencePageView", () => {
-    it("renders distinct professional and training sections with contribution boundary in English in strict order", () => {
+    it("renders distinct professional, education/training, side projects, and contribution boundaries in English in strict order", () => {
       const html = renderToStaticMarkup(<ExperiencePageView locale="en" />);
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
-      expect(html).toContain("Professional experience");
-      expect(html).toContain("Example Software Engineer");
-      expect(html).toContain("Education and training");
-      expect(html).toContain("Example Training Provider");
-      expect(html).toContain("Contribution boundary");
-      expect(html).toContain(dictionaries.en.skeleton.contributionBoundaryBody);
 
-      const idxProf = html.indexOf("Professional experience");
-      const idxEdu = html.indexOf("Education and training");
-      const idxBoundary = html.indexOf("Contribution boundary");
+      // Page Title
+      expect(html).toContain("Experience");
+      expect(html).toContain("Verified professional experience, education, training, and technical capability evidence.");
+
+      // Professional experience records
+      expect(html).toContain("Professional Experience");
+      expect(html).toContain("Hoek Agency");
+      expect(html).toContain("Software Developer — Frontend to Full-Stack");
+      expect(html).toContain("2022-09 — 2023-08");
+
+      expect(html).toContain("EMG Global");
+      expect(html).toContain("Software Developer");
+      expect(html).toContain("2021-07 — 2022-07");
+
+      expect(html).toContain("Korea Defense Intelligence Command");
+      expect(html).toContain("Sergeant / English Interpreter");
+      expect(html).toContain("2016-10 — 2018-07");
+
+      // Factual & boundary checks in military copy
+      expect(html).toContain("JavaScript utilities for Hangul text decomposition");
+      expect(html).toContain("VBA utilities for file renaming");
+      expect(html).toContain("PowerShell was prohibited");
+
+      // Education & Training
+      expect(html).toContain("Education &amp; Training");
+      expect(html).toContain("University of Toronto");
+      expect(html).toContain("Bachelor of Applied Science (BASc), Computer Engineering");
+      expect(html).toContain("Conferred 2026-06");
+      expect(html).toContain("Physical AI &amp; Smart Factory Training Program");
+
+      // Self-directed projects
+      expect(html).toContain("Self-Directed Projects");
+      expect(html).toContain("Classroom LAN Chat");
+      expect(html).toContain("Classroom Q&amp;A Board");
+      expect(html).toContain("In-Class Implementation Exercises");
+
+      // Contribution boundaries
+      expect(html).toContain("Contribution Boundaries &amp; Disclosure Safeguards");
+      expect(html).toContain("EMG Global — System &amp; API Boundaries");
+      expect(html).toContain("Korea Defense Intelligence Command (KDIC) — Automation Scope &amp; Confidentiality");
+      expect(html).toContain("Training Trajectory vs. Production Ownership");
+
+      // Strict Section Order Verification
+      const idxProf = html.indexOf("Professional Experience");
+      const idxEdu = html.indexOf("Education &amp; Training");
+      const idxSideProj = html.indexOf("Self-Directed Projects");
+      const idxSkills = html.indexOf("Skills by Evidence Level");
+      const idxBoundary = html.indexOf("Contribution Boundaries &amp; Disclosure Safeguards");
 
       expect(idxProf).toBeGreaterThan(-1);
       expect(idxEdu).toBeGreaterThan(idxProf);
-      expect(idxBoundary).toBeGreaterThan(idxEdu);
+      expect(idxSideProj).toBeGreaterThan(idxEdu);
+      expect(idxSkills).toBeGreaterThan(idxSideProj);
+      expect(idxBoundary).toBeGreaterThan(idxSkills);
     });
 
     it("renders distinct professional and training sections with exact reviewed copy in Korean", () => {
       const html = renderToStaticMarkup(<ExperiencePageView locale="ko" />);
       expect(html).toContain("경력");
-      expect(html).toContain("예시 소프트웨어 엔지니어");
+      expect(html).toContain("실무 경력");
+      expect(html).toContain("Hoek Agency (획기획)");
+      expect(html).toContain("개발자 | 프론트엔드·풀스택 개발");
+      expect(html).toContain("EMG Global");
+      expect(html).toContain("소프트웨어 개발자");
+      expect(html).toContain("KDIC (국군정보사령부)");
+      expect(html).toContain("영어어학병");
+
       expect(html).toContain("학력 및 교육");
-      expect(html).toContain("예시 교육 기관");
-      expect(html).toContain("기여 범위");
-      expect(html).toContain(dictionaries.ko.skeleton.contributionBoundaryBody);
+      expect(html).toContain("토론토대학교");
+      expect(html).toContain("응용과학 학사(BASc), 컴퓨터공학");
+      expect(html).toContain("부산인력개발원 - Intel");
+      expect(html).toContain("AI 융합 DX 마스터클래스");
+
+      expect(html).toContain("사이드 프로젝트");
+      expect(html).toContain("Classroom LAN Chat");
+      expect(html).toContain("수업 내 구현 실습");
+
+      expect(html).toContain("기여 범위 및 보안 안내");
+      expect(html).toContain("EMG Global — 시스템 및 연동 경계");
+      expect(html).toContain("KDIC (국군정보사령부) — 자동화 도구 범위 및 보안 원칙");
     });
   });
 
   describe("ProjectsIndexView & DetailView", () => {
-    it("renders Projects index with localized detail link and no search/filter controls", () => {
+    it("renders Projects index in honest empty / coming-evidence state with no search/filter controls", () => {
       const enHtml = renderToStaticMarkup(<ProjectsIndexView locale="en" />);
-      expect(enHtml).toContain('href="/projects/example-project"');
+      expect(enHtml).toContain("Projects");
+      expect(enHtml).toContain(dictionaries.en.projectsStatus);
       expect(enHtml).not.toContain("<input");
       expect(enHtml).not.toContain("<select");
       expect(enHtml).not.toContain("<form");
+      expect(enHtml).not.toContain("Example Project");
 
       const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
-      expect(koHtml).toContain('href="/ko/projects/example-project"');
-      expect(koHtml).toContain("진행 중");
-      expect(koHtml).not.toContain(">in-progress<");
+      expect(koHtml).toContain("프로젝트");
+      expect(koHtml).toContain(dictionaries.ko.projectsStatus);
+      expect(koHtml).not.toContain("예시 프로젝트");
     });
 
     it("renders Project detail with strictly ordered sections, dl metadata, boundary, and no-artifact evidence", () => {
@@ -217,14 +291,16 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
   });
 
   describe("BlogIndexView & ArticleView", () => {
-    it("renders Blog index with localized article link in preview mode and no search/filter controls", () => {
-      const enHtml = renderToStaticMarkup(<BlogIndexView locale="en" preview={true} />);
-      expect(enHtml).toContain('href="/blog/example-article"');
-      expect(enHtml).not.toContain("<input");
-      expect(enHtml).not.toContain("<select");
+    it("renders Blog index in honest empty state without preview articles", () => {
+      const enHtml = renderToStaticMarkup(<BlogIndexView locale="en" preview={false} />);
+      expect(enHtml).toContain("Blog");
+      expect(enHtml).toContain("No articles have been published yet.");
+      expect(enHtml).toContain('href="/feed.xml"');
 
-      const koHtml = renderToStaticMarkup(<BlogIndexView locale="ko" preview={true} />);
-      expect(koHtml).toContain('href="/ko/blog/example-article"');
+      const koHtml = renderToStaticMarkup(<BlogIndexView locale="ko" preview={false} />);
+      expect(koHtml).toContain("블로그");
+      expect(koHtml).toContain("아직 게시된 글이 없습니다.");
+      expect(koHtml).toContain('href="/feed.xml"');
     });
 
     it("renders Blog article with back link, time element, disclaimer, and strictly ordered prose sections", async () => {

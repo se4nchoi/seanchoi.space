@@ -78,6 +78,7 @@ export function validateContentRegistry(
 ): ContentIntegrity {
   const issues: ContentIntegrityIssue[] = [];
   const nowDateStr = formatDateToYYYYMMDD(options.now);
+  const currentYearMonth = nowDateStr.slice(0, 7);
   const assetSet =
     options.availableAssets instanceof Set
       ? options.availableAssets
@@ -116,6 +117,7 @@ export function validateContentRegistry(
     ...registry.skills,
     ...registry.projects,
     ...registry.articles,
+    ...registry.supportingProjects,
   ];
 
   // 2. Duplicate ID Check (globally unique across all collections)
@@ -286,7 +288,14 @@ export function validateContentRegistry(
 
     // Date range validation
     const { start, end, ongoing } = exp.dateRange;
-    if (ongoing && end !== null) {
+    if (start === null) {
+      issues.push({
+        code: "invalid_date_range",
+        path: `experiences.${exp.id}.dateRange`,
+        recordId: exp.id,
+        message: `Experience record '${exp.id}' must specify a start date`,
+      });
+    } else if (ongoing && end !== null) {
       issues.push({
         code: "invalid_date_range",
         path: `experiences.${exp.id}.dateRange`,
@@ -300,12 +309,19 @@ export function validateContentRegistry(
         recordId: exp.id,
         message: `Non-ongoing experience date range must specify an end date`,
       });
-    } else if (end !== null && end < start) {
+    } else if (start !== null && end !== null && end < start) {
       issues.push({
         code: "invalid_date_range",
         path: `experiences.${exp.id}.dateRange`,
         recordId: exp.id,
         message: `End date '${end}' cannot precede start date '${start}'`,
+      });
+    } else if (!ongoing && end !== null && end > currentYearMonth) {
+      issues.push({
+        code: "invalid_date_range",
+        path: `experiences.${exp.id}.dateRange`,
+        recordId: exp.id,
+        message: `Completed experience end date '${end}' cannot be in the future`,
       });
     }
 
@@ -330,12 +346,33 @@ export function validateContentRegistry(
     }
 
     const { start, end, ongoing } = edu.dateRange;
-    if (ongoing && end !== null) {
+    const isCompletionOnlyEducation =
+      edu.kind === "education" &&
+      edu.status === "completed" &&
+      !ongoing &&
+      start === null &&
+      end !== null;
+
+    if (start === null && !isCompletionOnlyEducation) {
       issues.push({
         code: "invalid_date_range",
         path: `educationAndTraining.${edu.id}.dateRange`,
         recordId: edu.id,
-        message: `Ongoing education/training date range cannot specify an end date`,
+        message: `Education/training record '${edu.id}' must specify a start date unless it is a completion-only degree record`,
+      });
+    } else if (ongoing && end !== null && start !== null && end < start) {
+      issues.push({
+        code: "invalid_date_range",
+        path: `educationAndTraining.${edu.id}.dateRange`,
+        recordId: edu.id,
+        message: `Scheduled end date '${end}' cannot precede start date '${start}'`,
+      });
+    } else if (ongoing && end !== null && end < currentYearMonth) {
+      issues.push({
+        code: "invalid_date_range",
+        path: `educationAndTraining.${edu.id}.dateRange`,
+        recordId: edu.id,
+        message: `Ongoing education/training record '${edu.id}' has scheduled end date '${end}' in the past relative to '${currentYearMonth}'`,
       });
     } else if (!ongoing && end === null) {
       issues.push({
@@ -344,12 +381,19 @@ export function validateContentRegistry(
         recordId: edu.id,
         message: `Non-ongoing education/training date range must specify an end date`,
       });
-    } else if (end !== null && end < start) {
+    } else if (start !== null && end !== null && end < start) {
       issues.push({
         code: "invalid_date_range",
         path: `educationAndTraining.${edu.id}.dateRange`,
         recordId: edu.id,
         message: `End date '${end}' cannot precede start date '${start}'`,
+      });
+    } else if (!ongoing && end !== null && end > currentYearMonth) {
+      issues.push({
+        code: "invalid_date_range",
+        path: `educationAndTraining.${edu.id}.dateRange`,
+        recordId: edu.id,
+        message: `Completed education/training end date '${end}' cannot be in the future`,
       });
     }
 
@@ -470,6 +514,76 @@ export function validateContentRegistry(
           recordId: article.id,
           message: `Translation source article '${source.id}' cannot itself point to another translation`,
         });
+      }
+    }
+  }
+
+  // Supporting Projects
+  if (registry.supportingProjects) {
+    for (const proj of registry.supportingProjects) {
+      checkEvidenceIds(proj.evidenceIds, `supportingProjects.${proj.id}.evidenceIds`, proj.id);
+
+      if (proj.publicationStatus === "public") {
+        if (proj.syntheticPlaceholder) {
+          issues.push({
+            code: "public_synthetic_placeholder",
+            path: `supportingProjects.${proj.id}.syntheticPlaceholder`,
+            recordId: proj.id,
+            message: `Public supporting project record cannot be a synthetic placeholder`,
+          });
+        }
+        if (proj.claimState !== "verified") {
+          issues.push({
+            code: "unverified_public_record",
+            path: `supportingProjects.${proj.id}.claimState`,
+            recordId: proj.id,
+            message: `Public supporting project record must have claimState 'verified'`,
+          });
+        }
+        if (!proj.reviewedOn) {
+          issues.push({
+            code: "missing_review_date",
+            path: `supportingProjects.${proj.id}.reviewedOn`,
+            recordId: proj.id,
+            message: `Public supporting project record must specify reviewedOn`,
+          });
+        } else if (proj.reviewedOn > nowDateStr) {
+          issues.push({
+            code: "future_publication_date",
+            path: `supportingProjects.${proj.id}.reviewedOn`,
+            recordId: proj.id,
+            message: `Review date '${proj.reviewedOn}' cannot be in the future relative to '${nowDateStr}'`,
+          });
+        }
+
+        checkLocalizedTextForUnreviewedPublic(
+          proj.title,
+          `supportingProjects.${proj.id}.title`,
+          proj.id,
+          issues
+        );
+        checkLocalizedTextForUnreviewedPublic(
+          proj.summary,
+          `supportingProjects.${proj.id}.summary`,
+          proj.id,
+          issues
+        );
+        if (proj.role) {
+          checkLocalizedTextForUnreviewedPublic(
+            proj.role,
+            `supportingProjects.${proj.id}.role`,
+            proj.id,
+            issues
+          );
+        }
+        if (proj.scale) {
+          checkLocalizedTextForUnreviewedPublic(
+            proj.scale,
+            `supportingProjects.${proj.id}.scale`,
+            proj.id,
+            issues
+          );
+        }
       }
     }
   }

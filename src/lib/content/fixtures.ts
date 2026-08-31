@@ -177,5 +177,6 @@ export function createSyntheticRegistry(): ContentRegistry {
     skills: [{ ...syntheticSkillFixture }],
     projects: [{ ...syntheticProjectFixture }],
     articles: [{ ...syntheticArticleFixture }],
+    supportingProjects: [],
   };
 }

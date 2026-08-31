@@ -1,29 +1,29 @@
 # Portfolio v2 Implementation Plan
 
-**Purpose:** Execution plan for Gemini as the implementation layer
+**Purpose:** Outcome-oriented execution plan for Codex product/editorial authority and Gemini implementation ownership
 
 **Planning authority:** `docs/portfolio-v2-exploration-report.md`
 
-**Status:** WP1–WP5 accepted and checkpointed; WP6A product/design correction specified before factual WP6 implementation
+**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6 factual/content baseline ready for preview implementation; final editorial/visual pass deferred until real-content review
 
 ## 1. Delivery model
 
-Implement v2 through small, reviewable work packages. Codex completes the reasoning and produces a decision-complete specification for each package; Gemini implements that specification. Give Gemini one work package at a time. Do not issue a single “build the whole portfolio” prompt: it would combine architecture, design, migration, factual content, and deployment into one change that is difficult to verify or reverse.
+Implement v2 through coherent, reviewable work packages. Codex defines the product/editorial outcome, consequential decisions, guardrails, exclusions, and acceptance evidence; Gemini owns the implementation inside those boundaries. Give Gemini one work package at a time, but do not decompose ordinary implementation into file-by-file instructions unless risk requires it. Do not issue a single “build the whole portfolio” prompt: it would still combine architecture, design, migration, factual content, and deployment into one change that is difficult to verify or reverse.
 
 ```text
 Sean: facts, approvals, project evidence, final editorial judgment
-Codex: all product/content/architecture reasoning, specifications, acceptance criteria, review
-Gemini: bounded implementation of the supplied specification
+Codex: product/editorial authority, consequential architecture, guardrails, acceptance, risk-based review
+Gemini: implementation ownership within the approved package
 CI/preview: objective verification
 ```
 
-Each implementation package has two gates: a **specification gate**, where Codex resolves decisions and Sean approves consequential choices, and a **review gate**, where Codex verifies Gemini’s implementation. Gemini must return missing decisions to Codex rather than inventing them. The next package begins only when the previous review gate passes or its known exceptions are explicitly documented.
+Each implementation package has two gates: a **definition gate**, where Codex resolves consequential decisions and Sean approves factual/editorial choices, and a **review gate**, where Codex verifies the resulting behavior in proportion to risk. Gemini should resolve routine implementation questions independently and report its choices. It must return product, factual, privacy, dependency, schema-policy, architecture, or scope decisions to Codex rather than inventing them. The next package begins only when the previous review gate passes or its known exceptions are explicitly documented.
 
 ### Responsibility boundary
 
-Codex owns requirements, information architecture, technical architecture, schema semantics, content policy, positioning, factual interpretation, design direction, task decomposition, and test/acceptance design. Gemini does not brainstorm or choose among product alternatives; it translates an approved specification into code and tests.
+Codex owns requirements, information architecture, consequential technical architecture, schema semantics, content policy, positioning, factual interpretation, approved copy, design direction, and acceptance design. Gemini owns implementation planning, file and component organization, local refactoring, test structure, responsive behavior, and ordinary technical problem-solving inside those boundaries.
 
-Gemini may make ordinary local coding choices only when they do not change behavior, architecture, dependencies, factual meaning, visual direction, or scope. A missing product/architecture/content decision is a blocker to report, not a gap to fill.
+Gemini may simplify or improve implementation without advance approval when it preserves approved behavior, architecture, dependencies, factual meaning, visual direction, safeguards, and scope. It may recommend broader alternatives, but a missing product, architecture, dependency, schema-policy, privacy, or content decision remains a blocker to report rather than a gap to fill.
 
 ## 2. Non-negotiable implementation contract
 
@@ -41,8 +41,8 @@ Gemini must follow these rules in every package:
 10. Prefer server components, static generation, local content, and the smallest dependency set.
 11. Add tests with behavior. Do not weaken TypeScript, lint, accessibility, or build checks to make a task pass.
 12. Report changed files, commands run, results, assumptions, and remaining risks after every package.
-13. Do not perform product brainstorming, choose architecture/dependencies, define schema meaning, write career positioning, or resolve factual ambiguity. Return those questions to Codex.
-14. Treat Codex’s approved work-package specification and the publication contract as implementation inputs, not prompts to reinterpret.
+13. Own ordinary implementation decisions and local simplification, but do not choose product direction, consequential architecture/dependencies, schema meaning, career positioning, public copy, claim states, or factual ambiguity. Return those questions to Codex.
+14. Treat the approved work-package outcome, invariants, acceptance criteria, and publication contract as hard boundaries; choose the implementation details needed to satisfy them.
 
 ## 3. Branch and release model
 
@@ -67,7 +67,7 @@ Do not switch the production branch or domain during development.
 
 ## 4. Work packages
 
-For WP1–WP9, Codex must first issue a package specification containing exact scope, approved file/route boundaries, architecture decisions, supplied content, expected tests, acceptance criteria, exclusions, and any dependency or migration authorization. Sections labeled **Gemini work** describe implementation responsibility only; they do not delegate the underlying decisions to Gemini.
+For WP1–WP9, Codex must first issue a package definition containing the approved outcome, scope boundaries, consequential architecture decisions, supplied content/data, invariants, required evidence, acceptance criteria, exclusions, and any dependency or migration authorization. Exact file lists are optional and should be used only when containment or migration risk requires them. Sections labeled **Gemini work** describe implementation ownership within those boundaries; they do not delegate product or editorial authority.
 
 ### WP0 — Repository and factual guardrails
 
@@ -241,6 +241,8 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 - Korean copy is human-reviewed and not merely machine output.
 - Public privacy rules are enforced.
 
+WP6 may first pass a **preview baseline gate** before the final acceptance gate above. The preview baseline must use only verified, disclosure-safe facts and correct evidence labels, but its headline wording, content quantity, section balance, and visual treatment remain explicitly provisional. Render real English and Korean content, inspect representative layouts, and simplify any schema/component friction revealed by normal authoring. Before public launch, run a separate editorial/visual pass using the rendered site and relevant portfolio references; only that later pass can satisfy final copy, density, hierarchy, and human-review requirements.
+
 ### WP7 — Flagship project case studies
 
 **Goal:** Publish evidence only when it meets the quality bar.
@@ -315,23 +317,23 @@ For WP1–WP9, Codex must first issue a package specification containing exact s
 
 ## 5. Gemini implementation handoff template
 
-Gemini does not own WP0. After Codex completes WP0 and Sean authorizes implementation, Codex should provide a WP1 prompt using this structure:
+Gemini does not own WP0. After Codex completes the relevant product/editorial definition and Sean authorizes implementation, Codex should provide a prompt using this structure:
 
-> Implement only **[work-package identifier and title]** in the existing `seanchoi.space` repository. Read every applicable `AGENTS.md`, `docs/portfolio-v2-exploration-report.md`, `docs/portfolio-v2-implementation-plan.md`, `docs/portfolio-content-contract.md`, and the complete Codex package specification below before editing.
+> Implement **[work-package identifier and title]** in the existing `seanchoi.space` repository. Read every applicable `AGENTS.md`, `docs/portfolio-v2-exploration-report.md`, `docs/portfolio-v2-implementation-plan.md`, `docs/portfolio-content-contract.md`, and the complete Codex package definition below before editing.
 >
 > **Approved objective:** [one bounded outcome]
 >
-> **Required implementation:** [exact routes/files/behaviors and supplied design or content inputs]
+> **Required outcome and behavior:** [user-visible result, supplied design/content inputs, and non-negotiable invariants]
 >
-> **Approved architecture and dependencies:** [decisions already made by Codex; state explicitly whether dependency changes are authorized]
+> **Approved architecture and dependencies:** [consequential decisions and whether dependency changes are authorized]
 >
-> **Required tests and commands:** [exact verification expectations]
+> **Required evidence:** [tests, runtime checks, builds, or inspection needed to prove acceptance]
 >
 > **Explicit exclusions:** [features, files, services, content, and later work packages that must remain untouched]
 >
-> Inspect Git status first and preserve all existing user changes. Do not make product, positioning, content, schema-policy, design-direction, dependency, or architecture decisions. Do not invent factual copy. If the specification has a consequential gap or conflicts with the repository, stop and report the exact decision required from Codex. Otherwise implement the specification completely, run the required checks, and report changed files, commands/results, assumptions, and unsatisfied acceptance criteria. Do not commit, push, deploy, or change production unless this prompt explicitly authorizes that action.
+> Inspect Git status first and preserve all existing user changes. Own the implementation plan: choose appropriate files, component boundaries, reuse, local refactors, and tests needed to satisfy the approved outcome. You may simplify implementation when behavior and safeguards remain intact. Do not invent factual copy or change product direction, routes, schema policy, design direction, dependencies, consequential architecture, privacy, or scope. If one of those decisions is missing or the package conflicts with the repository, stop and report the exact decision required from Codex. Otherwise implement completely, run the required checks, and report changed files, meaningful choices, commands/results, assumptions, and unsatisfied acceptance criteria. Do not commit, push, deploy, or change production unless this prompt explicitly authorizes that action.
 
-Codex should replace every bracketed field with concrete decisions. A vague handoff is not ready for Gemini.
+Codex should replace every bracketed field with concrete boundaries. A handoff should be clear about the outcome and risks without prescribing routine mechanics.
 
 ## 6. Review protocol for every Gemini handoff
 
@@ -345,6 +347,13 @@ Codex should review each Gemini result against five questions:
 
 Reject or revise a package when any answer is unsatisfactory. Do not carry known factual, accessibility, routing, or deployment debt into the next package merely to maintain momentum.
 
+Apply the review proportionally:
+
+- Routine components, styling, and internal refactors: inspect the diff and reported checks.
+- Factual or localized rendering: compare the output with the publication contract and approved copy.
+- Routing, publication guards, metadata, feeds, redirects, and environment-dependent behavior: independently exercise the relevant runtime paths.
+- Dependencies, schema policy, consequential architecture, deployment, or production changes: require advance approval and full independent verification.
+
 ## 7. Immediate next action
 
-WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP5 provides the bilingual static blog platform, strict local MDX/content integrity pipeline, deterministic Atom feed and sitemap behavior, exact historical-URL retirement, and development/preview-only Example Article fixtures while launch intentionally contains zero public articles. Codex independently verified `git diff --check`, typecheck, lint, 172 tests, the production content guard, ordinary and `VERCEL_ENV=preview` production builds, the production HTTP matrix including all five historical 404s, bilingual preview article rendering, and TOC-to-heading anchor alignment. Next.js still logs an internal `NoFallbackError` when intentionally omitted dynamic paths return the correct HTTP 404; retain this as a deployment-verification risk for WP9. The next action is WP6A: remove the public résumé footprint and apply the approved neutral-and-blue palette. After WP6A is accepted, pending identity, career facts, evidence, privacy decisions, verified public contact destinations, and reviewed translations remain hard gates for publishable WP6 content.
+WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP6A is accepted and checkpointed at `27d8aa7`; it removed the public résumé footprint and applied the approved neutral-and-blue palette. The verified WP6 factual baseline and initial English-copy draft are checkpointed at `73b467b`. Sean has approved enough corrected English/Korean content to define the safe content types, factual boundaries, locale-visible names, bounded military automation disclosure, and classroom side-project classification for a preview implementation. Do not spend another pass perfecting every sentence before rendering. The next action is implementation of `docs/gemini-handoffs/wp6b-verified-career-content-preview.md`, which replaces fixtures with this baseline and gives Gemini freedom over routine implementation. Codex and Sean then review real pages for content quantity, hierarchy, visual layout, and authoring friction. A later pre-publication editorial/visual pass, informed by relevant portfolio references, remains mandatory. The existing Next.js `NoFallbackError` log on intentionally omitted dynamic paths remains a deployment-verification risk for WP9.

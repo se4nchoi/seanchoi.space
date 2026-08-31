@@ -54,15 +54,26 @@ describe("Skeleton Preview Infrastructure & Policy", () => {
       }
     });
 
-    it("confirms canonical registry remains byte-for-byte empty", () => {
-      expect(canonicalContentRegistry.siteIdentity).toBeNull();
-      expect(canonicalContentRegistry.evidence).toEqual([]);
-      expect(canonicalContentRegistry.links).toEqual([]);
-      expect(canonicalContentRegistry.experiences).toEqual([]);
-      expect(canonicalContentRegistry.educationAndTraining).toEqual([]);
-      expect(canonicalContentRegistry.skills).toEqual([]);
+    it("confirms canonical registry contains only verified non-synthetic production records", () => {
+      expect(canonicalContentRegistry.siteIdentity?.syntheticPlaceholder).toBe(false);
+      expect(canonicalContentRegistry.siteIdentity?.claimState).toBe("verified");
       expect(canonicalContentRegistry.projects).toEqual([]);
       expect(canonicalContentRegistry.articles).toEqual([]);
+
+      const allCanonicalRecords = [
+        ...(canonicalContentRegistry.siteIdentity ? [canonicalContentRegistry.siteIdentity] : []),
+        ...canonicalContentRegistry.evidence,
+        ...canonicalContentRegistry.links,
+        ...canonicalContentRegistry.experiences,
+        ...canonicalContentRegistry.educationAndTraining,
+        ...canonicalContentRegistry.skills,
+      ];
+
+      for (const record of allCanonicalRecords) {
+        expect(record.syntheticPlaceholder).toBe(false);
+        expect(record.claimState).toBe("verified");
+        expect(record.publicationStatus).toBe("public");
+      }
     });
 
     it("fails validation if any synthetic record is marked public", () => {

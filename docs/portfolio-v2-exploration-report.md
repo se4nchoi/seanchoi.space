@@ -1,8 +1,8 @@
 # Portfolio v2 Exploration Report
 
-**Status:** WP1–WP5 accepted and checkpointed; product/design decisions amended 2026-08-30; WP6A specified
+**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6 safe content baseline ready for preview implementation; final editorial/visual review deferred until real-content rendering
 
-**Repository baseline:** `seanchoi.space`, branch `v2`, WP5 checkpoint `8b850080657bf758b635509d46f6e33f5da61293`
+**Repository baseline:** `seanchoi.space`, branch `v2`, verified WP6 factual-content checkpoint `73b467b1fd79d7d32cc80adf74a6b8583b216def`
 
 **Date:** 2026-08-28
 

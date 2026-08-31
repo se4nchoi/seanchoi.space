@@ -13,12 +13,31 @@ describe("i18n Dictionaries Completeness & Parity", () => {
     expect(enKeys.sort()).toEqual(koKeys.sort());
 
     for (const key of enKeys) {
-      if (key === "skeleton" || key === "blogUI") continue;
+      if (key === "skeleton" || key === "blogUI" || key === "careerUI") continue;
       expect(enDict[key]).toBeTypeOf("string");
       expect((enDict[key] as string).trim().length).toBeGreaterThan(0);
 
       expect(koDict[key]).toBeTypeOf("string");
       expect((koDict[key] as string).trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it("provides complete, nonblank nested careerUI dictionary entries for both en and ko", () => {
+    const enCareer = dictionaries.en.careerUI;
+    const koCareer = dictionaries.ko.careerUI;
+
+    const enKeys = Object.keys(enCareer) as (keyof typeof enCareer)[];
+    const koKeys = Object.keys(koCareer) as (keyof typeof koCareer)[];
+
+    expect(enKeys.sort()).toEqual(koKeys.sort());
+    expect(enKeys.length).toBeGreaterThan(20);
+
+    for (const key of enKeys) {
+      expect(enCareer[key]).toBeTypeOf("string");
+      expect(enCareer[key].trim().length).toBeGreaterThan(0);
+
+      expect(koCareer[key]).toBeTypeOf("string");
+      expect(koCareer[key].trim().length).toBeGreaterThan(0);
     }
   });
 
@@ -65,6 +84,7 @@ describe("i18n Dictionaries Completeness & Parity", () => {
       const dict = getDictionary(locale);
       expect(dict).toBeDefined();
       expect(dict.skipToContent).toBe(dictionaries[locale].skipToContent);
+      expect(dict.careerUI.homeHeadline).toBe(dictionaries[locale].careerUI.homeHeadline);
       expect(dict.skeleton.eyebrow).toBe(dictionaries[locale].skeleton.eyebrow);
       expect(dict.blogUI.emptyTitle).toBe(dictionaries[locale].blogUI.emptyTitle);
       expect(dict.blogUI.calloutNote).toBe(dictionaries[locale].blogUI.calloutNote);

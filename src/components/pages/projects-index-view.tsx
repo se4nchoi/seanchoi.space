@@ -3,11 +3,8 @@ import type { AppLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { PageIntro } from "@/components/ui/page-intro";
+import { canonicalContentRegistry } from "@/data/content";
 import { ProjectCard } from "@/components/ui/project-card";
-import {
-  skeletonProjectEn,
-  skeletonProjectKo,
-} from "@/data/skeleton-preview";
 
 export interface ProjectsIndexViewProps {
   locale: AppLocale;
@@ -15,36 +12,52 @@ export interface ProjectsIndexViewProps {
 
 export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
   const dict = getDictionary(locale);
-  const isKo = locale === "ko";
-  const project = isKo ? skeletonProjectKo : skeletonProjectEn;
-  const detailHref = isKo ? "/ko/projects/example-project" : "/projects/example-project";
+  const projects = canonicalContentRegistry.projects.filter(
+    (p) => p.locale === locale && p.publicationStatus === "public"
+  );
+
+  // Honest empty state when no public projects exist
+  if (projects.length === 0) {
+    return (
+      <Container size="default" className="space-y-12 pb-16">
+        <PageIntro
+          title={dict.projects}
+          summary={dict.projectsStatus}
+        />
+        <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-6 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
+          <p>{dict.projectsStatus}</p>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <Container size="default" className="space-y-12 pb-16">
-      <div className="space-y-6">
-        <PageIntro
-          eyebrow={dict.skeleton.eyebrow}
-          title={dict.projects}
-          summary={dict.skeleton.direction}
-        />
-        <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-4 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
-          {dict.skeleton.notice}
-        </div>
-      </div>
-
-      {/* Single Representative Project Skeleton */}
-      <section className="space-y-6">
+      <PageIntro
+        title={dict.projects}
+        summary={dict.projectsStatus}
+      />
+      <section aria-label={dict.projects} className="space-y-6">
         <div className="grid grid-cols-1 gap-6">
-          <ProjectCard
-            title={project.title}
-            summary={project.summary}
-            status="in-progress"
-            statusLabel={dict.skeleton.inProgress}
-            role={project.role}
-            tags={project.topics}
-            href={detailHref}
-            headingLevel={2}
-          />
+          {projects.map((project) => {
+            const detailHref =
+              locale === "ko"
+                ? `/ko/projects/${project.slug}`
+                : `/projects/${project.slug}`;
+            return (
+              <ProjectCard
+                key={project.id}
+                title={project.title}
+                summary={project.summary}
+                status={project.status}
+                statusLabel={project.status}
+                role={project.role}
+                tags={project.topics}
+                href={detailHref}
+                headingLevel={2}
+              />
+            );
+          })}
         </div>
       </section>
     </Container>

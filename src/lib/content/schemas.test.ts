@@ -17,6 +17,7 @@ import {
   skillRecordSchema,
   projectRecordSchema,
   articleRecordSchema,
+  supportingProjectRecordSchema,
   contentRegistrySchema,
 } from "./schemas";
 import {
@@ -102,6 +103,41 @@ describe("Content Schemas Primitives", () => {
       expect(() => assetPathSchema.parse("images/logo.png")).toThrow();
       expect(() => assetPathSchema.parse("/images/../secret.txt")).toThrow();
       expect(() => assetPathSchema.parse("/..")).toThrow();
+    });
+  });
+
+  describe("dateRangeSchema", () => {
+    it("accepts valid start and end dates for completed records", () => {
+      const res = dateRangeSchema.parse({
+        start: "2022-09",
+        end: "2023-08",
+        ongoing: false,
+      });
+      expect(res.start).toBe("2022-09");
+      expect(res.end).toBe("2023-08");
+      expect(res.ongoing).toBe(false);
+    });
+
+    it("accepts ongoing date ranges with null end date", () => {
+      const res = dateRangeSchema.parse({
+        start: "2026-06",
+        end: null,
+        ongoing: true,
+      });
+      expect(res.start).toBe("2026-06");
+      expect(res.end).toBeNull();
+      expect(res.ongoing).toBe(true);
+    });
+
+    it("accepts completion-only date ranges with null start date (e.g. conferred education)", () => {
+      const res = dateRangeSchema.parse({
+        start: null,
+        end: "2026-06",
+        ongoing: false,
+      });
+      expect(res.start).toBeNull();
+      expect(res.end).toBe("2026-06");
+      expect(res.ongoing).toBe(false);
     });
   });
 
@@ -346,6 +382,24 @@ describe("Content Schemas Primitives", () => {
           unknownArticleField: "forbidden",
         })
       ).toThrow();
+
+      expect(() =>
+        supportingProjectRecordSchema.parse({
+          id: "test-supp-proj",
+          publicationStatus: "public",
+          claimState: "verified",
+          syntheticPlaceholder: false,
+          reviewedOn: "2026-08-31",
+          context: "self-directed",
+          evidenceLevel: "project",
+          title: { en: "Test", koReview: "missing" },
+          summary: { en: "Summary", koReview: "missing" },
+          role: { en: "Role", koReview: "missing" },
+          technologies: ["React"],
+          evidenceIds: ["ev-test"],
+          unknownSupportingField: "forbidden",
+        })
+      ).toThrow();
     });
 
     it("rejects undeclared top-level collections in contentRegistrySchema", () => {
@@ -354,6 +408,46 @@ describe("Content Schemas Primitives", () => {
         contentRegistrySchema.parse({
           ...reg,
           unknownCollection: [],
+        })
+      ).toThrow();
+    });
+  });
+
+  describe("supportingProjectRecordSchema", () => {
+    it("accepts valid self-directed supporting project record", () => {
+      const parsed = supportingProjectRecordSchema.parse({
+        id: "project-lan-chat",
+        publicationStatus: "public",
+        claimState: "verified",
+        syntheticPlaceholder: false,
+        reviewedOn: "2026-08-31",
+        context: "self-directed",
+        evidenceLevel: "project",
+        title: { en: "Classroom LAN Chat", koReview: "missing" },
+        summary: { en: "FastAPI LAN chat", koReview: "missing" },
+        technologies: ["FastAPI", "WebSocket"],
+        role: { en: "Sole Developer", koReview: "missing" },
+        evidenceIds: ["evidence-lan-chat"],
+      });
+      expect(parsed.id).toBe("project-lan-chat");
+      expect(parsed.context).toBe("self-directed");
+    });
+
+    it("rejects invalid context values", () => {
+      expect(() =>
+        supportingProjectRecordSchema.parse({
+          id: "invalid-proj",
+          publicationStatus: "public",
+          claimState: "verified",
+          syntheticPlaceholder: false,
+          reviewedOn: "2026-08-31",
+          context: "commercial-enterprise",
+          evidenceLevel: "project",
+          title: { en: "Invalid", koReview: "missing" },
+          summary: { en: "Invalid", koReview: "missing" },
+          technologies: ["React"],
+          role: { en: "Dev", koReview: "missing" },
+          evidenceIds: ["ev-test"],
         })
       ).toThrow();
     });

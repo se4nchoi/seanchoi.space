@@ -7,7 +7,6 @@ import { PageIntro } from "@/components/ui/page-intro";
 import { ArticleCard } from "@/components/ui/article-card";
 import { TopicList } from "@/components/blog/topic-list";
 import { getBlogArticles, getTopicsWithCounts } from "@/lib/content/blog";
-import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
 
 export interface BlogIndexViewProps {
   locale: AppLocale;
@@ -20,8 +19,7 @@ export function BlogIndexView({
 }: BlogIndexViewProps) {
   const dict = getDictionary(locale);
   const isKo = locale === "ko";
-  const preview =
-    previewProp ?? (isSkeletonPreviewEnabled() || process.env.NODE_ENV === "test");
+  const preview = previewProp ?? false;
   const articles = getBlogArticles(locale, { preview });
   const topics = getTopicsWithCounts(locale, { allowPreview: preview });
 

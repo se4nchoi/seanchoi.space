@@ -117,7 +117,7 @@ export type LocalizedText = z.infer<typeof localizedTextSchema>;
 
 export const dateRangeSchema = z
   .object({
-    start: yearMonthSchema,
+    start: yearMonthSchema.nullable(),
     end: yearMonthSchema.nullable(),
     ongoing: z.boolean(),
   })
@@ -334,6 +334,25 @@ export const articleRecordSchema = commonRecordSchema
   .strict();
 export type ArticleRecord = z.infer<typeof articleRecordSchema>;
 
+// --- Supporting Projects ---
+
+export const supportingProjectContextSchema = z.enum(["self-directed", "training-exercise"]);
+export type SupportingProjectContext = z.infer<typeof supportingProjectContextSchema>;
+
+export const supportingProjectRecordSchema = commonRecordSchema
+  .extend({
+    context: supportingProjectContextSchema,
+    evidenceLevel: evidenceLevelSchema,
+    title: localizedTextSchema,
+    summary: localizedTextSchema,
+    technologies: z.array(z.string().trim().min(1, "Technology cannot be blank")),
+    role: localizedTextSchema.optional(),
+    evidenceIds: z.array(recordIdSchema),
+    scale: localizedTextSchema.optional(),
+  })
+  .strict();
+export type SupportingProjectRecord = z.infer<typeof supportingProjectRecordSchema>;
+
 // --- Content Registry ---
 
 export const contentRegistrySchema = z
@@ -346,6 +365,7 @@ export const contentRegistrySchema = z
     skills: z.array(skillRecordSchema),
     projects: z.array(projectRecordSchema),
     articles: z.array(articleRecordSchema),
+    supportingProjects: z.array(supportingProjectRecordSchema).default([]),
   })
   .strict();
 export type ContentRegistry = z.infer<typeof contentRegistrySchema>;

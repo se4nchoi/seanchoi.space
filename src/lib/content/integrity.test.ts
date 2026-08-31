@@ -7,14 +7,20 @@ const FIXED_TEST_NOW = new Date("2026-08-28T00:00:00Z");
 const AVAILABLE_ASSETS = new Set(["/example-asset.png"]);
 
 describe("Content Integrity Validator", () => {
-  it("passes for canonical empty registry", () => {
+  it("passes for canonical production registry", () => {
     const result = validateContentRegistry(canonicalContentRegistry, {
-      now: FIXED_TEST_NOW,
+      now: new Date("2026-08-31T00:00:00Z"),
       availableAssets: AVAILABLE_ASSETS,
     });
     expect(result).toBeDefined();
-    expect(result.siteIdentity).toBeNull();
+    expect(result.siteIdentity).not.toBeNull();
+    expect(result.siteIdentity?.displayName.en).toBe("Sean Choi");
+    expect(result.siteIdentity?.displayName.ko).toBe("최예현");
+    expect(result.experiences.length).toBeGreaterThanOrEqual(3);
+    expect(result.educationAndTraining.length).toBeGreaterThanOrEqual(2);
+    expect(result.skills.length).toBeGreaterThanOrEqual(10);
     expect(result.projects).toHaveLength(0);
+    expect(result.articles).toHaveLength(0);
   });
 
   it("passes for valid synthetic draft registry", () => {
@@ -230,12 +236,48 @@ describe("Content Integrity Validator", () => {
         validateContentRegistry(r3, { now: FIXED_TEST_NOW, availableAssets: AVAILABLE_ASSETS })
       ).toThrowError(/invalid_date_range/);
 
-      // 4. Article updatedOn < publishedOn
+      // 4. Null start on experience record (regression test: missing start not allowed on experience)
       const r4 = createSyntheticRegistry();
-      r4.articles[0].publishedOn = "2026-05-01";
-      r4.articles[0].updatedOn = "2026-04-01";
+      r4.experiences[0].dateRange = {
+        start: null,
+        end: "2024-01",
+        ongoing: false,
+      };
       expect(() =>
         validateContentRegistry(r4, { now: FIXED_TEST_NOW, availableAssets: AVAILABLE_ASSETS })
+      ).toThrowError(/invalid_date_range/);
+
+      // 5. Null start on training record (regression test: missing start not allowed on training)
+      const r5 = createSyntheticRegistry();
+      r5.educationAndTraining[0].kind = "training";
+      r5.educationAndTraining[0].dateRange = {
+        start: null,
+        end: "2026-12",
+        ongoing: true,
+      };
+      expect(() =>
+        validateContentRegistry(r5, { now: FIXED_TEST_NOW, availableAssets: AVAILABLE_ASSETS })
+      ).toThrowError(/invalid_date_range/);
+
+      // 6. Article updatedOn < publishedOn
+      const r6 = createSyntheticRegistry();
+      r6.articles[0].publishedOn = "2026-05-01";
+      r6.articles[0].updatedOn = "2026-04-01";
+      expect(() =>
+        validateContentRegistry(r6, { now: FIXED_TEST_NOW, availableAssets: AVAILABLE_ASSETS })
+      ).toThrowError(/invalid_date_range/);
+
+      // 7. Ongoing training record with past scheduled end date (end < currentYearMonth)
+      const r7 = createSyntheticRegistry();
+      r7.educationAndTraining[0].kind = "training";
+      r7.educationAndTraining[0].status = "in-progress";
+      r7.educationAndTraining[0].dateRange = {
+        start: "2026-01",
+        end: "2026-05", // Precedes FIXED_TEST_NOW (2026-08)
+        ongoing: true,
+      };
+      expect(() =>
+        validateContentRegistry(r7, { now: FIXED_TEST_NOW, availableAssets: AVAILABLE_ASSETS })
       ).toThrowError(/invalid_date_range/);
     });
 
