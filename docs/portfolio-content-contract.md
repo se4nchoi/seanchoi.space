@@ -8,9 +8,9 @@
 
 **Implementation:** Gemini or another explicitly assigned implementation agent
 
-**Initial status:** WP6 factual/content baseline approved for preview implementation; final English/Korean editorial density, visual fit, and program-name rendering remain pre-publication work
+**Current status:** WP6B verified bilingual career-content preview implemented; final English/Korean editorial density, visual fit, final program-name rendering, and remaining publication checks remain pre-publication work
 
-**Last reviewed:** 2026-08-31
+**Last reviewed:** 2026-09-09
 
 ## 1. Authority and use
 

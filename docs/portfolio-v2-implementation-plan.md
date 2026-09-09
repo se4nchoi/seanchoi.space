@@ -4,7 +4,7 @@
 
 **Planning authority:** `docs/portfolio-v2-exploration-report.md`
 
-**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6 factual/content baseline ready for preview implementation; final editorial/visual pass deferred until real-content review
+**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6B verified bilingual career-content preview implemented and checkpointed; rendered editorial/visual review and final WP6 acceptance remain pending
 
 ## 1. Delivery model
 
@@ -356,4 +356,4 @@ Apply the review proportionally:
 
 ## 7. Immediate next action
 
-WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP6A is accepted and checkpointed at `27d8aa7`; it removed the public résumé footprint and applied the approved neutral-and-blue palette. The verified WP6 factual baseline and initial English-copy draft are checkpointed at `73b467b`. Sean has approved enough corrected English/Korean content to define the safe content types, factual boundaries, locale-visible names, bounded military automation disclosure, and classroom side-project classification for a preview implementation. Do not spend another pass perfecting every sentence before rendering. The next action is implementation of `docs/gemini-handoffs/wp6b-verified-career-content-preview.md`, which replaces fixtures with this baseline and gives Gemini freedom over routine implementation. Codex and Sean then review real pages for content quantity, hierarchy, visual layout, and authoring friction. A later pre-publication editorial/visual pass, informed by relevant portfolio references, remains mandatory. The existing Next.js `NoFallbackError` log on intentionally omitted dynamic paths remains a deployment-verification risk for WP9.
+WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP6A is accepted and checkpointed at `27d8aa7`; it removed the public résumé footprint and applied the approved neutral-and-blue palette. The verified WP6 factual baseline is checkpointed at `73b467b`, the WP6B bilingual career-content preview implementation at `048efe7`, and Sean's preview-copy alignment and provisional English program-label approval at `3b9cf27`. The next action is a rendered editorial/visual review of the real Home and Experience pages for content quantity, hierarchy, visual identity, bilingual cadence, and authoring friction. That review should define a focused remediation package without changing factual boundaries or beginning WP7 by convenience. Final WP6 acceptance still requires the remaining human-review and LinkedIn-consistency gates in the content contract. WP7 may begin separately when at least one flagship project has sufficient disclosure-safe evidence. The existing Next.js `NoFallbackError` log on intentionally omitted dynamic paths remains a deployment-verification risk for WP9.
