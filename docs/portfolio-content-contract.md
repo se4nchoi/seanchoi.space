@@ -115,7 +115,7 @@ State: `approved-direction`. Its factual components are verified; final English 
 | --- | --- | --- |
 | University of Toronto | `Bachelor of Applied Science (BASc), Computer Engineering — University of Toronto, 2026` | `verified`; completed/conferred June 2026; supersedes stale “final-year student” wording |
 | CGPA | `2.22` in private evidence | `prohibited`; do not publish |
-| Program label/provider | `부산인력개발원 - Intel: AI 융합 DX 마스터클래스` | `verified` official Korean display; public English rendering remains `pending` |
+| Program label/provider | `부산인력개발원 - Intel: AI 융합 DX 마스터클래스` | `verified` official Korean display; provisional English rendering `Physical AI & Smart Factory Training Program` approved for preview by Sean |
 | Dates/status | June 22–December 24, 2026; in progress | `verified`; public month precision |
 | Study areas | PLC/ladder logic, sensors/IoT, industrial networking, Linux/WSL, Docker, AI/ML, OpenVINO, equipment/OT integration concepts | `verified` training scope; not professional expertise |
 | Classroom LAN Chat | Self-directed FastAPI, WebSocket, SQLite application used by 22 classmates | `verified` personal/project output completed during the program period but outside its curriculum; no broader impact inference |
@@ -262,7 +262,7 @@ Before a factual content change is publishable, verify:
 The Sections 4–9 baseline supersedes corresponding legacy résumé, profile, and site claims. Remaining WP6 inputs:
 
 1. Human review of Korean translations against the approved English source.
-2. Approved English rendering of `부산인력개발원 - Intel: AI 융합 DX 마스터클래스`.
+2. Final English rendering of `부산인력개발원 - Intel: AI 융합 DX 마스터클래스` (provisional preview label `Physical AI & Smart Factory Training Program` approved on 2026-09-09).
 3. Optional recovered Hoek contractual title; until then Section 7 governs.
 4. Disclosure-safe artifacts if training outputs become more than compact records.
 5. LinkedIn reconciliation of stale student wording.
@@ -300,5 +300,6 @@ Record consequential approvals here:
 | 2026-08-31 | Classroom project Korean classification | `self-directed project` | `verified` display wording | Use `사이드 프로젝트`; retain classroom-use and four-person contribution boundaries | Sean |
 | 2026-08-31 | Training program identity | `interim/pending` | `verified` Korean identity | `부산인력개발원 - Intel: AI 융합 DX 마스터클래스`; English rendering pending | Sean |
 | 2026-08-31 | WP6 editorial maturity | `final-copy gate before implementation` | `preview baseline` | Implement safe content now; revisit wording, content quantity, hierarchy, visual layout, and portfolio-reference comparisons before publication | Sean |
+| 2026-09-09 | Program English label | `pending` | `verified provisional` | Approved 'Physical AI & Smart Factory Training Program' as the provisional English display label for preview | Sean |
 
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.

@@ -185,7 +185,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
         "Independent projects initiated outside the curriculum during the training period.",
       trainingExercises: "In-Class Implementation Exercises",
       trainingExercisesSummary:
-        "Hands-on implementation of PLC ladder logic, Arduino microcontroller circuits, sensor/IoT data acquisition, and local network configuration.",
+        "Hands-on implementation of PLC, Arduino, sensor, and local-network exercises.",
       skillsByLevel: "Skills by Evidence Level",
       contributionBoundaries:
         "Contribution Boundaries & Disclosure Safeguards",
@@ -330,7 +330,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
         "교육 기간 중 정규 커리큘럼 외 자발적으로 진행한 독립 프로젝트입니다.",
       trainingExercises: "수업 내 구현 실습",
       trainingExercisesSummary:
-        "PLC, Arduino, 센서, 로컬 네트워크를 직접 구성하고 동작을 확인한 실습입니다.",
+        "PLC, Arduino, 센서, 로컬 네트워크를 직접 구성하고 동작을 확인했습니다.",
       skillsByLevel: "기술 역량 및 근거 수준",
       contributionBoundaries: "기여 범위 및 보안 안내",
       boundaryEmgTitle: "EMG Global — 시스템 및 연동 경계",
