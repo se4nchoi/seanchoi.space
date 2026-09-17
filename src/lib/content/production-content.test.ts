@@ -1,7 +1,11 @@
 import { describe, it, expect } from "vitest";
 import fs from "fs";
 import path from "path";
-import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
+import {
+  canonicalContentRegistry,
+  canonicalSupportingProjects,
+  systemLayerSkillGroups,
+} from "@/data/content";
 import { validateContentRegistry } from "./validate";
 import { validateBlogPipeline } from "./blog";
 import { ARTICLE_ROUTE_PAIRS } from "./article-routes";
@@ -72,7 +76,7 @@ describe("Production Content Publication Guard", () => {
       expect(record.publicationStatus).toBe("public");
       expect(record.claimState).toBe("verified");
       expect(record.syntheticPlaceholder).toBe(false);
-      expect(record.reviewedOn).toBe("2026-08-31");
+      expect(record.reviewedOn).toMatch(/^2026-(08-31|09-17)$/);
     }
   });
 
@@ -147,18 +151,32 @@ describe("Production Content Publication Guard", () => {
     expect(training?.dateRange.end).toBe("2026-12");
   });
 
-  it("proves self-directed classroom projects are distinct from training implementation exercises and under safeguards", () => {
-    expect(canonicalSupportingProjects.length).toBeGreaterThanOrEqual(3);
+  it("keeps professional, project, training, and current-work evidence distinct and safeguarded", () => {
+    expect(canonicalSupportingProjects.length).toBeGreaterThanOrEqual(8);
 
+    const professional = canonicalSupportingProjects.filter(
+      (p) => p.context === "professional"
+    );
     const selfDirected = canonicalSupportingProjects.filter(
       (p) => p.context === "self-directed"
     );
     const exercises = canonicalSupportingProjects.filter(
       (p) => p.context === "training-exercise"
     );
+    const currentWork = canonicalSupportingProjects.filter(
+      (p) => p.context === "current-work"
+    );
 
+    expect(professional).toHaveLength(3);
     expect(selfDirected).toHaveLength(2);
-    expect(exercises).toHaveLength(1);
+    expect(exercises).toHaveLength(2);
+    expect(currentWork).toHaveLength(1);
+
+    for (const p of professional) {
+      expect(p.evidenceLevel).toBe("professional");
+      expect(p.status).toBe("completed");
+      expect(p.plannedScope).toHaveLength(0);
+    }
 
     for (const p of selfDirected) {
       expect(p.evidenceLevel).toBe("project");
@@ -172,6 +190,54 @@ describe("Production Content Publication Guard", () => {
       expect(ex.publicationStatus).toBe("public");
       expect(ex.claimState).toBe("verified");
       expect(ex.syntheticPlaceholder).toBe(false);
+    }
+
+    const robotCell = currentWork[0];
+    expect(robotCell.status).toBe("in-progress");
+    expect(robotCell.evidenceLevel).toBe("project");
+    expect(robotCell.completedScope.length).toBeGreaterThan(0);
+    expect(robotCell.plannedScope.length).toBeGreaterThan(0);
+    expect(robotCell.plannedScope.map((item) => item.en)).toContain(
+      "ROS2 control layer"
+    );
+    expect(robotCell.contributionBoundary.en).toContain(
+      "shared training-facility hardware"
+    );
+
+    const publishedSkillNames = canonicalContentRegistry.skills
+      .map((skill) => skill.name.en)
+      .join(" ");
+    expect(publishedSkillNames).not.toContain("ROS2");
+    expect(publishedSkillNames).not.toContain("C++");
+    expect(publishedSkillNames).not.toContain("Perception");
+  });
+
+  it("preserves RUTA40 and Smart City ownership boundaries", () => {
+    const ruta40 = canonicalSupportingProjects.find(
+      (item) => item.id === "evidence-item-ruta40"
+    );
+    const smartCity = canonicalSupportingProjects.find(
+      (item) => item.id === "evidence-item-smart-city"
+    );
+
+    expect(ruta40?.contributionBoundary.en).toContain("frontend UI and API integration");
+    expect(ruta40?.contributionBoundary.en).toContain("embedded module");
+    expect(smartCity?.contributionBoundary.en).toContain("frontend integration");
+    expect(smartCity?.contributionBoundary.en).toContain(
+      "backend WebSocket, data-pipeline, and database ownership are not claimed"
+    );
+  });
+
+  it("maps every published skill to exactly one system layer without losing evidence provenance", () => {
+    const groupedSkillIds = systemLayerSkillGroups.flatMap((group) => [
+      ...group.skillIds,
+    ]);
+    const canonicalSkillIds = canonicalContentRegistry.skills.map((skill) => skill.id);
+
+    expect(new Set(groupedSkillIds).size).toBe(groupedSkillIds.length);
+    expect([...groupedSkillIds].sort()).toEqual([...canonicalSkillIds].sort());
+    for (const skill of canonicalContentRegistry.skills) {
+      expect(skill.evidenceIds.length).toBeGreaterThan(0);
     }
   });
 

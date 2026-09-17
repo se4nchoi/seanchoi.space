@@ -91,7 +91,7 @@ export function createRootMetadata(locale: AppLocale): Metadata {
     },
     description:
       locale === "ko"
-        ? "이중 언어 포트폴리오 구조를 준비하고 있습니다. 검증된 작업과 글은 검토 후 추가합니다."
-        : "The bilingual portfolio shell is being prepared. Verified work and writing will be added after review.",
+        ? "소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결하는 컴퓨터 엔지니어 최예현의 이중 언어 포트폴리오입니다."
+        : "Bilingual portfolio of Sean Choi, a computer engineer building and integrating software, AI, and infrastructure for physical systems.",
   };
 }

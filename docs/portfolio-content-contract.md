@@ -8,9 +8,9 @@
 
 **Implementation:** Gemini or another explicitly assigned implementation agent
 
-**Current status:** WP6B verified bilingual career-content preview implemented; final English/Korean editorial density, visual fit, final program-name rendering, and remaining publication checks remain pre-publication work
+**Current status:** WP6D career positioning and engineering-evidence realignment implemented for review; executable checks, rendered EN/KO review, final bilingual editorial approval, LinkedIn consistency, and remaining publication checks are still pending
 
-**Last reviewed:** 2026-09-09
+**Last reviewed:** 2026-09-17
 
 ## 1. Authority and use
 
@@ -77,11 +77,17 @@ Silence is not verification. If a field is absent from this contract, treat it a
 
 ### Approved English lead
 
-> **Software developer connecting web interfaces with operational systems.**
+> **Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.**
 >
-> Computer Engineering graduate with professional experience across frontend applications, full-stack product development, and API integration. Currently extending that foundation through in-progress training in automation, Physical AI, and smart-factory systems.
+> Professional software and integration experience is the foundation. Current training and self-directed work extend it into automation, robot-cell integration, and the physical systems those layers must operate.
 
-State: `verified` and approved for English publication on 2026-08-31. Supporting page copy must continue to preserve the role and evidence boundaries below.
+State: `verified` and approved for English publication on 2026-09-17. This supersedes the 2026-08-31 homepage lead. Supporting evidence must not imply completed professional AI, robotics, controls, embedded, or infrastructure ownership beyond the records below.
+
+### Approved Korean lead
+
+> **소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.**
+
+State: `verified` and approved for Korean publication on 2026-09-17. New supporting Korean evidence copy remains editorially reviewable until Sean completes the rendered bilingual review.
 
 ### Approved factual baseline
 
@@ -96,12 +102,14 @@ State: `approved-direction`. Its factual components are verified; final English 
 | Frontend applications | `verified` | EMG and Hoek within Section 7 boundaries |
 | Full-stack internal tooling | `verified`, bounded | Hoek attendance product included actual Koa/MySQL backend work; not a contractual title |
 | Operational API/stream integration | `verified`, bounded | EMG frontend consumed APIs/streams built by senior/backend engineers; Sean implemented React UI/control integration for the real-vehicle door-lock feature |
-| Physical AI/smart-factory direction | `verified` as trajectory | In-progress training, not professional specialization |
+| Physical-systems direction | `verified` as trajectory | Expansion of existing software/integration work through in-progress training and self-directed work; not a restart or abandonment of software |
+| AI in the lead | `verified` positioning with bounded support | Current supporting evidence is training/planned unless later completed; do not imply professional AI or perception ownership |
 
 ### Positioning boundaries
 
 | Language | State/rule |
 | --- | --- |
+| “Computer engineer” | `verified`; approved primary identity grounded in the BASc and bounded evidence system |
 | “Software developer” | `verified`; safe general identity and EMG website title |
 | “Software engineer” | `restricted` as default/general or contractual website title; targeted résumé use only |
 | “Full-stack engineer/developer” | `verified`, bounded Hoek prose only; not a recovered contractual title |
@@ -121,7 +129,10 @@ State: `approved-direction`. Its factual components are verified; final English 
 | Classroom LAN Chat | Self-directed FastAPI, WebSocket, SQLite application used by 22 classmates | `verified` personal/project output completed during the program period but outside its curriculum; no broader impact inference |
 | Classroom Q&A Board (`대나무지식인`) | Self-directed four-person classroom Q&A MVP; Sean handled backend/database integration | `verified` personal/project output completed during the program period but outside its curriculum; preserve team boundary |
 | Exercises | PLC, Arduino, sensor, local-network implementation | `verified` training output; not production |
-| ROS 2, robotics controls, edge-AI current learning | Current learning | `restricted` to learning context; not professional expertise/completed-project evidence |
+| Guided robot-cell hardware integration | Mitsubishi PLC, CC-Link, Neuromeka robot arm, servo-controlled loading docks, explicit handshake/state signals | `verified` training evidence; guided team work on shared training equipment, not solo or production ownership |
+| ROS2 Industrial Robot Cell Integration | Self-directed individual work during self-study using shared training-facility hardware | `verified` current project context; completed foundation and planned scope must remain separately labeled |
+| ROS2 control, orchestration/state machine, timeout/fault/recovery | Planned | `verified` as planned scope only; never render as completed evidence |
+| Perception/OpenVINO/edge-AI robot behavior | Training/later planned work | Not completed project evidence; never imply implemented perception-driven behavior |
 
 Training records require accurate `planned`, `in-progress`, or `completed` status and an evidence level. Do not list unused coursework/tools prospectively.
 
@@ -134,7 +145,8 @@ Training records require accurate `planned`, `in-progress`, or `completed` statu
 | Organization | `Hoek Agency (획기획)` | `verified`; omit 제조도 from heading |
 | Title | `Software Developer — Frontend to Full-Stack` | `verified` safe public title; contractual title unrecovered |
 | Dates | September 2022–August 2023 | `verified`; actual start Sep 5; final day unavailable |
-| Attendance product | Frontend plus actual Koa/MySQL backend development | `verified`; bounded full-stack prose |
+| Attendance product | Internal Attendance / HR Product (`몰입도`); Korean `사내 근태·HR 시스템 몰입도`; frontend plus actual Koa/MySQL backend development | `verified`; internal system only, not a commercial external product |
+| Attendance rules | Active-session clock-in/out checks, multiple work/break periods, and team-adopted 06:00 operational workday boundary for overnight work | `verified`; evidence of translating domain rules into application state/business logic |
 | “Full-Stack Engineer” contractual title; product-lead/end-to-end ownership | Not verified | `prohibited` |
 | Unsupported percentages/metrics | Legacy claims | `prohibited` |
 
@@ -145,7 +157,8 @@ Training records require accurate `planned`, `in-progress`, or `completed` statu
 | Organization/title | `EMG Global`; official `개발자`; website `Software Developer` | `verified`; “Software Engineer” only in separately approved targeted résumés |
 | Dates | July 2021–July 31, 2022 | `verified`; publish July 2021–July 2022; supersedes Aug 2021 start/July 12 end |
 | Frontend/API/stream integration | Frontend interfaces integrated with APIs/streams built by senior/backend engineers | `verified`; no backend, WebSocket, or data-pipeline ownership |
-| Door-lock feature | Embedded team built module; backend exposed HTTPS API; Sean built React UI/control integration; worked on real vehicle | `verified`; preserve all boundaries |
+| RUTA40 door-lock feature | Embedded team built module; backend exposed HTTPS control API; Sean owned React UI/API integration and worked on the real vehicle | `verified`; real-vehicle boundary diagnosis may be described; preserve firmware/backend boundaries |
+| Daegu Smart City Challenge | Sean integrated exposed APIs/real-time streams into frontend visualization and UI behavior | `verified`; do not claim backend WebSocket, data-pipeline, or database ownership |
 | Firmware/embedded ownership, exact CCTV counts, personal funding/selection attribution, satisfaction/performance metrics | Not approved/unsupported | `prohibited` |
 
 ### Korea Defense Intelligence Command
@@ -160,7 +173,9 @@ Training records require accurate `planned`, `in-progress`, or `completed` statu
 
 ## 8. Projects and case studies
 
-No WP7 flagship is approved. WP6 may include verified Section 6 training outputs as compact evidence records, not inflated case studies or professional deployments.
+No WP7 flagship is approved. WP6D may publish a grouped engineering-evidence index containing bounded professional systems work, self-directed projects, training exercises, and current work. These records are not flagship case studies and do not receive fabricated detail routes.
+
+`ROS2 Industrial Robot Cell Integration` / `ROS2 산업용 로봇 셀 통합` is the approved current working title. Completed starting evidence is limited to PLC ↔ Neuromeka real-hardware integration, CC-Link handshake reasoning, and multi-dock/servo-loading-dock coordination. ROS2 control, orchestration/state-machine behavior, timeout/fault/recovery handling, and later perception/edge AI remain planned.
 
 Detailed case studies require separate approved specifications with context, contribution boundaries, artifact-grounded decisions, verification, limitations, disclosure-safe evidence, actual technologies, and localization status.
 
@@ -193,8 +208,10 @@ Skills are evidence references, not self-ratings.
 | FastAPI/WebSocket/SQLite | `project`; self-directed Classroom LAN Chat outside the curriculum; never transfer backend/WebSocket ownership to EMG |
 | JavaScript/VBA workflow automation | `professional`; bounded military translation workflow only; never disclose processed content or sensitive operational context |
 | PLC/ladder, Arduino, sensors/IoT, local networking | `training`; completed exercises |
+| Mitsubishi PLC, HMI, CC-Link, servo/inverter, physical wiring, robot integration | `training`; hands-on guided work on shared equipment, not production ownership |
 | Linux/WSL, Docker, industrial networking, AI/ML, OpenVINO, equipment/OT concepts | `training`; in-progress scope, not established expertise |
-| ROS 2, robotics controls, edge-AI | `exposure`/current learning; normally omit prominently |
+| ROS2 and robotics orchestration | `project` only for the explicitly labeled in-progress self-directed robot-cell work; planned implementation is not completed evidence |
+| C++ robotics depth, perception, edge-AI robot behavior | Current learning/planned; do not present as completed project or professional evidence |
 | C/C++, STM32, SPI, CAN, FreeRTOS | `exposure`/unfinished lab; normally omit WP6 |
 
 Unmapped technologies remain `pending`. Repository use alone does not prove professional experience. Never publish proficiency ratings, percentages, per-tool experience estimates, or “expert” labels.
@@ -261,7 +278,7 @@ Before a factual content change is publishable, verify:
 
 The Sections 4–9 baseline supersedes corresponding legacy résumé, profile, and site claims. Remaining WP6 inputs:
 
-1. Human review of Korean translations against the approved English source.
+1. Final human/editorial review of the new WP6D English and Korean supporting copy in rendered layouts.
 2. Final English rendering of `부산인력개발원 - Intel: AI 융합 DX 마스터클래스` (provisional preview label `Physical AI & Smart Factory Training Program` approved on 2026-09-09).
 3. Optional recovered Hoek contractual title; until then Section 7 governs.
 4. Disclosure-safe artifacts if training outputs become more than compact records.
@@ -301,5 +318,8 @@ Record consequential approvals here:
 | 2026-08-31 | Training program identity | `interim/pending` | `verified` Korean identity | `부산인력개발원 - Intel: AI 융합 DX 마스터클래스`; English rendering pending | Sean |
 | 2026-08-31 | WP6 editorial maturity | `final-copy gate before implementation` | `preview baseline` | Implement safe content now; revisit wording, content quantity, hierarchy, visual layout, and portfolio-reference comparisons before publication | Sean |
 | 2026-09-09 | Program English label | `pending` | `verified provisional` | Approved 'Physical AI & Smart Factory Training Program' as the provisional English display label for preview | Sean |
+| 2026-09-17 | WP6D career positioning | prior verified lead | `verified`, superseding | Approved exact English/Korean computer-engineer leads; software/integration experience remains the foundation and physical systems are an expansion | Sean |
+| 2026-09-17 | WP6D engineering evidence | `pending`/not modeled | `verified`, bounded | Approved public names and contribution boundaries for RUTA40, Daegu Smart City, 몰입도, guided PLC/CC-Link/Neuromeka work, and self-directed ROS2 robot-cell current work | Sean |
+| 2026-09-17 | ROS2 project maturity | learning/planned | `verified` current work with split scope | Publish completed PLC/CC-Link/multi-dock foundation separately from planned ROS2, orchestration, recovery, perception, and edge-AI work | Sean |
 
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.

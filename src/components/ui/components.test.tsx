@@ -7,6 +7,7 @@ import { ExternalLink } from "./external-link";
 import { EvidenceCard } from "./evidence-card";
 import { ExperienceEntry } from "./experience-entry";
 import { ProjectCard } from "./project-card";
+import { EngineeringEvidenceCard } from "./engineering-evidence-card";
 import { ArticleCard } from "./article-card";
 import { Figure } from "./figure";
 import { Prose } from "./prose";
@@ -190,6 +191,33 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
       const html = renderToStaticMarkup(<LanguageSwitch currentLocale="en" />);
       expect(html).toContain("min-h-[44px]");
     });
+  });
+
+  it("renders completed and planned engineering scope as separately labeled lists", () => {
+    const html = renderToStaticMarkup(
+      <EngineeringEvidenceCard
+        title="ROS2 Robot Cell"
+        summary="Work in progress"
+        evidenceLabel="Project evidence"
+        status="in-progress"
+        statusLabel="In progress"
+        contributionBoundary="Individual work using shared hardware."
+        contributionBoundaryLabel="Contribution boundary"
+        technologies={["PLC"]}
+        completedScope={["PLC integration"]}
+        plannedScope={["ROS2 control"]}
+        completedScopeLabel="Completed foundation"
+        plannedScopeLabel="Planned next"
+      />
+    );
+
+    expect(html).toContain("Completed foundation");
+    expect(html).toContain("PLC integration");
+    expect(html).toContain("Planned next");
+    expect(html).toContain("ROS2 control");
+    expect(html.indexOf("Completed foundation")).toBeLessThan(
+      html.indexOf("Planned next")
+    );
   });
 
   it("renders Figure with caption and container", () => {

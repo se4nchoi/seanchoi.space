@@ -391,9 +391,14 @@ describe("Content Schemas Primitives", () => {
           syntheticPlaceholder: false,
           reviewedOn: "2026-08-31",
           context: "self-directed",
+          status: "completed",
+          editorialStatus: "approved",
           evidenceLevel: "project",
           title: { en: "Test", koReview: "missing" },
           summary: { en: "Summary", koReview: "missing" },
+          contributionBoundary: { en: "Boundary", koReview: "missing" },
+          completedScope: [{ en: "Completed", koReview: "missing" }],
+          plannedScope: [],
           role: { en: "Role", koReview: "missing" },
           technologies: ["React"],
           evidenceIds: ["ev-test"],
@@ -422,9 +427,14 @@ describe("Content Schemas Primitives", () => {
         syntheticPlaceholder: false,
         reviewedOn: "2026-08-31",
         context: "self-directed",
+        status: "completed",
+        editorialStatus: "approved",
         evidenceLevel: "project",
         title: { en: "Classroom LAN Chat", koReview: "missing" },
         summary: { en: "FastAPI LAN chat", koReview: "missing" },
+        contributionBoundary: { en: "Self-directed scope", koReview: "missing" },
+        completedScope: [{ en: "LAN chat", koReview: "missing" }],
+        plannedScope: [],
         technologies: ["FastAPI", "WebSocket"],
         role: { en: "Sole Developer", koReview: "missing" },
         evidenceIds: ["evidence-lan-chat"],
@@ -442,12 +452,83 @@ describe("Content Schemas Primitives", () => {
           syntheticPlaceholder: false,
           reviewedOn: "2026-08-31",
           context: "commercial-enterprise",
+          status: "completed",
+          editorialStatus: "approved",
           evidenceLevel: "project",
           title: { en: "Invalid", koReview: "missing" },
           summary: { en: "Invalid", koReview: "missing" },
+          contributionBoundary: { en: "Invalid", koReview: "missing" },
+          completedScope: [{ en: "Invalid", koReview: "missing" }],
+          plannedScope: [],
           technologies: ["React"],
           role: { en: "Dev", koReview: "missing" },
           evidenceIds: ["ev-test"],
+        })
+      ).toThrow();
+    });
+
+    it("requires current work to separate completed starting evidence from planned scope", () => {
+      const base = {
+        id: "current-robot-cell",
+        publicationStatus: "public",
+        claimState: "verified",
+        syntheticPlaceholder: false,
+        reviewedOn: "2026-09-17",
+        context: "current-work",
+        status: "in-progress",
+        editorialStatus: "reviewable",
+        evidenceLevel: "project",
+        title: { en: "ROS2 Robot Cell", koReview: "missing" },
+        summary: { en: "Current work", koReview: "missing" },
+        contributionBoundary: { en: "Individual work on shared hardware", koReview: "missing" },
+        technologies: ["PLC"],
+        evidenceIds: ["evidence-robot-cell"],
+      } as const;
+
+      expect(() =>
+        supportingProjectRecordSchema.parse({
+          ...base,
+          completedScope: [],
+          plannedScope: [{ en: "ROS2 control", koReview: "missing" }],
+        })
+      ).toThrow();
+
+      expect(() =>
+        supportingProjectRecordSchema.parse({
+          ...base,
+          completedScope: [{ en: "PLC integration", koReview: "missing" }],
+          plannedScope: [],
+        })
+      ).toThrow();
+
+      expect(
+        supportingProjectRecordSchema.parse({
+          ...base,
+          completedScope: [{ en: "PLC integration", koReview: "missing" }],
+          plannedScope: [{ en: "ROS2 control", koReview: "missing" }],
+        }).status
+      ).toBe("in-progress");
+    });
+
+    it("requires each supporting context to retain its evidence provenance", () => {
+      expect(() =>
+        supportingProjectRecordSchema.parse({
+          id: "guided-robot-cell",
+          publicationStatus: "public",
+          claimState: "verified",
+          syntheticPlaceholder: false,
+          reviewedOn: "2026-09-17",
+          context: "training-exercise",
+          status: "completed",
+          editorialStatus: "reviewable",
+          evidenceLevel: "professional",
+          title: { en: "Robot cell", koReview: "missing" },
+          summary: { en: "Guided exercise", koReview: "missing" },
+          contributionBoundary: { en: "Shared equipment", koReview: "missing" },
+          completedScope: [{ en: "Handshake reasoning", koReview: "missing" }],
+          plannedScope: [],
+          technologies: ["PLC"],
+          evidenceIds: ["evidence-robot-cell"],
         })
       ).toThrow();
     });

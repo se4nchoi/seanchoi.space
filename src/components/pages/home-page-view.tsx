@@ -5,73 +5,89 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { Tag } from "@/components/ui/tag";
 import { ExternalLink } from "@/components/ui/external-link";
+import { EngineeringEvidenceCard } from "@/components/ui/engineering-evidence-card";
 import {
   canonicalContentRegistry,
-  formatDateRange,
+  canonicalSupportingProjects,
   getLocalizedText,
+  systemLayerSkillGroups,
 } from "@/data/content";
 
 export interface HomePageViewProps {
   locale: AppLocale;
 }
 
+const selectedEvidenceIds = [
+  "evidence-item-ruta40",
+  "evidence-item-hoek-immersion",
+  "project-lan-chat",
+  "project-plc-robot-cell-integration",
+];
+
 export function HomePageView({ locale }: HomePageViewProps) {
   const dict = getDictionary(locale);
   const isKo = locale === "ko";
-  const { siteIdentity, experiences, educationAndTraining, skills, links } =
+  const { siteIdentity, educationAndTraining, skills, links } =
     canonicalContentRegistry;
 
   const expHref = isKo ? "/ko/experience" : "/experience";
   const projectsHref = isKo ? "/ko/projects" : "/projects";
-
   const displayName = siteIdentity
     ? getLocalizedText(siteIdentity.displayName, locale)
     : isKo
       ? "최예현"
       : "Sean Choi";
-
-  const currentTrainingRecord = educationAndTraining.find(
-    (e) => e.kind === "training" && e.status === "in-progress"
+  const degreeRecord = educationAndTraining.find((item) => item.kind === "education");
+  const selectedEvidence = selectedEvidenceIds
+    .map((id) => canonicalSupportingProjects.find((item) => item.id === id))
+    .filter((item) => item !== undefined);
+  const currentBuild = canonicalSupportingProjects.find(
+    (item) => item.context === "current-work"
   );
+  const githubLink = links.find((link) => link.kind === "github");
+  const linkedinLink = links.find((link) => link.kind === "linkedin");
+  const emailLink = links.find((link) => link.kind === "email");
 
-  const degreeRecord = educationAndTraining.find((e) => e.kind === "education");
-
-  const professionalSkills = skills.filter(
-    (s) => s.evidenceLevel === "professional"
-  );
-  const projectSkills = skills.filter((s) => s.evidenceLevel === "project");
-  const trainingSkills = skills.filter((s) => s.evidenceLevel === "training");
-
-  const githubLink = links.find((l) => l.kind === "github");
-  const linkedinLink = links.find((l) => l.kind === "linkedin");
-  const emailLink = links.find((l) => l.kind === "email");
+  const levelLabel = (level: "professional" | "project" | "training" | "exposure") => {
+    if (level === "professional") return dict.careerUI.professionalLevel;
+    if (level === "project") return dict.careerUI.projectLevel;
+    if (level === "training") return dict.careerUI.trainingLevel;
+    return isKo ? "학습 근거" : "Learning evidence";
+  };
+  const layerLabel = (id: (typeof systemLayerSkillGroups)[number]["id"]) => {
+    const labels = {
+      interfaces: dict.careerUI.layerInterfaces,
+      applications: dict.careerUI.layerApplications,
+      infrastructure: dict.careerUI.layerInfrastructure,
+      "physical-systems": dict.careerUI.layerPhysicalSystems,
+      "ai-perception": dict.careerUI.layerAiPerception,
+    };
+    return labels[id];
+  };
 
   return (
     <Container size="default" className="space-y-16 pb-16">
-      {/* 1. First Viewport: Identity Hierarchy & Primary Actions */}
       <section className="space-y-6 pt-4 sm:pt-8">
         <div className="space-y-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[length:var(--text-small)] font-mono text-[var(--muted)] tracking-[var(--tracking-label)] uppercase">
-              {isKo ? "소프트웨어 개발자" : "Software Developer"}
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[length:var(--text-small)] text-[var(--muted)]">
+            <span className="uppercase tracking-[var(--tracking-label)]">
+              {isKo ? "컴퓨터 엔지니어" : "Computer Engineer"}
             </span>
-            <span className="text-[var(--muted)] font-mono">•</span>
-            <span className="text-[length:var(--text-small)] font-mono text-[var(--muted)]">
-              {dict.careerUI.basedIn}
-            </span>
+            <span aria-hidden="true">•</span>
+            <span>{dict.careerUI.basedIn}</span>
           </div>
           <h1 className="text-[length:var(--text-display)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)] text-[var(--foreground)]">
             {displayName}
           </h1>
         </div>
 
-        <div className="space-y-3 max-w-[var(--max-width-prose)] text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
-          <p className="font-medium text-[var(--foreground)] text-[length:var(--text-heading-3)]">
+        <div className="max-w-[var(--max-width-prose)] space-y-3 text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
+          <p className="text-[length:var(--text-heading-3)] font-medium text-[var(--foreground)]">
             {dict.careerUI.homeHeadline}
           </p>
           <p>{dict.careerUI.homePositioning}</p>
           {degreeRecord && (
-            <p className="text-[length:var(--text-small)] font-mono text-[var(--muted)]">
+            <p className="font-mono text-[length:var(--text-small)]">
               {getLocalizedText(degreeRecord.program, locale)} —{" "}
               {getLocalizedText(degreeRecord.institution, locale)}, 2026
             </p>
@@ -80,266 +96,160 @@ export function HomePageView({ locale }: HomePageViewProps) {
 
         <div className="flex flex-wrap items-center gap-4 pt-2">
           <Link
-            href={expHref}
-            className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-[var(--radius-sm)] bg-[var(--accent)] text-[length:var(--text-small)] font-medium text-[var(--accent-foreground)] hover:opacity-90 transition-opacity focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
-          >
-            {dict.careerUI.viewExperience}
-          </Link>
-          <Link
             href={projectsHref}
-            className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] text-[length:var(--text-small)] font-medium text-[var(--foreground)] hover:bg-[var(--border)] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-sm)] bg-[var(--accent)] px-5 py-2.5 text-[length:var(--text-small)] font-medium text-[var(--accent-foreground)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
           >
             {dict.careerUI.viewProjects}
           </Link>
-        </div>
-
-        {/* Public Profile Links in Hero */}
-        <div className="flex flex-wrap items-center gap-4 pt-2 text-[length:var(--text-small)] text-[var(--muted)]">
-          {emailLink && (
-            <a
-              href={emailLink.href}
-              className="font-medium text-[var(--accent)] hover:underline inline-flex items-center gap-1"
-            >
-              <span>{dict.careerUI.emailLabel}</span>
-              <span aria-hidden="true">✉</span>
-            </a>
-          )}
-          {githubLink && (
-            <ExternalLink
-              href={githubLink.href as `https://${string}`}
-              newTabLabel={dict.openInNewTab}
-            >
-              GitHub
-            </ExternalLink>
-          )}
-          {linkedinLink && (
-            <ExternalLink
-              href={linkedinLink.href as `https://${string}`}
-              newTabLabel={dict.openInNewTab}
-            >
-              LinkedIn
-            </ExternalLink>
-          )}
+          <Link
+            href={expHref}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-[length:var(--text-small)] font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--border)] focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+          >
+            {dict.careerUI.viewExperience}
+          </Link>
         </div>
       </section>
 
-      {/* 2. Verified Professional Experience Snapshot */}
       <section className="space-y-6">
-        <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.careerUI.experienceSnapshot}
-        </h2>
-        <div className="space-y-4">
-          {experiences.map((exp) => {
-            const org = getLocalizedText(exp.organization, locale);
-            const role = getLocalizedText(exp.role, locale);
-            const summary = getLocalizedText(exp.summary, locale);
-            const dateStr = formatDateRange(exp.dateRange, locale);
+        <div className="space-y-2 border-b border-[var(--border)] pb-3">
+          <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+            {dict.careerUI.selectedEngineeringEvidence}
+          </h2>
+          <p className="max-w-[var(--max-width-prose)] text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
+            {dict.careerUI.selectedEngineeringEvidenceIntro}
+          </p>
+          <p className="font-mono text-[length:var(--text-small)] text-[var(--muted)]">
+            {dict.careerUI.editorialReviewable}
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {selectedEvidence.map((item) => (
+            <EngineeringEvidenceCard
+              key={item.id}
+              title={getLocalizedText(item.title, locale)}
+              summary={getLocalizedText(item.summary, locale)}
+              role={item.role ? getLocalizedText(item.role, locale) : undefined}
+              evidenceLabel={levelLabel(item.evidenceLevel)}
+              status={item.status}
+              statusLabel={dict.careerUI.completed}
+              contributionBoundary={getLocalizedText(item.contributionBoundary, locale)}
+              contributionBoundaryLabel={dict.careerUI.contributionBoundaryLabel}
+              technologies={item.technologies}
+              completedScope={item.completedScope.map((scope) =>
+                getLocalizedText(scope, locale)
+              )}
+              plannedScope={[]}
+              completedScopeLabel={dict.careerUI.completedFoundation}
+              plannedScopeLabel={dict.careerUI.plannedNext}
+              compact
+            />
+          ))}
+        </div>
+        <Link
+          href={projectsHref}
+          className="inline-flex min-h-[44px] items-center text-[length:var(--text-small)] font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+        >
+          {dict.careerUI.viewProjects} →
+        </Link>
+      </section>
 
+      {currentBuild && (
+        <section className="space-y-6">
+          <div className="space-y-2 border-b border-[var(--border)] pb-3">
+            <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+              {dict.careerUI.currentlyBuilding}
+            </h2>
+            <p className="max-w-[var(--max-width-prose)] text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
+              {dict.careerUI.currentlyBuildingIntro}
+            </p>
+          </div>
+          <EngineeringEvidenceCard
+            title={getLocalizedText(currentBuild.title, locale)}
+            summary={getLocalizedText(currentBuild.summary, locale)}
+            role={currentBuild.role ? getLocalizedText(currentBuild.role, locale) : undefined}
+            evidenceLabel={levelLabel(currentBuild.evidenceLevel)}
+            status={currentBuild.status}
+            statusLabel={dict.careerUI.inProgress}
+            contributionBoundary={getLocalizedText(
+              currentBuild.contributionBoundary,
+              locale
+            )}
+            contributionBoundaryLabel={dict.careerUI.contributionBoundaryLabel}
+            technologies={currentBuild.technologies}
+            completedScope={currentBuild.completedScope.map((scope) =>
+              getLocalizedText(scope, locale)
+            )}
+            plannedScope={currentBuild.plannedScope.map((scope) =>
+              getLocalizedText(scope, locale)
+            )}
+            completedScopeLabel={dict.careerUI.completedFoundation}
+            plannedScopeLabel={dict.careerUI.plannedNext}
+          />
+        </section>
+      )}
+
+      <section className="space-y-6">
+        <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+          {dict.careerUI.capabilitiesBySystemLayer}
+        </h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {systemLayerSkillGroups.map((group) => {
+            const groupSkills = group.skillIds
+              .map((skillId) => skills.find((skill) => skill.id === skillId))
+              .filter((skill) => skill !== undefined);
             return (
               <div
-                key={exp.id}
-                className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-2"
+                key={group.id}
+                className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-5"
               >
-                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                  <div>
-                    <h3 className="text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)] leading-[var(--leading-tight)]">
-                      {role}
-                    </h3>
-                    <p className="text-[length:var(--text-small)] font-medium text-[var(--muted)]">
-                      {org}
-                    </p>
-                  </div>
-                  <time className="text-[length:var(--text-small)] font-mono text-[var(--muted)]">
-                    {dateStr}
-                  </time>
-                </div>
-                <p className="text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--foreground)]">
-                  {summary}
-                </p>
+                <h3 className="text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)]">
+                  {layerLabel(group.id)}
+                </h3>
+                <ul className="mt-3 space-y-2">
+                  {groupSkills.map((skill) => (
+                    <li
+                      key={skill.id}
+                      className="flex flex-wrap items-center justify-between gap-2 text-[length:var(--text-small)]"
+                    >
+                      <span className="font-medium text-[var(--foreground)]">
+                        {getLocalizedText(skill.name, locale)}
+                      </span>
+                      <Tag variant={skill.evidenceLevel === "professional" ? "accent" : "muted"}>
+                        {levelLabel(skill.evidenceLevel)}
+                      </Tag>
+                    </li>
+                  ))}
+                </ul>
               </div>
             );
           })}
         </div>
-        <div>
-          <Link
-            href={expHref}
-            className="inline-flex items-center min-h-[44px] text-[length:var(--text-small)] font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
-          >
-            {dict.careerUI.viewFullExperience} →
-          </Link>
-        </div>
       </section>
 
-      {/* 3. Current Training & Trajectory */}
-      {currentTrainingRecord && (
-        <section className="space-y-6">
-          <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-            {dict.careerUI.currentTraining}
-          </h2>
-          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h3 className="text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)]">
-                {getLocalizedText(currentTrainingRecord.program, locale)}
-              </h3>
-              <div className="flex gap-2">
-                <Tag variant="accent">{dict.careerUI.trainingLevel}</Tag>
-                <Tag variant="default">{dict.careerUI.inProgress}</Tag>
-              </div>
-            </div>
-            <p className="text-[length:var(--text-small)] font-mono text-[var(--muted)]">
-              {getLocalizedText(currentTrainingRecord.institution, locale)} ·{" "}
-              {formatDateRange(currentTrainingRecord.dateRange, locale)}
-            </p>
-            <p className="text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
-              {isKo
-                ? "기존 소프트웨어 개발 역량을 산업 현장과 연결하기 위해 학습 범위를 확장하고 있습니다. 현재 PLC/래더 로직, 센서와 IoT, 산업 네트워크, Linux, AI/ML, OpenVINO, 엣지 추론, 설비/OT 연동을 학습·실습하고 있습니다."
-                : "Current study includes PLC/ladder logic, sensors and IoT, industrial networking, Linux, AI/ML, OpenVINO, edge inference, and equipment/OT integration."}
-            </p>
-          </div>
-        </section>
-      )}
-
-      {/* 4. Skills & Evidence Level */}
-      <section className="space-y-6">
-        <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.careerUI.skillsAndEvidence}
-        </h2>
-        <div className="space-y-6">
-          {/* Professional Skills */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-[length:var(--text-small)] text-[var(--foreground)]">
-                {dict.careerUI.professionalLevel}
-              </span>
-              <span className="text-[length:var(--text-small)] text-[var(--muted)]">
-                ({isKo ? "실무 애플리케이션 및 운영 시스템 연동" : "Professional applications & operational integration"})
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {professionalSkills.map((skill) => (
-                <div
-                  key={skill.id}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] text-[length:var(--text-small)]"
-                >
-                  <span className="font-medium text-[var(--foreground)]">
-                    {getLocalizedText(skill.name, locale)}
-                  </span>
-                  <Tag variant="accent">{dict.careerUI.professionalLevel}</Tag>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Project Skills */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-[length:var(--text-small)] text-[var(--foreground)]">
-                {dict.careerUI.projectLevel}
-              </span>
-              <span className="text-[length:var(--text-small)] text-[var(--muted)]">
-                ({isKo ? "자발적 사이드 프로젝트" : "Self-directed side projects"})
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {projectSkills.map((skill) => (
-                <div
-                  key={skill.id}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] text-[length:var(--text-small)]"
-                >
-                  <span className="font-medium text-[var(--foreground)]">
-                    {getLocalizedText(skill.name, locale)}
-                  </span>
-                  <Tag variant="default">{dict.careerUI.projectLevel}</Tag>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Training Skills */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-[length:var(--text-small)] text-[var(--foreground)]">
-                {dict.careerUI.trainingLevel}
-              </span>
-              <span className="text-[length:var(--text-small)] text-[var(--muted)]">
-                ({isKo ? "교육 및 실습 진행 중" : "In-progress training"})
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {trainingSkills.map((skill) => (
-                <div
-                  key={skill.id}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] text-[length:var(--text-small)]"
-                >
-                  <span className="font-medium text-[var(--foreground)]">
-                    {getLocalizedText(skill.name, locale)}
-                  </span>
-                  <Tag variant="muted">{dict.careerUI.trainingLevel}</Tag>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Contact & Public Profiles */}
       <section className="space-y-4">
-        <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
+        <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
           {dict.careerUI.contactAndProfiles}
         </h2>
-        <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
-          <div className="flex flex-wrap items-center gap-6 text-[length:var(--text-small)]">
-            {emailLink && (
-              <div>
-                <span className="font-mono text-xs text-[var(--muted)] block uppercase tracking-wider mb-1">
-                  {getLocalizedText(emailLink.label, locale)}
-                </span>
-                <a
-                  href={emailLink.href}
-                  className="font-medium text-[var(--accent)] hover:underline"
-                >
-                  {emailLink.href.replace(/^mailto:/, "")}
-                </a>
-              </div>
-            )}
-            {githubLink && (
-              <div>
-                <span className="font-mono text-xs text-[var(--muted)] block uppercase tracking-wider mb-1">
-                  {getLocalizedText(githubLink.label, locale)}
-                </span>
-                <ExternalLink
-                  href={githubLink.href as `https://${string}`}
-                  newTabLabel={dict.openInNewTab}
-                >
-                  {githubLink.href.replace(/^https?:\/\//, "")}
-                </ExternalLink>
-              </div>
-            )}
-            {linkedinLink && (
-              <div>
-                <span className="font-mono text-xs text-[var(--muted)] block uppercase tracking-wider mb-1">
-                  {getLocalizedText(linkedinLink.label, locale)}
-                </span>
-                <ExternalLink
-                  href={linkedinLink.href as `https://${string}`}
-                  newTabLabel={dict.openInNewTab}
-                >
-                  {linkedinLink.href
-                    .replace(/^https?:\/\//, "")
-                    .replace(/^www\./, "")
-                    .replace(/\/$/, "")}
-                </ExternalLink>
-              </div>
-            )}
-            <div>
-              <span className="font-mono text-xs text-[var(--muted)] block uppercase tracking-wider mb-1">
-                {isKo ? "위치" : "Location"}
-              </span>
-              <span className="font-medium text-[var(--foreground)]">
-                {dict.careerUI.basedIn}
-              </span>
-            </div>
-          </div>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[length:var(--text-small)]">
+          <Link href={expHref} className="font-medium text-[var(--accent)] hover:underline">
+            {dict.careerUI.viewExperience}
+          </Link>
+          {emailLink && (
+            <a href={emailLink.href} className="font-medium text-[var(--accent)] hover:underline">
+              {dict.careerUI.emailLabel}
+            </a>
+          )}
+          {githubLink && (
+            <ExternalLink href={githubLink.href as `https://${string}`} newTabLabel={dict.openInNewTab}>
+              GitHub
+            </ExternalLink>
+          )}
+          {linkedinLink && (
+            <ExternalLink href={linkedinLink.href as `https://${string}`} newTabLabel={dict.openInNewTab}>
+              LinkedIn
+            </ExternalLink>
+          )}
+          <span className="text-[var(--muted)]">{dict.careerUI.basedIn}</span>
         </div>
       </section>
     </Container>

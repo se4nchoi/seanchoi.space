@@ -4,7 +4,7 @@
 
 **Planning authority:** `docs/portfolio-v2-exploration-report.md`
 
-**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6B verified bilingual career-content preview implemented and checkpointed; rendered editorial/visual review and final WP6 acceptance remain pending
+**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6B preview checkpointed; WP6D career positioning and engineering-evidence realignment implemented for review, with executable verification and final rendered/editorial acceptance pending
 
 ## 1. Delivery model
 
@@ -243,6 +243,18 @@ For WP1–WP9, Codex must first issue a package definition containing the approv
 
 WP6 may first pass a **preview baseline gate** before the final acceptance gate above. The preview baseline must use only verified, disclosure-safe facts and correct evidence labels, but its headline wording, content quantity, section balance, and visual treatment remain explicitly provisional. Render real English and Korean content, inspect representative layouts, and simplify any schema/component friction revealed by normal authoring. Before public launch, run a separate editorial/visual pass using the rendered site and relevant portfolio references; only that later pass can satisfy final copy, density, hierarchy, and human-review requirements.
 
+**WP6D — Career Positioning & Evidence Realignment**
+
+- Replace the narrower frontend/operational-systems lead with the approved bilingual computer-engineer positioning.
+- Present software and integration experience as the foundation being extended into physical systems.
+- Replace the résumé-style homepage chronology with selected engineering evidence, a clearly bounded current build, system-layer capabilities, and intent paths.
+- Keep flagship `projects` and detail-route semantics distinct while allowing `/projects` to index bounded professional, project, training, and current-work evidence.
+- Separate completed PLC/CC-Link/Neuromeka/multi-dock evidence from planned ROS2, orchestration, recovery, perception, and edge-AI work in both the model and UI.
+- Preserve contribution boundaries for RUTA40, Daegu Smart City, 몰입도, shared classroom hardware, and the self-directed robot-cell project.
+- Keep all new bilingual supporting copy editorially reviewable until Sean completes rendered review.
+
+WP6D does not authorize flagship case studies, new project-detail routes, a broad visual redesign, dependencies, blog changes, deployment, or cutover work.
+
 ### WP7 — Flagship project case studies
 
 **Goal:** Publish evidence only when it meets the quality bar.
@@ -356,4 +368,4 @@ Apply the review proportionally:
 
 ## 7. Immediate next action
 
-WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP6A is accepted and checkpointed at `27d8aa7`; it removed the public résumé footprint and applied the approved neutral-and-blue palette. The verified WP6 factual baseline is checkpointed at `73b467b`, the WP6B bilingual career-content preview implementation at `048efe7`, and Sean's preview-copy alignment and provisional English program-label approval at `3b9cf27`. The next action is a rendered editorial/visual review of the real Home and Experience pages for content quantity, hierarchy, visual identity, bilingual cadence, and authoring friction. That review should define a focused remediation package without changing factual boundaries or beginning WP7 by convenience. Final WP6 acceptance still requires the remaining human-review and LinkedIn-consistency gates in the content contract. WP7 may begin separately when at least one flagship project has sufficient disclosure-safe evidence. The existing Next.js `NoFallbackError` log on intentionally omitted dynamic paths remains a deployment-verification risk for WP9.
+WP1 through WP5 are accepted and checkpointed at `8b850080657bf758b635509d46f6e33f5da61293`. WP6A is accepted and checkpointed at `27d8aa7`; the verified WP6 factual baseline is checkpointed at `73b467b`, the WP6B bilingual preview at `048efe7`, and the later preview-copy alignment at `3b9cf27`. WP6D is implemented in the working tree but cannot be accepted until Node/pnpm are available to run typecheck, lint, tests, and production build, followed by representative rendered EN/KO review. Final WP6 acceptance also requires Sean's editorial review of new bilingual evidence copy and the remaining LinkedIn-consistency gate. WP7 remains separate until a flagship project has mature disclosure-safe evidence. The existing Next.js `NoFallbackError` log on intentionally omitted dynamic paths remains a deployment-verification risk for WP9.

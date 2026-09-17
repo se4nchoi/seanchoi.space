@@ -106,6 +106,24 @@ export interface CareerDictionary {
   emailLabel: string;
   githubLabel: string;
   linkedinLabel: string;
+  selectedEngineeringEvidence: string;
+  selectedEngineeringEvidenceIntro: string;
+  currentlyBuilding: string;
+  currentlyBuildingIntro: string;
+  completedFoundation: string;
+  plannedNext: string;
+  contributionBoundaryLabel: string;
+  engineeringEvidenceIntro: string;
+  professionalEvidence: string;
+  projectEvidence: string;
+  trainingEvidence: string;
+  capabilitiesBySystemLayer: string;
+  layerInterfaces: string;
+  layerApplications: string;
+  layerInfrastructure: string;
+  layerPhysicalSystems: string;
+  layerAiPerception: string;
+  editorialReviewable: string;
 }
 
 export interface UIDictionary {
@@ -147,11 +165,11 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "opens in a new tab",
     homeTitle: "Sean Choi",
     homeStatus:
-      "Software developer connecting web interfaces with operational systems.",
+      "Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.",
     experienceStatus:
       "Verified professional experience, education, training, and technical capability evidence.",
     projectsStatus:
-      "Verified project case studies will be added as evidence becomes available.",
+      "Engineering evidence across professional systems, self-directed projects, and hands-on training, with maturity and contribution boundaries kept explicit.",
     blogStatus:
       "Reviewed writing will be added through the local publishing workflow.",
     notFoundTitle: "Page not found",
@@ -161,9 +179,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     footerPolicy: "English-first. Korean content is published after review.",
     careerUI: {
       homeHeadline:
-        "Software developer connecting web interfaces with operational systems.",
+        "Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.",
       homePositioning:
-        "Computer Engineering graduate with professional experience across frontend applications, full-stack product development, and API integration. Currently extending that foundation through in-progress training in automation, Physical AI, and smart-factory systems.",
+        "Professional software and integration experience is the foundation. Current training and self-directed work extend it into automation, robot-cell integration, and the physical systems those layers must operate.",
       viewExperience: "View experience",
       viewProjects: "View projects",
       verifiedExperience: "Verified Experience",
@@ -207,6 +225,27 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       emailLabel: "Email",
       githubLabel: "GitHub",
       linkedinLabel: "LinkedIn",
+      selectedEngineeringEvidence: "Selected Engineering Evidence",
+      selectedEngineeringEvidenceIntro:
+        "A cross-section of verified work showing how interface, application, integration, and physical-system boundaries connect.",
+      currentlyBuilding: "Currently Building",
+      currentlyBuildingIntro:
+        "Completed starting evidence and planned work are separated so project maturity remains explicit.",
+      completedFoundation: "Completed foundation",
+      plannedNext: "Planned next",
+      contributionBoundaryLabel: "Contribution boundary",
+      engineeringEvidenceIntro:
+        "This index includes bounded professional, project, and training evidence. These records are not presented as flagship case studies.",
+      professionalEvidence: "Professional Systems Evidence",
+      projectEvidence: "Self-Directed Project Evidence",
+      trainingEvidence: "Training & Physical-Systems Evidence",
+      capabilitiesBySystemLayer: "Capabilities Across System Layers",
+      layerInterfaces: "Operator Interfaces & Visualization",
+      layerApplications: "Applications & State",
+      layerInfrastructure: "Networking & Infrastructure",
+      layerPhysicalSystems: "Controls & Physical Systems",
+      layerAiPerception: "AI & Perception",
+      editorialReviewable: "Preview copy · editorial review pending",
     },
     skeleton: {
       eyebrow: "Synthetic preview",
@@ -297,10 +336,10 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "새 탭에서 열림",
     homeTitle: "최예현",
     homeStatus:
-      "프론트엔드를 기반으로 풀스택 개발과 시스템 연동까지 경험을 확장해 온 소프트웨어 개발자.",
+      "소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.",
     experienceStatus: "검증된 실무 경력, 학력, 교육 및 기술 역량 근거입니다.",
     projectsStatus:
-      "검증 가능한 근거가 준비되는 대로 프로젝트 사례를 추가합니다.",
+      "실무 시스템, 자기주도 프로젝트, 실습 교육의 엔지니어링 근거를 성숙도와 기여 범위가 드러나도록 정리합니다.",
     blogStatus: "검토된 글은 로컬 게시 절차를 통해 추가합니다.",
     notFoundTitle: "페이지를 찾을 수 없습니다",
     notFoundBody: "요청한 페이지가 없거나 이 언어로 제공되지 않습니다.",
@@ -308,9 +347,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     footerPolicy: "영문을 기본으로 하며, 한국어 콘텐츠는 검토 후 공개합니다.",
     careerUI: {
       homeHeadline:
-        "프론트엔드를 기반으로 풀스택 개발과 시스템 연동까지 경험을 확장해 온 소프트웨어 개발자.",
+        "소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.",
       homePositioning:
-        "컴퓨터공학을 전공했으며, 프론트엔드 애플리케이션과 사내 제품의 풀스택 개발, API 연동 실무 경험이 있습니다. 현재는 기존 소프트웨어 역량을 자동화, Physical AI, 스마트팩토리 시스템으로 확장하기 위해 관련 교육과 실습을 이어가고 있습니다.",
+        "실무 소프트웨어 개발과 시스템 연동 경험을 기반으로, 현재 자동화·로봇 셀 통합과 이를 실제로 동작시키는 물리 시스템까지 학습과 자기주도 작업의 범위를 확장하고 있습니다.",
       viewExperience: "경력 보기",
       viewProjects: "프로젝트 보기",
       verifiedExperience: "검증된 실무 경력",
@@ -351,6 +390,27 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       emailLabel: "이메일",
       githubLabel: "GitHub",
       linkedinLabel: "LinkedIn",
+      selectedEngineeringEvidence: "주요 엔지니어링 근거",
+      selectedEngineeringEvidenceIntro:
+        "인터페이스, 애플리케이션, 시스템 연동, 물리 시스템의 경계가 어떻게 이어지는지 보여 주는 검증된 작업을 선별했습니다.",
+      currentlyBuilding: "현재 만들고 있는 것",
+      currentlyBuildingIntro:
+        "완료한 기반과 다음 계획을 구분해 현재 프로젝트의 성숙도를 명확히 표시합니다.",
+      completedFoundation: "완료한 기반",
+      plannedNext: "다음 계획",
+      contributionBoundaryLabel: "기여 범위",
+      engineeringEvidenceIntro:
+        "실무, 자기주도 프로젝트, 교육 실습의 근거를 경계와 함께 정리한 목록이며, 모든 항목을 대표 사례 연구로 포장하지 않습니다.",
+      professionalEvidence: "실무 시스템 근거",
+      projectEvidence: "자기주도 프로젝트 근거",
+      trainingEvidence: "교육 및 물리 시스템 근거",
+      capabilitiesBySystemLayer: "시스템 계층별 역량",
+      layerInterfaces: "운영자 인터페이스 및 시각화",
+      layerApplications: "애플리케이션 및 상태",
+      layerInfrastructure: "네트워킹 및 인프라",
+      layerPhysicalSystems: "제어 및 물리 시스템",
+      layerAiPerception: "AI 및 인지",
+      editorialReviewable: "미리보기 문구 · 편집 검토 예정",
     },
     skeleton: {
       eyebrow: "합성 미리보기",

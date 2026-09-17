@@ -1,6 +1,6 @@
 # Portfolio v2 Exploration Report
 
-**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6B verified bilingual career-content preview implemented and checkpointed; rendered editorial/visual review and final WP6 acceptance remain pending
+**Status:** WP1–WP5 and WP6A accepted and checkpointed; WP6B preview checkpointed; WP6D career positioning and engineering-evidence realignment implemented for review, with executable verification and final rendered/editorial acceptance pending
 
 **Repository baseline:** `seanchoi.space`, branch `v2`, verified WP6B preview-content checkpoint `3b9cf2774fea092d29f0c3ab5ae56b0bc6452bf7`
 
@@ -69,13 +69,13 @@ The recruiter comes first because this visitor determines whether deeper evaluat
 
 Put verified professional experience before training or aspiration. Present manufacturing/Physical AI as a labeled extension of full-stack and integration experience. Make skills point to evidence.
 
-## 4. Recommended 30-second impression
+## 4. Approved WP6D 30-second impression
 
-> Sean Choi is a Computer Engineering graduate with approximately two years of professional experience building full-stack applications and operational integrations. He is extending that foundation toward software that connects data, APIs, and physical systems.
+> **Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.**
 
-Use “two years” only if verified dates support it. Keep “operational integrations” only if representative systems and Sean’s contribution can be named accurately.
+The Korean equivalent is `소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.` Professional software and integration experience remains the foundation. Automation and robotics are presented as an expansion through training and self-directed work, not as abandoning software or claiming completed professional robotics/AI expertise.
 
-This is more credible than leading with “Physical AI/robotics engineer,” which currently outruns the evidence, and more distinctive than “full-stack engineer” alone. A long domain list improves keyword density but harms recall; keep it out of the hero. Reconsider after substantial inspectable work or professional specialization changes the evidence base.
+Supporting evidence must keep maturity visible: demonstrated software/API/system integration and guided physical-system work; currently building ROS2 and robotics orchestration depth; training or planned perception/OpenVINO/edge-AI work until later completion evidence exists.
 
 ## 5. Information architecture
 
@@ -102,11 +102,11 @@ Exclude at launch: chatbot/RAG, accounts, comments, likes, view counts, database
 
 **First viewport:** name and professional baseline; two-sentence positioning; a View projects action; an optional compact strip of verified facts; and a discoverable `EN / 한국어` switch. Add a contact action only after its destination is verified. Answer “who, proven at what level, moving toward what, and where is the evidence?”
 
-**First 30 seconds:** two or three selected evidence cards; concise experience snapshot; explicit separation between professional experience and current training; a visible verified contact path.
+**First 30 seconds:** selected engineering-evidence cards spanning professional, project, and guided training work; a clearly labeled current build with completed and planned scope separated; a visible verified contact path.
 
-**Two-minute scan:** selected projects with status, role, evidence type, and inspectable links; evidence-backed capability groups; two or three articles; short human note and contact footer.
+**Two-minute scan:** the grouped engineering-evidence index with status, role, evidence type, and contribution boundary; system-layer capabilities retaining evidence provenance; Experience chronology; reviewed writing when available; and contact paths.
 
-Move complete employment narratives to Experience; architecture and tradeoffs to case studies; full skill inventory to evidence metadata; the photo collection to optional About; and the detailed transition narrative to Experience or a focused article. The homepage must not become a shallow link directory or exhaustive career chronology.
+Move complete employment narratives to Experience; architecture and tradeoffs to later case studies; full skill inventory to evidence metadata; the photo collection to optional About; and the detailed transition narrative to Experience or a focused article. Home uses identity → selected engineering evidence → currently building → compact system-layer capabilities → Experience/Projects/Contact paths. It must not become an exhaustive career chronology.
 
 ## 7. Content model and canonical-source rules
 

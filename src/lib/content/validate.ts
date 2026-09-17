@@ -568,6 +568,28 @@ export function validateContentRegistry(
           proj.id,
           issues
         );
+        checkLocalizedTextForUnreviewedPublic(
+          proj.contributionBoundary,
+          `supportingProjects.${proj.id}.contributionBoundary`,
+          proj.id,
+          issues
+        );
+        for (let i = 0; i < proj.completedScope.length; i++) {
+          checkLocalizedTextForUnreviewedPublic(
+            proj.completedScope[i],
+            `supportingProjects.${proj.id}.completedScope[${i}]`,
+            proj.id,
+            issues
+          );
+        }
+        for (let i = 0; i < proj.plannedScope.length; i++) {
+          checkLocalizedTextForUnreviewedPublic(
+            proj.plannedScope[i],
+            `supportingProjects.${proj.id}.plannedScope[${i}]`,
+            proj.id,
+            issues
+          );
+        }
         if (proj.role) {
           checkLocalizedTextForUnreviewedPublic(
             proj.role,

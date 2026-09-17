@@ -334,23 +334,82 @@ export const articleRecordSchema = commonRecordSchema
   .strict();
 export type ArticleRecord = z.infer<typeof articleRecordSchema>;
 
-// --- Supporting Projects ---
+// --- Supporting Engineering Evidence ---
 
-export const supportingProjectContextSchema = z.enum(["self-directed", "training-exercise"]);
+export const supportingProjectContextSchema = z.enum([
+  "professional",
+  "self-directed",
+  "training-exercise",
+  "current-work",
+]);
 export type SupportingProjectContext = z.infer<typeof supportingProjectContextSchema>;
+
+export const supportingProjectStatusSchema = z.enum(["completed", "in-progress"]);
+export type SupportingProjectStatus = z.infer<typeof supportingProjectStatusSchema>;
+
+export const editorialStatusSchema = z.enum(["reviewable", "approved"]);
+export type EditorialStatus = z.infer<typeof editorialStatusSchema>;
 
 export const supportingProjectRecordSchema = commonRecordSchema
   .extend({
     context: supportingProjectContextSchema,
+    status: supportingProjectStatusSchema,
+    editorialStatus: editorialStatusSchema,
     evidenceLevel: evidenceLevelSchema,
     title: localizedTextSchema,
     summary: localizedTextSchema,
+    contributionBoundary: localizedTextSchema,
+    completedScope: z.array(localizedTextSchema),
+    plannedScope: z.array(localizedTextSchema),
     technologies: z.array(z.string().trim().min(1, "Technology cannot be blank")),
     role: localizedTextSchema.optional(),
     evidenceIds: z.array(recordIdSchema),
     scale: localizedTextSchema.optional(),
   })
-  .strict();
+  .strict()
+  .superRefine((record, ctx) => {
+    const expectedEvidenceLevel = {
+      professional: "professional",
+      "self-directed": "project",
+      "training-exercise": "training",
+      "current-work": "project",
+    }[record.context];
+    if (record.evidenceLevel !== expectedEvidenceLevel) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["evidenceLevel"],
+        message: `${record.context} evidence must use the '${expectedEvidenceLevel}' evidence level`,
+      });
+    }
+    if (record.context === "current-work" && record.status !== "in-progress") {
+      ctx.addIssue({
+        code: "custom",
+        path: ["status"],
+        message: "Current work must be marked in-progress",
+      });
+    }
+    if (record.context === "current-work" && record.completedScope.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["completedScope"],
+        message: "Current work must identify its completed starting evidence",
+      });
+    }
+    if (record.context === "current-work" && record.plannedScope.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["plannedScope"],
+        message: "Current work must identify its planned scope separately",
+      });
+    }
+    if (record.status === "completed" && record.plannedScope.length > 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["plannedScope"],
+        message: "Completed supporting evidence cannot include planned scope",
+      });
+    }
+  });
 export type SupportingProjectRecord = z.infer<typeof supportingProjectRecordSchema>;
 
 // --- Content Registry ---

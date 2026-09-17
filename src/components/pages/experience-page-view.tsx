@@ -11,6 +11,7 @@ import {
   canonicalSupportingProjects,
   formatDateRange,
   getLocalizedText,
+  systemLayerSkillGroups,
 } from "@/data/content";
 
 export interface ExperiencePageViewProps {
@@ -34,11 +35,22 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
     (p) => p.context === "training-exercise"
   );
 
-  const professionalSkills = skills.filter(
-    (s) => s.evidenceLevel === "professional"
-  );
-  const projectSkills = skills.filter((s) => s.evidenceLevel === "project");
-  const trainingSkills = skills.filter((s) => s.evidenceLevel === "training");
+  const levelLabel = (level: (typeof skills)[number]["evidenceLevel"]) => {
+    if (level === "professional") return dict.careerUI.professionalLevel;
+    if (level === "project") return dict.careerUI.projectLevel;
+    if (level === "training") return dict.careerUI.trainingLevel;
+    return isKo ? "학습 근거" : "Learning evidence";
+  };
+  const layerLabel = (id: (typeof systemLayerSkillGroups)[number]["id"]) => {
+    const labels = {
+      interfaces: dict.careerUI.layerInterfaces,
+      applications: dict.careerUI.layerApplications,
+      infrastructure: dict.careerUI.layerInfrastructure,
+      "physical-systems": dict.careerUI.layerPhysicalSystems,
+      "ai-perception": dict.careerUI.layerAiPerception,
+    };
+    return labels[id];
+  };
 
   return (
     <Container size="default" className="space-y-16 pb-16">
@@ -222,86 +234,46 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
         )}
       </section>
 
-      {/* 5. Skills by Evidence Level Section */}
+      {/* 5. Capabilities by System Layer Section */}
       <section className="space-y-6">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.careerUI.skillsByLevel}
+          {dict.careerUI.capabilitiesBySystemLayer}
         </h2>
-        <div className="space-y-6">
-          {/* Professional */}
-          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-[length:var(--text-body)] text-[var(--foreground)]">
-                {dict.careerUI.professionalLevel}
-              </span>
-              <Tag variant="accent">{dict.careerUI.professionalLevel}</Tag>
-            </div>
-            <p className="text-[length:var(--text-small)] text-[var(--muted)]">
-              {isKo
-                ? "실무 애플리케이션 개발 및 운영 시스템 API 연동에 직접 활용한 역량입니다."
-                : "Applied in verified professional applications and operational API integration."}
-            </p>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {professionalSkills.map((s) => (
-                <span
-                  key={s.id}
-                  className="px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--background)] text-[length:var(--text-small)] font-medium text-[var(--foreground)]"
-                >
-                  {getLocalizedText(s.name, locale)}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Project */}
-          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-[length:var(--text-body)] text-[var(--foreground)]">
-                {dict.careerUI.projectLevel}
-              </span>
-              <Tag variant="default">{dict.careerUI.projectLevel}</Tag>
-            </div>
-            <p className="text-[length:var(--text-small)] text-[var(--muted)]">
-              {isKo
-                ? "정규 커리큘럼 외 자발적으로 진행한 사이드 프로젝트에서 백엔드 및 실시간 연동에 활용한 역량입니다."
-                : "Applied in self-directed side projects outside the curriculum for backend and real-time integration."}
-            </p>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {projectSkills.map((s) => (
-                <span
-                  key={s.id}
-                  className="px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--background)] text-[length:var(--text-small)] font-medium text-[var(--foreground)]"
-                >
-                  {getLocalizedText(s.name, locale)}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Training */}
-          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-[length:var(--text-body)] text-[var(--foreground)]">
-                {dict.careerUI.trainingLevel}
-              </span>
-              <Tag variant="muted">{dict.careerUI.trainingLevel}</Tag>
-            </div>
-            <p className="text-[length:var(--text-small)] text-[var(--muted)]">
-              {isKo
-                ? "스마트팩토리, 센서/IoT, 산업 네트워크 및 엣지 AI 교육 과정에서 실습 및 학습 중인 역량입니다."
-                : "Active learning and hands-on laboratory exercises in smart factory, IoT, networking, and edge AI."}
-            </p>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {trainingSkills.map((s) => (
-                <span
-                  key={s.id}
-                  className="px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--background)] text-[length:var(--text-small)] font-medium text-[var(--foreground)]"
-                >
-                  {getLocalizedText(s.name, locale)}
-                </span>
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {systemLayerSkillGroups.map((group) => {
+            const groupSkills = group.skillIds
+              .map((skillId) => skills.find((skill) => skill.id === skillId))
+              .filter((skill) => skill !== undefined);
+            return (
+              <div
+                key={group.id}
+                className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 space-y-3"
+              >
+                <h3 className="text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)]">
+                  {layerLabel(group.id)}
+                </h3>
+                <ul className="space-y-2">
+                  {groupSkills.map((skill) => (
+                    <li
+                      key={skill.id}
+                      className="flex flex-wrap items-center justify-between gap-2 text-[length:var(--text-small)]"
+                    >
+                      <span className="font-medium text-[var(--foreground)]">
+                        {getLocalizedText(skill.name, locale)}
+                      </span>
+                      <Tag
+                        variant={
+                          skill.evidenceLevel === "professional" ? "accent" : "muted"
+                        }
+                      >
+                        {levelLabel(skill.evidenceLevel)}
+                      </Tag>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
 
