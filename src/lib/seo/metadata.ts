@@ -91,7 +91,7 @@ export function createRootMetadata(locale: AppLocale): Metadata {
     },
     description:
       locale === "ko"
-        ? "소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결하는 컴퓨터 엔지니어 최예현의 이중 언어 포트폴리오입니다."
-        : "Bilingual portfolio of Sean Choi, a computer engineer building and integrating software, AI, and infrastructure for physical systems.",
+        ? "웹 애플리케이션과 API 연동에서 PLC와 로봇으로 작업을 확장하는 최예현의 포트폴리오입니다."
+        : "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
   };
 }

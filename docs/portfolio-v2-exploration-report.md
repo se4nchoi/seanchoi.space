@@ -8,6 +8,12 @@
 
 ## 1. Executive recommendation
 
+### September 21 preview direction (supersedes homepage presentation below)
+
+Sean authorized a project-led editorial/visual pass. Present web/application and API integration experience expanding into physical systems. AI remains a future demonstrable extension rather than a headline capability. Home now follows introduction → selected professional work (RUTA40, 몰입도) → current robot-cell work → contact. Keep skills and full chronology on Experience; retain LAN Chat in the broader project index rather than featuring it on Home. Use plain project headings, fewer badges, and readable contribution notes. Preserve completed/planned distinctions. This pass introduces no new case-study routes or publication permissions for private media.
+
+The first implementation is a typography/structure pass. A distinctive hero image and artifact-led project covers still require asset selection, disclosure review, and rendered validation. Final bilingual editorial acceptance remains pending.
+
 Build v2 as a new application in this repository on the `v2` branch, using pull requests and isolated Vercel previews while `main` continues to serve v1. The v1 tag preserves the old implementation; its application tree and dependency graph are not migration inputs. Choose Next.js App Router and TypeScript on their current merits, then make launch v2 static-first: no database, accounts, comments, live view counts, chatbot, or Notion integration. Use Git-tracked, schema-validated data for career facts and MDX for projects and articles. Treat any future Notion-to-MDX tool as a separate peripheral service and a possible v3 concern.
 
 Prioritize visitors in this order: recruiter performing a 20–30 second skim, hiring manager assessing evidence, then technical peer reviewing depth. The primary market is Korea plus international roles, with English as the default and Korean as a reviewed localization. Use **Home, Experience, Projects, Blog** as primary navigation. The site itself supplies career evidence and a verified contact path; v2 has no public résumé output. Defer About unless it earns a distinct job.

@@ -1,5 +1,4 @@
 import React from "react";
-import { Tag } from "./tag";
 
 export interface EngineeringEvidenceCardProps {
   title: string;
@@ -42,20 +41,18 @@ export function EngineeringEvidenceCard({
 
   return (
     <article
-      className={`rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-6 ${className}`}
+      className={`border-t-2 border-[var(--accent)] bg-[var(--surface)] p-5 sm:p-8 ${className}`}
     >
       <div className="flex flex-wrap items-center gap-2">
-        <Tag variant="accent">{evidenceLabel}</Tag>
-        <Tag variant={status === "completed" ? "default" : "muted"}>
-          {statusLabel}
-        </Tag>
+        <span className="text-sm text-[var(--muted)]">{evidenceLabel}</span>
+        {status === "in-progress" && <span className="text-sm font-medium text-[var(--accent)]">· {statusLabel}</span>}
       </div>
 
       <Heading className="mt-3 text-[length:var(--text-heading-3)] font-semibold leading-[var(--leading-tight)] text-[var(--foreground)]">
         {title}
       </Heading>
       {role && (
-        <p className="mt-1 font-mono text-[length:var(--text-small)] text-[var(--muted)]">
+        <p className="mt-2 text-[length:var(--text-small)] text-[var(--muted)]">
           {role}
         </p>
       )}
@@ -90,7 +87,7 @@ export function EngineeringEvidenceCard({
       )}
 
       <div className="mt-5 border-t border-[var(--border)] pt-4">
-        <p className="font-mono text-[length:var(--text-small)] font-semibold uppercase tracking-[var(--tracking-label)] text-[var(--muted)]">
+        <p className="sr-only">
           {contributionBoundaryLabel}
         </p>
         <p className="mt-1 text-[length:var(--text-small)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
@@ -99,13 +96,9 @@ export function EngineeringEvidenceCard({
       </div>
 
       {technologies.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {technologies.map((technology) => (
-            <Tag key={technology} variant="muted">
-              {technology}
-            </Tag>
-          ))}
-        </div>
+        <p className="mt-4 text-[length:var(--text-small)] text-[var(--muted)]">
+          {technologies.join(" · ")}
+        </p>
       )}
     </article>
   );

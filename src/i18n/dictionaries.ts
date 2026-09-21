@@ -165,11 +165,11 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "opens in a new tab",
     homeTitle: "Sean Choi",
     homeStatus:
-      "Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.",
+      "Building software that connects the web and the physical world.",
     experienceStatus:
       "Verified professional experience, education, training, and technical capability evidence.",
     projectsStatus:
-      "Engineering evidence across professional systems, self-directed projects, and hands-on training, with maturity and contribution boundaries kept explicit.",
+      "Web applications, connected equipment, and experiments along the way.",
     blogStatus:
       "Reviewed writing will be added through the local publishing workflow.",
     notFoundTitle: "Page not found",
@@ -179,9 +179,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     footerPolicy: "English-first. Korean content is published after review.",
     careerUI: {
       homeHeadline:
-        "Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.",
+        "Building software that connects the web and the physical world.",
       homePositioning:
-        "Professional software and integration experience is the foundation. Current training and self-directed work extend it into automation, robot-cell integration, and the physical systems those layers must operate.",
+        "My background is in web applications and API integration. I’m now extending that work to PLCs and robots.",
       viewExperience: "View experience",
       viewProjects: "View projects",
       verifiedExperience: "Verified Experience",
@@ -225,20 +225,20 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       emailLabel: "Email",
       githubLabel: "GitHub",
       linkedinLabel: "LinkedIn",
-      selectedEngineeringEvidence: "Selected Engineering Evidence",
+      selectedEngineeringEvidence: "Selected work",
       selectedEngineeringEvidenceIntro:
         "A cross-section of verified work showing how interface, application, integration, and physical-system boundaries connect.",
       currentlyBuilding: "Currently Building",
       currentlyBuildingIntro:
-        "Completed starting evidence and planned work are separated so project maturity remains explicit.",
+        "Exploring how software connects to PLCs, robots, and the equipment around them.",
       completedFoundation: "Completed foundation",
       plannedNext: "Planned next",
       contributionBoundaryLabel: "Contribution boundary",
       engineeringEvidenceIntro:
         "This index includes bounded professional, project, and training evidence. These records are not presented as flagship case studies.",
-      professionalEvidence: "Professional Systems Evidence",
-      projectEvidence: "Self-Directed Project Evidence",
-      trainingEvidence: "Training & Physical-Systems Evidence",
+      professionalEvidence: "Professional work",
+      projectEvidence: "Side projects",
+      trainingEvidence: "Hardware explorations",
       capabilitiesBySystemLayer: "Capabilities Across System Layers",
       layerInterfaces: "Operator Interfaces & Visualization",
       layerApplications: "Applications & State",
@@ -336,10 +336,10 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "새 탭에서 열림",
     homeTitle: "최예현",
     homeStatus:
-      "소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.",
+      "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
     experienceStatus: "검증된 실무 경력, 학력, 교육 및 기술 역량 근거입니다.",
     projectsStatus:
-      "실무 시스템, 자기주도 프로젝트, 실습 교육의 엔지니어링 근거를 성숙도와 기여 범위가 드러나도록 정리합니다.",
+      "웹 애플리케이션, 장비 연동, 그리고 그 과정에서 만든 실험들.",
     blogStatus: "검토된 글은 로컬 게시 절차를 통해 추가합니다.",
     notFoundTitle: "페이지를 찾을 수 없습니다",
     notFoundBody: "요청한 페이지가 없거나 이 언어로 제공되지 않습니다.",
@@ -347,9 +347,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     footerPolicy: "영문을 기본으로 하며, 한국어 콘텐츠는 검토 후 공개합니다.",
     careerUI: {
       homeHeadline:
-        "소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.",
+        "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
       homePositioning:
-        "실무 소프트웨어 개발과 시스템 연동 경험을 기반으로, 현재 자동화·로봇 셀 통합과 이를 실제로 동작시키는 물리 시스템까지 학습과 자기주도 작업의 범위를 확장하고 있습니다.",
+        "웹 애플리케이션과 API 연동 경험을 바탕으로, 지금은 PLC와 로봇을 연결하는 작업을 하고 있습니다.",
       viewExperience: "경력 보기",
       viewProjects: "프로젝트 보기",
       verifiedExperience: "검증된 실무 경력",
@@ -390,20 +390,20 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       emailLabel: "이메일",
       githubLabel: "GitHub",
       linkedinLabel: "LinkedIn",
-      selectedEngineeringEvidence: "주요 엔지니어링 근거",
+      selectedEngineeringEvidence: "만든 것들",
       selectedEngineeringEvidenceIntro:
         "인터페이스, 애플리케이션, 시스템 연동, 물리 시스템의 경계가 어떻게 이어지는지 보여 주는 검증된 작업을 선별했습니다.",
       currentlyBuilding: "현재 만들고 있는 것",
       currentlyBuildingIntro:
-        "완료한 기반과 다음 계획을 구분해 현재 프로젝트의 성숙도를 명확히 표시합니다.",
+        "PLC, 로봇, 주변 장비를 소프트웨어로 연결하는 방법을 탐구하고 있습니다.",
       completedFoundation: "완료한 기반",
       plannedNext: "다음 계획",
       contributionBoundaryLabel: "기여 범위",
       engineeringEvidenceIntro:
         "실무, 자기주도 프로젝트, 교육 실습의 근거를 경계와 함께 정리한 목록이며, 모든 항목을 대표 사례 연구로 포장하지 않습니다.",
-      professionalEvidence: "실무 시스템 근거",
-      projectEvidence: "자기주도 프로젝트 근거",
-      trainingEvidence: "교육 및 물리 시스템 근거",
+      professionalEvidence: "실무 프로젝트",
+      projectEvidence: "사이드 프로젝트",
+      trainingEvidence: "하드웨어 실습",
       capabilitiesBySystemLayer: "시스템 계층별 역량",
       layerInterfaces: "운영자 인터페이스 및 시각화",
       layerApplications: "애플리케이션 및 상태",

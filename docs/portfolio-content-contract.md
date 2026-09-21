@@ -75,6 +75,12 @@ Silence is not verification. If a field is absent from this contract, treat it a
 
 ## 5. Core professional positioning
 
+### September 21 editorial preview
+
+Sean's current direction supersedes the older headline emphasis for this preview: web/software and API integration experience extending into physical systems, with AI introduced through future demonstrated projects. Draft EN lead: “Building software that connects the web and the physical world.” Draft KO lead: “웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.” Supporting copy remains bounded to existing web/API experience and current PLC/robot work. These are editorial preview drafts, not new factual approvals or final reviewed translations.
+
+Homepage curation: RUTA40 and 몰입도; current robot-cell work stays explicitly in progress. LAN Chat remains a side project; Sean reports its recent evolution toward games, so the earlier educational-purpose narrative must be rechecked before expansion. Do not infer AI ability from AI-assisted coding. The retrieved career discussion raises AMR implementation/authorship questions; it remains outside featured work pending direct review. No new facts or private assets are approved by this layout pass.
+
 ### Approved English lead
 
 > **Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.**

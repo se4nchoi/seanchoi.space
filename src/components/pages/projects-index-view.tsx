@@ -72,13 +72,6 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
     <Container size="default" className="space-y-14 pb-16">
       <PageIntro title={dict.projects} summary={dict.projectsStatus} />
 
-      <p className="max-w-[var(--max-width-prose)] text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
-        {dict.careerUI.engineeringEvidenceIntro}
-      </p>
-      <p className="font-mono text-[length:var(--text-small)] text-[var(--muted)]">
-        {dict.careerUI.editorialReviewable}
-      </p>
-
       <section className="space-y-6">
         <div className="space-y-2 border-b border-[var(--border)] pb-3">
           <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
@@ -111,6 +104,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
         </h2>
         {renderCards(trainingEvidence)}
       </section>
+      <p className="text-xs text-[var(--muted)]">{dict.careerUI.editorialReviewable}</p>
     </Container>
   );
 }

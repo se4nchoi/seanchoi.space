@@ -9,7 +9,8 @@ const AVAILABLE_ASSETS = new Set(["/example-asset.png"]);
 describe("Content Integrity Validator", () => {
   it("passes for canonical production registry", () => {
     const result = validateContentRegistry(canonicalContentRegistry, {
-      now: new Date("2026-08-31T00:00:00Z"),
+      // Live canonical content advances; date-boundary cases below use fixed fixtures.
+      now: new Date(),
       availableAssets: AVAILABLE_ASSETS,
     });
     expect(result).toBeDefined();

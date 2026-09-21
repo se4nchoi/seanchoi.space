@@ -27,6 +27,7 @@ If these sources conflict, identify the conflict instead of silently choosing on
 - V2 is a clean-slate application in the same repository. Quarantine legacy written content and content media under `legacy-content/` as source material, but do not carry legacy runtime code forward merely because it exists.
 - V2 is intended for a dedicated branch with preview deployments.
 - Do not create/switch branches, create worktrees, tag, commit, push, deploy, change domains, or alter production unless the current task explicitly authorizes it.
+- Standing authorization from Sean (2026-09-21): commit locally after each completed portfolio pass. Review the diff, run relevant checks, and include only that pass's changes. Pushes, deployments, and other Git operations still require separate authorization.
 - Inspect `git status` before editing and preserve every pre-existing tracked or untracked change.
 - At this file’s creation, `GEMINI.md` was already deleted and `docs/` was untracked. Those are user/concurrent changes; do not restore, remove, clean, or claim them without instruction.
 - Never use broad or unverified destructive Git/filesystem commands. A decision-complete work package may authorize precise tracked-file removals after targets are inspected and rollback is verified.

@@ -21,9 +21,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("Sean Choi");
-      expect(html).toContain("Computer engineer who builds and integrates software, AI, and infrastructure for physical systems.");
-      expect(html).toContain("Professional software and integration experience is the foundation.");
-      expect(html).toContain("University of Toronto, 2026");
+      expect(html).toContain("Building software that connects the web and the physical world.");
+      expect(html).toContain("My background is in web applications and API integration.");
+      expect(html).toContain('href="#selected-work"');
+      expect(html).toContain('id="selected-work"');
 
       // No synthetic notice or example content on real home
       expect(html).not.toContain("Synthetic preview");
@@ -52,10 +53,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("https://www.linkedin.com/in/se4nchoi/");
 
       // Selected evidence replaces the résumé-style employment snapshot
-      expect(html).toContain("Selected Engineering Evidence");
+      expect(html).toContain("Selected work");
       expect(html).toContain("RUTA40 Vehicle Control Interface");
       expect(html).toContain("Internal Attendance / HR Product (몰입도)");
-      expect(html).toContain("Classroom LAN Chat");
+      expect(html).not.toContain("Classroom LAN Chat");
       expect(html).not.toContain("Verified Experience Snapshot");
 
       // Current work distinguishes completed and planned scope
@@ -65,29 +66,25 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("Planned next");
       expect(html).toContain("ROS2 control layer");
 
-      // Skills remain evidence-labeled while organized by system layer
-      expect(html).toContain("Capabilities Across System Layers");
-      expect(html).toContain("Controls &amp; Physical Systems");
-      expect(html).toContain("Professional evidence");
-      expect(html).toContain("Frontend Development / React");
-      expect(html).toContain("PLC / HMI / CC-Link / Servo &amp; Robot Integration");
-
+      // Skills stay on Experience; the homepage is curated around work.
+      expect(html).not.toContain("Capabilities Across System Layers");
+      expect(html).toContain("Sean owned the frontend UI and API integration");
+      expect(html).toContain("The embedded module and HTTPS control backend");
       // Contact & Profiles section
       expect(html).toContain("Contact &amp; Public Profiles");
       expect(html).toContain("Based in South Korea");
 
       // Strict Section Order Verification
       const idxHero = html.indexOf("Sean Choi");
-      const idxEvidence = html.indexOf("Selected Engineering Evidence");
+      const idxEvidence = html.indexOf("Selected work");
       const idxCurrent = html.indexOf("Currently Building");
-      const idxSkills = html.indexOf("Capabilities Across System Layers");
+
       const idxContact = html.indexOf("Contact &amp; Public Profiles");
 
       expect(idxHero).toBeGreaterThan(-1);
       expect(idxEvidence).toBeGreaterThan(idxHero);
       expect(idxCurrent).toBeGreaterThan(idxEvidence);
-      expect(idxSkills).toBeGreaterThan(idxCurrent);
-      expect(idxContact).toBeGreaterThan(idxSkills);
+      expect(idxContact).toBeGreaterThan(idxCurrent);
     });
 
     it("renders Korean Home hierarchy with verified Korean copy, single h1, and zero English leakages", () => {
@@ -97,9 +94,9 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("최예현");
-      expect(html).toContain("컴퓨터 엔지니어");
-      expect(html).toContain("소프트웨어·AI·인프라를 로봇과 산업 시스템에 연결해 실제 현장에서 동작하게 만드는 엔지니어.");
-      expect(html).toContain("응용과학 학사(BASc), 컴퓨터공학 — 토론토대학교, 2026");
+      expect(html).not.toContain("주요 엔지니어링 근거");
+      expect(html).toContain("웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.");
+      expect(html).toContain('id="selected-work"');
 
       // Action links
       expect(html).toContain('href="/ko/experience"');
@@ -107,7 +104,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain('href="/ko/projects"');
       expect(html).toContain("프로젝트 보기");
 
-      expect(html).toContain("주요 엔지니어링 근거");
+      expect(html).toContain("만든 것들");
       expect(html).toContain("RUTA40 차량 제어 인터페이스");
       expect(html).toContain("현재 만들고 있는 것");
       expect(html).toContain("ROS2 산업용 로봇 셀 통합");
@@ -115,10 +112,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("다음 계획");
 
       // Skills & contact
-      expect(html).toContain("시스템 계층별 역량");
-      expect(html).toContain("실무 근거");
-      expect(html).toContain("프로젝트 근거");
-      expect(html).toContain("교육 근거");
+      expect(html).not.toContain("시스템 계층별 역량");
+      expect(html).toContain("실무 프로젝트");
       expect(html).toContain("연락처 및 프로필");
       expect(html).toContain("대한민국 거주");
 
@@ -224,9 +219,9 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(enHtml).toContain("Projects");
       expect(enHtml).toContain(dictionaries.en.projectsStatus);
       expect(enHtml).toContain("Currently Building");
-      expect(enHtml).toContain("Professional Systems Evidence");
-      expect(enHtml).toContain("Self-Directed Project Evidence");
-      expect(enHtml).toContain("Training &amp; Physical-Systems Evidence");
+      expect(enHtml).toContain("Professional work");
+      expect(enHtml).toContain("Side projects");
+      expect(enHtml).toContain("Hardware explorations");
       expect(enHtml).toContain("ROS2 Industrial Robot Cell Integration");
       expect(enHtml).toContain("Daegu Smart City Dashboard");
       expect(enHtml).toContain("Planned next");
@@ -240,7 +235,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(koHtml).toContain("프로젝트");
       expect(koHtml).toContain(dictionaries.ko.projectsStatus);
       expect(koHtml).toContain("ROS2 산업용 로봇 셀 통합");
-      expect(koHtml).toContain("실무 시스템 근거");
+      expect(koHtml).toContain("실무 프로젝트");
       expect(koHtml).not.toContain("예시 프로젝트");
     });
 
