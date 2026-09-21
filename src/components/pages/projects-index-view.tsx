@@ -4,6 +4,8 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { PageIntro } from "@/components/ui/page-intro";
 import { EngineeringEvidenceCard } from "@/components/ui/engineering-evidence-card";
+import { WorkImage } from "@/components/ui/work-image";
+import { workMedia } from "@/data/work-media";
 import {
   canonicalSupportingProjects,
   getLocalizedText,
@@ -63,13 +65,14 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
           completedScopeLabel={dict.careerUI.completedFoundation}
           plannedScopeLabel={dict.careerUI.plannedNext}
           headingLevel={3}
+          media={workMedia[item.id] ? <WorkImage media={workMedia[item.id]} locale={locale} /> : undefined}
         />
       ))}
     </div>
   );
 
   return (
-    <Container size="default" className="space-y-14 pb-16">
+    <Container size="default" className={`space-y-14 pb-16 ${isKo ? "break-keep" : ""}`}>
       <PageIntro title={dict.projects} summary={dict.projectsStatus} />
 
       <section className="space-y-6">

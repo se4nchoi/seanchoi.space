@@ -5,6 +5,8 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { ExternalLink } from "@/components/ui/external-link";
 import { EngineeringEvidenceCard } from "@/components/ui/engineering-evidence-card";
+import { WorkImage } from "@/components/ui/work-image";
+import { workMedia } from "@/data/work-media";
 import { canonicalContentRegistry, canonicalSupportingProjects, getLocalizedText } from "@/data/content";
 
 export interface HomePageViewProps { locale: AppLocale }
@@ -38,17 +40,19 @@ export function HomePageView({ locale }: HomePageViewProps) {
       completedScopeLabel={dict.careerUI.completedFoundation}
       plannedScopeLabel={dict.careerUI.plannedNext}
       compact={compact}
+      media={workMedia[item.id] ? <WorkImage media={workMedia[item.id]} locale={locale} /> : undefined}
     />
   );
 
   return (
     <Container className={`space-y-20 pb-16 sm:space-y-24 ${locale === "ko" ? "break-keep" : ""}`}>
-      <section className="max-w-3xl space-y-6 pt-8 sm:pt-16">
+      <section className="grid items-center gap-8 pt-8 sm:gap-12 sm:pt-12 md:grid-cols-[1.35fr_1fr] lg:gap-20">
+        <div className="space-y-6">
         <p className="text-sm text-[var(--muted)]">{dict.careerUI.basedIn}</p>
         <h1 className="text-[length:var(--text-display)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)]">
           {siteIdentity ? getLocalizedText(siteIdentity.displayName, locale) : "Sean Choi"}
         </h1>
-        <p className="max-w-2xl text-2xl leading-snug tracking-tight sm:text-3xl">
+        <p className="max-w-2xl text-2xl leading-snug tracking-tight lg:text-3xl">
           {dict.careerUI.homeHeadline}
         </p>
         <p className="max-w-xl text-[length:var(--text-body)] leading-relaxed text-[var(--muted)]">
@@ -57,6 +61,10 @@ export function HomePageView({ locale }: HomePageViewProps) {
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <a href="#selected-work" className={textLink}>{dict.careerUI.viewProjects} <span aria-hidden="true" className="ml-2">↓</span></a>
           {email && <a href={email.href} className={textLink}>{dict.careerUI.emailLabel}</a>}
+        </div>
+        </div>
+        <div className="mx-auto w-full max-w-[25rem] md:justify-self-end">
+          <WorkImage media={workMedia["project-plc-robot-cell-integration"]} locale={locale} portrait />
         </div>
       </section>
 

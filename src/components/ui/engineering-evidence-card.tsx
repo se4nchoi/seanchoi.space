@@ -16,6 +16,7 @@ export interface EngineeringEvidenceCardProps {
   plannedScopeLabel: string;
   headingLevel?: 2 | 3;
   compact?: boolean;
+  media?: React.ReactNode;
   className?: string;
 }
 
@@ -35,14 +36,17 @@ export function EngineeringEvidenceCard({
   plannedScopeLabel,
   headingLevel = 3,
   compact = false,
+  media,
   className = "",
 }: EngineeringEvidenceCardProps) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
 
   return (
     <article
-      className={`border-t-2 border-[var(--accent)] bg-[var(--surface)] p-5 sm:p-8 ${className}`}
+      className={`min-w-0 ${media ? "" : "rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-8"} ${className}`}
     >
+      {media}
+      <div className={media ? "px-1 pb-2 pt-5" : ""}>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-sm text-[var(--muted)]">{evidenceLabel}</span>
         {status === "in-progress" && <span className="text-sm font-medium text-[var(--accent)]">· {statusLabel}</span>}
@@ -60,6 +64,7 @@ export function EngineeringEvidenceCard({
         {summary}
       </p>
 
+      <div className={!compact && plannedScope.length > 0 ? "grid gap-x-10 sm:grid-cols-2" : ""}>
       {!compact && completedScope.length > 0 && (
         <div className="mt-5">
           <h4 className="font-mono text-[length:var(--text-small)] font-semibold uppercase tracking-[var(--tracking-label)] text-[var(--muted)]">
@@ -86,6 +91,7 @@ export function EngineeringEvidenceCard({
         </div>
       )}
 
+      </div>
       <div className="mt-5 border-t border-[var(--border)] pt-4">
         <p className="sr-only">
           {contributionBoundaryLabel}
@@ -100,6 +106,7 @@ export function EngineeringEvidenceCard({
           {technologies.join(" · ")}
         </p>
       )}
+      </div>
     </article>
   );
 }

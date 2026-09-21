@@ -328,4 +328,6 @@ Record consequential approvals here:
 | 2026-09-17 | WP6D engineering evidence | `pending`/not modeled | `verified`, bounded | Approved public names and contribution boundaries for RUTA40, Daegu Smart City, 몰입도, guided PLC/CC-Link/Neuromeka work, and self-directed ROS2 robot-cell current work | Sean |
 | 2026-09-17 | ROS2 project maturity | learning/planned | `verified` current work with split scope | Publish completed PLC/CC-Link/multi-dock foundation separately from planned ROS2, orchestration, recovery, perception, and edge-AI work | Sean |
 
+| 2026-09-21 | Three portfolio images | disclosure pending | approved public assets | Sean explicitly approved RUTA40.jpeg, molipdo-project-banner.png, and intel7_wiring_plc_crop.jpg for public use. Screenshots illustrate products, not sole ownership; the PLC photo is labeled a wiring exercise, not proof of completed ROS2 work. This supersedes the earlier September 21 no-private-assets authorization boundary for these three files only. | Sean |
+
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.

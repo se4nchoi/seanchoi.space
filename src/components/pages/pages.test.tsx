@@ -25,6 +25,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("My background is in web applications and API integration.");
       expect(html).toContain('href="#selected-work"');
       expect(html).toContain('id="selected-work"');
+      expect(html).toContain("PLC wiring exercise");
+      expect(html).toContain("RUTA40 mobile app screens");
+      expect(html).toContain("몰입도 sign-in screen");
+      expect(html).toContain("srcSet=");
 
       // No synthetic notice or example content on real home
       expect(html).not.toContain("Synthetic preview");
@@ -105,6 +109,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("프로젝트 보기");
 
       expect(html).toContain("만든 것들");
+      expect(html).toContain("PLC 배선 실습");
+      expect(html).toContain("RUTA40 앱의 시작");
       expect(html).toContain("RUTA40 차량 제어 인터페이스");
       expect(html).toContain("현재 만들고 있는 것");
       expect(html).toContain("ROS2 산업용 로봇 셀 통합");
