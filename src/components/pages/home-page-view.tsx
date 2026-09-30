@@ -13,7 +13,7 @@ import { getLocalizedText } from "@/lib/content/format";
 export interface HomePageViewProps { locale: AppLocale }
 
 const selectedIds = ["evidence-item-ruta40", "evidence-item-hoek-immersion"];
-const textLink = "inline-flex min-h-[44px] items-center font-medium text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus-ring";
+const textLink = "inline-flex min-h-[44px] items-center font-medium text-accent hover:underline";
 
 export function HomePageView({ locale }: HomePageViewProps) {
   const dict = getDictionary(locale);

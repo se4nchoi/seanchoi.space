@@ -47,7 +47,7 @@ export default function GlobalNotFound() {
             <div className="pt-4">
               <Link
                 href="/"
-                className="inline-flex min-h-[44px] items-center text-small font-medium text-accent underline underline-offset-4 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+                className="inline-flex min-h-[44px] items-center text-small font-medium text-accent underline underline-offset-4 hover:opacity-80"
               >
                 {en.backHome} / {ko.backHome}
               </Link>

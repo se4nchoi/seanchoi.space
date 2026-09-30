@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { ExternalLink } from "@/components/ui/external-link";
 import type { HttpsUrl } from "@/lib/content/schemas";
-import { focusRingClassName } from "@/components/ui/class-names";
 
 export interface MdxLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href?: string;
@@ -38,7 +37,7 @@ export function MdxLink({
     return (
       <a
         href={href}
-        className={`text-accent underline underline-offset-2 hover:opacity-80 ${focusRingClassName} ${className}`}
+        className={`text-accent underline underline-offset-2 hover:opacity-80 ${className}`}
         {...props}
       >
         {children}
@@ -51,7 +50,7 @@ export function MdxLink({
     return (
       <Link
         href={href}
-        className={`text-accent underline underline-offset-2 hover:opacity-80 ${focusRingClassName} ${className}`}
+        className={`text-accent underline underline-offset-2 hover:opacity-80 ${className}`}
         {...props}
       >
         {children}
