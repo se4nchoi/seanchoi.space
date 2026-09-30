@@ -7,6 +7,7 @@ import { PageIntro } from "@/components/ui/page-intro";
 import { Prose } from "@/components/ui/prose";
 import type { ProjectRecord } from "@/lib/content/schemas";
 import type { ProjectDetailNarrative } from "@/lib/content/case-study";
+import { accentActionLinkClassName } from "@/components/ui/class-names";
 
 export interface ProjectDetailViewProps {
   locale: AppLocale;
@@ -24,7 +25,7 @@ export function ProjectDetailView({ locale, project, narrative }: ProjectDetailV
       <nav aria-label={dict.backNavigation}>
         <Link
           href={backHref}
-          className="inline-flex items-center min-h-[44px] text-[length:var(--text-small)] font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+          className={accentActionLinkClassName}
         >
           ← {dict.caseStudy.backToProjects}
         </Link>

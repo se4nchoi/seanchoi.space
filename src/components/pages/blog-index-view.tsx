@@ -7,6 +7,7 @@ import { PageIntro } from "@/components/ui/page-intro";
 import { ArticleCard } from "@/components/ui/article-card";
 import { TopicList } from "@/components/blog/topic-list";
 import { getBlogArticles, getTopicsWithCounts } from "@/lib/content/blog";
+import { focusRingClassName } from "@/components/ui/class-names";
 
 export interface BlogIndexViewProps {
   locale: AppLocale;
@@ -36,7 +37,7 @@ export function BlogIndexView({
           <div className="mt-4 pt-4 border-t border-[var(--border)]">
             <Link
               href="/feed.xml"
-              className="inline-flex items-center gap-1.5 text-[var(--accent)] font-medium hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+              className={`inline-flex items-center gap-1.5 text-[var(--accent)] font-medium hover:underline ${focusRingClassName}`}
             >
               <span>{dict.blogUI.feedSubscribe}</span>
               <span aria-hidden="true">↗</span>

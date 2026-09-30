@@ -19,6 +19,7 @@ import {
   createHeadingIdGenerator,
 } from "@/lib/content/blog";
 import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
+import { accentActionLinkClassName } from "@/components/ui/class-names";
 
 export interface BlogArticleViewProps {
   locale: AppLocale;
@@ -72,7 +73,7 @@ export async function BlogArticleView({
       <nav aria-label={dict.backNavigation}>
         <Link
           href={backHref}
-          className="inline-flex items-center min-h-[44px] text-[length:var(--text-small)] font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+          className={accentActionLinkClassName}
         >
           ← {dict.blogUI.backToBlog}
         </Link>
