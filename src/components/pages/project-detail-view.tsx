@@ -8,6 +8,7 @@ import { Prose } from "@/components/ui/prose";
 import type { ProjectRecord } from "@/lib/content/schemas";
 import type { ProjectDetailNarrative } from "@/lib/content/case-study";
 import { accentActionLinkClassName } from "@/components/ui/class-names";
+import { localizePathname } from "@/i18n/routing";
 
 export interface ProjectDetailViewProps {
   locale: AppLocale;
@@ -17,7 +18,7 @@ export interface ProjectDetailViewProps {
 
 export function ProjectDetailView({ locale, project, narrative }: ProjectDetailViewProps) {
   const dict = getDictionary(locale);
-  const backHref = locale === "ko" ? "/ko/projects" : "/projects";
+  const backHref = localizePathname("/projects", locale);
 
   return (
     <Container size="default" className="space-y-12 pb-16">

@@ -4,13 +4,14 @@ import type { AppLocale } from "@/i18n/config";
 import { Container } from "../ui/container";
 import { PrimaryNavigation } from "./primary-navigation";
 import { LanguageSwitch } from "./language-switch";
+import { localizePathname } from "@/i18n/routing";
 
 export interface SiteHeaderProps {
   locale: AppLocale;
 }
 
 export function SiteHeader({ locale }: SiteHeaderProps) {
-  const homeHref = locale === "ko" ? "/ko" : "/";
+  const homeHref = localizePathname("/", locale);
 
   return (
     <header className="border-b border-line bg-background py-2 sm:py-3">

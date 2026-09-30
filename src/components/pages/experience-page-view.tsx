@@ -12,6 +12,7 @@ import {
   systemLayerSkillGroups,
 } from "@/data/content";
 import { formatDateRange, getLocalizedText } from "@/lib/content/format";
+import { getEvidenceLevelLabel, getSystemLayerLabel } from "@/i18n/career-labels";
 
 export interface ExperiencePageViewProps {
   locale: AppLocale;
@@ -34,22 +35,6 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
     (p) => p.context === "training-exercise"
   );
 
-  const levelLabel = (level: (typeof skills)[number]["evidenceLevel"]) => {
-    if (level === "professional") return dict.careerUI.professionalLevel;
-    if (level === "project") return dict.careerUI.projectLevel;
-    if (level === "training") return dict.careerUI.trainingLevel;
-    return isKo ? "학습 근거" : "Learning evidence";
-  };
-  const layerLabel = (id: (typeof systemLayerSkillGroups)[number]["id"]) => {
-    const labels = {
-      interfaces: dict.careerUI.layerInterfaces,
-      applications: dict.careerUI.layerApplications,
-      infrastructure: dict.careerUI.layerInfrastructure,
-      "physical-systems": dict.careerUI.layerPhysicalSystems,
-      "ai-perception": dict.careerUI.layerAiPerception,
-    };
-    return labels[id];
-  };
 
   return (
     <Container size="default" className="space-y-16 pb-16">
@@ -249,7 +234,7 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
                 className="rounded-[var(--radius-md)] border border-line bg-surface p-6 space-y-3"
               >
                 <h3 className="text-heading-3 font-semibold text-foreground">
-                  {layerLabel(group.id)}
+                  {getSystemLayerLabel(group.id, locale)}
                 </h3>
                 <ul className="space-y-2">
                   {groupSkills.map((skill) => (
@@ -265,7 +250,7 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
                           skill.evidenceLevel === "professional" ? "accent" : "muted"
                         }
                       >
-                        {levelLabel(skill.evidenceLevel)}
+                        {getEvidenceLevelLabel(skill.evidenceLevel, locale)}
                       </Tag>
                     </li>
                   ))}

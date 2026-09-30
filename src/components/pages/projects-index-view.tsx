@@ -9,6 +9,7 @@ import { workMedia } from "@/data/work-media";
 import { canonicalSupportingProjects } from "@/data/content";
 import { getLocalizedText } from "@/lib/content/format";
 import type { SupportingProjectRecord } from "@/lib/content/schemas";
+import { getEvidenceLevelLabel } from "@/i18n/career-labels";
 
 export interface ProjectsIndexViewProps {
   locale: AppLocale;
@@ -16,7 +17,6 @@ export interface ProjectsIndexViewProps {
 
 export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
   const dict = getDictionary(locale);
-  const isKo = locale === "ko";
   const currentWork = canonicalSupportingProjects.filter(
     (item) => item.context === "current-work"
   );
@@ -30,12 +30,6 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
     (item) => item.context === "training-exercise"
   );
 
-  const levelLabel = (level: SupportingProjectRecord["evidenceLevel"]) => {
-    if (level === "professional") return dict.careerUI.professionalLevel;
-    if (level === "project") return dict.careerUI.projectLevel;
-    if (level === "training") return dict.careerUI.trainingLevel;
-    return isKo ? "학습 근거" : "Learning evidence";
-  };
   const renderCards = (items: SupportingProjectRecord[]) => (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       {items.map((item) => (
@@ -44,7 +38,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
           title={getLocalizedText(item.title, locale)}
           summary={getLocalizedText(item.summary, locale)}
           role={item.role ? getLocalizedText(item.role, locale) : undefined}
-          evidenceLabel={levelLabel(item.evidenceLevel)}
+          evidenceLabel={getEvidenceLevelLabel(item.evidenceLevel, locale)}
           status={item.status}
           statusLabel={
             item.status === "in-progress"

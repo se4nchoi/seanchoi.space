@@ -9,6 +9,7 @@ import { WorkImage } from "@/components/ui/work-image";
 import { workMedia } from "@/data/work-media";
 import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
 import { getLocalizedText } from "@/lib/content/format";
+import { localizePathname } from "@/i18n/routing";
 
 export interface HomePageViewProps { locale: AppLocale }
 
@@ -18,7 +19,6 @@ const textLink = "inline-flex min-h-[44px] items-center font-medium text-accent 
 export function HomePageView({ locale }: HomePageViewProps) {
   const dict = getDictionary(locale);
   const { siteIdentity, links } = canonicalContentRegistry;
-  const prefix = locale === "ko" ? "/ko" : "";
   const selected = selectedIds.flatMap((id) => canonicalSupportingProjects.filter((item) => item.id === id));
   const current = canonicalSupportingProjects.find((item) => item.context === "current-work");
   const email = links.find((link) => link.kind === "email");
@@ -72,7 +72,7 @@ export function HomePageView({ locale }: HomePageViewProps) {
       <section id="selected-work" className="scroll-mt-24 space-y-6">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <h2 className="text-2xl font-semibold tracking-tight">{dict.careerUI.selectedEngineeringEvidence}</h2>
-          <Link href={prefix + "/projects"} className={textLink}>{dict.careerUI.viewProjects} <span aria-hidden="true" className="ml-2">→</span></Link>
+          <Link href={localizePathname("/projects", locale)} className={textLink}>{dict.careerUI.viewProjects} <span aria-hidden="true" className="ml-2">→</span></Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2">{selected.map((item) => renderWork(item, true))}</div>
       </section>
@@ -85,7 +85,7 @@ export function HomePageView({ locale }: HomePageViewProps) {
       <section className="space-y-4 border-t border-line pt-8">
         <h2 className="text-2xl font-semibold tracking-tight">{dict.careerUI.contactAndProfiles}</h2>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-          <Link href={prefix + "/experience"} className={textLink}>{dict.careerUI.viewExperience}</Link>
+          <Link href={localizePathname("/experience", locale)} className={textLink}>{dict.careerUI.viewExperience}</Link>
           {email && <a href={email.href} className={textLink}>{dict.careerUI.emailLabel}</a>}
           {profiles.map((link) => <ExternalLink key={link.id} href={link.href as `https://${string}`} newTabLabel={dict.openInNewTab}>{link.kind === "github" ? "GitHub" : "LinkedIn"}</ExternalLink>)}
         </div>

@@ -20,6 +20,7 @@ import {
 } from "@/lib/content/blog";
 import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
 import { accentActionLinkClassName } from "@/components/ui/class-names";
+import { localizePathname } from "@/i18n/routing";
 
 export interface BlogArticleViewProps {
   locale: AppLocale;
@@ -45,7 +46,7 @@ export async function BlogArticleView({
   }
 
   const { record: article, headings, loadComponent: defaultLoader } = articleData;
-  const backHref = isKo ? "/ko/blog" : "/blog";
+  const backHref = localizePathname("/blog", locale);
 
   // Check for public translation counterpart (or preview counterpart if preview mode)
   const counterpart = getArticleTranslationCounterpart(
@@ -94,7 +95,7 @@ export async function BlogArticleView({
               <span>{dict.blogUI.translationUnavailableNotice}</span>
             </div>
             <Link
-              href={isKo ? "/blog" : "/ko/blog"}
+              href={localizePathname("/blog", isKo ? "en" : "ko")}
               className="text-accent hover:underline font-medium text-xs whitespace-nowrap"
             >
               {isKo ? dict.blogUI.viewEnglishBlog : dict.blogUI.viewKoreanBlog}
