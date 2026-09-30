@@ -17,6 +17,11 @@ export interface PageMetadataOptions {
   feedDiscovery?: boolean;
 }
 
+/** Absolute URL for a site path; the root maps to the bare origin. */
+function toAbsoluteUrl(pathname: string): string {
+  return `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+}
+
 export function createPageMetadata({
   locale,
   pathname,
@@ -25,21 +30,20 @@ export function createPageMetadata({
   alternatePaths,
   feedDiscovery = false,
 }: PageMetadataOptions): Metadata {
-  const canonicalPath = localizePathname(pathname, locale);
-  const canonicalUrl = `${SITE_URL}${canonicalPath === "/" ? "" : canonicalPath}`;
+  const canonicalUrl = toAbsoluteUrl(localizePathname(pathname, locale));
 
   // Build languages map
   const languages: Record<string, string> = {};
 
   if (alternatePaths) {
     if (alternatePaths.en) {
-      languages.en = `${SITE_URL}${alternatePaths.en === "/" ? "" : alternatePaths.en}`;
+      languages.en = toAbsoluteUrl(alternatePaths.en);
     }
     if (alternatePaths.ko) {
-      languages.ko = `${SITE_URL}${alternatePaths.ko === "/" ? "" : alternatePaths.ko}`;
+      languages.ko = toAbsoluteUrl(alternatePaths.ko);
     }
     if (alternatePaths["x-default"]) {
-      languages["x-default"] = `${SITE_URL}${alternatePaths["x-default"] === "/" ? "" : alternatePaths["x-default"]}`;
+      languages["x-default"] = toAbsoluteUrl(alternatePaths["x-default"]);
     } else if (languages.en) {
       languages["x-default"] = languages.en;
     } else {
@@ -47,11 +51,9 @@ export function createPageMetadata({
     }
   } else {
     // Standard automatic bilingual pairing for core pages
-    const enPath = localizePathname(pathname, "en");
-    const koPath = localizePathname(pathname, "ko");
-    languages.en = `${SITE_URL}${enPath === "/" ? "" : enPath}`;
-    languages.ko = `${SITE_URL}${koPath === "/" ? "" : koPath}`;
-    languages["x-default"] = `${SITE_URL}${enPath === "/" ? "" : enPath}`;
+    languages.en = toAbsoluteUrl(localizePathname(pathname, "en"));
+    languages.ko = toAbsoluteUrl(localizePathname(pathname, "ko"));
+    languages["x-default"] = languages.en;
   }
 
   // Ensure current locale is always in languages if not explicitly omitted
