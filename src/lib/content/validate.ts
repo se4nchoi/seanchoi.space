@@ -55,60 +55,109 @@ function formatDateToYYYYMMDD(date: Date | string): string {
   return `${y}-${m}-${d}`;
 }
 
-function checkLocalizedTextForUnreviewedPublic(
-  text: LocalizedText | undefined,
-  path: string,
-  recordId: string,
-  issues: ContentIntegrityIssue[]
-) {
-  if (!text) return;
-  if (text.koReview === "draft") {
-    issues.push({
-      code: "unreviewed_public_translation",
-      path,
-      recordId,
-      message: `Public record '${recordId}' contains draft unreviewed Korean translation at '${path}'`,
-    });
-  }
+/**
+ * Shared state and reference checks for one validation run. Validators push
+ * issues here in collection order so reports stay deterministic.
+ */
+interface ValidationContext {
+  issues: ContentIntegrityIssue[];
+  nowDateStr: string;
+  currentYearMonth: string;
+  checkEvidenceIds: (ids: string[], path: string, recordId: string) => void;
+  checkLinkIds: (ids: string[], path: string, recordId: string) => void;
+  checkAssetPath: (assetPath: string, path: string, recordId: string) => void;
+  checkLocalizedText: (text: LocalizedText | undefined, path: string, recordId: string) => void;
 }
 
-export function validateContentRegistry(
-  rawInput: unknown,
-  options: ValidationOptions
-): ContentIntegrity {
-  const issues: ContentIntegrityIssue[] = [];
+function createValidationContext(
+  registry: ContentRegistry,
+  options: ValidationOptions,
+  issues: ContentIntegrityIssue[]
+): ValidationContext {
   const nowDateStr = formatDateToYYYYMMDD(options.now);
-  const currentYearMonth = nowDateStr.slice(0, 7);
   const assetSet =
     options.availableAssets instanceof Set
       ? options.availableAssets
       : new Set(options.availableAssets || []);
+  const evidenceIds = new Set(registry.evidence.map((e) => e.id));
+  const linkIds = new Set(registry.links.map((l) => l.id));
 
-  // 1. Zod Schema Validation
-  let registry: ContentRegistry;
-  try {
-    registry = contentRegistrySchema.parse(rawInput);
-  } catch (err) {
-    if (err instanceof ZodError) {
-      for (const issue of err.issues) {
+  return {
+    issues,
+    nowDateStr,
+    currentYearMonth: nowDateStr.slice(0, 7),
+    checkEvidenceIds(ids, path, recordId) {
+      for (const id of ids) {
+        if (!evidenceIds.has(id)) {
+          issues.push({
+            code: "missing_evidence_reference",
+            path,
+            recordId,
+            message: `Referenced evidence ID '${id}' does not exist in registry`,
+          });
+        }
+      }
+    },
+    checkLinkIds(ids, path, recordId) {
+      for (const id of ids) {
+        if (!linkIds.has(id)) {
+          issues.push({
+            code: "missing_link_reference",
+            path,
+            recordId,
+            message: `Referenced link ID '${id}' does not exist in registry`,
+          });
+        }
+      }
+    },
+    checkAssetPath(assetPath, path, recordId) {
+      if (!assetSet.has(assetPath)) {
         issues.push({
-          code: "schema_invalid",
-          path: issue.path.join("."),
-          message: issue.message,
+          code: "missing_asset",
+          path,
+          recordId,
+          message: `Referenced asset path '${assetPath}' is not in available assets`,
         });
       }
-    } else {
-      issues.push({
-        code: "schema_invalid",
-        path: "root",
-        message: err instanceof Error ? err.message : "Unknown schema validation error",
-      });
-    }
+    },
+    // Public records must not expose draft (unreviewed) Korean translations.
+    checkLocalizedText(text, path, recordId) {
+      if (text?.koReview === "draft") {
+        issues.push({
+          code: "unreviewed_public_translation",
+          path,
+          recordId,
+          message: `Public record '${recordId}' contains draft unreviewed Korean translation at '${path}'`,
+        });
+      }
+    },
+  };
+}
+
+function parseRegistry(rawInput: unknown): ContentRegistry {
+  try {
+    return contentRegistrySchema.parse(rawInput);
+  } catch (err) {
+    const issues: ContentIntegrityIssue[] =
+      err instanceof ZodError
+        ? err.issues.map((issue) => ({
+            code: "schema_invalid" as const,
+            path: issue.path.join("."),
+            message: issue.message,
+          }))
+        : [
+            {
+              code: "schema_invalid",
+              path: "root",
+              message: err instanceof Error ? err.message : "Unknown schema validation error",
+            },
+          ];
     throw new ContentIntegrityError(issues);
   }
+}
 
-  // Collect all records
-  const allRecords = [
+function collectAllRecords(registry: ContentRegistry) {
+  return [
     ...(registry.siteIdentity ? [registry.siteIdentity] : []),
     ...registry.evidence,
     ...registry.links,
@@ -119,227 +168,157 @@ export function validateContentRegistry(
     ...registry.articles,
     ...registry.supportingProjects,
   ];
+}
 
-  // 2. Duplicate ID Check (globally unique across all collections)
-  const seenIds = new Map<string, string>();
-  for (const record of allRecords) {
+// IDs are globally unique across all collections.
+function checkDuplicateIds(records: { id: string }[], ctx: ValidationContext) {
+  const seenIds = new Set<string>();
+  for (const record of records) {
     if (seenIds.has(record.id)) {
-      issues.push({
+      ctx.issues.push({
         code: "duplicate_id",
         path: `records.${record.id}`,
         recordId: record.id,
         message: `Duplicate record ID '${record.id}' found across collections`,
       });
     } else {
-      seenIds.set(record.id, record.id);
+      seenIds.add(record.id);
     }
   }
+}
 
-  // 3. Duplicate Slug Check (unique per record type + locale)
-  const projectSlugs = new Set<string>();
-  for (const project of registry.projects) {
-    const key = `${project.locale}:${project.slug}`;
-    if (projectSlugs.has(key)) {
-      issues.push({
+// Slugs are unique per record type and locale.
+function checkDuplicateSlugs(
+  kind: "project" | "article",
+  collection: "projects" | "articles",
+  records: { id: string; locale: string; slug: string }[],
+  ctx: ValidationContext
+) {
+  const seen = new Set<string>();
+  for (const record of records) {
+    const key = `${record.locale}:${record.slug}`;
+    if (seen.has(key)) {
+      ctx.issues.push({
         code: "duplicate_slug",
-        path: `projects.${project.id}.slug`,
-        recordId: project.id,
-        message: `Duplicate project slug '${project.slug}' for locale '${project.locale}'`,
+        path: `${collection}.${record.id}.slug`,
+        recordId: record.id,
+        message: `Duplicate ${kind} slug '${record.slug}' for locale '${record.locale}'`,
       });
     } else {
-      projectSlugs.add(key);
+      seen.add(key);
     }
   }
+}
 
-  const articleSlugs = new Set<string>();
-  for (const article of registry.articles) {
-    const key = `${article.locale}:${article.slug}`;
-    if (articleSlugs.has(key)) {
-      issues.push({
-        code: "duplicate_slug",
-        path: `articles.${article.id}.slug`,
-        recordId: article.id,
-        message: `Duplicate article slug '${article.slug}' for locale '${article.locale}'`,
-      });
-    } else {
-      articleSlugs.add(key);
-    }
-  }
+function checkPublicRecordRules(
+  records: ReturnType<typeof collectAllRecords>,
+  ctx: ValidationContext
+) {
+  for (const record of records) {
+    if (record.publicationStatus !== "public") continue;
 
-  // Build reference index maps
-  const evidenceMap = new Map(registry.evidence.map((e) => [e.id, e]));
-  const linkMap = new Map(registry.links.map((l) => [l.id, l]));
-  const projectMap = new Map(registry.projects.map((p) => [p.id, p]));
-  const articleMap = new Map(registry.articles.map((a) => [a.id, a]));
-
-  // Helper for evidence reference verification
-  const checkEvidenceIds = (ids: string[], path: string, recordId: string) => {
-    for (const id of ids) {
-      if (!evidenceMap.has(id)) {
-        issues.push({
-          code: "missing_evidence_reference",
-          path,
-          recordId,
-          message: `Referenced evidence ID '${id}' does not exist in registry`,
-        });
-      }
-    }
-  };
-
-  // Helper for link reference verification
-  const checkLinkIds = (ids: string[], path: string, recordId: string) => {
-    for (const id of ids) {
-      if (!linkMap.has(id)) {
-        issues.push({
-          code: "missing_link_reference",
-          path,
-          recordId,
-          message: `Referenced link ID '${id}' does not exist in registry`,
-        });
-      }
-    }
-  };
-
-  // Helper for asset verification
-  const checkAssetPath = (assetPath: string, path: string, recordId: string) => {
-    if (!assetSet.has(assetPath)) {
-      issues.push({
-        code: "missing_asset",
-        path,
-        recordId,
-        message: `Referenced asset path '${assetPath}' is not in available assets`,
+    if (record.claimState !== "verified") {
+      ctx.issues.push({
+        code: "unverified_public_record",
+        path: `${record.id}.claimState`,
+        recordId: record.id,
+        message: `Public record '${record.id}' must have claimState 'verified', but got '${record.claimState}'`,
       });
     }
-  };
 
-  // 4. Validate Individual Records & Cross-Record Rules
+    if (record.syntheticPlaceholder) {
+      ctx.issues.push({
+        code: "public_synthetic_placeholder",
+        path: `${record.id}.syntheticPlaceholder`,
+        recordId: record.id,
+        message: `Public record '${record.id}' cannot be a synthetic placeholder`,
+      });
+    }
 
-  for (const record of allRecords) {
-    const isPublic = record.publicationStatus === "public";
-
-    // Public Record Verification
-    if (isPublic) {
-      if (record.claimState !== "verified") {
-        issues.push({
-          code: "unverified_public_record",
-          path: `${record.id}.claimState`,
-          recordId: record.id,
-          message: `Public record '${record.id}' must have claimState 'verified', but got '${record.claimState}'`,
-        });
-      }
-
-      if (record.syntheticPlaceholder) {
-        issues.push({
-          code: "public_synthetic_placeholder",
-          path: `${record.id}.syntheticPlaceholder`,
-          recordId: record.id,
-          message: `Public record '${record.id}' cannot be a synthetic placeholder`,
-        });
-      }
-
-      if (!record.reviewedOn) {
-        issues.push({
-          code: "missing_review_date",
-          path: `${record.id}.reviewedOn`,
-          recordId: record.id,
-          message: `Public record '${record.id}' must have a reviewedOn calendar date`,
-        });
-      }
+    if (!record.reviewedOn) {
+      ctx.issues.push({
+        code: "missing_review_date",
+        path: `${record.id}.reviewedOn`,
+        recordId: record.id,
+        message: `Public record '${record.id}' must have a reviewedOn calendar date`,
+      });
     }
   }
+}
 
-  // Site Identity
-  if (registry.siteIdentity) {
-    const site = registry.siteIdentity;
-    checkLinkIds(site.linkIds, `siteIdentity.linkIds`, site.id);
-    if (site.publicationStatus === "public") {
-      checkLocalizedTextForUnreviewedPublic(site.displayName, `siteIdentity.displayName`, site.id, issues);
-      checkLocalizedTextForUnreviewedPublic(site.location, `siteIdentity.location`, site.id, issues);
-      checkLocalizedTextForUnreviewedPublic(site.trajectory, `siteIdentity.trajectory`, site.id, issues);
-    }
+function validateSiteIdentity(registry: ContentRegistry, ctx: ValidationContext) {
+  const site = registry.siteIdentity;
+  if (!site) return;
+
+  ctx.checkLinkIds(site.linkIds, `siteIdentity.linkIds`, site.id);
+  if (site.publicationStatus === "public") {
+    ctx.checkLocalizedText(site.displayName, `siteIdentity.displayName`, site.id);
+    ctx.checkLocalizedText(site.location, `siteIdentity.location`, site.id);
+    ctx.checkLocalizedText(site.trajectory, `siteIdentity.trajectory`, site.id);
   }
+}
 
-  // Links
+function validateLinks(registry: ContentRegistry, ctx: ValidationContext) {
   for (const link of registry.links) {
     if (link.publicationStatus === "public") {
-      checkLocalizedTextForUnreviewedPublic(link.label, `links.${link.id}.label`, link.id, issues);
+      ctx.checkLocalizedText(link.label, `links.${link.id}.label`, link.id);
     }
   }
+}
 
-  // Experiences
+function validateExperiences(registry: ContentRegistry, ctx: ValidationContext) {
   for (const exp of registry.experiences) {
-    checkEvidenceIds(exp.evidenceIds, `experiences.${exp.id}.evidenceIds`, exp.id);
-    for (let i = 0; i < exp.contributions.length; i++) {
-      const contrib = exp.contributions[i];
-      checkEvidenceIds(
-        contrib.evidenceIds,
-        `experiences.${exp.id}.contributions[${i}].evidenceIds`,
-        exp.id
-      );
-      if (exp.publicationStatus === "public") {
-        checkLocalizedTextForUnreviewedPublic(
-          contrib.text,
-          `experiences.${exp.id}.contributions[${i}].text`,
-          exp.id,
-          issues
-        );
+    const base = `experiences.${exp.id}`;
+    const isPublic = exp.publicationStatus === "public";
+
+    ctx.checkEvidenceIds(exp.evidenceIds, `${base}.evidenceIds`, exp.id);
+    exp.contributions.forEach((contrib, i) => {
+      ctx.checkEvidenceIds(contrib.evidenceIds, `${base}.contributions[${i}].evidenceIds`, exp.id);
+      if (isPublic) {
+        ctx.checkLocalizedText(contrib.text, `${base}.contributions[${i}].text`, exp.id);
       }
-    }
+    });
 
-    // Date range validation
     const { start, end, ongoing } = exp.dateRange;
+    let dateRangeMessage: string | undefined;
     if (start === null) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `experiences.${exp.id}.dateRange`,
-        recordId: exp.id,
-        message: `Experience record '${exp.id}' must specify a start date`,
-      });
+      dateRangeMessage = `Experience record '${exp.id}' must specify a start date`;
     } else if (ongoing && end !== null) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `experiences.${exp.id}.dateRange`,
-        recordId: exp.id,
-        message: `Ongoing experience date range cannot specify an end date`,
-      });
+      dateRangeMessage = `Ongoing experience date range cannot specify an end date`;
     } else if (!ongoing && end === null) {
-      issues.push({
+      dateRangeMessage = `Non-ongoing experience date range must specify an end date`;
+    } else if (end !== null && end < start) {
+      dateRangeMessage = `End date '${end}' cannot precede start date '${start}'`;
+    } else if (!ongoing && end !== null && end > ctx.currentYearMonth) {
+      dateRangeMessage = `Completed experience end date '${end}' cannot be in the future`;
+    }
+    if (dateRangeMessage) {
+      ctx.issues.push({
         code: "invalid_date_range",
-        path: `experiences.${exp.id}.dateRange`,
+        path: `${base}.dateRange`,
         recordId: exp.id,
-        message: `Non-ongoing experience date range must specify an end date`,
-      });
-    } else if (start !== null && end !== null && end < start) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `experiences.${exp.id}.dateRange`,
-        recordId: exp.id,
-        message: `End date '${end}' cannot precede start date '${start}'`,
-      });
-    } else if (!ongoing && end !== null && end > currentYearMonth) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `experiences.${exp.id}.dateRange`,
-        recordId: exp.id,
-        message: `Completed experience end date '${end}' cannot be in the future`,
+        message: dateRangeMessage,
       });
     }
 
-    if (exp.publicationStatus === "public") {
-      checkLocalizedTextForUnreviewedPublic(exp.organization, `experiences.${exp.id}.organization`, exp.id, issues);
-      checkLocalizedTextForUnreviewedPublic(exp.role, `experiences.${exp.id}.role`, exp.id, issues);
-      checkLocalizedTextForUnreviewedPublic(exp.summary, `experiences.${exp.id}.summary`, exp.id, issues);
+    if (isPublic) {
+      ctx.checkLocalizedText(exp.organization, `${base}.organization`, exp.id);
+      ctx.checkLocalizedText(exp.role, `${base}.role`, exp.id);
+      ctx.checkLocalizedText(exp.summary, `${base}.summary`, exp.id);
     }
   }
+}
 
-  // Education & Training
+function validateEducationAndTraining(registry: ContentRegistry, ctx: ValidationContext) {
   for (const edu of registry.educationAndTraining) {
-    checkEvidenceIds(edu.evidenceIds, `educationAndTraining.${edu.id}.evidenceIds`, edu.id);
+    const base = `educationAndTraining.${edu.id}`;
+
+    ctx.checkEvidenceIds(edu.evidenceIds, `${base}.evidenceIds`, edu.id);
 
     if (edu.publicationStatus === "public" && edu.status === "planned") {
-      issues.push({
+      ctx.issues.push({
         code: "planned_public_record",
-        path: `educationAndTraining.${edu.id}.status`,
+        path: `${base}.status`,
         recordId: edu.id,
         message: `Public education/training record cannot have status 'planned'`,
       });
@@ -353,62 +332,42 @@ export function validateContentRegistry(
       start === null &&
       end !== null;
 
+    let dateRangeMessage: string | undefined;
     if (start === null && !isCompletionOnlyEducation) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `educationAndTraining.${edu.id}.dateRange`,
-        recordId: edu.id,
-        message: `Education/training record '${edu.id}' must specify a start date unless it is a completion-only degree record`,
-      });
+      dateRangeMessage = `Education/training record '${edu.id}' must specify a start date unless it is a completion-only degree record`;
     } else if (ongoing && end !== null && start !== null && end < start) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `educationAndTraining.${edu.id}.dateRange`,
-        recordId: edu.id,
-        message: `Scheduled end date '${end}' cannot precede start date '${start}'`,
-      });
-    } else if (ongoing && end !== null && end < currentYearMonth) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `educationAndTraining.${edu.id}.dateRange`,
-        recordId: edu.id,
-        message: `Ongoing education/training record '${edu.id}' has scheduled end date '${end}' in the past relative to '${currentYearMonth}'`,
-      });
+      dateRangeMessage = `Scheduled end date '${end}' cannot precede start date '${start}'`;
+    } else if (ongoing && end !== null && end < ctx.currentYearMonth) {
+      dateRangeMessage = `Ongoing education/training record '${edu.id}' has scheduled end date '${end}' in the past relative to '${ctx.currentYearMonth}'`;
     } else if (!ongoing && end === null) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `educationAndTraining.${edu.id}.dateRange`,
-        recordId: edu.id,
-        message: `Non-ongoing education/training date range must specify an end date`,
-      });
+      dateRangeMessage = `Non-ongoing education/training date range must specify an end date`;
     } else if (start !== null && end !== null && end < start) {
-      issues.push({
+      dateRangeMessage = `End date '${end}' cannot precede start date '${start}'`;
+    } else if (!ongoing && end !== null && end > ctx.currentYearMonth) {
+      dateRangeMessage = `Completed education/training end date '${end}' cannot be in the future`;
+    }
+    if (dateRangeMessage) {
+      ctx.issues.push({
         code: "invalid_date_range",
-        path: `educationAndTraining.${edu.id}.dateRange`,
+        path: `${base}.dateRange`,
         recordId: edu.id,
-        message: `End date '${end}' cannot precede start date '${start}'`,
-      });
-    } else if (!ongoing && end !== null && end > currentYearMonth) {
-      issues.push({
-        code: "invalid_date_range",
-        path: `educationAndTraining.${edu.id}.dateRange`,
-        recordId: edu.id,
-        message: `Completed education/training end date '${end}' cannot be in the future`,
+        message: dateRangeMessage,
       });
     }
 
     if (edu.publicationStatus === "public") {
-      checkLocalizedTextForUnreviewedPublic(edu.institution, `educationAndTraining.${edu.id}.institution`, edu.id, issues);
-      checkLocalizedTextForUnreviewedPublic(edu.program, `educationAndTraining.${edu.id}.program`, edu.id, issues);
+      ctx.checkLocalizedText(edu.institution, `${base}.institution`, edu.id);
+      ctx.checkLocalizedText(edu.program, `${base}.program`, edu.id);
     }
   }
+}
 
-  // Skills
+function validateSkills(registry: ContentRegistry, ctx: ValidationContext) {
   for (const skill of registry.skills) {
-    checkEvidenceIds(skill.evidenceIds, `skills.${skill.id}.evidenceIds`, skill.id);
+    ctx.checkEvidenceIds(skill.evidenceIds, `skills.${skill.id}.evidenceIds`, skill.id);
 
     if (skill.prominence === "featured" && skill.evidenceIds.length === 0) {
-      issues.push({
+      ctx.issues.push({
         code: "featured_skill_without_evidence",
         path: `skills.${skill.id}.evidenceIds`,
         recordId: skill.id,
@@ -417,198 +376,178 @@ export function validateContentRegistry(
     }
 
     if (skill.publicationStatus === "public") {
-      checkLocalizedTextForUnreviewedPublic(skill.name, `skills.${skill.id}.name`, skill.id, issues);
+      ctx.checkLocalizedText(skill.name, `skills.${skill.id}.name`, skill.id);
     }
   }
+}
 
-  // Projects
+// One-way translation model: a translation points to an existing source in
+// the other locale, and that source is not itself a translation.
+function checkTranslationSource<T extends { id: string; locale: string; translationOf?: string }>(
+  kind: "project" | "article",
+  collection: "projects" | "articles",
+  record: T,
+  sourcesById: Map<string, T>,
+  ctx: ValidationContext
+) {
+  if (!record.translationOf) return;
+
+  const source = sourcesById.get(record.translationOf);
+  let message: string | undefined;
+  if (!source) {
+    message = `Referenced ${kind} translation source '${record.translationOf}' does not exist`;
+  } else if (source.locale === record.locale) {
+    message = `Translation source ${kind} '${source.id}' must have opposite locale (got '${source.locale}')`;
+  } else if (source.translationOf) {
+    message = `Translation source ${kind} '${source.id}' cannot itself point to another translation`;
+  }
+
+  if (message) {
+    ctx.issues.push({
+      code: "invalid_translation_reference",
+      path: `${collection}.${record.id}.translationOf`,
+      recordId: record.id,
+      message,
+    });
+  }
+}
+
+function validateProjects(registry: ContentRegistry, ctx: ValidationContext) {
+  const projectsById = new Map(registry.projects.map((p) => [p.id, p]));
+
   for (const project of registry.projects) {
-    checkEvidenceIds(project.evidenceIds, `projects.${project.id}.evidenceIds`, project.id);
-    checkLinkIds(project.linkIds, `projects.${project.id}.linkIds`, project.id);
-    for (let i = 0; i < project.assetPaths.length; i++) {
-      checkAssetPath(project.assetPaths[i], `projects.${project.id}.assetPaths[${i}]`, project.id);
-    }
+    const base = `projects.${project.id}`;
+
+    ctx.checkEvidenceIds(project.evidenceIds, `${base}.evidenceIds`, project.id);
+    ctx.checkLinkIds(project.linkIds, `${base}.linkIds`, project.id);
+    project.assetPaths.forEach((assetPath, i) => {
+      ctx.checkAssetPath(assetPath, `${base}.assetPaths[${i}]`, project.id);
+    });
 
     if (project.publicationStatus === "public" && project.status === "planned") {
-      issues.push({
+      ctx.issues.push({
         code: "planned_public_record",
-        path: `projects.${project.id}.status`,
+        path: `${base}.status`,
         recordId: project.id,
         message: `Public project cannot have status 'planned'`,
       });
     }
 
-    // Translation validation
-    if (project.translationOf) {
-      const source = projectMap.get(project.translationOf);
-      if (!source) {
-        issues.push({
-          code: "invalid_translation_reference",
-          path: `projects.${project.id}.translationOf`,
-          recordId: project.id,
-          message: `Referenced project translation source '${project.translationOf}' does not exist`,
-        });
-      } else if (source.locale === project.locale) {
-        issues.push({
-          code: "invalid_translation_reference",
-          path: `projects.${project.id}.translationOf`,
-          recordId: project.id,
-          message: `Translation source project '${source.id}' must have opposite locale (got '${source.locale}')`,
-        });
-      } else if (source.translationOf) {
-        issues.push({
-          code: "invalid_translation_reference",
-          path: `projects.${project.id}.translationOf`,
-          recordId: project.id,
-          message: `Translation source project '${source.id}' cannot itself point to another translation`,
-        });
-      }
-    }
+    checkTranslationSource("project", "projects", project, projectsById, ctx);
   }
+}
 
-  // Articles
+function validateArticles(registry: ContentRegistry, ctx: ValidationContext) {
+  const articlesById = new Map(registry.articles.map((a) => [a.id, a]));
+
   for (const article of registry.articles) {
-    for (let i = 0; i < article.assetPaths.length; i++) {
-      checkAssetPath(article.assetPaths[i], `articles.${article.id}.assetPaths[${i}]`, article.id);
-    }
+    const base = `articles.${article.id}`;
+
+    article.assetPaths.forEach((assetPath, i) => {
+      ctx.checkAssetPath(assetPath, `${base}.assetPaths[${i}]`, article.id);
+    });
 
     if (article.updatedOn && article.updatedOn < article.publishedOn) {
-      issues.push({
+      ctx.issues.push({
         code: "invalid_date_range",
-        path: `articles.${article.id}.updatedOn`,
+        path: `${base}.updatedOn`,
         recordId: article.id,
         message: `Updated date '${article.updatedOn}' cannot precede published date '${article.publishedOn}'`,
       });
     }
 
-    if (article.publicationStatus === "public" && article.publishedOn > nowDateStr) {
-      issues.push({
+    if (article.publicationStatus === "public" && article.publishedOn > ctx.nowDateStr) {
+      ctx.issues.push({
         code: "future_publication_date",
-        path: `articles.${article.id}.publishedOn`,
+        path: `${base}.publishedOn`,
         recordId: article.id,
-        message: `Public article publishedOn date '${article.publishedOn}' is in the future relative to '${nowDateStr}'`,
+        message: `Public article publishedOn date '${article.publishedOn}' is in the future relative to '${ctx.nowDateStr}'`,
       });
     }
 
-    // Translation validation
-    if (article.translationOf) {
-      const source = articleMap.get(article.translationOf);
-      if (!source) {
-        issues.push({
-          code: "invalid_translation_reference",
-          path: `articles.${article.id}.translationOf`,
-          recordId: article.id,
-          message: `Referenced article translation source '${article.translationOf}' does not exist`,
-        });
-      } else if (source.locale === article.locale) {
-        issues.push({
-          code: "invalid_translation_reference",
-          path: `articles.${article.id}.translationOf`,
-          recordId: article.id,
-          message: `Translation source article '${source.id}' must have opposite locale (got '${source.locale}')`,
-        });
-      } else if (source.translationOf) {
-        issues.push({
-          code: "invalid_translation_reference",
-          path: `articles.${article.id}.translationOf`,
-          recordId: article.id,
-          message: `Translation source article '${source.id}' cannot itself point to another translation`,
-        });
-      }
+    checkTranslationSource("article", "articles", article, articlesById, ctx);
+  }
+}
+
+function validateSupportingProjects(registry: ContentRegistry, ctx: ValidationContext) {
+  for (const proj of registry.supportingProjects ?? []) {
+    const base = `supportingProjects.${proj.id}`;
+
+    ctx.checkEvidenceIds(proj.evidenceIds, `${base}.evidenceIds`, proj.id);
+
+    if (proj.publicationStatus !== "public") continue;
+
+    if (proj.syntheticPlaceholder) {
+      ctx.issues.push({
+        code: "public_synthetic_placeholder",
+        path: `${base}.syntheticPlaceholder`,
+        recordId: proj.id,
+        message: `Public supporting project record cannot be a synthetic placeholder`,
+      });
+    }
+    if (proj.claimState !== "verified") {
+      ctx.issues.push({
+        code: "unverified_public_record",
+        path: `${base}.claimState`,
+        recordId: proj.id,
+        message: `Public supporting project record must have claimState 'verified'`,
+      });
+    }
+    if (!proj.reviewedOn) {
+      ctx.issues.push({
+        code: "missing_review_date",
+        path: `${base}.reviewedOn`,
+        recordId: proj.id,
+        message: `Public supporting project record must specify reviewedOn`,
+      });
+    } else if (proj.reviewedOn > ctx.nowDateStr) {
+      ctx.issues.push({
+        code: "future_publication_date",
+        path: `${base}.reviewedOn`,
+        recordId: proj.id,
+        message: `Review date '${proj.reviewedOn}' cannot be in the future relative to '${ctx.nowDateStr}'`,
+      });
+    }
+
+    ctx.checkLocalizedText(proj.title, `${base}.title`, proj.id);
+    ctx.checkLocalizedText(proj.summary, `${base}.summary`, proj.id);
+    ctx.checkLocalizedText(proj.contributionBoundary, `${base}.contributionBoundary`, proj.id);
+    proj.completedScope.forEach((text, i) => {
+      ctx.checkLocalizedText(text, `${base}.completedScope[${i}]`, proj.id);
+    });
+    proj.plannedScope.forEach((text, i) => {
+      ctx.checkLocalizedText(text, `${base}.plannedScope[${i}]`, proj.id);
+    });
+    if (proj.role) {
+      ctx.checkLocalizedText(proj.role, `${base}.role`, proj.id);
+    }
+    if (proj.scale) {
+      ctx.checkLocalizedText(proj.scale, `${base}.scale`, proj.id);
     }
   }
+}
 
-  // Supporting Projects
-  if (registry.supportingProjects) {
-    for (const proj of registry.supportingProjects) {
-      checkEvidenceIds(proj.evidenceIds, `supportingProjects.${proj.id}.evidenceIds`, proj.id);
+export function validateContentRegistry(
+  rawInput: unknown,
+  options: ValidationOptions
+): ContentIntegrity {
+  const registry = parseRegistry(rawInput);
+  const issues: ContentIntegrityIssue[] = [];
+  const ctx = createValidationContext(registry, options, issues);
+  const allRecords = collectAllRecords(registry);
 
-      if (proj.publicationStatus === "public") {
-        if (proj.syntheticPlaceholder) {
-          issues.push({
-            code: "public_synthetic_placeholder",
-            path: `supportingProjects.${proj.id}.syntheticPlaceholder`,
-            recordId: proj.id,
-            message: `Public supporting project record cannot be a synthetic placeholder`,
-          });
-        }
-        if (proj.claimState !== "verified") {
-          issues.push({
-            code: "unverified_public_record",
-            path: `supportingProjects.${proj.id}.claimState`,
-            recordId: proj.id,
-            message: `Public supporting project record must have claimState 'verified'`,
-          });
-        }
-        if (!proj.reviewedOn) {
-          issues.push({
-            code: "missing_review_date",
-            path: `supportingProjects.${proj.id}.reviewedOn`,
-            recordId: proj.id,
-            message: `Public supporting project record must specify reviewedOn`,
-          });
-        } else if (proj.reviewedOn > nowDateStr) {
-          issues.push({
-            code: "future_publication_date",
-            path: `supportingProjects.${proj.id}.reviewedOn`,
-            recordId: proj.id,
-            message: `Review date '${proj.reviewedOn}' cannot be in the future relative to '${nowDateStr}'`,
-          });
-        }
-
-        checkLocalizedTextForUnreviewedPublic(
-          proj.title,
-          `supportingProjects.${proj.id}.title`,
-          proj.id,
-          issues
-        );
-        checkLocalizedTextForUnreviewedPublic(
-          proj.summary,
-          `supportingProjects.${proj.id}.summary`,
-          proj.id,
-          issues
-        );
-        checkLocalizedTextForUnreviewedPublic(
-          proj.contributionBoundary,
-          `supportingProjects.${proj.id}.contributionBoundary`,
-          proj.id,
-          issues
-        );
-        for (let i = 0; i < proj.completedScope.length; i++) {
-          checkLocalizedTextForUnreviewedPublic(
-            proj.completedScope[i],
-            `supportingProjects.${proj.id}.completedScope[${i}]`,
-            proj.id,
-            issues
-          );
-        }
-        for (let i = 0; i < proj.plannedScope.length; i++) {
-          checkLocalizedTextForUnreviewedPublic(
-            proj.plannedScope[i],
-            `supportingProjects.${proj.id}.plannedScope[${i}]`,
-            proj.id,
-            issues
-          );
-        }
-        if (proj.role) {
-          checkLocalizedTextForUnreviewedPublic(
-            proj.role,
-            `supportingProjects.${proj.id}.role`,
-            proj.id,
-            issues
-          );
-        }
-        if (proj.scale) {
-          checkLocalizedTextForUnreviewedPublic(
-            proj.scale,
-            `supportingProjects.${proj.id}.scale`,
-            proj.id,
-            issues
-          );
-        }
-      }
-    }
-  }
+  checkDuplicateIds(allRecords, ctx);
+  checkDuplicateSlugs("project", "projects", registry.projects, ctx);
+  checkDuplicateSlugs("article", "articles", registry.articles, ctx);
+  checkPublicRecordRules(allRecords, ctx);
+  validateSiteIdentity(registry, ctx);
+  validateLinks(registry, ctx);
+  validateExperiences(registry, ctx);
+  validateEducationAndTraining(registry, ctx);
+  validateSkills(registry, ctx);
+  validateProjects(registry, ctx);
+  validateArticles(registry, ctx);
+  validateSupportingProjects(registry, ctx);
 
   if (issues.length > 0) {
     throw new ContentIntegrityError(issues);
