@@ -11,7 +11,7 @@ export function getEvidenceLevelLabel(level: EvidenceLevel, locale: AppLocale): 
   if (level === "professional") return careerUI.professionalLevel;
   if (level === "project") return careerUI.projectLevel;
   if (level === "training") return careerUI.trainingLevel;
-  return locale === "ko" ? "학습 근거" : "Learning evidence";
+  return careerUI.exposureLevel;
 }
 
 /** Localized heading for a system-layer skill group. */

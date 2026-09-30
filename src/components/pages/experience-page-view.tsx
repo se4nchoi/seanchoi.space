@@ -20,7 +20,6 @@ export interface ExperiencePageViewProps {
 
 export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
   const dict = getDictionary(locale);
-  const isKo = locale === "ko";
   const { experiences, educationAndTraining, skills } = canonicalContentRegistry;
 
   const degreeRecord = educationAndTraining.find((e) => e.kind === "education");
@@ -104,9 +103,7 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
                 </div>
               </div>
               <p className="text-body leading-relaxed text-foreground">
-                {isKo
-                  ? "2026년 6월 졸업하고 학위를 취득했습니다."
-                  : "Completed and conferred in June 2026."}
+                {dict.careerUI.degreeCompletedNote}
               </p>
             </div>
           )}
@@ -132,9 +129,7 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
                 </div>
               </div>
               <p className="text-body leading-relaxed text-foreground">
-                {isKo
-                  ? "기존 소프트웨어 개발 역량을 산업 현장과 연결하기 위해 학습 범위를 확장하고 있습니다. 현재 PLC/래더 로직, 센서와 IoT, 산업 네트워크, Linux, AI/ML, OpenVINO, 엣지 추론, 설비/OT 연동을 학습·실습하고 있습니다."
-                  : "Current study includes PLC/ladder logic, sensors and IoT, industrial networking, Linux, AI/ML, OpenVINO, edge inference, and equipment/OT integration."}
+                {dict.careerUI.currentTrainingNote}
               </p>
             </div>
           )}

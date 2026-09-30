@@ -17,6 +17,7 @@ export interface ProjectsIndexViewProps {
 
 export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
   const dict = getDictionary(locale);
+  const isKo = locale === "ko";
   const currentWork = canonicalSupportingProjects.filter(
     (item) => item.context === "current-work"
   );

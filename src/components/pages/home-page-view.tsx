@@ -30,7 +30,7 @@ export function HomePageView({ locale }: HomePageViewProps) {
       title={getLocalizedText(item.title, locale)}
       summary={getLocalizedText(item.summary, locale)}
       role={item.role ? getLocalizedText(item.role, locale) : undefined}
-      evidenceLabel={item.context === "professional" ? (locale === "ko" ? "실무 프로젝트" : "Professional work") : (locale === "ko" ? "개인 프로젝트" : "Personal project")}
+      evidenceLabel={item.context === "professional" ? dict.careerUI.professionalWorkLabel : dict.careerUI.personalProjectLabel}
       status={item.status}
       statusLabel={item.status === "in-progress" ? dict.careerUI.inProgress : dict.careerUI.completed}
       contributionBoundary={getLocalizedText(item.contributionBoundary, locale)}

@@ -102,6 +102,11 @@ export interface CareerDictionary {
   layerPhysicalSystems: string;
   layerAiPerception: string;
   editorialReviewable: string;
+  professionalWorkLabel: string;
+  personalProjectLabel: string;
+  exposureLevel: string;
+  degreeCompletedNote: string;
+  currentTrainingNote: string;
 }
 
 export interface UIDictionary {
@@ -125,6 +130,7 @@ export interface UIDictionary {
   backHome: string;
   footerPolicy: string;
   backNavigation: string;
+  siteDescription: string;
   skeleton: SkeletonDictionary;
   caseStudy: CaseStudyDictionary;
   blogUI: BlogDictionary;
@@ -158,6 +164,8 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     backHome: "Return home",
     footerPolicy: "English-first. Korean content is published after review.",
     backNavigation: "Back navigation",
+    siteDescription:
+      "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
     careerUI: {
       homeHeadline:
         "Building software that connects the web and the physical world.",
@@ -227,6 +235,12 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       layerPhysicalSystems: "Controls & Physical Systems",
       layerAiPerception: "AI & Perception",
       editorialReviewable: "Preview copy · editorial review pending",
+      professionalWorkLabel: "Professional work",
+      personalProjectLabel: "Personal project",
+      exposureLevel: "Learning evidence",
+      degreeCompletedNote: "Completed and conferred in June 2026.",
+      currentTrainingNote:
+        "Current study includes PLC/ladder logic, sensors and IoT, industrial networking, Linux, AI/ML, OpenVINO, edge inference, and equipment/OT integration.",
     },
     skeleton: {
       eyebrow: "Synthetic preview",
@@ -298,6 +312,8 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     backHome: "홈으로 돌아가기",
     footerPolicy: "영문을 기본으로 하며, 한국어 콘텐츠는 검토 후 공개합니다.",
     backNavigation: "이전 페이지 탐색",
+    siteDescription:
+      "웹 애플리케이션과 API 연동에서 PLC와 로봇으로 작업을 확장하는 최예현의 포트폴리오입니다.",
     careerUI: {
       homeHeadline:
         "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
@@ -364,6 +380,12 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       layerPhysicalSystems: "제어 및 물리 시스템",
       layerAiPerception: "AI 및 인지",
       editorialReviewable: "미리보기 문구 · 편집 검토 예정",
+      professionalWorkLabel: "실무 프로젝트",
+      personalProjectLabel: "개인 프로젝트",
+      exposureLevel: "학습 근거",
+      degreeCompletedNote: "2026년 6월 졸업하고 학위를 취득했습니다.",
+      currentTrainingNote:
+        "기존 소프트웨어 개발 역량을 산업 현장과 연결하기 위해 학습 범위를 확장하고 있습니다. 현재 PLC/래더 로직, 센서와 IoT, 산업 네트워크, Linux, AI/ML, OpenVINO, 엣지 추론, 설비/OT 연동을 학습·실습하고 있습니다.",
     },
     skeleton: {
       eyebrow: "합성 미리보기",

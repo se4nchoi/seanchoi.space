@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { type AppLocale } from "@/i18n/config";
 import { localizePathname } from "@/i18n/routing";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export const SITE_URL = "https://seanchoi.space";
 
@@ -91,9 +92,6 @@ export function createRootMetadata(locale: AppLocale): Metadata {
       default: "seanchoi.space",
       template: "%s — seanchoi.space",
     },
-    description:
-      locale === "ko"
-        ? "웹 애플리케이션과 API 연동에서 PLC와 로봇으로 작업을 확장하는 최예현의 포트폴리오입니다."
-        : "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
+    description: getDictionary(locale).siteDescription,
   };
 }
