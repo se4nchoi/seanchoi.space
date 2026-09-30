@@ -79,6 +79,40 @@
   }
 }
 
+/*
+ * Register the design tokens above as Tailwind utilities, e.g. text-muted,
+ * bg-surface, border-line, text-small, leading-relaxed, tracking-display.
+ * `inline` makes each utility reference the token directly, so the dark
+ * palette still applies; `reference` keeps Tailwind from re-emitting the
+ * variables. Radii stay as arbitrary values because Tailwind's built-in
+ * rounded-sm/md/lg are used with their default sizes.
+ */
+@theme inline reference {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-focus-ring: var(--focus-ring);
+
+  --text-display: var(--text-display);
+  --text-heading-1: var(--text-heading-1);
+  --text-heading-2: var(--text-heading-2);
+  --text-heading-3: var(--text-heading-3);
+  --text-body: var(--text-body);
+  --text-small: var(--text-small);
+  --text-code: var(--text-code);
+
+  --leading-tight: var(--leading-tight);
+  --leading-body: var(--leading-body);
+  --leading-relaxed: var(--leading-relaxed);
+
+  --tracking-display: var(--tracking-display);
+  --tracking-label: var(--tracking-label);
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

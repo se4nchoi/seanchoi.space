@@ -22,8 +22,8 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
     expect(html).toContain("<h1");
     expect(html).toContain("Main Title");
     expect(html).toContain("Summary text");
-    expect(html).toContain("var(--text-heading-1)");
-    expect(html).toContain("var(--text-body)");
+    expect(html).toMatch(/\btext-heading-1\b/);
+    expect(html).toMatch(/\btext-body\b/);
     expect(html).not.toContain("sm:text-lg");
   });
 
@@ -31,7 +31,7 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
     const html = renderToStaticMarkup(<Tag variant="accent">TypeScript</Tag>);
     expect(html).toContain("TypeScript");
     expect(html).toContain("font-mono");
-    expect(html).toContain("var(--text-small)");
+    expect(html).toMatch(/\btext-small\b/);
   });
 
   describe("ExternalLink HTTPS Enforcement", () => {
@@ -92,7 +92,7 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
     expect(html).toContain("repository");
     expect(html).toContain("project");
     expect(html).toContain("Inspect evidence artifact");
-    expect(html).toContain("var(--text-small)");
+    expect(html).toMatch(/\btext-small\b/);
   });
 
   describe("Heading Level Polymorphism & Type Tokens in Cards/Entries", () => {
@@ -108,9 +108,9 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
       );
       expect(defaultHtml).toContain("<h2");
       expect(defaultHtml).toContain("Systems Engineer");
-      expect(defaultHtml).toContain("var(--text-heading-3)");
-      expect(defaultHtml).toContain("var(--text-small)");
-      expect(defaultHtml).toContain("var(--text-body)");
+      expect(defaultHtml).toMatch(/\btext-heading-3\b/);
+      expect(defaultHtml).toMatch(/\btext-small\b/);
+      expect(defaultHtml).toMatch(/\btext-body\b/);
 
       const h3Html = renderToStaticMarkup(
         <ExperienceEntry
@@ -135,9 +135,9 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
         />
       );
       expect(defaultHtml).toContain("<h2");
-      expect(defaultHtml).toContain("var(--text-heading-3)");
-      expect(defaultHtml).toContain("var(--text-small)");
-      expect(defaultHtml).toContain("var(--text-body)");
+      expect(defaultHtml).toMatch(/\btext-heading-3\b/);
+      expect(defaultHtml).toMatch(/\btext-small\b/);
+      expect(defaultHtml).toMatch(/\btext-body\b/);
 
       const h3Html = renderToStaticMarkup(
         <ProjectCard
@@ -161,9 +161,9 @@ describe("Presentation UI Components (Server Rendering & Contract)", () => {
         />
       );
       expect(defaultHtml).toContain("<h2");
-      expect(defaultHtml).toContain("var(--text-heading-3)");
-      expect(defaultHtml).toContain("var(--text-small)");
-      expect(defaultHtml).toContain("var(--text-body)");
+      expect(defaultHtml).toMatch(/\btext-heading-3\b/);
+      expect(defaultHtml).toMatch(/\btext-small\b/);
+      expect(defaultHtml).toMatch(/\btext-body\b/);
 
       const h3Html = renderToStaticMarkup(
         <ArticleCard

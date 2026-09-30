@@ -38,7 +38,7 @@ export function MdxLink({
     return (
       <a
         href={href}
-        className={`text-[var(--accent)] underline underline-offset-2 hover:opacity-80 ${focusRingClassName} ${className}`}
+        className={`text-accent underline underline-offset-2 hover:opacity-80 ${focusRingClassName} ${className}`}
         {...props}
       >
         {children}
@@ -51,7 +51,7 @@ export function MdxLink({
     return (
       <Link
         href={href}
-        className={`text-[var(--accent)] underline underline-offset-2 hover:opacity-80 ${focusRingClassName} ${className}`}
+        className={`text-accent underline underline-offset-2 hover:opacity-80 ${focusRingClassName} ${className}`}
         {...props}
       >
         {children}
@@ -77,7 +77,7 @@ export function MdxLink({
   // -> render as inert text to prevent XSS/vulnerabilities
   return (
     <span
-      className={`underline decoration-dotted text-[var(--muted)] ${className}`}
+      className={`underline decoration-dotted text-muted ${className}`}
       title="Unsafe or unsupported link scheme"
     >
       {children}

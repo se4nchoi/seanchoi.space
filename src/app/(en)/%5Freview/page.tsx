@@ -31,20 +31,20 @@ export default function ComponentReviewPage() {
 
       {/* 1. Semantic Color Tokens */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           1. Semantic Color Tokens
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="rounded border border-[var(--border)] p-4 bg-[var(--background)]">
-            <span className="text-xs font-mono text-[var(--muted)]">--background</span>
+          <div className="rounded border border-line p-4 bg-background">
+            <span className="text-xs font-mono text-muted">--background</span>
           </div>
-          <div className="rounded border border-[var(--border)] p-4 bg-[var(--surface)]">
-            <span className="text-xs font-mono text-[var(--foreground)]">--surface</span>
+          <div className="rounded border border-line p-4 bg-surface">
+            <span className="text-xs font-mono text-foreground">--surface</span>
           </div>
-          <div className="rounded border border-[var(--border)] p-4 bg-[var(--surface)] text-[var(--muted)]">
+          <div className="rounded border border-line p-4 bg-surface text-muted">
             <span className="text-xs font-mono">--muted</span>
           </div>
-          <div className="rounded border border-[var(--border)] p-4 bg-[var(--accent)] text-[var(--accent-foreground)]">
+          <div className="rounded border border-line p-4 bg-accent text-accent-foreground">
             <span className="text-xs font-mono">--accent</span>
           </div>
         </div>
@@ -52,49 +52,49 @@ export default function ComponentReviewPage() {
 
       {/* 2. Typography Scale */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           2. Typography Scale
         </h2>
-        <div className="space-y-4 rounded border border-[var(--border)] bg-[var(--surface)] p-6">
+        <div className="space-y-4 rounded border border-line bg-surface p-6">
           <div>
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-display</span>
-            <p className="text-[length:var(--text-display)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)]">
+            <span className="text-xs font-mono text-muted block mb-1">--text-display</span>
+            <p className="text-display font-semibold leading-tight tracking-display">
               Display Scale Sample
             </p>
           </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-heading-1</span>
-            <p className="text-[length:var(--text-heading-1)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)]">
+          <div className="border-t border-line pt-4">
+            <span className="text-xs font-mono text-muted block mb-1">--text-heading-1</span>
+            <p className="text-heading-1 font-semibold leading-tight tracking-display">
               Heading 1 Sample
             </p>
           </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-heading-2</span>
-            <p className="text-[length:var(--text-heading-2)] font-semibold leading-[var(--leading-tight)]">
+          <div className="border-t border-line pt-4">
+            <span className="text-xs font-mono text-muted block mb-1">--text-heading-2</span>
+            <p className="text-heading-2 font-semibold leading-tight">
               Heading 2 Sample
             </p>
           </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-heading-3</span>
-            <p className="text-[length:var(--text-heading-3)] font-semibold leading-[var(--leading-tight)]">
+          <div className="border-t border-line pt-4">
+            <span className="text-xs font-mono text-muted block mb-1">--text-heading-3</span>
+            <p className="text-heading-3 font-semibold leading-tight">
               Heading 3 Sample
             </p>
           </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-body</span>
-            <p className="text-[length:var(--text-body)] leading-[var(--leading-relaxed)]">
+          <div className="border-t border-line pt-4">
+            <span className="text-xs font-mono text-muted block mb-1">--text-body</span>
+            <p className="text-body leading-relaxed">
               Body text sample constrained by reading measure and line height tokens.
             </p>
           </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-small</span>
-            <p className="text-[length:var(--text-small)] text-[var(--muted)]">
+          <div className="border-t border-line pt-4">
+            <span className="text-xs font-mono text-muted block mb-1">--text-small</span>
+            <p className="text-small text-muted">
               Small caption or metadata text token.
             </p>
           </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <span className="text-xs font-mono text-[var(--muted)] block mb-1">--text-code</span>
-            <p className="font-mono text-[length:var(--text-code)] text-[var(--foreground)]">
+          <div className="border-t border-line pt-4">
+            <span className="text-xs font-mono text-muted block mb-1">--text-code</span>
+            <p className="font-mono text-code text-foreground">
               const sampleToken = &quot;--text-code&quot;;
             </p>
           </div>
@@ -103,54 +103,54 @@ export default function ComponentReviewPage() {
 
       {/* 3. Spacing Scale */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           3. Spacing Scale
         </h2>
-        <div className="flex flex-wrap items-end gap-3 rounded border border-[var(--border)] bg-[var(--surface)] p-6">
+        <div className="flex flex-wrap items-end gap-3 rounded border border-line bg-surface p-6">
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-1)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">1 (0.25rem)</span>
+            <div className="h-16 w-[var(--spacing-1)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">1 (0.25rem)</span>
           </div>
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-2)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">2 (0.5rem)</span>
+            <div className="h-16 w-[var(--spacing-2)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">2 (0.5rem)</span>
           </div>
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-3)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">3 (0.75rem)</span>
+            <div className="h-16 w-[var(--spacing-3)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">3 (0.75rem)</span>
           </div>
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-4)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">4 (1rem)</span>
+            <div className="h-16 w-[var(--spacing-4)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">4 (1rem)</span>
           </div>
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-6)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">6 (1.5rem)</span>
+            <div className="h-16 w-[var(--spacing-6)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">6 (1.5rem)</span>
           </div>
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-8)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">8 (2rem)</span>
+            <div className="h-16 w-[var(--spacing-8)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">8 (2rem)</span>
           </div>
           <div className="text-center">
-            <div className="h-16 w-[var(--spacing-12)] bg-[var(--accent)] mx-auto rounded-sm" />
-            <span className="mt-2 block text-xs font-mono text-[var(--muted)]">12 (3rem)</span>
+            <div className="h-16 w-[var(--spacing-12)] bg-accent mx-auto rounded-sm" />
+            <span className="mt-2 block text-xs font-mono text-muted">12 (3rem)</span>
           </div>
         </div>
       </section>
 
       {/* 4. Borders & Radii */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           4. Borders &amp; Radii
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-4 text-center text-xs font-mono">
+          <div className="rounded-[var(--radius-sm)] border border-line bg-surface p-4 text-center text-xs font-mono">
             --radius-sm (0.25rem)
           </div>
-          <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-4 text-center text-xs font-mono">
+          <div className="rounded-[var(--radius-md)] border border-line bg-surface p-4 text-center text-xs font-mono">
             --radius-md (0.5rem)
           </div>
-          <div className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] p-4 text-center text-xs font-mono">
+          <div className="rounded-[var(--radius-lg)] border border-line bg-surface p-4 text-center text-xs font-mono">
             --radius-lg (0.75rem)
           </div>
         </div>
@@ -158,23 +158,23 @@ export default function ComponentReviewPage() {
 
       {/* 5. Focus-Visible & Interactive Target Size */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           5. Focus-Visible &amp; Interaction Target Size
         </h2>
-        <div className="rounded border border-[var(--border)] bg-[var(--surface)] p-6 space-y-4">
-          <p className="text-sm text-[var(--muted)]">
+        <div className="rounded border border-line bg-surface p-6 space-y-4">
+          <p className="text-sm text-muted">
             Every interactive element provides at least 44px touch/click target height and a high-contrast 2px focus ring:
           </p>
           <div className="flex flex-wrap gap-4 items-center">
             <button
               type="button"
-              className="min-h-[44px] px-4 rounded border border-[var(--border)] bg-[var(--background)] text-sm font-medium hover:border-[var(--accent)] transition-colors"
+              className="min-h-[44px] px-4 rounded border border-line bg-background text-sm font-medium hover:border-accent transition-colors"
             >
               Focusable Button (44px target)
             </button>
             <a
               href="#focus-target"
-              className="min-h-[44px] inline-flex items-center px-4 rounded border border-[var(--accent)] text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] transition-colors"
+              className="min-h-[44px] inline-flex items-center px-4 rounded border border-accent text-sm font-medium text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
             >
               Focusable Link (44px target)
             </a>
@@ -184,10 +184,10 @@ export default function ComponentReviewPage() {
 
       {/* 6. Motion Policy */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           6. Animation &amp; Reduced Motion Policy
         </h2>
-        <div className="rounded border border-[var(--border)] bg-[var(--surface)] p-6 text-sm text-[var(--muted)] leading-relaxed space-y-2">
+        <div className="rounded border border-line bg-surface p-6 text-sm text-muted leading-relaxed space-y-2">
           <p>
             Transitions are restrained to fast (140ms) and base (220ms) color/border states.
           </p>
@@ -199,24 +199,24 @@ export default function ComponentReviewPage() {
 
       {/* 7. Bilingual Dictionary Samples */}
       <section className="space-y-6">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           7. Bilingual Dictionary Side-by-Side
         </h2>
-        <div className="overflow-x-auto rounded border border-[var(--border)] bg-[var(--surface)]">
+        <div className="overflow-x-auto rounded border border-line bg-surface">
           <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="border-b border-[var(--border)] bg-[var(--background)] font-mono text-[var(--muted)]">
+            <thead className="border-b border-line bg-background font-mono text-muted">
               <tr>
                 <th className="p-3">Key</th>
                 <th className="p-3">English (en)</th>
                 <th className="p-3">Korean (ko)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[var(--border)]">
+            <tbody className="divide-y divide-line">
               {(Object.keys(enDict) as (keyof typeof enDict)[])
                 .filter((key) => typeof enDict[key] === "string")
                 .map((key) => (
                   <tr key={key}>
-                    <td className="p-3 font-mono text-[var(--muted)]">{key}</td>
+                    <td className="p-3 font-mono text-muted">{key}</td>
                     <td className="p-3">{enDict[key] as string}</td>
                     <td className="p-3">{koDict[key] as string}</td>
                   </tr>
@@ -228,13 +228,13 @@ export default function ComponentReviewPage() {
 
       {/* 8. Presentation Primitives */}
       <section className="space-y-8">
-        <h2 className="text-xl font-semibold border-b border-[var(--border)] pb-2 text-[var(--foreground)]">
+        <h2 className="text-xl font-semibold border-b border-line pb-2 text-foreground">
           8. Presentation Primitives (Synthetic Samples)
         </h2>
 
         {/* Tags */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Tags</h3>
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Tags</h3>
           <div className="flex flex-wrap gap-2">
             <Tag variant="default">Default Tag</Tag>
             <Tag variant="accent">Accent Tag</Tag>
@@ -244,7 +244,7 @@ export default function ComponentReviewPage() {
 
         {/* External Links */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">External Link</h3>
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">External Link</h3>
           <p className="text-sm">
             Inspect the repository on{" "}
             <ExternalLink href="https://example.com/repo">Example Source Code</ExternalLink> safely.
@@ -253,7 +253,7 @@ export default function ComponentReviewPage() {
 
         {/* Evidence Card */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Evidence Card</h3>
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Evidence Card</h3>
           <EvidenceCard
             label="Example Verification Artifact"
             level="project"
@@ -264,8 +264,8 @@ export default function ComponentReviewPage() {
 
         {/* Experience Entry */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Experience Entry</h3>
-          <div className="rounded border border-[var(--border)] bg-[var(--surface)] p-6">
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Experience Entry</h3>
+          <div className="rounded border border-line bg-surface p-6">
             <ExperienceEntry
               organization="Example Organization"
               role="Example Software Engineer"
@@ -283,7 +283,7 @@ export default function ComponentReviewPage() {
 
         {/* Project Card */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Project Card</h3>
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Project Card</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <ProjectCard
               title="Example Project"
@@ -308,8 +308,8 @@ export default function ComponentReviewPage() {
 
         {/* Article Card */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Article Card</h3>
-          <div className="rounded border border-[var(--border)] bg-[var(--surface)] p-6">
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Article Card</h3>
+          <div className="rounded border border-line bg-surface p-6">
             <ArticleCard
               title="Example Technical Article"
               summary="Synthetic article summary demonstrating title, date formatting, topic tags, and subtle hover interaction."
@@ -323,9 +323,9 @@ export default function ComponentReviewPage() {
 
         {/* Figure */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Figure &amp; Media Container</h3>
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Figure &amp; Media Container</h3>
           <Figure caption="Figure 1.0: Synthetic figure container with subtle border and caption.">
-            <div className="p-8 text-center text-sm font-mono text-[var(--muted)] bg-[var(--surface)]">
+            <div className="p-8 text-center text-sm font-mono text-muted bg-surface">
               [ Caller Media / Diagram Container ]
             </div>
           </Figure>
@@ -333,8 +333,8 @@ export default function ComponentReviewPage() {
 
         {/* Prose */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider">Prose Typography</h3>
-          <div className="rounded border border-[var(--border)] bg-[var(--surface)] p-6">
+          <h3 className="text-sm font-semibold text-muted uppercase tracking-wider">Prose Typography</h3>
+          <div className="rounded border border-line bg-surface p-6">
             <Prose>
               <h3>Heading Level Three in Long-Form Reading</h3>
               <p>

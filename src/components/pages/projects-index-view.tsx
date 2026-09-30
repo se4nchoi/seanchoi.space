@@ -74,11 +74,11 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
       <PageIntro title={dict.projects} summary={dict.projectsStatus} />
 
       <section className="space-y-6">
-        <div className="space-y-2 border-b border-[var(--border)] pb-3">
-          <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+        <div className="space-y-2 border-b border-line pb-3">
+          <h2 className="text-heading-2 font-semibold tracking-display text-foreground">
             {dict.careerUI.currentlyBuilding}
           </h2>
-          <p className="text-[length:var(--text-body)] text-[var(--muted)]">
+          <p className="text-body text-muted">
             {dict.careerUI.currentlyBuildingIntro}
           </p>
         </div>
@@ -86,26 +86,26 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
       </section>
 
       <section className="space-y-6">
-        <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+        <h2 className="border-b border-line pb-3 text-heading-2 font-semibold tracking-display text-foreground">
           {dict.careerUI.professionalEvidence}
         </h2>
         {renderCards(professionalEvidence)}
       </section>
 
       <section className="space-y-6">
-        <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+        <h2 className="border-b border-line pb-3 text-heading-2 font-semibold tracking-display text-foreground">
           {dict.careerUI.projectEvidence}
         </h2>
         {renderCards(projectEvidence)}
       </section>
 
       <section className="space-y-6">
-        <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
+        <h2 className="border-b border-line pb-3 text-heading-2 font-semibold tracking-display text-foreground">
           {dict.careerUI.trainingEvidence}
         </h2>
         {renderCards(trainingEvidence)}
       </section>
-      <p className="text-xs text-[var(--muted)]">{dict.careerUI.editorialReviewable}</p>
+      <p className="text-xs text-muted">{dict.careerUI.editorialReviewable}</p>
     </Container>
   );
 }

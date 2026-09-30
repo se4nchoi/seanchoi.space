@@ -29,10 +29,10 @@ export function EvidenceCard({
 }: EvidenceCardProps) {
   return (
     <div
-      className={`rounded-md border border-[var(--border)] bg-[var(--surface)] p-4 transition-colors ${className}`}
+      className={`rounded-md border border-line bg-surface p-4 transition-colors ${className}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="text-[length:var(--text-small)] font-medium text-[var(--foreground)]">
+        <span className="text-small font-medium text-foreground">
           {label}
         </span>
         <div className="flex items-center gap-1.5">
@@ -41,7 +41,7 @@ export function EvidenceCard({
         </div>
       </div>
       {url && (
-        <div className="mt-3 text-[length:var(--text-small)]">
+        <div className="mt-3 text-small">
           <ExternalLink href={url}>Inspect evidence artifact</ExternalLink>
         </div>
       )}

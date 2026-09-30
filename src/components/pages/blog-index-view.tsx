@@ -32,12 +32,12 @@ export function BlogIndexView({
           title={dict.blogUI.emptyTitle}
           summary={dict.blogUI.emptyBody}
         />
-        <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-6 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
+        <div className="rounded-[var(--radius-sm)] border border-line bg-surface p-6 text-small text-muted leading-relaxed">
           <p>{dict.blogUI.emptyBody}</p>
-          <div className="mt-4 pt-4 border-t border-[var(--border)]">
+          <div className="mt-4 pt-4 border-t border-line">
             <Link
               href="/feed.xml"
-              className={`inline-flex items-center gap-1.5 text-[var(--accent)] font-medium hover:underline ${focusRingClassName}`}
+              className={`inline-flex items-center gap-1.5 text-accent font-medium hover:underline ${focusRingClassName}`}
             >
               <span>{dict.blogUI.feedSubscribe}</span>
               <span aria-hidden="true">↗</span>
@@ -64,7 +64,7 @@ export function BlogIndexView({
           }
         />
         {isAllSynthetic && (
-          <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-4 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
+          <div className="rounded-[var(--radius-sm)] border border-line bg-surface p-4 text-small text-muted leading-relaxed">
             {dict.skeleton.notice}
           </div>
         )}
@@ -95,10 +95,10 @@ export function BlogIndexView({
         </div>
       </section>
 
-      <div className="pt-6 border-t border-[var(--border)] text-[length:var(--text-small)] text-[var(--muted)]">
+      <div className="pt-6 border-t border-line text-small text-muted">
         <Link
           href="/feed.xml"
-          className="inline-flex items-center gap-1 text-[var(--accent)] hover:underline"
+          className="inline-flex items-center gap-1 text-accent hover:underline"
         >
           <span>{dict.blogUI.feedSubscribe}</span>
           <span aria-hidden="true">↗</span>

@@ -14,11 +14,11 @@ export function Figure({
 }: FigureProps) {
   return (
     <figure className={`my-6 sm:my-8 ${className}`} {...props}>
-      <div className="overflow-hidden rounded-md border border-[var(--border)] bg-[var(--surface)]">
+      <div className="overflow-hidden rounded-md border border-line bg-surface">
         {children}
       </div>
       {caption && (
-        <figcaption className="mt-2 text-center text-xs text-[var(--muted)]">
+        <figcaption className="mt-2 text-center text-xs text-muted">
           {caption}
         </figcaption>
       )}

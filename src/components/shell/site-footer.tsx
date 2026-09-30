@@ -11,10 +11,10 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   const dict = getDictionary(locale);
 
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--background)] py-8 text-xs text-[var(--muted)]">
+    <footer className="border-t border-line bg-background py-8 text-xs text-muted">
       <Container size="default">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-semibold text-[var(--foreground)]">
+          <span className="font-semibold text-foreground">
             seanchoi.space
           </span>
           <p>{dict.footerPolicy}</p>

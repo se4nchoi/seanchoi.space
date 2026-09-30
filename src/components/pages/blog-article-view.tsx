@@ -84,18 +84,18 @@ export async function BlogArticleView({
         <aside
           role="region"
           aria-label={dict.blogUI.translationUnavailable}
-          className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-4 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]"
+          className="rounded-[var(--radius-sm)] border border-line bg-surface p-4 text-small text-muted leading-relaxed"
         >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
-              <span className="font-semibold text-[var(--foreground)] mr-2">
+              <span className="font-semibold text-foreground mr-2">
                 {dict.blogUI.translationUnavailable}:
               </span>
               <span>{dict.blogUI.translationUnavailableNotice}</span>
             </div>
             <Link
               href={isKo ? "/blog" : "/ko/blog"}
-              className="text-[var(--accent)] hover:underline font-medium text-xs whitespace-nowrap"
+              className="text-accent hover:underline font-medium text-xs whitespace-nowrap"
             >
               {isKo ? dict.blogUI.viewEnglishBlog : dict.blogUI.viewKoreanBlog}
             </Link>
@@ -110,13 +110,13 @@ export async function BlogArticleView({
           title={article.title}
           summary={article.summary}
         />
-        <div className="flex flex-wrap items-center gap-4 text-[length:var(--text-small)]">
-          <div className="flex items-center gap-2 font-mono text-[var(--muted)]">
+        <div className="flex flex-wrap items-center gap-4 text-small">
+          <div className="flex items-center gap-2 font-mono text-muted">
             <span>{dict.blogUI.publishedOn}:</span>
             <time dateTime={article.publishedOn}>{article.publishedOn}</time>
           </div>
           {article.updatedOn && (
-            <div className="flex items-center gap-2 font-mono text-[var(--muted)]">
+            <div className="flex items-center gap-2 font-mono text-muted">
               <span>{dict.blogUI.updatedOn}:</span>
               <time dateTime={article.updatedOn}>{article.updatedOn}</time>
             </div>
@@ -135,8 +135,8 @@ export async function BlogArticleView({
 
       {/* Synthetic Preview Disclaimer */}
       {article.syntheticPlaceholder && (
-        <div className="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] p-4 text-[length:var(--text-small)] text-[var(--muted)] space-y-1 leading-[var(--leading-relaxed)]">
-          <p className="font-semibold text-[var(--foreground)]">
+        <div className="rounded-[var(--radius-sm)] border border-line bg-surface p-4 text-small text-muted space-y-1 leading-relaxed">
+          <p className="font-semibold text-foreground">
             {dict.skeleton.articleDisclaimer}
           </p>
           <p>{dict.skeleton.notice}</p>

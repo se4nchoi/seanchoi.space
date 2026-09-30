@@ -15,8 +15,8 @@ export function WorkImage({
   return (
     <figure>
       <div className={portrait
-        ? "overflow-hidden rounded-2xl bg-[var(--surface)]"
-        : "flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl border border-[var(--border)] bg-[#eceeed] p-3 sm:p-5"}>
+        ? "overflow-hidden rounded-2xl bg-surface"
+        : "flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl border border-line bg-[#eceeed] p-3 sm:p-5"}>
         <Image
           src={media.src}
           alt={media.alt[locale]}
@@ -31,7 +31,7 @@ export function WorkImage({
             : "h-auto max-h-full w-full object-contain"}
         />
       </div>
-      <figcaption className="mt-3 text-xs leading-relaxed text-[var(--muted)]">
+      <figcaption className="mt-3 text-xs leading-relaxed text-muted">
         {media.caption[locale]}
       </figcaption>
     </figure>

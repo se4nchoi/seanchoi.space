@@ -25,22 +25,22 @@ export function ArticleCard({
 
   return (
     <article
-      className={`border-b border-[var(--border)] py-6 last:border-b-0 sm:py-7 ${className}`}
+      className={`border-b border-line py-6 last:border-b-0 sm:py-7 ${className}`}
     >
       <div className="flex flex-col-reverse gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-        <HeadingTag className="text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)] leading-[var(--leading-tight)]">
+        <HeadingTag className="text-heading-3 font-semibold text-foreground leading-tight">
           <Link
             href={href}
-            className="hover:text-[var(--accent)] transition-colors underline-offset-2 hover:underline"
+            className="hover:text-accent transition-colors underline-offset-2 hover:underline"
           >
             {title}
           </Link>
         </HeadingTag>
-        <time className="text-[length:var(--text-small)] font-mono text-[var(--muted)] shrink-0">
+        <time className="text-small font-mono text-muted shrink-0">
           {date}
         </time>
       </div>
-      <p className="mt-2 text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
+      <p className="mt-2 text-body leading-relaxed text-muted">
         {summary}
       </p>
       {topics.length > 0 && (

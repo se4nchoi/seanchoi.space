@@ -39,7 +39,7 @@ export function createMdxComponents(options?: CreateMdxComponentsOptions): MDXCo
       return (
         <h2
           id={id}
-          className={`scroll-mt-20 text-[length:var(--text-heading-2)] font-semibold text-[var(--foreground)] ${className}`}
+          className={`scroll-mt-20 text-heading-2 font-semibold text-foreground ${className}`}
           {...props}
         >
           {children}
@@ -52,7 +52,7 @@ export function createMdxComponents(options?: CreateMdxComponentsOptions): MDXCo
       return (
         <h3
           id={id}
-          className={`scroll-mt-20 text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)] ${className}`}
+          className={`scroll-mt-20 text-heading-3 font-semibold text-foreground ${className}`}
           {...props}
         >
           {children}
@@ -61,7 +61,7 @@ export function createMdxComponents(options?: CreateMdxComponentsOptions): MDXCo
     },
     h4: ({ children, className = "", ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h4
-        className={`text-[length:var(--text-body)] font-semibold text-[var(--foreground)] ${className}`}
+        className={`text-body font-semibold text-foreground ${className}`}
         {...props}
       >
         {children}

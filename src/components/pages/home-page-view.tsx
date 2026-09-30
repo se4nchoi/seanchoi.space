@@ -13,7 +13,7 @@ import { getLocalizedText } from "@/lib/content/format";
 export interface HomePageViewProps { locale: AppLocale }
 
 const selectedIds = ["evidence-item-ruta40", "evidence-item-hoek-immersion"];
-const textLink = "inline-flex min-h-[44px] items-center font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]";
+const textLink = "inline-flex min-h-[44px] items-center font-medium text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus-ring";
 
 export function HomePageView({ locale }: HomePageViewProps) {
   const dict = getDictionary(locale);
@@ -49,14 +49,14 @@ export function HomePageView({ locale }: HomePageViewProps) {
     <Container className={`space-y-20 pb-16 sm:space-y-24 ${locale === "ko" ? "break-keep" : ""}`}>
       <section className="grid items-center gap-8 pt-8 sm:gap-12 sm:pt-12 md:grid-cols-[1.35fr_1fr] lg:gap-20">
         <div className="space-y-6">
-        <p className="text-sm text-[var(--muted)]">{dict.careerUI.basedIn}</p>
-        <h1 className="text-[length:var(--text-display)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)]">
+        <p className="text-sm text-muted">{dict.careerUI.basedIn}</p>
+        <h1 className="text-display font-semibold leading-tight tracking-display">
           {siteIdentity ? getLocalizedText(siteIdentity.displayName, locale) : "Sean Choi"}
         </h1>
         <p className="max-w-2xl text-2xl leading-snug tracking-tight lg:text-3xl">
           {dict.careerUI.homeHeadline}
         </p>
-        <p className="max-w-xl text-[length:var(--text-body)] leading-relaxed text-[var(--muted)]">
+        <p className="max-w-xl text-body leading-relaxed text-muted">
           {dict.careerUI.homePositioning}
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
@@ -82,14 +82,14 @@ export function HomePageView({ locale }: HomePageViewProps) {
         {renderWork(current, false)}
       </section>}
 
-      <section className="space-y-4 border-t border-[var(--border)] pt-8">
+      <section className="space-y-4 border-t border-line pt-8">
         <h2 className="text-2xl font-semibold tracking-tight">{dict.careerUI.contactAndProfiles}</h2>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <Link href={prefix + "/experience"} className={textLink}>{dict.careerUI.viewExperience}</Link>
           {email && <a href={email.href} className={textLink}>{dict.careerUI.emailLabel}</a>}
           {profiles.map((link) => <ExternalLink key={link.id} href={link.href as `https://${string}`} newTabLabel={dict.openInNewTab}>{link.kind === "github" ? "GitHub" : "LinkedIn"}</ExternalLink>)}
         </div>
-        <p className="text-xs text-[var(--muted)]">{dict.careerUI.editorialReviewable}</p>
+        <p className="text-xs text-muted">{dict.careerUI.editorialReviewable}</p>
       </section>
     </Container>
   );

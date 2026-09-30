@@ -24,7 +24,7 @@ export function ExternalLink({
       href={validatedHref}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-0.5 text-[var(--accent)] underline underline-offset-2 hover:opacity-80 ${className}`}
+      className={`inline-flex items-center gap-0.5 text-accent underline underline-offset-2 hover:opacity-80 ${className}`}
       {...props}
     >
       <span>{children}</span>

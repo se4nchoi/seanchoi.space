@@ -12,14 +12,14 @@ export function Tag({
   className = "",
 }: TagProps) {
   const variantStyles = {
-    default: "bg-[var(--surface)] text-[var(--foreground)] border-[var(--border)]",
-    accent: "bg-[var(--surface)] text-[var(--accent)] border-[var(--accent)]",
-    muted: "bg-[var(--surface)] text-[var(--muted)] border-[var(--border)]",
+    default: "bg-surface text-foreground border-line",
+    accent: "bg-surface text-accent border-accent",
+    muted: "bg-surface text-muted border-line",
   }[variant];
 
   return (
     <span
-      className={`inline-flex items-center rounded-[var(--radius-sm)] px-2 py-0.5 text-[length:var(--text-small)] font-mono border-[length:var(--border-width)] ${variantStyles} ${className}`}
+      className={`inline-flex items-center rounded-[var(--radius-sm)] px-2 py-0.5 text-small font-mono border-[length:var(--border-width)] ${variantStyles} ${className}`}
     >
       {children}
     </span>

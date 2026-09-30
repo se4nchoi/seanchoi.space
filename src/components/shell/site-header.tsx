@@ -13,13 +13,13 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
   const homeHref = locale === "ko" ? "/ko" : "/";
 
   return (
-    <header className="border-b border-[var(--border)] bg-[var(--background)] py-2 sm:py-3">
+    <header className="border-b border-line bg-background py-2 sm:py-3">
       <Container size="default">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center justify-between">
             <Link
               href={homeHref}
-              className="min-h-[44px] inline-flex items-center text-base font-semibold tracking-tight text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
+              className="min-h-[44px] inline-flex items-center text-base font-semibold tracking-tight text-foreground hover:text-accent transition-colors"
             >
               seanchoi.space
             </Link>

@@ -10,7 +10,7 @@ export interface SiteShellProps {
 
 export function SiteShell({ locale, children }: SiteShellProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader locale={locale} />
       <main id="main-content" className="flex-1 py-8 sm:py-12">
         {children}

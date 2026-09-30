@@ -18,9 +18,9 @@ export function RelatedArticles({
   return (
     <section
       aria-label={title}
-      className="mt-12 space-y-4 border-t border-[var(--border)] pt-8"
+      className="mt-12 space-y-4 border-t border-line pt-8"
     >
-      <h2 className="text-[length:var(--text-heading-3)] font-semibold text-[var(--foreground)]">
+      <h2 className="text-heading-3 font-semibold text-foreground">
         {title}
       </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

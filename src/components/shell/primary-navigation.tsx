@@ -42,8 +42,8 @@ export function PrimaryNavigation({ locale }: PrimaryNavigationProps) {
             aria-current={isActive ? "page" : undefined}
             className={`min-h-[44px] inline-flex items-center px-1.5 sm:px-0 transition-colors ${
               isActive
-                ? "font-semibold text-[var(--foreground)] border-b-2 border-[var(--accent)]"
-                : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                ? "font-semibold text-foreground border-b-2 border-accent"
+                : "text-muted hover:text-foreground"
             }`}
           >
             {labels[key]}

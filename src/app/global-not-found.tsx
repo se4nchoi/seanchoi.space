@@ -24,22 +24,22 @@ export default function GlobalNotFound() {
         >
           <div className="max-w-[var(--max-width-prose)] space-y-12">
             <section className="space-y-4">
-              <h1 className="text-[length:var(--text-heading-1)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)]">
+              <h1 className="text-heading-1 font-semibold leading-tight tracking-display">
                 {en.notFoundTitle}
               </h1>
-              <p className="text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
+              <p className="text-body leading-relaxed text-muted">
                 {en.notFoundBody}
               </p>
             </section>
 
             <section
               lang="ko"
-              className="space-y-4 border-t border-[var(--border)] pt-8"
+              className="space-y-4 border-t border-line pt-8"
             >
-              <h2 className="text-[length:var(--text-heading-2)] font-semibold leading-[var(--leading-tight)]">
+              <h2 className="text-heading-2 font-semibold leading-tight">
                 {ko.notFoundTitle}
               </h2>
-              <p className="text-[length:var(--text-body)] leading-[var(--leading-relaxed)] text-[var(--muted)]">
+              <p className="text-body leading-relaxed text-muted">
                 {ko.notFoundBody}
               </p>
             </section>
@@ -47,7 +47,7 @@ export default function GlobalNotFound() {
             <div className="pt-4">
               <Link
                 href="/"
-                className="inline-flex min-h-[44px] items-center text-[length:var(--text-small)] font-medium text-[var(--accent)] underline underline-offset-4 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]"
+                className="inline-flex min-h-[44px] items-center text-small font-medium text-accent underline underline-offset-4 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
               >
                 {en.backHome} / {ko.backHome}
               </Link>

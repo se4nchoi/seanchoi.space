@@ -8,7 +8,7 @@ export function MdxPre({
   return (
     <pre
       tabIndex={0}
-      className={`overflow-x-auto rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-4 font-mono text-[length:var(--text-code)] leading-normal ${className}`}
+      className={`overflow-x-auto rounded-[var(--radius-md)] border border-line bg-surface p-4 font-mono text-code leading-normal ${className}`}
       {...props}
     >
       {children}
@@ -23,7 +23,7 @@ export function MdxCode({
 }: React.HTMLAttributes<HTMLElement>) {
   return (
     <code
-      className={`rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-1.5 py-0.5 font-mono text-[length:var(--text-code)] ${className}`}
+      className={`rounded-[var(--radius-sm)] border border-line bg-surface px-1.5 py-0.5 font-mono text-code ${className}`}
       {...props}
     >
       {children}

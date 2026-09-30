@@ -32,7 +32,7 @@ export function MdxImage({
 
   return (
     <figure className="my-6 sm:my-8">
-      <div className="overflow-hidden rounded-md border border-[var(--border)] bg-[var(--surface)]">
+      <div className="overflow-hidden rounded-md border border-line bg-surface">
         <Image
           src={src}
           alt={alt}
@@ -42,7 +42,7 @@ export function MdxImage({
         />
       </div>
       {caption && (
-        <figcaption className="mt-2 text-center text-[length:var(--text-small)] text-[var(--muted)]">
+        <figcaption className="mt-2 text-center text-small text-muted">
           {caption}
         </figcaption>
       )}

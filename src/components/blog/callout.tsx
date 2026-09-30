@@ -20,23 +20,23 @@ interface CalloutStyle {
 
 const calloutStyles: Record<CalloutType, CalloutStyle> = {
   note: {
-    container: "border-[var(--border)] bg-[var(--surface)]",
-    badge: "border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)]",
+    container: "border-line bg-surface",
+    badge: "border-line bg-surface text-foreground",
     defaultTitleKey: "calloutNote",
   },
   warning: {
-    container: "border-[var(--border)] bg-[var(--surface)]",
-    badge: "border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)]",
+    container: "border-line bg-surface",
+    badge: "border-line bg-surface text-foreground",
     defaultTitleKey: "calloutWarning",
   },
   info: {
-    container: "border-[var(--border)] bg-[var(--surface)]",
-    badge: "border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)]",
+    container: "border-line bg-surface",
+    badge: "border-line bg-surface text-foreground",
     defaultTitleKey: "calloutInfo",
   },
   tip: {
-    container: "border-[var(--border)] bg-[var(--surface)]",
-    badge: "border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)]",
+    container: "border-line bg-surface",
+    badge: "border-line bg-surface text-foreground",
     defaultTitleKey: "calloutTip",
   },
 };
@@ -56,7 +56,7 @@ export function Callout({
     <aside
       role="region"
       aria-label={displayTitle}
-      className={`my-6 rounded-[var(--radius-sm)] border p-4 text-[length:var(--text-small)] leading-[var(--leading-relaxed)] ${style.container} ${className}`}
+      className={`my-6 rounded-[var(--radius-sm)] border p-4 text-small leading-relaxed ${style.container} ${className}`}
     >
       <div className="mb-2 flex items-center gap-2">
         <span
@@ -65,7 +65,7 @@ export function Callout({
           {displayTitle}
         </span>
       </div>
-      <div className="text-[var(--foreground)] space-y-2">{children}</div>
+      <div className="text-foreground space-y-2">{children}</div>
     </aside>
   );
 }

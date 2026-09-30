@@ -16,7 +16,7 @@ export function TopicList({ topics, title = "Topics" }: TopicListProps) {
 
   return (
     <div className="space-y-3">
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-muted">
         {title}
       </h2>
       <div className="flex flex-wrap gap-2">
