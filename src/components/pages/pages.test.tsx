@@ -11,6 +11,11 @@ import { BlogIndexView } from "./blog-index-view";
 import { BlogArticleView } from "./blog-article-view";
 import { StatusPageView } from "./status-page-view";
 import { dictionaries } from "@/i18n/dictionaries";
+import {
+  skeletonProjectEn,
+  skeletonProjectKo,
+  skeletonProjectNarrative,
+} from "@/data/skeleton-preview";
 
 describe("Page Components Server Rendering & Semantic Structure", () => {
   describe("HomePageView", () => {
@@ -247,7 +252,11 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
     it("renders Project detail with strictly ordered sections, dl metadata, boundary, and no-artifact evidence", () => {
       const html = renderToStaticMarkup(
-        <ProjectDetailView locale="en" slug="example-project" />
+        <ProjectDetailView
+          locale="en"
+          project={skeletonProjectEn}
+          narrative={skeletonProjectNarrative.en}
+        />
       );
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
@@ -289,7 +298,11 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
     it("renders Korean Project detail with localized back navigation and '주제' metadata label with zero English leaks", () => {
       const html = renderToStaticMarkup(
-        <ProjectDetailView locale="ko" slug="example-project" />
+        <ProjectDetailView
+          locale="ko"
+          project={skeletonProjectKo}
+          narrative={skeletonProjectNarrative.ko}
+        />
       );
       expect(html).toContain("예시 프로젝트");
       expect(html).toContain('aria-label="이전 페이지 탐색"');

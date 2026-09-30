@@ -69,7 +69,7 @@ export async function BlogArticleView({
   return (
     <Container size="default" className="space-y-10 pb-16">
       {/* Back Navigation */}
-      <nav aria-label={dict.skeleton.backNavigation}>
+      <nav aria-label={dict.backNavigation}>
         <Link
           href={backHref}
           className="inline-flex items-center min-h-[44px] text-[length:var(--text-small)] font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"

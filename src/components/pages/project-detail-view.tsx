@@ -5,33 +5,28 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { PageIntro } from "@/components/ui/page-intro";
 import { Prose } from "@/components/ui/prose";
-import {
-  skeletonProjectEn,
-  skeletonProjectKo,
-  skeletonProjectNarrative,
-} from "@/data/skeleton-preview";
+import type { ProjectRecord } from "@/lib/content/schemas";
+import type { ProjectDetailNarrative } from "@/lib/content/case-study";
 
 export interface ProjectDetailViewProps {
   locale: AppLocale;
-  slug?: string;
+  project: ProjectRecord;
+  narrative: ProjectDetailNarrative;
 }
 
-export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
+export function ProjectDetailView({ locale, project, narrative }: ProjectDetailViewProps) {
   const dict = getDictionary(locale);
-  const isKo = locale === "ko";
-  const project = isKo ? skeletonProjectKo : skeletonProjectEn;
-  const narrative = skeletonProjectNarrative[locale] || skeletonProjectNarrative.en;
-  const backHref = isKo ? "/ko/projects" : "/projects";
+  const backHref = locale === "ko" ? "/ko/projects" : "/projects";
 
   return (
     <Container size="default" className="space-y-12 pb-16">
       {/* Back Navigation */}
-      <nav aria-label={dict.skeleton.backNavigation}>
+      <nav aria-label={dict.backNavigation}>
         <Link
           href={backHref}
           className="inline-flex items-center min-h-[44px] text-[length:var(--text-small)] font-medium text-[var(--accent)] hover:underline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
         >
-          ← {dict.skeleton.backToProjects}
+          ← {dict.caseStudy.backToProjects}
         </Link>
       </nav>
 
@@ -51,7 +46,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] text-[length:var(--text-small)]">
         <div>
           <dt className="font-mono text-xs text-[var(--muted)] uppercase tracking-wider mb-1">
-            {dict.skeleton.context}
+            {dict.caseStudy.context}
           </dt>
           <dd className="font-medium text-[var(--foreground)]">
             {dict.skeleton.personal}
@@ -59,7 +54,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
         </div>
         <div>
           <dt className="font-mono text-xs text-[var(--muted)] uppercase tracking-wider mb-1">
-            {dict.skeleton.status}
+            {dict.caseStudy.status}
           </dt>
           <dd className="font-medium text-[var(--foreground)]">
             {dict.skeleton.inProgress}
@@ -67,7 +62,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
         </div>
         <div>
           <dt className="font-mono text-xs text-[var(--muted)] uppercase tracking-wider mb-1">
-            {dict.skeleton.role}
+            {dict.caseStudy.role}
           </dt>
           <dd className="font-medium text-[var(--foreground)]">
             {project.role}
@@ -75,7 +70,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
         </div>
         <div>
           <dt className="font-mono text-xs text-[var(--muted)] uppercase tracking-wider mb-1">
-            {dict.skeleton.topics}
+            {dict.caseStudy.topics}
           </dt>
           <dd className="font-medium text-[var(--foreground)]">
             {project.topics.join(", ")}
@@ -86,7 +81,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Contribution Boundary Before Narrative */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.contributionBoundary}
+          {dict.caseStudy.contributionBoundary}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 text-[length:var(--text-body)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
           <p>{project.contributionBoundary}</p>
@@ -96,7 +91,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Narrative Section 1: Problem & Constraints */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.problemAndConstraints}
+          {dict.caseStudy.problemAndConstraints}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <Prose>
@@ -114,7 +109,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Narrative Section 2: Decisions */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.decisions}
+          {dict.caseStudy.decisions}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <Prose>
@@ -130,7 +125,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Narrative Section 3: Validation */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.validation}
+          {dict.caseStudy.validation}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <Prose>
@@ -142,7 +137,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Narrative Section 4: Outcome */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.outcome}
+          {dict.caseStudy.outcome}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <Prose>
@@ -154,7 +149,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Narrative Section 5: Limitations */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.limitations}
+          {dict.caseStudy.limitations}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6">
           <Prose>
@@ -166,7 +161,7 @@ export function ProjectDetailView({ locale }: ProjectDetailViewProps) {
       {/* Narrative Section 6: Evidence (No-Artifact State) */}
       <section className="space-y-4">
         <h2 className="text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-          {dict.skeleton.evidence}
+          {dict.caseStudy.evidence}
         </h2>
         <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-6 text-[length:var(--text-small)] text-[var(--muted)] leading-[var(--leading-relaxed)]">
           <p>{dict.skeleton.evidenceUnavailable}</p>

@@ -9,6 +9,7 @@ import type {
   ArticleRecord,
 } from "@/lib/content/schemas";
 import type { AppLocale } from "@/i18n/config";
+import type { ProjectDetailNarrative } from "@/lib/content/case-study";
 
 export const skeletonSiteIdentity: SiteIdentity = {
   id: "skeleton-site-identity",
@@ -181,16 +182,6 @@ export const skeletonProjectKo: ProjectRecord = {
   linkIds: [],
   assetPaths: [],
 };
-
-export interface ProjectDetailNarrative {
-  context: string;
-  problem: string;
-  constraints: string[];
-  decisions: string[];
-  validation: string;
-  outcome: string;
-  limitations: string;
-}
 
 export const skeletonProjectNarrative: Record<AppLocale, ProjectDetailNarrative> = {
   en: {

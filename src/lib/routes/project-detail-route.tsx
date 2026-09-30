@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { AppLocale } from "@/i18n/config";
 import { ProjectDetailView } from "@/components/pages/project-detail-view";
-import { skeletonProjectEn, skeletonProjectKo } from "@/data/skeleton-preview";
+import {
+  skeletonProjectEn,
+  skeletonProjectKo,
+  skeletonProjectNarrative,
+} from "@/data/skeleton-preview";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { isSkeletonPreviewEnabled } from "@/lib/skeleton-preview";
 
@@ -23,6 +27,10 @@ function isRenderableSlug(slug: string): boolean {
  * route file re-exports these so both stay behaviorally identical.
  */
 export function createProjectDetailRoute(locale: AppLocale) {
+  // WP7 replaces this with lookups into verified case-study records.
+  const project = locale === "ko" ? skeletonProjectKo : skeletonProjectEn;
+  const narrative = skeletonProjectNarrative[locale];
+
   function generateStaticParams() {
     return isSkeletonPreviewEnabled() ? [{ slug: PREVIEW_PROJECT_SLUG }] : [];
   }
@@ -33,7 +41,6 @@ export function createProjectDetailRoute(locale: AppLocale) {
       return {};
     }
 
-    const project = locale === "ko" ? skeletonProjectKo : skeletonProjectEn;
     return createPageMetadata({
       locale,
       pathname: `/projects/${slug}`,
@@ -47,7 +54,7 @@ export function createProjectDetailRoute(locale: AppLocale) {
     if (!isRenderableSlug(slug)) {
       notFound();
     }
-    return <ProjectDetailView locale={locale} slug={slug} />;
+    return <ProjectDetailView locale={locale} project={project} narrative={narrative} />;
   }
 
   return { generateStaticParams, generateMetadata, ProjectDetailPage };

@@ -13,7 +13,7 @@ describe("i18n Dictionaries Completeness & Parity", () => {
     expect(enKeys.sort()).toEqual(koKeys.sort());
 
     for (const key of enKeys) {
-      if (key === "skeleton" || key === "blogUI" || key === "careerUI") continue;
+      if (key === "skeleton" || key === "caseStudy" || key === "blogUI" || key === "careerUI") continue;
       expect(enDict[key]).toBeTypeOf("string");
       expect((enDict[key] as string).trim().length).toBeGreaterThan(0);
 
@@ -49,7 +49,7 @@ describe("i18n Dictionaries Completeness & Parity", () => {
     const koKeys = Object.keys(koSkeleton) as (keyof typeof koSkeleton)[];
 
     expect(enKeys.sort()).toEqual(koKeys.sort());
-    expect(enKeys.length).toBe(45);
+    expect(enKeys.length).toBe(6);
 
     for (const key of enKeys) {
       expect(enSkeleton[key]).toBeTypeOf("string");
@@ -57,6 +57,25 @@ describe("i18n Dictionaries Completeness & Parity", () => {
 
       expect(koSkeleton[key]).toBeTypeOf("string");
       expect(koSkeleton[key].trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it("provides complete, nonblank nested caseStudy dictionary entries for both en and ko", () => {
+    const enCaseStudy = dictionaries.en.caseStudy;
+    const koCaseStudy = dictionaries.ko.caseStudy;
+
+    const enKeys = Object.keys(enCaseStudy) as (keyof typeof enCaseStudy)[];
+    const koKeys = Object.keys(koCaseStudy) as (keyof typeof koCaseStudy)[];
+
+    expect(enKeys.sort()).toEqual(koKeys.sort());
+    expect(enKeys.length).toBe(12);
+
+    for (const key of enKeys) {
+      expect(enCaseStudy[key]).toBeTypeOf("string");
+      expect(enCaseStudy[key].trim().length).toBeGreaterThan(0);
+
+      expect(koCaseStudy[key]).toBeTypeOf("string");
+      expect(koCaseStudy[key].trim().length).toBeGreaterThan(0);
     }
   });
 
