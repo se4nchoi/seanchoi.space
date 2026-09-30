@@ -9,10 +9,9 @@ import { Prose } from "@/components/ui/prose";
 import {
   canonicalContentRegistry,
   canonicalSupportingProjects,
-  formatDateRange,
-  getLocalizedText,
   systemLayerSkillGroups,
 } from "@/data/content";
+import { formatDateRange, getLocalizedText } from "@/lib/content/format";
 
 export interface ExperiencePageViewProps {
   locale: AppLocale;

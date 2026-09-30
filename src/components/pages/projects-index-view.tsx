@@ -6,10 +6,8 @@ import { PageIntro } from "@/components/ui/page-intro";
 import { EngineeringEvidenceCard } from "@/components/ui/engineering-evidence-card";
 import { WorkImage } from "@/components/ui/work-image";
 import { workMedia } from "@/data/work-media";
-import {
-  canonicalSupportingProjects,
-  getLocalizedText,
-} from "@/data/content";
+import { canonicalSupportingProjects } from "@/data/content";
+import { getLocalizedText } from "@/lib/content/format";
 import type { SupportingProjectRecord } from "@/lib/content/schemas";
 
 export interface ProjectsIndexViewProps {

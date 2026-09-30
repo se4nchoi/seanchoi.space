@@ -7,7 +7,8 @@ import { ExternalLink } from "@/components/ui/external-link";
 import { EngineeringEvidenceCard } from "@/components/ui/engineering-evidence-card";
 import { WorkImage } from "@/components/ui/work-image";
 import { workMedia } from "@/data/work-media";
-import { canonicalContentRegistry, canonicalSupportingProjects, getLocalizedText } from "@/data/content";
+import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
+import { getLocalizedText } from "@/lib/content/format";
 
 export interface HomePageViewProps { locale: AppLocale }
 
