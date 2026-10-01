@@ -117,7 +117,8 @@ describe("Production Content Publication Guard", () => {
     expect(emgText).not.toContain("commercial");
 
     // Confirms React UI and control integration
-    expect(emg?.summary.en).toContain("Implemented frontend interfaces that integrated with APIs and streams built by other teams.");
+    expect(emg?.summary.en).toContain("frontend interfaces");
+    expect(emg?.summary.en).toContain("developed by senior and backend engineers");
   });
 
   it("enforces KDIC military service boundaries: automation tools disclosed, processed contents strictly confidential", () => {
@@ -200,9 +201,8 @@ describe("Production Content Publication Guard", () => {
     expect(robotCell.plannedScope.map((item) => item.en)).toContain(
       "ROS2 control layer"
     );
-    expect(robotCell.contributionBoundary.en).toContain(
-      "shared training-facility hardware"
-    );
+    expect(robotCell.contributionBoundary.en).toContain("shared hardware");
+    expect(robotCell.contributionBoundary.en).toContain("still ahead");
 
     const publishedSkillNames = canonicalContentRegistry.skills
       .map((skill) => skill.name.en)
@@ -220,11 +220,12 @@ describe("Production Content Publication Guard", () => {
       (item) => item.id === "evidence-item-smart-city"
     );
 
-    expect(ruta40?.contributionBoundary.en).toContain("frontend UI and API integration");
-    expect(ruta40?.contributionBoundary.en).toContain("embedded module");
-    expect(smartCity?.contributionBoundary.en).toContain("frontend integration");
+    expect(ruta40?.contributionBoundary.en).toContain("I built the React UI and its API integration");
+    expect(ruta40?.contributionBoundary.en).toContain("The embedded team built the door-lock module");
+    expect(ruta40?.contributionBoundary.en).toContain("the backend team built the HTTPS control API");
+    expect(smartCity?.contributionBoundary.en).toContain("I built the frontend integration");
     expect(smartCity?.contributionBoundary.en).toContain(
-      "backend WebSocket, data-pipeline, and database ownership are not claimed"
+      "The APIs and real-time streams came from senior and backend engineers"
     );
   });
 

@@ -5,7 +5,6 @@ import { Container } from "@/components/ui/container";
 import { PageIntro } from "@/components/ui/page-intro";
 import { ExperienceEntry } from "@/components/ui/experience-entry";
 import { Tag } from "@/components/ui/tag";
-import { Prose } from "@/components/ui/prose";
 import {
   canonicalContentRegistry,
   canonicalSupportingProjects,
@@ -102,9 +101,6 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
                   </time>
                 </div>
               </div>
-              <p className="text-body leading-relaxed text-foreground">
-                {dict.careerUI.degreeCompletedNote}
-              </p>
             </div>
           )}
 
@@ -116,9 +112,12 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
                   <h3 className="text-heading-3 font-semibold text-foreground leading-tight">
                     {getLocalizedText(trainingRecord.program, locale)}
                   </h3>
-                  <p className="text-small font-medium text-muted">
-                    {getLocalizedText(trainingRecord.institution, locale)}
-                  </p>
+                  {getLocalizedText(trainingRecord.institution, locale) !==
+                    getLocalizedText(trainingRecord.program, locale) && (
+                    <p className="text-small font-medium text-muted">
+                      {getLocalizedText(trainingRecord.institution, locale)}
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   <Tag variant="accent">{dict.careerUI.trainingLevel}</Tag>
@@ -256,40 +255,6 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
         </div>
       </section>
 
-      {/* 6. Contribution Boundaries & Disclosure Safeguards Section */}
-      <section className="space-y-4">
-        <h2 className="text-heading-2 font-semibold tracking-display text-foreground border-b border-line pb-2">
-          {dict.careerUI.contributionBoundaries}
-        </h2>
-        <div className="space-y-4">
-          <div className="rounded-[var(--radius-md)] border border-line bg-surface p-6 space-y-2">
-            <h3 className="text-heading-3 font-semibold text-foreground">
-              {dict.careerUI.boundaryEmgTitle}
-            </h3>
-            <Prose>
-              <p>{dict.careerUI.boundaryEmgBody}</p>
-            </Prose>
-          </div>
-
-          <div className="rounded-[var(--radius-md)] border border-line bg-surface p-6 space-y-2">
-            <h3 className="text-heading-3 font-semibold text-foreground">
-              {dict.careerUI.boundaryMilitaryTitle}
-            </h3>
-            <Prose>
-              <p>{dict.careerUI.boundaryMilitaryBody}</p>
-            </Prose>
-          </div>
-
-          <div className="rounded-[var(--radius-md)] border border-line bg-surface p-6 space-y-2">
-            <h3 className="text-heading-3 font-semibold text-foreground">
-              {dict.careerUI.boundaryTrainingTitle}
-            </h3>
-            <Prose>
-              <p>{dict.careerUI.boundaryTrainingBody}</p>
-            </Prose>
-          </div>
-        </div>
-      </section>
     </Container>
   );
 }

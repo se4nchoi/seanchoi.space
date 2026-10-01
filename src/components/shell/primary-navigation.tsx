@@ -9,13 +9,17 @@ import { getLocalizedNavLinks, normalizePathname } from "@/i18n/routing";
 
 export interface PrimaryNavigationProps {
   locale: AppLocale;
+  /** Hide the Blog link until at least one article is published. */
+  showBlog?: boolean;
 }
 
-export function PrimaryNavigation({ locale }: PrimaryNavigationProps) {
+export function PrimaryNavigation({ locale, showBlog = true }: PrimaryNavigationProps) {
   const pathname = usePathname() || (locale === "ko" ? "/ko" : "/");
   const normalizedCurrent = normalizePathname(pathname);
   const dict = getDictionary(locale);
-  const navLinks = getLocalizedNavLinks(locale);
+  const navLinks = getLocalizedNavLinks(locale).filter(
+    ({ key }) => showBlog || key !== "blog"
+  );
 
   const labels: Record<string, string> = {
     home: dict.home,

@@ -69,13 +69,6 @@ export interface CareerDictionary {
   trainingExercises: string;
   trainingExercisesSummary: string;
   skillsByLevel: string;
-  contributionBoundaries: string;
-  boundaryEmgTitle: string;
-  boundaryEmgBody: string;
-  boundaryMilitaryTitle: string;
-  boundaryMilitaryBody: string;
-  boundaryTrainingTitle: string;
-  boundaryTrainingBody: string;
   professionalLevel: string;
   projectLevel: string;
   trainingLevel: string;
@@ -101,11 +94,9 @@ export interface CareerDictionary {
   layerInfrastructure: string;
   layerPhysicalSystems: string;
   layerAiPerception: string;
-  editorialReviewable: string;
   professionalWorkLabel: string;
   personalProjectLabel: string;
   exposureLevel: string;
-  degreeCompletedNote: string;
   currentTrainingNote: string;
 }
 
@@ -153,7 +144,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     homeStatus:
       "Building software that connects the web and the physical world.",
     experienceStatus:
-      "Verified professional experience, education, training, and technical capability evidence.",
+      "Where I've worked, what I studied, and what I'm learning now.",
     projectsStatus:
       "Web applications, connected equipment, and experiments along the way.",
     blogStatus:
@@ -162,7 +153,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     notFoundBody:
       "The requested page does not exist or is not available in this language.",
     backHome: "Return home",
-    footerPolicy: "English-first. Korean content is published after review.",
+    footerPolicy: "© 2026 Sean Choi",
     backNavigation: "Back navigation",
     siteDescription:
       "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
@@ -178,37 +169,24 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       currentTraining: "Current Training & Trajectory",
       skillsAndEvidence: "Skills & Evidence Level",
       contactAndProfiles: "Contact & Public Profiles",
-      viewFullExperience: "View full experience & contribution boundaries",
+      viewFullExperience: "View full experience",
       basedIn: "Based in South Korea",
       degreeSummary:
         "Bachelor of Applied Science (BASc), Computer Engineering — University of Toronto, 2026",
       experienceTitle: "Experience",
       experienceIntro:
-        "Verified professional experience, education, training, and technical capability evidence.",
+        "Where I've worked, what I studied, and what I'm learning now.",
       professionalExperience: "Professional Experience",
       educationAndTraining: "Education & Training",
       sideProjects: "Self-Directed Projects",
       sideProjectsIntro:
-        "Independent projects initiated outside the curriculum during the training period.",
-      trainingExercises: "In-Class Implementation Exercises",
-      trainingExercisesSummary:
-        "Hands-on implementation of PLC, Arduino, sensor, and local-network exercises.",
+        "Projects I started on my own during the training program, outside the curriculum.",
+      trainingExercises: "Lab Exercises",
+      trainingExercisesSummary: "Guided exercises from the training program.",
       skillsByLevel: "Skills by Evidence Level",
-      contributionBoundaries:
-        "Contribution Boundaries & Disclosure Safeguards",
-      boundaryEmgTitle: "EMG Global — System & API Boundaries",
-      boundaryEmgBody:
-        "Sean implemented the React UI and vehicle control integration on a physical vehicle. The embedded module and HTTPS API were supplied by their identified teams; APIs and streams were built by other engineers. Sean did not own backend, WebSocket, data-pipeline, firmware, embedded, or native-Android software.",
-      boundaryMilitaryTitle:
-        "Korea Defense Intelligence Command (KDIC) — Automation Scope & Confidentiality",
-      boundaryMilitaryBody:
-        "JavaScript Hangul decomposition/dictionary replacement and VBA file/Explorer workflow automation methods and IT coordination are disclosure-safe. All processed document contents, translated materials, and sensitive operational contexts remain strictly confidential.",
-      boundaryTrainingTitle: "Training Trajectory vs. Production Ownership",
-      boundaryTrainingBody:
-        "Coursework, exercises, and in-progress training in smart factory and physical AI represent active learning and skill expansion, not professional production experience.",
-      professionalLevel: "Professional evidence",
-      projectLevel: "Project evidence",
-      trainingLevel: "Training evidence",
+      professionalLevel: "Professional",
+      projectLevel: "Side project",
+      trainingLevel: "Training",
       inProgress: "In progress",
       completed: "Completed",
       emailLabel: "Email",
@@ -224,7 +202,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       plannedNext: "Planned next",
       contributionBoundaryLabel: "Contribution boundary",
       engineeringEvidenceIntro:
-        "This index includes bounded professional, project, and training evidence. These records are not presented as flagship case studies.",
+        "Professional work, side projects, and training exercises, each labeled for what it is.",
       professionalEvidence: "Professional work",
       projectEvidence: "Side projects",
       trainingEvidence: "Hardware explorations",
@@ -234,11 +212,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       layerInfrastructure: "Networking & Infrastructure",
       layerPhysicalSystems: "Controls & Physical Systems",
       layerAiPerception: "AI & Perception",
-      editorialReviewable: "Preview copy · editorial review pending",
       professionalWorkLabel: "Professional work",
       personalProjectLabel: "Personal project",
-      exposureLevel: "Learning evidence",
-      degreeCompletedNote: "Completed and conferred in June 2026.",
+      exposureLevel: "Learning",
       currentTrainingNote:
         "Current study includes PLC/ladder logic, sensors and IoT, industrial networking, Linux, AI/ML, OpenVINO, edge inference, and equipment/OT integration.",
     },
@@ -268,8 +244,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     },
     blogUI: {
       emptyTitle: "Blog",
-      emptyBody:
-        "No articles have been published yet. Writing will be published here through the local publishing workflow after review.",
+      emptyBody: "Nothing published yet. The first posts are on the way.",
       publishedOn: "Published",
       updatedOn: "Updated",
       tableOfContents: "Table of Contents",
@@ -303,14 +278,14 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     homeTitle: "최예현",
     homeStatus:
       "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
-    experienceStatus: "검증된 실무 경력, 학력, 교육 및 기술 역량 근거입니다.",
+    experienceStatus: "일해 온 곳, 공부한 것, 지금 배우고 있는 것입니다.",
     projectsStatus:
       "웹 애플리케이션, 장비 연동, 그리고 그 과정에서 만든 실험들.",
     blogStatus: "검토된 글은 로컬 게시 절차를 통해 추가합니다.",
     notFoundTitle: "페이지를 찾을 수 없습니다",
     notFoundBody: "요청한 페이지가 없거나 이 언어로 제공되지 않습니다.",
     backHome: "홈으로 돌아가기",
-    footerPolicy: "영문을 기본으로 하며, 한국어 콘텐츠는 검토 후 공개합니다.",
+    footerPolicy: "© 2026 최예현",
     backNavigation: "이전 페이지 탐색",
     siteDescription:
       "웹 애플리케이션과 API 연동에서 PLC와 로봇으로 작업을 확장하는 최예현의 포트폴리오입니다.",
@@ -326,34 +301,22 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       currentTraining: "현재 교육 및 학습 방향",
       skillsAndEvidence: "기술 역량 및 근거 수준",
       contactAndProfiles: "연락처 및 프로필",
-      viewFullExperience: "전체 경력 및 기여 범위 보기",
+      viewFullExperience: "전체 경력 보기",
       basedIn: "대한민국 거주",
       degreeSummary: "토론토대학교 응용과학 학사(BASc), 컴퓨터공학, 2026",
       experienceTitle: "경력",
-      experienceIntro: "검증된 실무 경력, 학력, 교육 및 기술 역량 근거입니다.",
+      experienceIntro: "일해 온 곳, 공부한 것, 지금 배우고 있는 것입니다.",
       professionalExperience: "실무 경력",
       educationAndTraining: "학력 및 교육",
       sideProjects: "사이드 프로젝트",
       sideProjectsIntro:
         "교육 기간 중 정규 커리큘럼 외 자발적으로 진행한 독립 프로젝트입니다.",
-      trainingExercises: "수업 내 구현 실습",
-      trainingExercisesSummary:
-        "PLC, Arduino, 센서, 로컬 네트워크를 직접 구성하고 동작을 확인했습니다.",
+      trainingExercises: "교육 과정 실습",
+      trainingExercisesSummary: "교육 과정에서 진행한 가이드 기반 실습입니다.",
       skillsByLevel: "기술 역량 및 근거 수준",
-      contributionBoundaries: "기여 범위 및 보안 안내",
-      boundaryEmgTitle: "EMG Global — 시스템 및 연동 경계",
-      boundaryEmgBody:
-        "실차 환경에서 동작하는 React UI와 도어락 제어 연동을 구현했습니다. 임베디드 모듈과 HTTPS API는 전담 팀에서 제공했으며, API 및 스트림은 다른 엔지니어가 구축했습니다. 백엔드, 웹소켓, 데이터 파이프라인, 펌웨어, 임베디드 장치 소프트웨어 또는 네이티브 Android에 대한 소유권은 포함되지 않았습니다.",
-      boundaryMilitaryTitle:
-        "KDIC (국군정보사령부) — 자동화 도구 범위 및 보안 원칙",
-      boundaryMilitaryBody:
-        "JavaScript 한글 분해/용어 사전 치환 및 VBA 파일/탐색기 자동화 작업 방식과 협의 과정은 공개 가능하나, 처리된 모든 문서 내용과 세부 업무 맥락은 엄격한 보안 사항으로 비공개입니다.",
-      boundaryTrainingTitle: "교육 실습 및 학습 방향 안내",
-      boundaryTrainingBody:
-        "스마트팩토리 및 Physical AI 관련 교육, 실습 및 학습 내용은 현재 진행 중인 역량 확장 과정이며, 실무 상용 배포 경력으로 표현하지 않습니다.",
-      professionalLevel: "실무 근거",
-      projectLevel: "프로젝트 근거",
-      trainingLevel: "교육 근거",
+      professionalLevel: "실무",
+      projectLevel: "사이드 프로젝트",
+      trainingLevel: "교육",
       inProgress: "진행 중",
       completed: "완료",
       emailLabel: "이메일",
@@ -369,7 +332,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       plannedNext: "다음 계획",
       contributionBoundaryLabel: "기여 범위",
       engineeringEvidenceIntro:
-        "실무, 자기주도 프로젝트, 교육 실습의 근거를 경계와 함께 정리한 목록이며, 모든 항목을 대표 사례 연구로 포장하지 않습니다.",
+        "실무, 사이드 프로젝트, 교육 실습을 구분해 정리했습니다.",
       professionalEvidence: "실무 프로젝트",
       projectEvidence: "사이드 프로젝트",
       trainingEvidence: "하드웨어 실습",
@@ -379,11 +342,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       layerInfrastructure: "네트워킹 및 인프라",
       layerPhysicalSystems: "제어 및 물리 시스템",
       layerAiPerception: "AI 및 인지",
-      editorialReviewable: "미리보기 문구 · 편집 검토 예정",
       professionalWorkLabel: "실무 프로젝트",
       personalProjectLabel: "개인 프로젝트",
-      exposureLevel: "학습 근거",
-      degreeCompletedNote: "2026년 6월 졸업하고 학위를 취득했습니다.",
+      exposureLevel: "학습",
       currentTrainingNote:
         "기존 소프트웨어 개발 역량을 산업 현장과 연결하기 위해 학습 범위를 확장하고 있습니다. 현재 PLC/래더 로직, 센서와 IoT, 산업 네트워크, Linux, AI/ML, OpenVINO, 엣지 추론, 설비/OT 연동을 학습·실습하고 있습니다.",
     },
@@ -413,8 +374,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     },
     blogUI: {
       emptyTitle: "블로그",
-      emptyBody:
-        "아직 게시된 글이 없습니다. 검토 후 로컬 게시 워크플로를 통해 이곳에 글이 게시됩니다.",
+      emptyBody: "아직 게시된 글이 없습니다. 첫 글을 준비하고 있습니다.",
       publishedOn: "작성일",
       updatedOn: "수정일",
       tableOfContents: "목차",

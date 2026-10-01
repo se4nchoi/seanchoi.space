@@ -1,4 +1,5 @@
 import React from "react";
+import { ExternalLink } from "./external-link";
 
 export interface EngineeringEvidenceCardProps {
   title: string;
@@ -17,6 +18,9 @@ export interface EngineeringEvidenceCardProps {
   headingLevel?: 2 | 3;
   compact?: boolean;
   media?: React.ReactNode;
+  repositoryHref?: `https://${string}`;
+  repositoryLabel?: string;
+  newTabLabel?: string;
   className?: string;
 }
 
@@ -37,6 +41,9 @@ export function EngineeringEvidenceCard({
   headingLevel = 3,
   compact = false,
   media,
+  repositoryHref,
+  repositoryLabel = "Source code",
+  newTabLabel,
   className = "",
 }: EngineeringEvidenceCardProps) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
@@ -104,6 +111,13 @@ export function EngineeringEvidenceCard({
       {technologies.length > 0 && (
         <p className="mt-4 text-small text-muted">
           {technologies.join(" · ")}
+        </p>
+      )}
+      {repositoryHref && (
+        <p className="mt-3 text-[length:var(--text-small)]">
+          <ExternalLink href={repositoryHref} newTabLabel={newTabLabel}>
+            {repositoryLabel}
+          </ExternalLink>
         </p>
       )}
       </div>

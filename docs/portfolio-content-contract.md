@@ -329,5 +329,6 @@ Record consequential approvals here:
 | 2026-09-17 | ROS2 project maturity | learning/planned | `verified` current work with split scope | Publish completed PLC/CC-Link/multi-dock foundation separately from planned ROS2, orchestration, recovery, perception, and edge-AI work | Sean |
 
 | 2026-09-21 | Three portfolio images | disclosure pending | approved public assets | Sean explicitly approved RUTA40.jpeg, molipdo-project-banner.png, and intel7_wiring_plc_crop.jpg for public use. Screenshots illustrate products, not sole ownership; the PLC photo is labeled a wiring exercise, not proof of completed ROS2 work. This supersedes the earlier September 21 no-private-assets authorization boundary for these three files only. | Sean |
+| 2026-10-01 | Public copy voice (M1) | third-person boundary statements | first-person, same scope | Contribution boundaries rewritten in first person and stated positively (who built what); separate "Contribution Boundaries & Disclosure Safeguards" section and preview-copy footers removed; no claim scope added. Requested by Sean; exact wording awaits his read-through | Sean (requested) |
 
 Future edits should update the relevant table and append a change-log row rather than silently rewriting history.

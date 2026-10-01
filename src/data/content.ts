@@ -241,7 +241,7 @@ export const canonicalContentRegistry: ContentRegistry = {
       },
       employmentType: "other",
       summary: {
-        en: "Worked across frontend applications and internal product development. For Internal Attendance / HR Product (몰입도), contributed beyond the interface layer through Koa and MySQL backend development and application-state rules.",
+        en: "Built frontend applications for client and internal projects. On the internal attendance product (몰입도), I also worked on the Koa/MySQL backend and the attendance rules behind it.",
         ko: "사내 애플리케이션과 제품 개발에 참여했습니다. 사내 근태·HR 시스템 몰입도에서는 프론트엔드뿐 아니라 Koa와 MySQL 기반 백엔드 및 애플리케이션 상태 규칙 구현에도 참여했습니다.",
         koReview: "reviewed",
       },
@@ -296,7 +296,7 @@ export const canonicalContentRegistry: ContentRegistry = {
       },
       employmentType: "other",
       summary: {
-        en: "Implemented frontend interfaces that integrated with APIs and streams built by other teams.",
+        en: "Built frontend interfaces on top of APIs and real-time streams developed by senior and backend engineers.",
         ko: "다른 팀이 제공한 API와 데이터 스트림을 연동해 프론트엔드 인터페이스를 구현했습니다.",
         koReview: "reviewed",
       },
@@ -347,7 +347,7 @@ export const canonicalContentRegistry: ContentRegistry = {
       },
       employmentType: "military",
       summary: {
-        en: "Worked in bilingual communication and translation within a structured environment.",
+        en: "Interpreted and translated between Korean and English, and automated the repetitive parts of the translation workflow.",
         ko: "보안이 요구되는 환경에서 한영 의사소통과 통번역 업무를 수행했습니다.",
         koReview: "reviewed",
       },
@@ -648,8 +648,8 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Sean owned the frontend UI and API integration. The embedded module and HTTPS control backend belonged to their respective teams.",
-        ko: "Sean은 프론트엔드 UI와 API 연동을 담당했습니다. 임베디드 모듈과 HTTPS 제어 백엔드는 각 담당 팀의 범위였습니다.",
+        en: "I built the React UI and its API integration. The embedded team built the door-lock module, and the backend team built the HTTPS control API.",
+        ko: "React UI와 API 연동을 담당했습니다. 도어록 모듈은 임베디드 팀이, HTTPS 제어 API는 백엔드 팀이 개발했습니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -694,8 +694,8 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Sean implemented frontend integration, visualization, and UI behavior; backend WebSocket, data-pipeline, and database ownership are not claimed.",
-        ko: "Sean은 프론트엔드 연동, 시각화, UI 동작을 구현했으며 백엔드 WebSocket, 데이터 파이프라인, 데이터베이스 소유권은 주장하지 않습니다.",
+        en: "I built the frontend integration, visualization, and UI behavior. The APIs and real-time streams came from senior and backend engineers.",
+        ko: "프론트엔드 연동, 시각화, UI 동작을 구현했습니다. API와 실시간 스트림은 선임·백엔드 엔지니어가 개발했습니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -735,13 +735,13 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       summary: {
-        en: "Full-stack internal system where attendance rules were translated into application state, including active-session checks, multiple work and break periods, and overnight workdays.",
+        en: "Internal attendance system where I turned real workplace rules into application logic: active-session checks, multiple work and break periods, and overnight shifts.",
         ko: "활성 근무 세션 확인, 복수 근무·휴게 구간, 야간 근무일 처리 등 근태 규칙을 애플리케이션 상태로 옮긴 사내 풀스택 시스템입니다.",
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Sean contributed frontend, Koa backend, and MySQL work to an internal system; no external commercial-product or sole end-to-end ownership claim is made.",
-        ko: "Sean은 사내 시스템의 프론트엔드, Koa 백엔드, MySQL 작업에 참여했으며 외부 상용 제품이나 단독 전체 소유권을 주장하지 않습니다.",
+        en: "I worked across the frontend, Koa backend, and MySQL layers of this internal system as part of the company's development team.",
+        ko: "사내 개발팀의 일원으로 이 사내 시스템의 프론트엔드, Koa 백엔드, MySQL 작업에 참여했습니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -786,13 +786,13 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       summary: {
-        en: "FastAPI, WebSocket, and SQLite application used by 22 classmates.",
+        en: "A LAN chat app built with FastAPI, WebSocket, and SQLite, used by all 22 people in my class.",
         ko: "FastAPI, WebSocket, SQLite 기반 LAN 채팅 애플리케이션으로, 동료 수강생 22명이 사용했습니다.",
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Self-directed application built outside the curriculum and used within the class; no broader adoption or production claim is made.",
-        ko: "정규 커리큘럼 외에 자기주도로 개발해 교실에서 사용한 애플리케이션이며, 더 넓은 도입이나 프로덕션 운영을 주장하지 않습니다.",
+        en: "I started and built this on my own, outside the curriculum, and ran it for my class.",
+        ko: "정규 커리큘럼 밖에서 직접 기획·개발해 우리 반에서 운영했습니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -814,6 +814,7 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       technologies: ["FastAPI", "WebSocket", "SQLite", "LAN"],
+      repositoryHref: "https://github.com/se4nchoi/intel7-chat",
       evidenceIds: ["evidence-lan-chat"],
     },
     {
@@ -832,13 +833,13 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       summary: {
-        en: "Four-person classroom Q&A MVP; responsible for backend and database integration.",
+        en: "A classroom Q&A board built by a team of four; I built the backend and database integration.",
         ko: "4인 팀으로 개발한 교실 Q&A MVP에서 백엔드와 데이터베이스 연동을 담당했습니다.",
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Four-person classroom MVP; Sean's contribution was backend and database integration.",
-        ko: "4인 교실 MVP이며 Sean의 기여 범위는 백엔드와 데이터베이스 연동이었습니다.",
+        en: "Built with a team of four. I handled the backend and database integration.",
+        ko: "4인 팀 프로젝트이며, 백엔드와 데이터베이스 연동을 담당했습니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -878,8 +879,8 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Guided coursework and laboratory exercises, not professional production work.",
-        ko: "가이드가 제공된 수업 및 실험 실습이며 전문 프로덕션 업무가 아닙니다.",
+        en: "Guided lab exercises from the training program.",
+        ko: "교육 과정의 가이드 기반 실습입니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -914,8 +915,8 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Guided team integration on shared training equipment. Sean participated in handshake reasoning, I/O mapping and debugging, multi-dock sequencing, completion signaling, and team integration discussions.",
-        ko: "공용 교육 장비를 사용한 가이드 기반 팀 연동 실습입니다. Sean은 핸드셰이크 로직 검토, I/O 매핑 및 디버깅, 다중 도크 순서 제어, 완료 신호와 로봇 진행 조건 검토, 팀 연동 논의에 참여했습니다.",
+        en: "Guided team exercise on shared training equipment. I worked on the handshake logic, I/O mapping and debugging, multi-dock sequencing, and completion signaling.",
+        ko: "공용 교육 장비를 사용한 가이드 기반 팀 실습입니다. 핸드셰이크 로직 검토, I/O 매핑 및 디버깅, 다중 도크 순서 제어, 완료 신호와 로봇 진행 조건 검토를 맡았습니다.",
         koReview: "reviewed",
       },
       completedScope: [
@@ -960,13 +961,13 @@ export const canonicalContentRegistry: ContentRegistry = {
         koReview: "reviewed",
       },
       summary: {
-        en: "Self-directed work to extend completed PLC and real-hardware integration evidence toward a ROS2-controlled industrial robot-cell architecture.",
-        ko: "완료한 PLC 및 실제 하드웨어 연동 경험을 ROS2 제어 기반 산업용 로봇 셀 구조로 확장하는 자기주도 프로젝트입니다.",
+        en: "Taking the PLC and real-hardware integration I've already done and building a ROS2 control layer on top of it.",
+        ko: "이미 완료한 PLC·실제 하드웨어 연동 위에 ROS2 제어 계층을 올리는 프로젝트입니다.",
         koReview: "reviewed",
       },
       contributionBoundary: {
-        en: "Individual self-study project initiated and driven by Sean using shared training-facility hardware. ROS2 control and later orchestration or perception work are not yet completed.",
-        ko: "Sean이 주도하는 개인 자기학습 프로젝트이며 공용 교육시설 하드웨어를 사용합니다. ROS2 제어와 이후 오케스트레이션·인지 작업은 아직 완료되지 않았습니다.",
+        en: "A solo project I started during self-study time, using the training facility's shared hardware. The ROS2 control layer and everything after it is still ahead.",
+        ko: "자습 시간에 시작한 개인 프로젝트로, 교육시설의 공용 하드웨어를 사용합니다. ROS2 제어 계층부터는 아직 진행 전입니다.",
         koReview: "reviewed",
       },
       completedScope: [

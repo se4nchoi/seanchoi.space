@@ -5,6 +5,7 @@ import { Container } from "../ui/container";
 import { PrimaryNavigation } from "./primary-navigation";
 import { LanguageSwitch } from "./language-switch";
 import { localizePathname } from "@/i18n/routing";
+import { getBlogArticles } from "@/lib/content/blog";
 
 export interface SiteHeaderProps {
   locale: AppLocale;
@@ -12,6 +13,7 @@ export interface SiteHeaderProps {
 
 export function SiteHeader({ locale }: SiteHeaderProps) {
   const homeHref = localizePathname("/", locale);
+  const showBlog = getBlogArticles(locale).length > 0;
 
   return (
     <header className="border-b border-line bg-background py-2 sm:py-3">
@@ -32,7 +34,7 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
           </div>
 
           <div className="flex items-center justify-between sm:justify-end sm:gap-8">
-            <PrimaryNavigation locale={locale} />
+            <PrimaryNavigation locale={locale} showBlog={showBlog} />
             <div className="hidden sm:block">
               <LanguageSwitch currentLocale={locale} />
             </div>

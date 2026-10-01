@@ -77,8 +77,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Skills stay on Experience; the homepage is curated around work.
       expect(html).not.toContain("Capabilities Across System Layers");
-      expect(html).toContain("Sean owned the frontend UI and API integration");
-      expect(html).toContain("The embedded module and HTTPS control backend");
+      expect(html).toContain("I built the React UI and its API integration");
+      expect(html).toContain("The embedded team built the door-lock module");
       // Contact & Profiles section
       expect(html).toContain("Contact &amp; Public Profiles");
       expect(html).toContain("Based in South Korea");
@@ -143,21 +143,21 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Page Title
       expect(html).toContain("Experience");
-      expect(html).toContain("Verified professional experience, education, training, and technical capability evidence.");
+      expect(html).toContain("Where I&#x27;ve worked, what I studied, and what I&#x27;m learning now.");
 
       // Professional experience records
       expect(html).toContain("Professional Experience");
       expect(html).toContain("Hoek Agency");
       expect(html).toContain("Software Developer — Frontend to Full-Stack");
-      expect(html).toContain("2022-09 — 2023-08");
+      expect(html).toContain("Sep 2022 – Aug 2023");
 
       expect(html).toContain("EMG Global");
       expect(html).toContain("Software Developer");
-      expect(html).toContain("2021-07 — 2022-07");
+      expect(html).toContain("Jul 2021 – Jul 2022");
 
       expect(html).toContain("Korea Defense Intelligence Command");
       expect(html).toContain("Sergeant / English Interpreter");
-      expect(html).toContain("2016-10 — 2018-07");
+      expect(html).toContain("Oct 2016 – Jul 2018");
 
       // Factual & boundary checks in military copy
       expect(html).toContain("JavaScript utilities for Hangul text decomposition");
@@ -168,7 +168,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("Education &amp; Training");
       expect(html).toContain("University of Toronto");
       expect(html).toContain("Bachelor of Applied Science (BASc), Computer Engineering");
-      expect(html).toContain("Conferred 2026-06");
+      expect(html).toContain("Graduated Jun 2026");
       expect(html).toContain("Physical AI &amp; Smart Factory Training Program");
 
       // Self-directed projects
@@ -177,24 +177,21 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("Classroom Q&amp;A Board");
       expect(html).toContain("In-Class Implementation Exercises");
 
-      // Contribution boundaries
-      expect(html).toContain("Contribution Boundaries &amp; Disclosure Safeguards");
-      expect(html).toContain("EMG Global — System &amp; API Boundaries");
-      expect(html).toContain("Korea Defense Intelligence Command (KDIC) — Automation Scope &amp; Confidentiality");
-      expect(html).toContain("Training Trajectory vs. Production Ownership");
+      // Boundaries live on each record, not in a separate disclaimer section
+      expect(html).not.toContain("Disclosure Safeguards");
+      // Training program name is not repeated as its own institution line
+      expect(html.split("Physical AI &amp; Smart Factory Training Program").length - 1).toBe(1);
 
       // Strict Section Order Verification
       const idxProf = html.indexOf("Professional Experience");
       const idxEdu = html.indexOf("Education &amp; Training");
       const idxSideProj = html.indexOf("Self-Directed Projects");
       const idxSkills = html.indexOf("Capabilities Across System Layers");
-      const idxBoundary = html.indexOf("Contribution Boundaries &amp; Disclosure Safeguards");
 
       expect(idxProf).toBeGreaterThan(-1);
       expect(idxEdu).toBeGreaterThan(idxProf);
       expect(idxSideProj).toBeGreaterThan(idxEdu);
       expect(idxSkills).toBeGreaterThan(idxSideProj);
-      expect(idxBoundary).toBeGreaterThan(idxSkills);
     });
 
     it("renders distinct professional and training sections with exact reviewed copy in Korean", () => {
@@ -218,9 +215,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("Classroom LAN Chat");
       expect(html).toContain("수업 내 구현 실습");
 
-      expect(html).toContain("기여 범위 및 보안 안내");
-      expect(html).toContain("EMG Global — 시스템 및 연동 경계");
-      expect(html).toContain("KDIC (국군정보사령부) — 자동화 도구 범위 및 보안 원칙");
+      expect(html).toContain("2022.09 – 2023.08");
+      expect(html).not.toContain("기여 범위 및 보안 안내");
     });
   });
 
@@ -317,7 +313,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
     it("renders Blog index in honest empty state without preview articles", () => {
       const enHtml = renderToStaticMarkup(<BlogIndexView locale="en" preview={false} />);
       expect(enHtml).toContain("Blog");
-      expect(enHtml).toContain("No articles have been published yet.");
+      expect(enHtml).toContain("Nothing published yet.");
       expect(enHtml).toContain('href="/feed.xml"');
 
       const koHtml = renderToStaticMarkup(<BlogIndexView locale="ko" preview={false} />);

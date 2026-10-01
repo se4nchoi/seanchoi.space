@@ -365,6 +365,7 @@ export const supportingProjectRecordSchema = commonRecordSchema
     role: localizedTextSchema.optional(),
     evidenceIds: z.array(recordIdSchema),
     scale: localizedTextSchema.optional(),
+    repositoryHref: httpsUrlSchema.optional(),
   })
   .strict()
   .superRefine((record, ctx) => {

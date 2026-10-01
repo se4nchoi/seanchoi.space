@@ -41,6 +41,9 @@ export function HomePageView({ locale }: HomePageViewProps) {
       completedScopeLabel={dict.careerUI.completedFoundation}
       plannedScopeLabel={dict.careerUI.plannedNext}
       compact={compact}
+      repositoryHref={item.repositoryHref as `https://${string}` | undefined}
+      repositoryLabel={locale === "ko" ? "소스 코드" : "Source code"}
+      newTabLabel={dict.openInNewTab}
       media={workMedia[item.id] ? <WorkImage media={workMedia[item.id]} locale={locale} /> : undefined}
     />
   );
@@ -89,7 +92,6 @@ export function HomePageView({ locale }: HomePageViewProps) {
           {email && <a href={email.href} className={textLink}>{dict.careerUI.emailLabel}</a>}
           {profiles.map((link) => <ExternalLink key={link.id} href={link.href as `https://${string}`} newTabLabel={dict.openInNewTab}>{link.kind === "github" ? "GitHub" : "LinkedIn"}</ExternalLink>)}
         </div>
-        <p className="text-xs text-muted">{dict.careerUI.editorialReviewable}</p>
       </section>
     </Container>
   );

@@ -58,6 +58,9 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
           completedScopeLabel={dict.careerUI.completedFoundation}
           plannedScopeLabel={dict.careerUI.plannedNext}
           headingLevel={3}
+          repositoryHref={item.repositoryHref as `https://${string}` | undefined}
+          repositoryLabel={locale === "ko" ? "소스 코드" : "Source code"}
+          newTabLabel={dict.openInNewTab}
           media={workMedia[item.id] ? <WorkImage media={workMedia[item.id]} locale={locale} /> : undefined}
         />
       ))}
@@ -100,7 +103,6 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
         </h2>
         {renderCards(trainingEvidence)}
       </section>
-      <p className="text-xs text-muted">{dict.careerUI.editorialReviewable}</p>
     </Container>
   );
 }
