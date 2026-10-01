@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
   },
+  // v1 served its work history at /work; keep old links working.
+  async redirects() {
+    return [
+      { source: "/work", destination: "/experience", permanent: true },
+      { source: "/ko/work", destination: "/ko/experience", permanent: true },
+    ];
+  },
 };
 
 const withMDX = createMDX({
