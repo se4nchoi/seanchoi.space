@@ -9,6 +9,7 @@ import { WorkImage } from "@/components/ui/work-image";
 import { workMedia } from "@/data/work-media";
 import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
 import { getLocalizedText } from "@/lib/content/format";
+import { getWorkContextLabel } from "@/i18n/career-labels";
 import { publishedCaseStudies } from "@/data/case-studies";
 import { FeaturedCaseStudy } from "@/components/case-study/featured-case-study";
 import { localizePathname } from "@/i18n/routing";
@@ -32,7 +33,7 @@ export function HomePageView({ locale }: HomePageViewProps) {
       title={getLocalizedText(item.title, locale)}
       summary={getLocalizedText(item.summary, locale)}
       role={item.role ? getLocalizedText(item.role, locale) : undefined}
-      evidenceLabel={item.context === "professional" ? dict.careerUI.professionalWorkLabel : dict.careerUI.personalProjectLabel}
+      evidenceLabel={getWorkContextLabel(item.context, locale)}
       status={item.status}
       statusLabel={item.status === "in-progress" ? dict.careerUI.inProgress : dict.careerUI.completed}
       contributionBoundary={getLocalizedText(item.contributionBoundary, locale)}

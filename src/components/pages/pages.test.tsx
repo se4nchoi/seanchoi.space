@@ -449,3 +449,16 @@ describe("PortfolioPrintView", () => {
     expect(html).not.toMatch(/\+82|010-\d{3,4}-\d{4}|\bCGPA\b|Daegu, South Korea|-gu\b|-dong\b/);
   });
 });
+
+describe("work labels are consistent across pages", () => {
+  it("uses the same Korean label for the same record on Home and Projects", () => {
+    const home = renderToStaticMarkup(<HomePageView locale="ko" />);
+    const projects = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
+    for (const html of [home, projects]) {
+      expect(html).toContain("실무 프로젝트");
+      expect(html).toContain("개인 프로젝트");
+    }
+    // The case-study section heading is not repeated on each card
+    expect(projects.split("사례 연구</").length - 1).toBe(1);
+  });
+});

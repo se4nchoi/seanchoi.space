@@ -11,7 +11,7 @@ import { getLocalizedText } from "@/lib/content/format";
 import { publishedCaseStudies } from "@/data/case-studies";
 import { FeaturedCaseStudy } from "@/components/case-study/featured-case-study";
 import type { SupportingProjectRecord } from "@/lib/content/schemas";
-import { getEvidenceLevelLabel } from "@/i18n/career-labels";
+import { getWorkContextLabel } from "@/i18n/career-labels";
 
 export interface ProjectsIndexViewProps {
   locale: AppLocale;
@@ -42,7 +42,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
           title={getLocalizedText(item.title, locale)}
           summary={getLocalizedText(item.summary, locale)}
           role={item.role ? getLocalizedText(item.role, locale) : undefined}
-          evidenceLabel={getEvidenceLevelLabel(item.evidenceLevel, locale)}
+          evidenceLabel={getWorkContextLabel(item.context, locale)}
           status={item.status}
           statusLabel={
             item.status === "in-progress"
@@ -80,7 +80,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
             {isKo ? "사례 연구" : "Case studies"}
           </h2>
           {publishedCaseStudies.map((study) => (
-            <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} />
+            <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} showEyebrow={false} />
           ))}
         </section>
       )}

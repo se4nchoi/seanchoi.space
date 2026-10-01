@@ -10,7 +10,18 @@ const ui = {
 } as const;
 
 /** Homepage/projects teaser. Copy stays English until the Korean case study is reviewed. */
-export function FeaturedCaseStudy({ study, locale, headingLevel = 2 }: { study: CaseStudy; locale: AppLocale; headingLevel?: 2 | 3 }) {
+export function FeaturedCaseStudy({
+  study,
+  locale,
+  headingLevel = 2,
+  showEyebrow = true,
+}: {
+  study: CaseStudy;
+  locale: AppLocale;
+  headingLevel?: 2 | 3;
+  /** Off when a surrounding section heading already says "Case studies". */
+  showEyebrow?: boolean;
+}) {
   const t = ui[locale];
   const href = `${locale === "ko" ? "/ko" : ""}/projects/${study.slug}`;
   const pick = (text: { en: string; ko?: string; koReview: string }) =>
@@ -30,7 +41,7 @@ export function FeaturedCaseStudy({ study, locale, headingLevel = 2 }: { study: 
         />
       </Link>
       <div className="flex flex-col justify-center gap-4 p-6 md:pl-0 md:pr-8">
-        <p className="text-sm font-medium text-accent">{t.eyebrow}</p>
+        {showEyebrow && <p className="text-sm font-medium text-accent">{t.eyebrow}</p>}
         <Heading className="text-heading-3 font-semibold leading-tight">
           <Link href={href} className="hover:underline">
             {pick(study.title)}
