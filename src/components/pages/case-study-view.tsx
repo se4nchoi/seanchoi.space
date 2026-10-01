@@ -9,6 +9,7 @@ import { ExternalLink } from "@/components/ui/external-link";
 import { TwinArchitectureDiagram } from "@/components/case-study/twin-architecture-diagram";
 import { BambooChatArchitectureDiagram } from "@/components/case-study/bamboochat-architecture-diagram";
 import type { CaseStudy, CaseStudyFigure } from "@/data/case-studies";
+import { isPreviewChannel } from "@/lib/release-channel";
 
 const ui = {
   en: {
@@ -29,6 +30,8 @@ const ui = {
     next: "Next",
     source: "Source on GitHub",
     translationNotice: "",
+    draftNotice: "",
+    inReview: "In review: not yet approved for seanchoi.space",
   },
   ko: {
     back: "프로젝트로 돌아가기",
@@ -48,6 +51,8 @@ const ui = {
     next: "다음 단계",
     source: "GitHub에서 소스 보기",
     translationNotice: "이 사례 연구의 한국어 번역은 검토 중이며, 현재 영어로 제공됩니다.",
+    draftNotice: "한국어 초안 · 검토 전 (미리보기 전용)",
+    inReview: "검토 중: seanchoi.space에는 아직 공개되지 않음",
   },
 } as const;
 
@@ -101,7 +106,11 @@ function BulletList({ items, pick }: { items: LocalizedText[]; pick: (t: Localiz
 export function CaseStudyView({ study, locale }: { study: CaseStudy; locale: AppLocale }) {
   const dict = getDictionary(locale);
   const t = ui[locale];
-  const contentLocale: AppLocale = locale === "ko" && isKoreanReviewed(study) ? "ko" : "en";
+  const preview = isPreviewChannel();
+  const koReviewed = isKoreanReviewed(study);
+  // Preview shows Korean drafts in context so Sean can review them; production waits for approval.
+  const contentLocale: AppLocale = locale === "ko" && (koReviewed || preview) ? "ko" : "en";
+  const showingKoDraft = locale === "ko" && contentLocale === "ko" && !koReviewed;
   const pick = (text: LocalizedText) => (contentLocale === "ko" && text.ko ? text.ko : text.en);
   const backHref = locale === "ko" ? "/ko/projects" : "/projects";
 
@@ -117,6 +126,12 @@ export function CaseStudyView({ study, locale }: { study: CaseStudy; locale: App
         <p className="text-small font-medium uppercase tracking-label text-accent">{t.eyebrow}</p>
         <h1 className="text-display font-semibold leading-tight tracking-display">{pick(study.title)}</h1>
         <p className="max-w-3xl text-xl leading-relaxed text-foreground">{pick(study.summary)}</p>
+        {preview && !study.approved && (
+          <p className="rounded-[var(--radius-sm)] border border-accent p-3 text-small font-medium text-accent">{t.inReview}</p>
+        )}
+        {showingKoDraft && (
+          <p lang="ko" className="rounded-[var(--radius-sm)] border border-line bg-surface p-3 text-small text-muted">{t.draftNotice}</p>
+        )}
         {t.translationNotice && contentLocale !== locale && (
           <p lang="ko" className="rounded-[var(--radius-sm)] border border-line bg-surface p-3 text-small text-muted">{t.translationNotice}</p>
         )}

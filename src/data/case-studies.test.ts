@@ -1,16 +1,28 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { caseStudies, publishedCaseStudies } from "./case-studies";
+import { caseStudies, getCaseStudy, getVisibleCaseStudies } from "./case-studies";
 
 describe("case studies", () => {
+  it("hide unapproved studies in production and show all of them on preview", () => {
+    const production = { NODE_ENV: "production", VERCEL_ENV: "production" } as const;
+    const preview = { NODE_ENV: "production", VERCEL_ENV: "preview" } as const;
+    const approved = caseStudies.filter((study) => study.approved).map((s) => s.slug);
+    expect(getVisibleCaseStudies(production).map((s) => s.slug)).toEqual(approved);
+    expect(getVisibleCaseStudies(preview)).toHaveLength(caseStudies.length);
+    for (const study of caseStudies.filter((s) => !s.approved)) {
+      expect(getCaseStudy(study.slug, production)).toBeUndefined();
+      expect(getCaseStudy(study.slug, preview)).toBeDefined();
+    }
+  });
+
   it("have unique slugs", () => {
     const slugs = caseStudies.map((study) => study.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
   it("reference images that exist in public/", () => {
-    for (const study of publishedCaseStudies) {
+    for (const study of caseStudies) {
       const figures = [study.hero, ...study.walkthrough.flatMap((step) => (step.figure ? [step.figure] : []))];
       for (const figure of figures) {
         expect(existsSync(join(process.cwd(), "public", figure.src)), figure.src).toBe(true);

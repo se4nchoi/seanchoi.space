@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import type { AppLocale } from "@/i18n/config";
 import type { CaseStudy } from "@/data/case-studies";
+import { isPreviewChannel } from "@/lib/release-channel";
 
 const ui = {
-  en: { eyebrow: "Case study", read: "Read the case study" },
-  ko: { eyebrow: "사례 연구", read: "사례 연구 보기" },
+  en: { eyebrow: "Case study", read: "Read the case study", inReview: "In review" },
+  ko: { eyebrow: "사례 연구", read: "사례 연구 보기", inReview: "검토 중" },
 } as const;
 
 /** Homepage/projects teaser. Copy stays English until the Korean case study is reviewed. */
@@ -24,8 +25,10 @@ export function FeaturedCaseStudy({
 }) {
   const t = ui[locale];
   const href = `${locale === "ko" ? "/ko" : ""}/projects/${study.slug}`;
+  const preview = isPreviewChannel();
+  // Preview shows Korean drafts; production shows reviewed Korean only.
   const pick = (text: { en: string; ko?: string; koReview: string }) =>
-    locale === "ko" && text.koReview === "reviewed" && text.ko ? text.ko : text.en;
+    locale === "ko" && text.ko && (text.koReview === "reviewed" || preview) ? text.ko : text.en;
   const Heading = headingLevel === 2 ? "h2" : "h3";
 
   return (
@@ -41,7 +44,14 @@ export function FeaturedCaseStudy({
         />
       </Link>
       <div className="flex flex-col justify-center gap-4 p-6 md:pl-0 md:pr-8">
-        {showEyebrow && <p className="text-sm font-medium text-accent">{t.eyebrow}</p>}
+        {(showEyebrow || (preview && !study.approved)) && (
+          <p className="text-sm font-medium text-accent">
+            {showEyebrow && t.eyebrow}
+            {preview && !study.approved && (
+              <span className="ml-2 rounded border border-accent px-1.5 py-0.5 text-xs">{t.inReview}</span>
+            )}
+          </p>
+        )}
         <Heading className="text-heading-3 font-semibold leading-tight">
           <Link href={href} className="hover:underline">
             {pick(study.title)}

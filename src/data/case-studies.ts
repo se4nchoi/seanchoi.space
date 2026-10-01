@@ -1,4 +1,5 @@
 import type { LocalizedText } from "@/lib/content/schemas";
+import { isPreviewChannel } from "@/lib/release-channel";
 
 export interface CaseStudyFigure {
   src: string;
@@ -20,8 +21,11 @@ export interface CaseStudy {
   diagram: "indy7-twin" | "bamboochat";
   /** Supporting-project card this case study replaces on the projects index. */
   supportingRecordId?: string;
-  /** Approval gate: only `true` studies are routed, listed, and built. */
-  published: boolean;
+  /**
+   * Sean's sign-off. Unapproved studies appear only on the preview channel
+   * (local dev, dev.seanchoi.space); production shows approved ones only.
+   */
+  approved: boolean;
   /** Korean copy renders only when every field is marked reviewed. */
   title: LocalizedText;
   summary: LocalizedText;
@@ -49,7 +53,7 @@ const draft = (en: string, ko: string): LocalizedText => ({ en, ko, koReview: "d
 export const indy7DigitalTwin: CaseStudy = {
   slug: "indy7-digital-twin",
   diagram: "indy7-twin",
-  published: true,
+  approved: false,
   title: draft("Indy7 Palletizing Cell Digital Twin", "Indy7 팔레타이징 셀 디지털 트윈"),
   summary: draft(
     "A simulation-first control and evidence application for a Neuromeka Indy7 palletizing cell. A PLC signal starts a job, the robot moves in 3D, and every run, fault, and recovery is recorded.",
@@ -253,7 +257,7 @@ export const bambooChat: CaseStudy = {
   slug: "bamboochat",
   diagram: "bamboochat",
   supportingRecordId: "project-lan-chat",
-  published: true,
+  approved: false,
   title: draft("BambooChat: a chat and study app for my class", "BambooChat: 우리 반을 위한 채팅·학습 앱"),
   summary: draft(
     "A self-hosted chat and learning app my training-program class uses every day: channels, direct messages, file sharing, and daily quizzes on PLC and automation topics, running on a classroom PC over the local network.",
@@ -406,8 +410,14 @@ export const bambooChat: CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [indy7DigitalTwin, bambooChat];
 
-export const publishedCaseStudies = caseStudies.filter((study) => study.published);
+type ChannelEnv = Parameters<typeof isPreviewChannel>[0];
 
-export function getCaseStudy(slug: string): CaseStudy | undefined {
-  return publishedCaseStudies.find((study) => study.slug === slug);
+/** Case studies this build may show: approved ones, plus all of them on preview. */
+export function getVisibleCaseStudies(env?: ChannelEnv): CaseStudy[] {
+  const preview = isPreviewChannel(env);
+  return caseStudies.filter((study) => study.approved || preview);
+}
+
+export function getCaseStudy(slug: string, env?: ChannelEnv): CaseStudy | undefined {
+  return getVisibleCaseStudies(env).find((study) => study.slug === slug);
 }

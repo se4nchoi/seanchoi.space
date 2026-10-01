@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo/metadata";
 import { loadAllMdxArticles, isPublishableArticle } from "@/lib/content/blog";
-import { publishedCaseStudies } from "@/data/case-studies";
+import { caseStudies } from "@/data/case-studies";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const coreLastModified = new Date("2026-08-29T00:00:00Z");
@@ -70,7 +70,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const caseStudyRoutes: MetadataRoute.Sitemap = publishedCaseStudies.flatMap((study) =>
+  // The sitemap describes production, so only approved case studies are listed.
+  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.filter((study) => study.approved).flatMap((study) =>
     ["", "/ko"].map((prefix) => ({
       url: `${SITE_URL}${prefix}/projects/${study.slug}`,
       lastModified: new Date("2026-10-01T00:00:00Z"),

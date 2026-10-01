@@ -50,10 +50,10 @@ export function EngineeringEvidenceCard({
 
   return (
     <article
-      className={`min-w-0 ${media ? "" : "rounded-xl border border-line bg-surface p-5 sm:p-8"} ${className}`}
+      className={`flex h-full min-w-0 flex-col rounded-xl border border-line bg-surface p-5 sm:p-6 ${className}`}
     >
-      {media}
-      <div className={media ? "px-1 pb-2 pt-5" : ""}>
+      {media && <div className="mb-5">{media}</div>}
+      <div>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-sm text-muted">{evidenceLabel}</span>
         {status === "in-progress" && <span className="text-sm font-medium text-accent">· {statusLabel}</span>}

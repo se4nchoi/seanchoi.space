@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { AppLocale } from "@/i18n/config";
 import { ProjectDetailView } from "@/components/pages/project-detail-view";
 import { CaseStudyView } from "@/components/pages/case-study-view";
-import { getCaseStudy, publishedCaseStudies } from "@/data/case-studies";
+import { getCaseStudy, getVisibleCaseStudies } from "@/data/case-studies";
 import {
   skeletonProjectEn,
   skeletonProjectKo,
@@ -33,7 +33,7 @@ export function createProjectDetailRoute(locale: AppLocale) {
   const narrative = skeletonProjectNarrative[locale];
 
   function generateStaticParams() {
-    const slugs = publishedCaseStudies.map((study) => ({ slug: study.slug }));
+    const slugs = getVisibleCaseStudies().map((study) => ({ slug: study.slug }));
     return isSkeletonPreviewEnabled() ? [...slugs, { slug: PREVIEW_PROJECT_SLUG }] : slugs;
   }
 

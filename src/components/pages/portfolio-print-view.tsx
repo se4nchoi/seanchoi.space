@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
-import { publishedCaseStudies, type CaseStudy, type CaseStudyFigure } from "@/data/case-studies";
+import { getVisibleCaseStudies, type CaseStudy, type CaseStudyFigure } from "@/data/case-studies";
 import { formatDateRange, getLocalizedText } from "@/lib/content/format";
 import { getDictionary } from "@/i18n/dictionaries";
 import { TwinArchitectureDiagram } from "@/components/case-study/twin-architecture-diagram";
@@ -87,11 +87,12 @@ function CaseStudyPages({ study }: { study: CaseStudy }) {
 
 export function PortfolioPrintView({ generatedOn }: { generatedOn: string }) {
   const dict = getDictionary("en");
+  const visibleCaseStudies = getVisibleCaseStudies();
   const { siteIdentity, experiences, educationAndTraining, links } = canonicalContentRegistry;
   const email = links.find((l) => l.kind === "email")?.href.replace("mailto:", "");
   const github = links.find((l) => l.kind === "github")?.href.replace("https://", "");
   const linkedin = links.find((l) => l.kind === "linkedin")?.href.replace("https://www.", "");
-  const caseStudyRecords = new Set(publishedCaseStudies.map((s) => s.supportingRecordId));
+  const caseStudyRecords = new Set(visibleCaseStudies.map((s) => s.supportingRecordId));
   const otherWork = canonicalSupportingProjects.filter(
     (p) => !caseStudyRecords.has(p.id) && p.context !== "training-exercise"
   );
@@ -147,7 +148,7 @@ export function PortfolioPrintView({ generatedOn }: { generatedOn: string }) {
         <div>
           <h2 className={h2}>Case studies in this document</h2>
           <ul className="list-disc space-y-1 pl-4 text-sm">
-            {publishedCaseStudies.map((s) => (
+            {visibleCaseStudies.map((s) => (
               <li key={s.slug}>
                 <span className="font-semibold">{s.title.en}</span>: {s.status.en.toLowerCase()}
               </li>
@@ -156,7 +157,7 @@ export function PortfolioPrintView({ generatedOn }: { generatedOn: string }) {
         </div>
       </section>
 
-      {publishedCaseStudies.map((study) => <CaseStudyPages key={study.slug} study={study} />)}
+      {visibleCaseStudies.map((study) => <CaseStudyPages key={study.slug} study={study} />)}
 
       <section className={`${pageBreak} space-y-3`}>
         <h2 className={h2}>Other work</h2>

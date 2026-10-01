@@ -8,7 +8,7 @@ import { WorkImage } from "@/components/ui/work-image";
 import { workMedia } from "@/data/work-media";
 import { canonicalSupportingProjects } from "@/data/content";
 import { getLocalizedText } from "@/lib/content/format";
-import { publishedCaseStudies } from "@/data/case-studies";
+import { getVisibleCaseStudies } from "@/data/case-studies";
 import { FeaturedCaseStudy } from "@/components/case-study/featured-case-study";
 import type { SupportingProjectRecord } from "@/lib/content/schemas";
 import { getWorkContextLabel } from "@/i18n/career-labels";
@@ -19,6 +19,7 @@ export interface ProjectsIndexViewProps {
 
 export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
   const dict = getDictionary(locale);
+  const visibleCaseStudies = getVisibleCaseStudies();
   const isKo = locale === "ko";
   const currentWork = canonicalSupportingProjects.filter(
     (item) => item.context === "current-work"
@@ -26,7 +27,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
   const professionalEvidence = canonicalSupportingProjects.filter(
     (item) => item.context === "professional"
   );
-  const replacedByCaseStudy = new Set(publishedCaseStudies.map((study) => study.supportingRecordId));
+  const replacedByCaseStudy = new Set(visibleCaseStudies.map((study) => study.supportingRecordId));
   const projectEvidence = canonicalSupportingProjects.filter(
     (item) => item.context === "self-directed" && !replacedByCaseStudy.has(item.id)
   );
@@ -74,12 +75,12 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
     <Container size="default" className={`space-y-14 pb-16 ${isKo ? "break-keep" : ""}`}>
       <PageIntro title={dict.projects} summary={dict.projectsStatus} />
 
-      {publishedCaseStudies.length > 0 && (
+      {visibleCaseStudies.length > 0 && (
         <section className="space-y-6">
           <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
             {isKo ? "사례 연구" : "Case studies"}
           </h2>
-          {publishedCaseStudies.map((study) => (
+          {visibleCaseStudies.map((study) => (
             <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} showEyebrow={false} />
           ))}
         </section>

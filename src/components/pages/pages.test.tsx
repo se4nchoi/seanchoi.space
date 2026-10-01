@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { ComponentType } from "react";
@@ -66,7 +66,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("RUTA40 Vehicle Control Interface");
       expect(html).toContain("Internal Attendance / HR Product (몰입도)");
       expect(html).not.toContain("Classroom LAN Chat");
-      expect(html).toContain("BambooChat");
+      // Unapproved case studies stay off the production home page
+      expect(html).not.toContain("Read the case study");
       expect(html).not.toContain("Verified Experience Snapshot");
 
       // Current work distinguishes completed and planned scope
@@ -237,13 +238,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(enHtml).not.toContain("<select");
       expect(enHtml).not.toContain("<form");
       expect(enHtml).not.toContain("Example Project");
-      // The only detail links are to published case studies
-      const detailLinks = enHtml.match(/href="\/projects\/[^"]+"/g) ?? [];
-      expect(new Set(detailLinks)).toEqual(
-        new Set(['href="/projects/indy7-digital-twin"', 'href="/projects/bamboochat"'])
-      );
-      // A case study replaces its supporting card instead of duplicating it
-      expect(enHtml.split(">BambooChat<").length - 1).toBe(0);
+      // Production: unapproved case studies are hidden, so no detail links
+      // appear and BambooChat stays a regular card.
+      expect(enHtml.match(/href="\/projects\/[^"]+"/g) ?? []).toEqual([]);
+      expect(enHtml).toContain(">BambooChat<");
 
       const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
       expect(koHtml).toContain("프로젝트");
@@ -437,8 +435,11 @@ describe("CaseStudyView", () => {
 
 describe("PortfolioPrintView", () => {
   it("renders the private PDF source with case studies and only approved contact data", async () => {
+    // The print page exists only on the preview channel
+    vi.stubEnv("VERCEL_ENV", "preview");
     const { PortfolioPrintView } = await import("./portfolio-print-view");
     const html = renderToStaticMarkup(<PortfolioPrintView generatedOn="2026-10-01" />);
+    vi.unstubAllEnvs();
     expect(html).toContain("se4n.choi@gmail.com");
     expect(html).toContain("South Korea");
     expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
@@ -450,6 +451,24 @@ describe("PortfolioPrintView", () => {
   });
 });
 
+describe("preview channel (dev.seanchoi.space)", () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("shows unapproved case studies with an in-review badge and replaces their cards", () => {
+    vi.stubEnv("VERCEL_ENV", "preview");
+    const enHtml = renderToStaticMarkup(<ProjectsIndexView locale="en" />);
+    const detailLinks = enHtml.match(/href="\/projects\/[^"]+"/g) ?? [];
+    expect(new Set(detailLinks)).toEqual(
+      new Set(['href="/projects/indy7-digital-twin"', 'href="/projects/bamboochat"'])
+    );
+    expect(enHtml).toContain("In review");
+    expect(enHtml.split(">BambooChat<").length - 1).toBe(0);
+    // The section heading is not repeated as each card's eyebrow
+    const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
+    expect(koHtml.split("사례 연구</").length - 1).toBe(1);
+  });
+});
+
 describe("work labels are consistent across pages", () => {
   it("uses the same Korean label for the same record on Home and Projects", () => {
     const home = renderToStaticMarkup(<HomePageView locale="ko" />);
@@ -458,7 +477,5 @@ describe("work labels are consistent across pages", () => {
       expect(html).toContain("실무 프로젝트");
       expect(html).toContain("개인 프로젝트");
     }
-    // The case-study section heading is not repeated on each card
-    expect(projects.split("사례 연구</").length - 1).toBe(1);
   });
 });

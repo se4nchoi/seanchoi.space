@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
   },
+  // Preview deployments (dev.seanchoi.space) must never be indexed.
+  async headers() {
+    if (process.env.VERCEL_ENV !== "preview") return [];
+    return [{ source: "/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
+  },
   // v1 served its work history at /work; keep old links working.
   async redirects() {
     return [
