@@ -9,6 +9,8 @@ import { WorkImage } from "@/components/ui/work-image";
 import { workMedia } from "@/data/work-media";
 import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
 import { getLocalizedText } from "@/lib/content/format";
+import { publishedCaseStudies } from "@/data/case-studies";
+import { FeaturedCaseStudy } from "@/components/case-study/featured-case-study";
 import { localizePathname } from "@/i18n/routing";
 
 export interface HomePageViewProps { locale: AppLocale }
@@ -77,6 +79,9 @@ export function HomePageView({ locale }: HomePageViewProps) {
           <h2 className="text-2xl font-semibold tracking-tight">{dict.careerUI.selectedEngineeringEvidence}</h2>
           <Link href={localizePathname("/projects", locale)} className={textLink}>{dict.careerUI.viewProjects} <span aria-hidden="true" className="ml-2">→</span></Link>
         </div>
+        {publishedCaseStudies.map((study) => (
+          <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} />
+        ))}
         <div className="grid gap-6 md:grid-cols-2">{selected.map((item) => renderWork(item, true))}</div>
       </section>
 

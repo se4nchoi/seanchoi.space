@@ -1,5 +1,6 @@
 import type { AppLocale } from "./config";
 import { ARTICLE_ROUTE_PAIRS } from "@/lib/content/article-routes";
+import { publishedCaseStudies } from "@/data/case-studies";
 
 export interface RoutePair {
   en: string;
@@ -11,6 +12,10 @@ export const ROUTE_PAIRS: RoutePair[] = [
   { en: "/experience", ko: "/ko/experience" },
   { en: "/projects", ko: "/ko/projects" },
   { en: "/projects/example-project", ko: "/ko/projects/example-project" },
+  ...publishedCaseStudies.map((study) => ({
+    en: `/projects/${study.slug}`,
+    ko: `/ko/projects/${study.slug}`,
+  })),
   { en: "/blog", ko: "/ko/blog" },
   ...ARTICLE_ROUTE_PAIRS.map((p) => ({
     en: `/blog/${p.enSlug}`,

@@ -236,7 +236,9 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(enHtml).not.toContain("<select");
       expect(enHtml).not.toContain("<form");
       expect(enHtml).not.toContain("Example Project");
-      expect(enHtml).not.toContain('href="/projects/');
+      // The only detail links are to published case studies
+      const detailLinks = enHtml.match(/href="\/projects\/[^"]+"/g) ?? [];
+      expect(new Set(detailLinks)).toEqual(new Set(['href="/projects/indy7-digital-twin"']));
 
       const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
       expect(koHtml).toContain("프로젝트");
@@ -404,5 +406,26 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).not.toContain("Example Project");
       expect(html).not.toContain("Synthetic preview");
     });
+  });
+});
+
+describe("CaseStudyView", () => {
+  it("renders the digital twin case study with one h1, limits, and a source link", async () => {
+    const { CaseStudyView } = await import("./case-study-view");
+    const { indy7DigitalTwin } = await import("@/data/case-studies");
+    const html = renderToStaticMarkup(<CaseStudyView study={indy7DigitalTwin} locale="en" />);
+    expect((html.match(/<h1/g) || []).length).toBe(1);
+    expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
+    expect(html).toContain("What this doesn&#x27;t show yet");
+    expect(html).toContain("https://github.com/se4nchoi/neuromeka-digitaltwin");
+    expect(html).toContain("<svg");
+  });
+
+  it("falls back to English with a notice while the Korean copy is unreviewed", async () => {
+    const { CaseStudyView } = await import("./case-study-view");
+    const { indy7DigitalTwin } = await import("@/data/case-studies");
+    const html = renderToStaticMarkup(<CaseStudyView study={indy7DigitalTwin} locale="ko" />);
+    expect(html).toContain("한국어 번역은 검토 중");
+    expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
   });
 });

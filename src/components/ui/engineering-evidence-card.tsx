@@ -114,7 +114,7 @@ export function EngineeringEvidenceCard({
         </p>
       )}
       {repositoryHref && (
-        <p className="mt-3 text-[length:var(--text-small)]">
+        <p className="mt-3 text-small">
           <ExternalLink href={repositoryHref} newTabLabel={newTabLabel}>
             {repositoryLabel}
           </ExternalLink>

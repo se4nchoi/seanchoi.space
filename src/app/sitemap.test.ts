@@ -18,8 +18,14 @@ describe("App Router Sitemap", () => {
     expect(urls).toContain(`${SITE_URL}/blog`);
     expect(urls).toContain(`${SITE_URL}/ko/blog`);
 
+    expect(urls).toContain(`${SITE_URL}/projects/indy7-digital-twin`);
+    expect(urls).toContain(`${SITE_URL}/ko/projects/indy7-digital-twin`);
+
     for (const entry of entries) {
-      expect((entry.lastModified as Date).toISOString()).toBe("2026-08-29T00:00:00.000Z");
+      const expected = entry.url.includes("/projects/")
+        ? "2026-10-01T00:00:00.000Z"
+        : "2026-08-29T00:00:00.000Z";
+      expect((entry.lastModified as Date).toISOString()).toBe(expected);
     }
   });
 
@@ -40,8 +46,11 @@ describe("App Router Sitemap", () => {
       expect(urls).not.toContain(`${SITE_URL}/ko/blog/${slug}`);
     }
 
-    // At launch, only the 8 core routes exist
-    expect(entries).toHaveLength(8);
+    // No synthetic project fixture
+    expect(urls).not.toContain(`${SITE_URL}/projects/example-project`);
+
+    // 8 core routes plus the EN/KO pair of each published case study
+    expect(entries).toHaveLength(10);
   });
 
   it("fails closed when blog pipeline validation throws (does not swallow error)", () => {

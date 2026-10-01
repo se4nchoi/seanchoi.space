@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { AppLocale } from "@/i18n/config";
 import { ProjectDetailView } from "@/components/pages/project-detail-view";
+import { CaseStudyView } from "@/components/pages/case-study-view";
+import { getCaseStudy, publishedCaseStudies } from "@/data/case-studies";
 import {
   skeletonProjectEn,
   skeletonProjectKo,
@@ -14,11 +16,11 @@ interface SlugRouteProps {
   params: Promise<{ slug: string }>;
 }
 
-// Only the synthetic preview project has a detail page until WP7 case
-// studies exist; production builds emit no project-detail routes.
+// Published case studies always have detail pages; the synthetic preview
+// project is added only when skeleton preview is enabled.
 const PREVIEW_PROJECT_SLUG = "example-project";
 
-function isRenderableSlug(slug: string): boolean {
+function isPreviewSlug(slug: string): boolean {
   return isSkeletonPreviewEnabled() && slug === PREVIEW_PROJECT_SLUG;
 }
 
@@ -27,17 +29,26 @@ function isRenderableSlug(slug: string): boolean {
  * route file re-exports these so both stay behaviorally identical.
  */
 export function createProjectDetailRoute(locale: AppLocale) {
-  // WP7 replaces this with lookups into verified case-study records.
   const project = locale === "ko" ? skeletonProjectKo : skeletonProjectEn;
   const narrative = skeletonProjectNarrative[locale];
 
   function generateStaticParams() {
-    return isSkeletonPreviewEnabled() ? [{ slug: PREVIEW_PROJECT_SLUG }] : [];
+    const slugs = publishedCaseStudies.map((study) => ({ slug: study.slug }));
+    return isSkeletonPreviewEnabled() ? [...slugs, { slug: PREVIEW_PROJECT_SLUG }] : slugs;
   }
 
   async function generateMetadata({ params }: SlugRouteProps): Promise<Metadata> {
     const { slug } = await params;
-    if (!isRenderableSlug(slug)) {
+    const study = getCaseStudy(slug);
+    if (study) {
+      return createPageMetadata({
+        locale,
+        pathname: `/projects/${slug}`,
+        title: study.title.en,
+        description: study.summary.en,
+      });
+    }
+    if (!isPreviewSlug(slug)) {
       return {};
     }
 
@@ -51,7 +62,11 @@ export function createProjectDetailRoute(locale: AppLocale) {
 
   async function ProjectDetailPage({ params }: SlugRouteProps) {
     const { slug } = await params;
-    if (!isRenderableSlug(slug)) {
+    const study = getCaseStudy(slug);
+    if (study) {
+      return <CaseStudyView study={study} locale={locale} />;
+    }
+    if (!isPreviewSlug(slug)) {
       notFound();
     }
     return <ProjectDetailView locale={locale} project={project} narrative={narrative} />;
