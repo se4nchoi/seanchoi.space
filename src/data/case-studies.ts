@@ -47,6 +47,8 @@ export interface CaseStudy {
 }
 
 const draft = (en: string, ko: string): LocalizedText => ({ en, ko, koReview: "draft" });
+/** Korean approved by Sean in review. */
+const reviewed = (en: string, ko: string): LocalizedText => ({ en, ko, koReview: "reviewed" });
 
 // Facts below come from the neuromeka-digitaltwin repository (README, docs/, tests)
 // and a simulation walkthrough recorded on 2026-10-01. Nothing here claims hardware validation.
@@ -54,31 +56,31 @@ export const indy7DigitalTwin: CaseStudy = {
   slug: "indy7-digital-twin",
   diagram: "indy7-twin",
   approved: false,
-  title: draft("Indy7 Palletizing Cell Digital Twin", "Indy7 팔레타이징 셀 디지털 트윈"),
+  title: reviewed("Indy7 Palletizing Cell Digital Twin", "뉴로메카 Indy7 디지털 트윈"),
   summary: draft(
     "A simulation-first control and evidence application for a Neuromeka Indy7 palletizing cell. A PLC signal starts a job, the robot moves in 3D, and every run, fault, and recovery is recorded.",
     "Neuromeka Indy7 팔레타이징 셀을 시뮬레이션으로 먼저 구현한 제어·이력 관리 애플리케이션입니다. PLC 신호로 작업을 시작하면 로봇이 3D 화면에서 움직이고, 실행·고장·복구 이력이 모두 남습니다."
   ),
-  context: draft(
+  context: reviewed(
     "Personal project, alongside the Physical AI & Smart Factory Training Program",
-    "개인 프로젝트 · AI 융합 DX 마스터클래스 수강 중 진행"
+    "개인 프로젝트 (AI 융합 DX 마스터클래스)"
   ),
-  period: draft("Sep 2026 – present", "2026.09 – 현재"),
-  status: draft(
+  period: reviewed("Sep 2026 – present", "2026.09 – 현재"),
+  status: reviewed(
     "Runs end to end in simulation; not yet validated on hardware",
-    "시뮬레이션에서 전 과정 동작 확인 · 실장비 검증 전"
+    "시뮬레이션에서 전 동작 확인 (실장비 검증 추후 예정)"
   ),
   stack: ["Python", "FastAPI", "WebSocket", "SQLite", "Three.js", "IndyDCP3", "Modbus TCP"],
   repositoryHref: "https://github.com/se4nchoi/neuromeka-digitaltwin",
-  howBuilt: draft(
+  howBuilt: reviewed(
     "My project: I chose the problem, set the scope and system boundaries, and checked the behavior in simulation. An AI coding agent wrote much of the implementation under my direction.",
-    "직접 기획한 프로젝트입니다. 해결할 문제와 범위, 시스템 경계를 정하고 시뮬레이션에서 동작을 확인했습니다. 구현의 상당 부분은 AI 코딩 에이전트에게 맡겨 진행했습니다."
+    "해결할 문제와 범위, 시스템 경계를 정하고 시뮬레이션에서 동작을 확인했습니다. 직접 기획 후 구현은 AI agent에게 맡겨 진행했습니다."
   ),
   hero: {
     src: "/work/digital-twin/twin-running.png",
     width: 1600,
     height: 1000,
-    alt: draft(
+    alt: reviewed(
       "Digital twin operator screen: joint angles and tool pose on the left, a 3D Indy7 robot carrying a part in the center, pallet slots and cycle status on the right.",
       "디지털 트윈 운영 화면. 왼쪽은 관절 각도와 툴 위치, 가운데는 부품을 옮기는 Indy7 3D 모델, 오른쪽은 팔레트 슬롯과 사이클 상태."
     ),
