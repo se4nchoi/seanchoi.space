@@ -1,3 +1,4 @@
+import { getAvailablePublicAssets } from "./assets";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { loadAllMdxArticles } from "./pipeline";
 
@@ -23,7 +24,7 @@ describe("loadAllMdxArticles caching", () => {
   it("bypasses the cache when explicit assets are supplied", () => {
     vi.stubEnv("NODE_ENV", "production");
     const cached = loadAllMdxArticles({ now: "2026-09-04" });
-    const assets = new Set<string>();
+    const assets = new Set(getAvailablePublicAssets());
     expect(loadAllMdxArticles({ now: "2026-09-04", availableAssets: assets })).not.toBe(cached);
   });
 });

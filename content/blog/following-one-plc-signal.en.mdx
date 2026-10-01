@@ -1,0 +1,69 @@
+---
+id: "following-one-plc-signal-en"
+slug: "following-one-plc-signal"
+locale: "en"
+publicationStatus: "draft"
+claimState: "pending"
+syntheticPlaceholder: false
+title: "Following one PLC signal through a digital twin"
+summary: "A start request on DI8 either moves the robot or doesn't. What I learned from making the second case as easy to read as the first."
+publishedOn: "2026-10-01"
+topics:
+  - "plc"
+  - "digital-twin"
+  - "systems-integration"
+source: "original"
+assetPaths:
+  - "/work/digital-twin/signal-blocked.png"
+  - "/work/digital-twin/signal-accepted.png"
+  - "/work/digital-twin/fault-diagnostics.png"
+---
+
+In the palletizing exercise at my training program, a Mitsubishi PLC, a Neuromeka Indy7 robot, and some Python all have to agree before anything moves. When they don't, the robot just sits there. The cause could be a ladder rule, a parameter, a cable, or the code, and my classmates and I could spend tens of minutes finding which one.
+
+So when I started building a digital twin of the cell, the question I cared about wasn't "can it animate the robot?" It was: **when a start request goes nowhere, can you see where it stopped?**
+
+Everything below ran in simulation. The twin has a hardware mode, but I haven't validated it on the real cell yet.
+
+## The signal contract
+
+The application and the PLC agree on a small set of named bits:
+
+| Direction | Tag | Address | Meaning |
+| --- | --- | --- | --- |
+| PLC → app | `part_present` | DI 3 | A part is waiting at the feeder |
+| PLC → app | `start_palletize` | DI 8 | Rising edge requests a palletizing job |
+| PLC → app | `stop_request` | DI 15 | Requests an application stop |
+| app → PLC | `gripper_close` | coil 1 | Asks for the gripper valve to close |
+
+Naming the bits matters more than it looks. "DI8 is on" means nothing to a newcomer; "start_palletize had a rising edge" is a sentence you can reason about.
+
+## Case 1: the request that goes nowhere
+
+The pallet was full and the part sensor was off. I pulsed DI8 anyway. Nothing moved, and that is correct. The useful part is that the screen says *why*:
+
+<Figure src="/work/digital-twin/signal-blocked.png" width={1340} height={560} alt="Signal panel: step 1 says the part sensor is off; step 2 shows the palletize command rejected." caption="Blocked: DI3 is off, so the DI8 request is rejected." />
+
+The panel walks the chain left to right (part ready, command accepted, motion, evidence) and stops at the first condition that isn't met. A silent "nothing happened" becomes "step 1 failed: DI3 is off."
+
+## Case 2: the same request, accepted
+
+With DI3 on, the same pulse goes through. The PLC input doesn't get its own shortcut into the motion code. It goes through the same command service the operator screen uses, so the same checks apply. A second start while the cell is running is rejected with "Cell is busy; stop the active operation first," whether it comes from a button or a PLC bit.
+
+<Figure src="/work/digital-twin/signal-accepted.png" width={1340} height={560} alt="Signal panel with part ready, command accepted, robot in the extract phase, and a run recording in progress." caption="Accepted: PLC input → command → motion → run record." />
+
+## Case 3: a fault, and a recovery that refuses to happen
+
+I injected a motion timeout while the robot was pulling a part from the feeder. The cell latched FAULTED and named the step it interrupted.
+
+<Figure src="/work/digital-twin/fault-diagnostics.png" width={1340} height={400} alt="Diagnostics panel showing a motion timeout during the feeder pick extract move." caption="The fault message names the interrupted step." />
+
+Then I pressed Recover, and it was rejected: "Reconcile the held workpiece before recovery." The software thought a part might still be in the gripper, and it wouldn't pretend otherwise. Only after the inventory was reset did the cell return to IDLE. Recovery itself never moves the robot; starting again is a separate, deliberate action.
+
+## What I'm taking from it
+
+- **Show the first unmet condition, not just the final state.** "IDLE" after a start request is a riddle. "DI3 off" is an answer.
+- **One command path.** If PLC inputs and UI buttons go through different code, they'll eventually disagree about when the cell is busy.
+- **Make recovery prove the world is consistent.** A fault while holding a part is exactly when an automatic resume would do damage.
+
+None of this is proven on hardware yet. Next, I want to run the same three cases on the classroom cell with its real addresses, and turn "start requested but the robot didn't move" into a guided checklist.

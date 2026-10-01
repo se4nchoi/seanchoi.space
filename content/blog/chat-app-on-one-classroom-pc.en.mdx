@@ -1,0 +1,50 @@
+---
+id: "chat-app-on-one-classroom-pc-en"
+slug: "chat-app-on-one-classroom-pc"
+locale: "en"
+publicationStatus: "draft"
+claimState: "pending"
+syntheticPlaceholder: false
+title: "Running a chat app for my class on one classroom PC"
+summary: "BambooChat is used daily by the 22 people in my training program. Four decisions that kept it small, honest, and still running."
+publishedOn: "2026-10-01"
+topics:
+  - "fastapi"
+  - "websocket"
+  - "self-hosting"
+source: "original"
+assetPaths:
+  - "/work/bamboochat/daily-quiz.png"
+---
+
+In August I started BambooChat, a chat and study app for my training-program class. All 22 of us use it every day for channels, direct messages, sharing course files, a daily quiz, and games. It runs on one classroom PC over the local network.
+
+I built much of it with an AI coding agent, and one classmate contributed the first chess implementation through a pull request. That makes this less a story about code volume and more about the decisions that kept a small, real system working. Here are four.
+
+## 1. LAN first, internet optional
+
+The core features (accounts, chat, files, quizzes) need nothing but the classroom network. The one feature that reaches outside is optional: drafting quiz questions with Gemini from a PDF or text someone selects. The README says exactly what gets sent.
+
+A classroom network is the deployment target I actually had. Designing for it, instead of for an imagined cloud deployment, kept it to one machine and one launch command.
+
+## 2. Say what the security boundary is
+
+BambooChat serves plain HTTP on a trusted network. Rather than hide that, the app shows a banner at the top of every screen telling people not to share passwords or sensitive information, and the README rules out exposing it through port forwarding.
+
+Inside that boundary, it still does the basics properly: the admin password and the class enrollment code are stored only as Argon2id hashes, sessions expire after 12 hours, and login, message, and upload rates are limited. Once everyone has joined, the admin can close registration.
+
+## 3. Keep the data outside the code
+
+The SQLite database and uploaded files live in a separate data folder, not in the repository. Updating the code or restarting the server never touches the class history, and schema migrations run when the server starts. For an app that keeps changing while the class depends on it, that separation is what makes updates safe.
+
+## 4. Accept answers the way people actually write them
+
+The daily quiz includes ladder-logic questions. For a self-holding circuit, someone might answer "Y0", "Y00", or "OR Y0", and they're all right. The quiz accepts equivalent answers instead of one exact string, so people practice the concept rather than guess the formatting.
+
+<Figure src="/work/bamboochat/daily-quiz.png" width={1040} height={780} alt="Quiz center showing a PLC question about a self-holding circuit, with quick-input buttons for ladder symbols." caption="A ladder-input question in the daily quiz (demo instance)." />
+
+## What I'd do differently
+
+The games grew faster than the learning features. The class uses them, and a classmate's chess pull request turned that part into a small community effort, but games pulled attention from the things that help a class learn. I'm now refocusing on that, and prototyping a central hub that could serve several classrooms with instructor and student roles.
+
+The other limit is physical: the whole thing depends on one classroom PC staying on. Moving off that PC is the next infrastructure step, once I know what the academy's network and equipment allow.

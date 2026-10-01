@@ -255,10 +255,8 @@ describe("Production Content Publication Guard", () => {
         article.record.publicationStatus,
         `Article ${article.record.id} must remain draft at launch`
       ).toBe("draft");
-      expect(
-        article.record.syntheticPlaceholder,
-        `Article ${article.record.id} must be synthetic placeholder at launch`
-      ).toBe(true);
+      // Real drafts awaiting Sean's review may exist; they stay unpublished
+      // through the draft/pending checks above and below.
       expect(
         article.record.claimState,
         `Article ${article.record.id} must be pending at launch`
