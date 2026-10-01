@@ -26,8 +26,9 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
   const professionalEvidence = canonicalSupportingProjects.filter(
     (item) => item.context === "professional"
   );
+  const replacedByCaseStudy = new Set(publishedCaseStudies.map((study) => study.supportingRecordId));
   const projectEvidence = canonicalSupportingProjects.filter(
-    (item) => item.context === "self-directed"
+    (item) => item.context === "self-directed" && !replacedByCaseStudy.has(item.id)
   );
   const trainingEvidence = canonicalSupportingProjects.filter(
     (item) => item.context === "training-exercise"

@@ -133,7 +133,7 @@ export const canonicalContentRegistry: ContentRegistry = {
       claimState: "verified",
       syntheticPlaceholder: false,
       reviewedOn: "2026-08-31",
-      label: "Self-directed Classroom LAN Chat application (FastAPI, WebSocket, SQLite)",
+      label: "Self-directed BambooChat classroom chat and learning application (FastAPI, WebSocket, SQLite)",
       level: "project",
       sourceKind: "direct-confirmation",
       publiclyInspectable: false,
@@ -781,19 +781,19 @@ export const canonicalContentRegistry: ContentRegistry = {
       editorialStatus: "approved",
       evidenceLevel: "project",
       title: {
-        en: "Classroom LAN Chat",
-        ko: "Classroom LAN Chat",
+        en: "BambooChat",
+        ko: "BambooChat",
         koReview: "reviewed",
       },
       summary: {
-        en: "A LAN chat app built with FastAPI, WebSocket, and SQLite, used by all 22 people in my class.",
-        ko: "FastAPI, WebSocket, SQLite 기반 LAN 채팅 애플리케이션으로, 동료 수강생 22명이 사용했습니다.",
-        koReview: "reviewed",
+        en: "A chat and study app for my class, built with FastAPI, WebSocket, and SQLite and used daily by all 22 of us.",
+        // KO draft awaiting Sean's review: "FastAPI, WebSocket, SQLite로 만든 우리 반 채팅·학습 앱으로, 동기 22명이 매일 사용합니다."
+        koReview: "missing",
       },
       contributionBoundary: {
-        en: "I started and built this on my own, outside the curriculum, and ran it for my class.",
-        ko: "정규 커리큘럼 밖에서 직접 기획·개발해 우리 반에서 운영했습니다.",
-        koReview: "reviewed",
+        en: "I started it outside the curriculum and run it for my class. A classmate contributed the first chess implementation through a pull request.",
+        // KO draft awaiting Sean's review: "정규 커리큘럼 밖에서 시작해 우리 반을 위해 운영합니다. 체스는 한 동기가 풀 리퀘스트로 처음 기여했습니다."
+        koReview: "missing",
       },
       completedScope: [
         {

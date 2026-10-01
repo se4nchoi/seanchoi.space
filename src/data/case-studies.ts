@@ -16,6 +16,10 @@ export interface CaseStudyStep {
 
 export interface CaseStudy {
   slug: string;
+  /** Which architecture diagram component the case study renders. */
+  diagram: "indy7-twin" | "bamboochat";
+  /** Supporting-project card this case study replaces on the projects index. */
+  supportingRecordId?: string;
   /** Approval gate: only `true` studies are routed, listed, and built. */
   published: boolean;
   /** Korean copy renders only when every field is marked reviewed. */
@@ -44,6 +48,7 @@ const draft = (en: string, ko: string): LocalizedText => ({ en, ko, koReview: "d
 // and a simulation walkthrough recorded on 2026-10-01. Nothing here claims hardware validation.
 export const indy7DigitalTwin: CaseStudy = {
   slug: "indy7-digital-twin",
+  diagram: "indy7-twin",
   published: true,
   title: draft("Indy7 Palletizing Cell Digital Twin", "Indy7 팔레타이징 셀 디지털 트윈"),
   summary: draft(
@@ -240,7 +245,166 @@ export const indy7DigitalTwin: CaseStudy = {
   ],
 };
 
-export const caseStudies: CaseStudy[] = [indy7DigitalTwin];
+// Facts from the intel7-chat repository (README, docs, 273 passing tests on 2026-10-01)
+// and Sean's confirmation on 2026-10-01: in daily use by the class for chat, DMs, files,
+// quizzes, and games; chess began as a classmate's pull request. Screenshots use a
+// throwaway instance with fictional users; the real chat history is never published.
+export const bambooChat: CaseStudy = {
+  slug: "bamboochat",
+  diagram: "bamboochat",
+  supportingRecordId: "project-lan-chat",
+  published: true,
+  title: draft("BambooChat: a chat and study app for my class", "BambooChat: 우리 반을 위한 채팅·학습 앱"),
+  summary: draft(
+    "A self-hosted chat and learning app my training-program class uses every day: channels, direct messages, file sharing, and daily quizzes on PLC and automation topics, running on a classroom PC over the local network.",
+    "교육 과정 동기들이 매일 쓰는 자체 호스팅 채팅·학습 앱입니다. 채널, 1:1 대화, 파일 공유, PLC·자동화 데일리 퀴즈를 교실 PC 한 대에서 로컬 네트워크로 운영합니다."
+  ),
+  context: draft(
+    "Personal project, built outside the curriculum during the Physical AI & Smart Factory Training Program",
+    "개인 프로젝트 (AI 융합 DX 마스터클래스 기간 중 정규 커리큘럼 외)"
+  ),
+  period: draft("Aug 2026 – present", "2026.08 – 진행 중"),
+  status: draft("In daily use by my class of 22", "동기 22명이 매일 사용 중"),
+  stack: ["Python", "FastAPI", "WebSocket", "SQLite", "Jinja2", "JavaScript", "Gemini API"],
+  repositoryHref: "https://github.com/se4nchoi/intel7-chat",
+  howBuilt: draft(
+    "I started it, decide what it does, and run it for the class. An AI coding agent wrote much of the code under my direction. A classmate contributed the first chess implementation through a pull request, which I reworked to fit the app.",
+    "제가 시작했고, 기능 방향을 정하고, 반을 위해 운영합니다. 코드의 상당 부분은 제 지시에 따라 AI 코딩 에이전트가 작성했습니다. 체스는 한 동기가 풀 리퀘스트로 처음 기여했고, 제가 앱 구조에 맞게 다시 다듬었습니다."
+  ),
+  hero: {
+    src: "/work/bamboochat/channel-plc.png",
+    width: 1440,
+    height: 900,
+    alt: draft(
+      "BambooChat in a PLC practice channel: one student asks why output Y0 turns off when X0 is released, and another answers to add Y0 in parallel as a self-holding contact.",
+      "PLC 실습 채널의 BambooChat 화면: 한 학생이 X0를 떼면 Y0가 꺼지는 이유를 묻고, 다른 학생이 Y0 a접점을 병렬로 넣으라고 답함."
+    ),
+    caption: draft(
+      "Demo instance with fictional classmates. The real class history stays private.",
+      "가상의 동기들로 만든 데모 화면입니다. 실제 대화 기록은 공개하지 않습니다."
+    ),
+  },
+  problem: [
+    draft(
+      "My class of 22 needed one place for announcements, questions, course files, and practice during the six-month program.",
+      "22명의 우리 반에는 6개월 과정 동안 공지, 질문, 수업 자료, 복습을 한곳에서 할 수 있는 공간이 필요했습니다."
+    ),
+    draft(
+      "I built it to run on a single classroom PC, with its core features working over the local network without internet access.",
+      "교실 PC 한 대에서 돌아가고, 핵심 기능은 인터넷 없이 로컬 네트워크만으로 동작하도록 만들었습니다."
+    ),
+  ],
+  built: [
+    draft(
+      "Accounts with Argon2id-hashed passwords, a class enrollment code the admin can close once everyone has joined, 12-hour sessions, and rate-limited login.",
+      "Argon2id로 해시한 비밀번호 계정, 모두 가입한 뒤 관리자가 닫을 수 있는 반 가입 코드, 12시간 세션, 로그인 횟수 제한."
+    ),
+    draft(
+      "Real-time channels and direct messages over WebSocket, with mentions, replies, Markdown, pins, search, and read state that persists across sessions.",
+      "WebSocket 기반 실시간 채널과 1:1 대화. 멘션, 답장, Markdown, 고정 메시지, 검색, 세션이 바뀌어도 유지되는 읽음 상태."
+    ),
+    draft(
+      "File sharing with account-based permissions and per-user and total storage limits.",
+      "계정 기반 권한과 사용자별·전체 용량 제한이 있는 파일 공유."
+    ),
+    draft(
+      "Daily quizzes on PLC, automation, and electrical topics, with streaks and a leaderboard. Anyone can build a question set, and Gemini can draft questions from a PDF or text.",
+      "PLC, 자동화설비, 전기 분야 데일리 퀴즈와 연속 기록·순위표. 누구나 문제집을 만들 수 있고, Gemini로 PDF나 텍스트에서 문제 초안을 생성할 수 있습니다."
+    ),
+    draft(
+      "Turn-based games with server-validated moves: chess (started by a classmate), janggi, omok, and othello.",
+      "서버에서 수를 검증하는 턴제 게임: 체스(동기가 시작), 장기, 오목, 오델로."
+    ),
+  ],
+  walkthroughIntro: draft(
+    "How the class uses it. Screens are from a demo instance with fictional users.",
+    "반에서 실제로 쓰는 방식입니다. 화면은 가상의 사용자로 만든 데모입니다."
+  ),
+  walkthrough: [
+    {
+      title: draft("Questions get answered by classmates", "질문에는 동기들이 답합니다"),
+      body: draft(
+        "Each subject gets its own channel. A ladder-logic question in the PLC channel gets an answer from another student, and the thread stays searchable for the next person who hits the same problem.",
+        "과목마다 채널이 있습니다. PLC 채널의 래더 로직 질문에 다른 학생이 답하고, 같은 문제를 겪는 다음 사람이 검색으로 찾을 수 있습니다."
+      ),
+    },
+    {
+      title: draft("Daily practice that counts", "매일 하는 복습"),
+      body: draft(
+        "The daily quiz keeps a streak and a leaderboard. Ladder-input questions accept equivalent answers, so “Y0”, “Y00”, and “OR Y0” are all marked correct for a self-holding contact.",
+        "데일리 퀴즈는 연속 기록과 순위표를 남깁니다. 래더 입력 문제는 같은 뜻의 답을 모두 인정해서, 자기유지 접점 문제에 “Y0”, “Y00”, “OR Y0”가 모두 정답 처리됩니다."
+      ),
+      figure: {
+        src: "/work/bamboochat/daily-quiz.png",
+        width: 1040,
+        height: 780,
+        alt: draft(
+          "Quiz and ranking center showing today's PLC question about a self-holding circuit, with subject categories, a streak counter, and quick-input buttons for ladder symbols.",
+          "자기유지 회로에 관한 오늘의 PLC 문제, 과목 분류, 연속 기록, 래더 기호 빠른 입력 버튼이 있는 퀴즈·랭킹 센터."
+        ),
+        caption: draft("Today's quiz: a ladder-input question on a self-holding circuit.", "오늘의 퀴즈: 자기유지 회로 래더 입력 문제."),
+      },
+    },
+  ],
+  decisions: [
+    draft(
+      "LAN first. It runs on one classroom PC, and the core features need no internet. External AI is opt-in, and the README states exactly what is sent to Gemini.",
+      "LAN 우선. 교실 PC 한 대에서 돌아가고 핵심 기능에는 인터넷이 필요 없습니다. 외부 AI는 선택 사항이며, Gemini로 무엇이 전송되는지 README에 명시했습니다."
+    ),
+    draft(
+      "Honest about its security boundary. It serves plain HTTP on a trusted network, so the app shows a banner telling people not to share sensitive information, and the README rules out exposing it through port forwarding.",
+      "보안 경계를 숨기지 않습니다. 신뢰할 수 있는 네트워크에서 HTTP로 동작하므로, 앱 상단에 민감정보를 공유하지 말라는 안내를 띄우고 README에서 포트 포워딩 노출을 금지합니다."
+    ),
+    draft(
+      "No plain-text secrets. The admin password and enrollment code are stored only as Argon2id hashes, and message, upload, and login rates are limited.",
+      "평문 비밀값을 저장하지 않습니다. 관리자 비밀번호와 가입 코드는 Argon2id 해시로만 저장하고, 메시지·업로드·로그인 빈도를 제한합니다."
+    ),
+    draft(
+      "Data lives outside the code. The SQLite database and uploads sit in a separate data folder, so updates and restarts keep the class history, and schema migrations run on startup.",
+      "데이터는 코드와 분리합니다. SQLite DB와 업로드 파일은 별도 데이터 폴더에 있어 업데이트나 재시작에도 기록이 유지되고, 스키마 마이그레이션은 시작할 때 실행됩니다."
+    ),
+  ],
+  verification: [
+    draft(
+      "273 automated tests pass (run Oct 1, 2026), covering channels, direct messages, identity, and each game engine and manager.",
+      "자동화 테스트 273개 통과 (2026년 10월 1일 실행). 채널, 1:1 대화, 계정, 게임 엔진과 관리 로직을 다룹니다."
+    ),
+    draft(
+      "In daily use by the class since August 2026 for chat, direct messages, file sharing, quizzes, and games.",
+      "2026년 8월부터 반에서 채팅, 1:1 대화, 파일 공유, 퀴즈, 게임에 매일 사용하고 있습니다."
+    ),
+  ],
+  limits: [
+    draft(
+      "It's built for a trusted classroom network over plain HTTP, not for the public internet.",
+      "신뢰할 수 있는 교실 네트워크용 HTTP 서비스이며, 공개 인터넷용이 아닙니다."
+    ),
+    draft(
+      "It depends on one classroom PC staying on; there is no separate hosting yet.",
+      "교실 PC 한 대가 켜져 있어야 동작하며, 아직 별도 호스팅은 없습니다."
+    ),
+    draft(
+      "The games grew faster than the classroom features. I'm now refocusing on what helps the class learn.",
+      "게임 기능이 학습 기능보다 빠르게 늘었습니다. 지금은 수업에 실제로 도움이 되는 기능에 다시 집중하고 있습니다."
+    ),
+    draft(
+      "I don't collect usage analytics, so I don't quote engagement numbers.",
+      "사용 통계를 수집하지 않으므로 참여도 수치는 인용하지 않습니다."
+    ),
+  ],
+  next: [
+    draft(
+      "A central-hub prototype (on the edu/prototype branch) with instructor and student roles per cohort, PostgreSQL, and SFU-based screen sharing for several classrooms. It is not deployed yet.",
+      "여러 교실을 위한 중앙 허브 프로토타입(edu/prototype 브랜치): 반별 강사·학생 권한, PostgreSQL, SFU 기반 화면 공유. 아직 배포 전입니다."
+    ),
+    draft(
+      "Move hosting off a single classroom PC once the academy's network and equipment are confirmed.",
+      "학원 네트워크와 장비가 확인되면 교실 PC 한 대에 의존하지 않는 호스팅으로 옮기기."
+    ),
+  ],
+};
+
+export const caseStudies: CaseStudy[] = [indy7DigitalTwin, bambooChat];
 
 export const publishedCaseStudies = caseStudies.filter((study) => study.published);
 

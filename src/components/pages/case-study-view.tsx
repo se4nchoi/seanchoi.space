@@ -7,6 +7,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { ExternalLink } from "@/components/ui/external-link";
 import { TwinArchitectureDiagram } from "@/components/case-study/twin-architecture-diagram";
+import { BambooChatArchitectureDiagram } from "@/components/case-study/bamboochat-architecture-diagram";
 import type { CaseStudy, CaseStudyFigure } from "@/data/case-studies";
 
 const ui = {
@@ -157,7 +158,11 @@ export function CaseStudyView({ study, locale }: { study: CaseStudy; locale: App
 
         <section className="space-y-6">
           <h2 className={sectionHeading}>{t.architecture}</h2>
-          <TwinArchitectureDiagram locale={contentLocale} />
+          {study.diagram === "indy7-twin" ? (
+            <TwinArchitectureDiagram locale={contentLocale} />
+          ) : (
+            <BambooChatArchitectureDiagram locale={contentLocale} />
+          )}
         </section>
       </div>
 

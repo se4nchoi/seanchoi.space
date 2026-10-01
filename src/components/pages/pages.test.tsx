@@ -66,6 +66,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("RUTA40 Vehicle Control Interface");
       expect(html).toContain("Internal Attendance / HR Product (몰입도)");
       expect(html).not.toContain("Classroom LAN Chat");
+      expect(html).toContain("BambooChat");
       expect(html).not.toContain("Verified Experience Snapshot");
 
       // Current work distinguishes completed and planned scope
@@ -173,7 +174,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Self-directed projects
       expect(html).toContain("Self-Directed Projects");
-      expect(html).toContain("Classroom LAN Chat");
+      expect(html).toContain("BambooChat");
       expect(html).toContain("Classroom Q&amp;A Board");
       expect(html).toContain("In-Class Implementation Exercises");
 
@@ -212,7 +213,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("AI 융합 DX 마스터클래스");
 
       expect(html).toContain("사이드 프로젝트");
-      expect(html).toContain("Classroom LAN Chat");
+      expect(html).toContain("BambooChat");
       expect(html).toContain("수업 내 구현 실습");
 
       expect(html).toContain("2022.09 – 2023.08");
@@ -238,7 +239,11 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(enHtml).not.toContain("Example Project");
       // The only detail links are to published case studies
       const detailLinks = enHtml.match(/href="\/projects\/[^"]+"/g) ?? [];
-      expect(new Set(detailLinks)).toEqual(new Set(['href="/projects/indy7-digital-twin"']));
+      expect(new Set(detailLinks)).toEqual(
+        new Set(['href="/projects/indy7-digital-twin"', 'href="/projects/bamboochat"'])
+      );
+      // A case study replaces its supporting card instead of duplicating it
+      expect(enHtml.split(">BambooChat<").length - 1).toBe(0);
 
       const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
       expect(koHtml).toContain("프로젝트");

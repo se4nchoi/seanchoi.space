@@ -29,4 +29,14 @@ describe("case studies", () => {
     const allEnglish = JSON.stringify(twin);
     expect(allEnglish).not.toMatch(/production-ready|commissioned on|expert/i);
   });
+
+  it("credit the classmate's chess contribution and keep BambooChat screenshots fictional", () => {
+    const bamboo = caseStudies.find((study) => study.slug === "bamboochat");
+    expect(bamboo).toBeDefined();
+    expect(bamboo!.howBuilt.en).toContain("A classmate contributed the first chess implementation");
+    expect(bamboo!.howBuilt.en).toContain("AI coding agent");
+    expect(bamboo!.hero.caption.en).toContain("fictional");
+    expect(bamboo!.walkthroughIntro.en).toContain("fictional");
+    expect(bamboo!.limits.map((item) => item.en).join(" ")).toContain("don't quote engagement numbers");
+  });
 });

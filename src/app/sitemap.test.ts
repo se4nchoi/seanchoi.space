@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import sitemap from "./sitemap";
+import { publishedCaseStudies } from "@/data/case-studies";
 import { SITE_URL } from "@/lib/seo/metadata";
 import { HISTORICAL_BLOG_SLUGS } from "@/lib/content/historical-manifest";
 import * as blogModule from "@/lib/content/blog";
@@ -50,7 +51,7 @@ describe("App Router Sitemap", () => {
     expect(urls).not.toContain(`${SITE_URL}/projects/example-project`);
 
     // 8 core routes plus the EN/KO pair of each published case study
-    expect(entries).toHaveLength(10);
+    expect(entries).toHaveLength(8 + 2 * publishedCaseStudies.length);
   });
 
   it("fails closed when blog pipeline validation throws (does not swallow error)", () => {
