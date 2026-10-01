@@ -787,12 +787,12 @@ export const canonicalContentRegistry: ContentRegistry = {
       },
       summary: {
         en: "A chat and study app for my class, built with FastAPI, WebSocket, and SQLite and used daily by all 22 of us.",
-        // KO draft awaiting Sean's review: "FastAPI, WebSocket, SQLite로 만든 우리 반 채팅·학습 앱으로, 동기 22명이 매일 사용합니다."
+        // KO draft awaiting Sean's review: "FastAPI, WebSocket, SQLite로 만든 우리 반 채팅·학습 앱. 동기 22명이 매일 사용합니다."
         koReview: "missing",
       },
       contributionBoundary: {
         en: "I started it outside the curriculum and run it for my class. A classmate contributed the first chess implementation through a pull request.",
-        // KO draft awaiting Sean's review: "정규 커리큘럼 밖에서 시작해 우리 반을 위해 운영합니다. 체스는 한 동기가 풀 리퀘스트로 처음 기여했습니다."
+        // KO draft awaiting Sean's review: "정규 수업과 별개로 시작해 우리 반을 위해 운영하고 있습니다. 체스는 한 동기가 풀 리퀘스트로 처음 기여했습니다."
         koReview: "missing",
       },
       completedScope: [
