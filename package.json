@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "content:check": "vitest run src/lib/content/production-content.test.ts",
-    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "portfolio:pdf": "node scripts/portfolio-pdf.mjs"
   },
   "engines": {
     "node": "24.x"

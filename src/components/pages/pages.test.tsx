@@ -434,3 +434,18 @@ describe("CaseStudyView", () => {
     expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
   });
 });
+
+describe("PortfolioPrintView", () => {
+  it("renders the private PDF source with case studies and only approved contact data", async () => {
+    const { PortfolioPrintView } = await import("./portfolio-print-view");
+    const html = renderToStaticMarkup(<PortfolioPrintView generatedOn="2026-10-01" />);
+    expect(html).toContain("se4n.choi@gmail.com");
+    expect(html).toContain("South Korea");
+    expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
+    expect(html).toContain("BambooChat");
+    expect(html).toContain("Generated 2026-10-01");
+    // No phone numbers, street addresses, or GPA
+    // (city-level "Daegu" appears legitimately in "Daegu Smart City Dashboard")
+    expect(html).not.toMatch(/\+82|010-\d{3,4}-\d{4}|\bCGPA\b|Daegu, South Korea|-gu\b|-dong\b/);
+  });
+});

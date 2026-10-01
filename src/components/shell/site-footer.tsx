@@ -11,7 +11,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   const dict = getDictionary(locale);
 
   return (
-    <footer className="border-t border-line bg-background py-8 text-xs text-muted">
+    <footer className="border-t border-line bg-background py-8 text-xs text-muted print:hidden">
       <Container size="default">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <span className="font-semibold text-foreground">

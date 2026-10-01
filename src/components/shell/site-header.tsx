@@ -16,7 +16,7 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
   const showBlog = getBlogArticles(locale).length > 0;
 
   return (
-    <header className="border-b border-line bg-background py-2 sm:py-3">
+    <header className="border-b border-line bg-background py-2 sm:py-3 print:hidden">
       <Container size="default">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center justify-between">
