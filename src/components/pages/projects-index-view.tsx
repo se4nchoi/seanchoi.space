@@ -40,6 +40,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
       {items.map((item) => (
         <EngineeringEvidenceCard
           key={item.id}
+          id={item.id}
           title={getLocalizedText(item.title, locale)}
           summary={getLocalizedText(item.summary, locale)}
           role={item.role ? getLocalizedText(item.role, locale) : undefined}

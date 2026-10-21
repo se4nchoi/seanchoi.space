@@ -22,6 +22,8 @@ export interface EngineeringEvidenceCardProps {
   repositoryLabel?: string;
   newTabLabel?: string;
   className?: string;
+  /** Anchor target, e.g. for homepage tiles linking to /projects#id. */
+  id?: string;
 }
 
 export function EngineeringEvidenceCard({
@@ -45,12 +47,14 @@ export function EngineeringEvidenceCard({
   repositoryLabel = "Source code",
   newTabLabel,
   className = "",
+  id,
 }: EngineeringEvidenceCardProps) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
 
   return (
     <article
-      className={`flex h-full min-w-0 flex-col rounded-xl border border-line bg-surface p-5 sm:p-6 ${className}`}
+      id={id}
+      className={`flex h-full min-w-0 scroll-mt-24 flex-col rounded-xl border border-line bg-surface p-5 sm:p-6 ${className}`}
     >
       {media && <div className="mb-5">{media}</div>}
       <div>
