@@ -49,9 +49,11 @@ export interface BlogDictionary {
 
 export interface CareerDictionary {
   homeHeadline: string;
-  homePositioning: string;
   viewExperience: string;
   viewProjects: string;
+  viewWork: string;
+  caseStudyLabel: string;
+  inReview: string;
   verifiedExperience: string;
   experienceSnapshot: string;
   currentTraining: string;
@@ -140,9 +142,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     english: "English",
     korean: "Korean",
     openInNewTab: "opens in a new tab",
-    homeTitle: "Sean Choi",
+    homeTitle: "Sean Choi — Software Developer, Web to PLC and Robot Integration",
     homeStatus:
-      "Building software that connects the web and the physical world.",
+      "An engineer expanding web software skills into Physical AI.",
     experienceStatus:
       "Where I've worked, what I studied, and what I'm learning now.",
     projectsStatus:
@@ -159,11 +161,12 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
     careerUI: {
       homeHeadline:
-        "Building software that connects the web and the physical world.",
-      homePositioning:
-        "My background is in web applications and API integration. I’m now extending that work to PLCs and robots.",
+        "An engineer expanding web software skills into Physical AI.",
       viewExperience: "View experience",
       viewProjects: "View projects",
+      viewWork: "View work",
+      caseStudyLabel: "Case study",
+      inReview: "In review",
       verifiedExperience: "Verified Experience",
       experienceSnapshot: "Verified Experience Snapshot",
       currentTraining: "Current Training & Trajectory",
@@ -275,9 +278,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     english: "영어",
     korean: "한국어",
     openInNewTab: "새 탭에서 열림",
-    homeTitle: "최예현",
+    homeTitle: "최예현 — 웹에서 PLC·로봇 연동까지, 소프트웨어 개발자",
     homeStatus:
-      "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
+      "웹 소프트웨어 역량을 Physical AI로 확장하는 엔지니어입니다.",
     experienceStatus: "일해 온 곳, 공부한 것, 지금 배우고 있는 것입니다.",
     projectsStatus:
       "웹 애플리케이션, 장비 연동, 그리고 그 과정에서 만든 실험들.",
@@ -291,11 +294,12 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       "웹 애플리케이션과 API 연동에서 PLC와 로봇으로 작업을 확장하는 최예현의 포트폴리오입니다.",
     careerUI: {
       homeHeadline:
-        "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
-      homePositioning:
-        "웹 애플리케이션과 API 연동 경험을 바탕으로, 지금은 PLC와 로봇을 연결하는 작업을 하고 있습니다.",
+        "웹 소프트웨어 역량을 Physical AI로 확장하는 엔지니어입니다.",
       viewExperience: "경력 보기",
       viewProjects: "프로젝트 보기",
+      viewWork: "작업 보기",
+      caseStudyLabel: "사례 연구",
+      inReview: "검토 중",
       verifiedExperience: "검증된 실무 경력",
       experienceSnapshot: "주요 경력 요약",
       currentTraining: "현재 교육 및 학습 방향",

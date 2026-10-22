@@ -7,10 +7,13 @@ export function WorkImage({
   media,
   locale,
   portrait = false,
+  eager = false,
 }: {
   media: WorkMedia;
   locale: AppLocale;
   portrait?: boolean;
+  /** Above-the-fold images load immediately. */
+  eager?: boolean;
 }) {
   return (
     <figure>
@@ -25,7 +28,7 @@ export function WorkImage({
           sizes={portrait
             ? "(max-width: 767px) calc(100vw - 48px), (max-width: 1199px) 36vw, 400px"
             : "(max-width: 767px) calc(100vw - 64px), (max-width: 1199px) 45vw, 510px"}
-          loading={portrait ? "eager" : "lazy"}
+          loading={portrait || eager ? "eager" : "lazy"}
           className={portrait
             ? "h-auto max-h-[26rem] w-full object-cover"
             : "h-auto max-h-full w-full object-contain"}

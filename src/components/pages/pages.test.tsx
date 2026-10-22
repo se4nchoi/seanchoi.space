@@ -26,13 +26,12 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("Sean Choi");
-      expect(html).toContain("Building software that connects the web and the physical world.");
-      expect(html).toContain("My background is in web applications and API integration.");
+      expect(html).toContain("An engineer expanding web software skills into Physical AI.");
+      // The intro paragraph was removed; the work grid carries the detail
+      expect(html).not.toContain("My background is in web applications and API integration.");
       expect(html).toContain('href="#selected-work"');
       expect(html).toContain('id="selected-work"');
-      expect(html).toContain("PLC wiring exercise");
-      expect(html).toContain("RUTA40 mobile app screens");
-      expect(html).toContain("몰입도 sign-in screen");
+      expect(html).toContain("Indy7 digital twin signal panel");
       expect(html).toContain("srcSet=");
 
       // No synthetic notice or example content on real home
@@ -61,26 +60,27 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("https://github.com/se4nchoi");
       expect(html).toContain("https://www.linkedin.com/in/se4nchoi/");
 
-      // Selected evidence replaces the résumé-style employment snapshot
+      // Selected work is a grid of tiles; each links to its detail on /projects
       expect(html).toContain("Selected work");
       expect(html).toContain("RUTA40 Vehicle Control Interface");
       expect(html).toContain("Internal Attendance / HR Product (몰입도)");
+      expect(html).toContain("Daegu Smart City Dashboard");
+      expect(html).toContain('href="/projects#evidence-item-ruta40"');
+      expect(html).toContain('href="/projects#evidence-item-hoek-immersion"');
+      expect(html).toContain('href="/projects#evidence-item-smart-city"');
+      expect(html).toContain("Frontend UI &amp; API Integration");
       expect(html).not.toContain("Classroom LAN Chat");
       // Unapproved case studies stay off the production home page
-      expect(html).not.toContain("Read the case study");
+      expect(html).not.toContain("indy7-digital-twin");
+      expect(html).not.toContain("Case study");
       expect(html).not.toContain("Verified Experience Snapshot");
 
-      // Current work distinguishes completed and planned scope
-      expect(html).toContain("Currently Building");
-      expect(html).toContain("ROS2 Industrial Robot Cell Integration");
-      expect(html).toContain("Completed foundation");
-      expect(html).toContain("Planned next");
-      expect(html).toContain("ROS2 control layer");
-
-      // Skills stay on Experience; the homepage is curated around work.
+      // Tiles carry no summaries or plans; those live on the detail views
+      expect(html).not.toContain("Currently Building");
+      expect(html).not.toContain("ROS2 Industrial Robot Cell Integration");
+      expect(html).not.toContain("Planned next");
       expect(html).not.toContain("Capabilities Across System Layers");
-      expect(html).toContain("I built the React UI and its API integration");
-      expect(html).toContain("The embedded team built the door-lock module");
+      expect(html).not.toContain("The embedded team built the door-lock module");
       // Contact & Profiles section
       expect(html).toContain("Contact &amp; Public Profiles");
       expect(html).toContain("Based in South Korea");
@@ -88,14 +88,11 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       // Strict Section Order Verification
       const idxHero = html.indexOf("Sean Choi");
       const idxEvidence = html.indexOf("Selected work");
-      const idxCurrent = html.indexOf("Currently Building");
-
       const idxContact = html.indexOf("Contact &amp; Public Profiles");
 
       expect(idxHero).toBeGreaterThan(-1);
       expect(idxEvidence).toBeGreaterThan(idxHero);
-      expect(idxCurrent).toBeGreaterThan(idxEvidence);
-      expect(idxContact).toBeGreaterThan(idxCurrent);
+      expect(idxContact).toBeGreaterThan(idxEvidence);
     });
 
     it("renders Korean Home hierarchy with verified Korean copy, single h1, and zero English leakages", () => {
@@ -106,7 +103,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("최예현");
       expect(html).not.toContain("주요 엔지니어링 근거");
-      expect(html).toContain("웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.");
+      expect(html).toContain("웹 소프트웨어 역량을 Physical AI로 확장하는 엔지니어입니다.");
       expect(html).toContain('id="selected-work"');
 
       // Action links
@@ -116,13 +113,11 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("프로젝트 보기");
 
       expect(html).toContain("만든 것들");
-      expect(html).toContain("PLC 배선 실습");
-      expect(html).toContain("RUTA40 앱의 시작");
+      expect(html).toContain("Indy7 디지털 트윈 신호 패널");
       expect(html).toContain("RUTA40 차량 제어 인터페이스");
-      expect(html).toContain("현재 만들고 있는 것");
-      expect(html).toContain("ROS2 산업용 로봇 셀 통합");
-      expect(html).toContain("완료한 기반");
-      expect(html).toContain("다음 계획");
+      expect(html).toContain('href="/ko/projects#evidence-item-ruta40"');
+      expect(html).not.toContain("현재 만들고 있는 것");
+      expect(html).not.toContain("다음 계획");
 
       // Skills & contact
       expect(html).not.toContain("시스템 계층별 역량");
@@ -234,6 +229,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(enHtml).toContain("ROS2 Industrial Robot Cell Integration");
       expect(enHtml).toContain("Daegu Smart City Dashboard");
       expect(enHtml).toContain("Planned next");
+      // Homepage tiles link to these anchors
+      for (const id of ["evidence-item-ruta40", "evidence-item-hoek-immersion", "evidence-item-smart-city"]) {
+        expect(enHtml).toContain(`id="${id}"`);
+      }
       expect(enHtml).not.toContain("<input");
       expect(enHtml).not.toContain("<select");
       expect(enHtml).not.toContain("<form");
@@ -467,15 +466,28 @@ describe("preview channel (dev.seanchoi.space)", () => {
     const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
     expect(koHtml.split("사례 연구</").length - 1).toBe(1);
   });
+
+  it("leads the homepage grid with case-study tiles marked in review", () => {
+    vi.stubEnv("VERCEL_ENV", "preview");
+    const html = renderToStaticMarkup(<HomePageView locale="en" />);
+    const idxTwin = html.indexOf('href="/projects/indy7-digital-twin"');
+    const idxChat = html.indexOf('href="/projects/bamboochat"');
+    const idxRuta = html.indexOf('href="/projects#evidence-item-ruta40"');
+    expect(idxTwin).toBeGreaterThan(-1);
+    expect(idxChat).toBeGreaterThan(idxTwin);
+    expect(idxRuta).toBeGreaterThan(idxChat);
+    expect(html.split(">In review<").length - 1).toBe(2);
+  });
 });
 
 describe("work labels are consistent across pages", () => {
   it("uses the same Korean label for the same record on Home and Projects", () => {
     const home = renderToStaticMarkup(<HomePageView locale="ko" />);
     const projects = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
+    // Home shows only professional records; their label must match Projects
     for (const html of [home, projects]) {
       expect(html).toContain("실무 프로젝트");
-      expect(html).toContain("개인 프로젝트");
     }
+    expect(projects).toContain("개인 프로젝트");
   });
 });

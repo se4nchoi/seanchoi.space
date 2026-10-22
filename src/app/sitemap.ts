@@ -44,24 +44,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    {
-      url: `${SITE_URL}/blog`,
-      lastModified: coreLastModified,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/ko/blog`,
-      lastModified: coreLastModified,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
   ];
 
   // Publishable public articles - fail closed if validation fails (no try-catch swallowing)
   const articles = loadAllMdxArticles()
     .map((a) => a.record)
     .filter((a) => isPublishableArticle(a));
+
+  // An empty blog index is a thin page, so it is listed only once an article is public.
+  const blogIndexRoutes: MetadataRoute.Sitemap = articles.length === 0 ? [] : ["", "/ko"].map((prefix) => ({
+    url: `${SITE_URL}${prefix}/blog`,
+    lastModified: coreLastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
 
   const publicArticles: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${SITE_URL}${article.locale === "ko" ? "/ko" : ""}/blog/${article.slug}`,
@@ -80,5 +76,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...coreRoutes, ...caseStudyRoutes, ...publicArticles];
+  return [...coreRoutes, ...blogIndexRoutes, ...caseStudyRoutes, ...publicArticles];
 }

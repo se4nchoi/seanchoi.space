@@ -16,8 +16,9 @@ describe("App Router Sitemap", () => {
     expect(urls).toContain(`${SITE_URL}/ko/experience`);
     expect(urls).toContain(`${SITE_URL}/projects`);
     expect(urls).toContain(`${SITE_URL}/ko/projects`);
-    expect(urls).toContain(`${SITE_URL}/blog`);
-    expect(urls).toContain(`${SITE_URL}/ko/blog`);
+    // No article is public yet, so the empty blog index stays out of the sitemap
+    expect(urls).not.toContain(`${SITE_URL}/blog`);
+    expect(urls).not.toContain(`${SITE_URL}/ko/blog`);
 
     for (const study of caseStudies) {
       for (const url of [`${SITE_URL}/projects/${study.slug}`, `${SITE_URL}/ko/projects/${study.slug}`]) {
@@ -54,9 +55,25 @@ describe("App Router Sitemap", () => {
     // No synthetic project fixture
     expect(urls).not.toContain(`${SITE_URL}/projects/example-project`);
 
-    // 8 core routes plus the EN/KO pair of each published case study
+    // 6 core routes plus the EN/KO pair of each published case study
     // Only approved case studies belong in the production sitemap
-    expect(entries).toHaveLength(8 + 2 * caseStudies.filter((s) => s.approved).length);
+    expect(entries).toHaveLength(6 + 2 * caseStudies.filter((s) => s.approved).length);
+  });
+
+  it("lists the EN/KO blog index once an article is public", () => {
+    const article = { slug: "first-post", locale: "en", publishedOn: "2026-10-20" };
+    const loadSpy = vi
+      .spyOn(blogModule, "loadAllMdxArticles")
+      .mockReturnValueOnce([{ record: article }] as unknown as ReturnType<typeof blogModule.loadAllMdxArticles>);
+    const publishSpy = vi.spyOn(blogModule, "isPublishableArticle").mockReturnValue(true);
+
+    const urls = sitemap().map((e) => e.url);
+    expect(urls).toContain(`${SITE_URL}/blog`);
+    expect(urls).toContain(`${SITE_URL}/ko/blog`);
+    expect(urls).toContain(`${SITE_URL}/blog/first-post`);
+
+    loadSpy.mockRestore();
+    publishSpy.mockRestore();
   });
 
   it("fails closed when blog pipeline validation throws (does not swallow error)", () => {

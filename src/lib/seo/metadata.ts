@@ -3,7 +3,8 @@ import { type AppLocale } from "@/i18n/config";
 import { localizePathname } from "@/i18n/routing";
 import { getDictionary } from "@/i18n/dictionaries";
 
-export const SITE_URL = "https://seanchoi.space";
+/** Production origin; the apex domain redirects here, so canonicals use it directly. */
+export const SITE_URL = "https://www.seanchoi.space";
 
 export interface PageMetadataOptions {
   locale: AppLocale;
