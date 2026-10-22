@@ -144,7 +144,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "opens in a new tab",
     homeTitle: "Sean Choi — Software Developer, Web to PLC and Robot Integration",
     homeStatus:
-      "Expanding into the physical world from web software expertise.",
+      "An engineer expanding web software expertise into Physical AI.",
     experienceStatus:
       "Where I've worked, what I studied, and what I'm learning now.",
     projectsStatus:
@@ -161,7 +161,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
     careerUI: {
       homeHeadline:
-        "Expanding into the physical world from web software expertise.",
+        "An engineer expanding web software expertise into Physical AI.",
       viewExperience: "View experience",
       viewProjects: "View projects",
       viewWork: "View work",

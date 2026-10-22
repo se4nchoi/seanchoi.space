@@ -37,20 +37,6 @@ export const workMedia: Record<string, WorkMedia> = {
       ko: "몰입도 · 사내 근태관리 애플리케이션",
     },
   },
-  // Supplied by Sean on 2026-10-21 for the homepage rework; public use pending his confirmation.
-  "project-training-exercises": {
-    src: "/work/cc-link-bench.jpg",
-    width: 1080,
-    height: 1440,
-    alt: {
-      en: "Training bench with two CC-Link remote I/O units, a Mitsubishi inverter, a variable-resistance unit, and a servo amplifier, wired with patch cables.",
-      ko: "CC-Link 리모트 I/O 유닛 두 개, 미쓰비시 인버터, 가변저항 유닛, 서보 앰프가 패치 케이블로 배선된 실습 장비.",
-    },
-    caption: {
-      en: "Training lab · CC-Link remote I/O, inverter, and servo amplifier",
-      ko: "교육 실습실 · CC-Link 리모트 I/O, 인버터, 서보 앰프",
-    },
-  },
   "project-plc-robot-cell-integration": {
     src: "/work/plc-wiring.jpg",
     width: 1080,
@@ -63,5 +49,21 @@ export const workMedia: Record<string, WorkMedia> = {
       en: "At the workbench · PLC wiring exercise",
       ko: "작업대에서 · PLC 배선 실습",
     },
+  },
+};
+
+// Homepage hero (2026-10-22): replaces the CC-Link bench photo, which Sean declined for public use.
+// Korean alt/caption are drafts pending Sean's review.
+export const homeHeroMedia: WorkMedia = {
+  src: "/work/digital-twin/signal-accepted.png",
+  width: 1340,
+  height: 560,
+  alt: {
+    en: "Indy7 digital twin signal panel: robot, industrial PC, and PLC linked, then four steps from part ready and command accepted to robot motion and a recorded run.",
+    ko: "Indy7 디지털 트윈 신호 패널. 로봇·산업용 PC·PLC 연결 상태와 함께 부품 준비, 명령 수락, 로봇 동작, 실행 이력 기록까지 네 단계가 표시됨.",
+  },
+  caption: {
+    en: "Indy7 digital twin · a PLC start signal accepted, in simulation",
+    ko: "Indy7 디지털 트윈 · 시뮬레이션에서 PLC 시작 신호가 수락된 화면",
   },
 };

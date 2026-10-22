@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/container";
 import { ExternalLink } from "@/components/ui/external-link";
 import { WorkImage } from "@/components/ui/work-image";
 import { WorkTile, type WorkTileProps } from "@/components/ui/work-tile";
-import { workMedia } from "@/data/work-media";
+import { homeHeroMedia, workMedia } from "@/data/work-media";
 import { canonicalContentRegistry, canonicalSupportingProjects } from "@/data/content";
 import { getLocalizedText } from "@/lib/content/format";
 import { getWorkContextLabel } from "@/i18n/career-labels";
@@ -74,8 +74,8 @@ export function HomePageView({ locale }: HomePageViewProps) {
             {email && <a href={email.href} className={textLink}>{dict.careerUI.emailLabel}</a>}
           </div>
         </div>
-        <div className="mx-auto w-full max-w-[25rem] md:justify-self-end">
-          <WorkImage media={workMedia["project-training-exercises"]} locale={locale} portrait />
+        <div className="w-full">
+          <WorkImage media={homeHeroMedia} locale={locale} eager />
         </div>
       </section>
 

@@ -26,12 +26,12 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("Sean Choi");
-      expect(html).toContain("Expanding into the physical world from web software expertise.");
+      expect(html).toContain("An engineer expanding web software expertise into Physical AI.");
       // The intro paragraph was removed; the work grid carries the detail
       expect(html).not.toContain("My background is in web applications and API integration.");
       expect(html).toContain('href="#selected-work"');
       expect(html).toContain('id="selected-work"');
-      expect(html).toContain("CC-Link remote I/O units");
+      expect(html).toContain("Indy7 digital twin signal panel");
       expect(html).toContain("srcSet=");
 
       // No synthetic notice or example content on real home
@@ -113,7 +113,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("프로젝트 보기");
 
       expect(html).toContain("만든 것들");
-      expect(html).toContain("CC-Link 리모트 I/O 유닛");
+      expect(html).toContain("Indy7 디지털 트윈 신호 패널");
       expect(html).toContain("RUTA40 차량 제어 인터페이스");
       expect(html).toContain('href="/ko/projects#evidence-item-ruta40"');
       expect(html).not.toContain("현재 만들고 있는 것");
