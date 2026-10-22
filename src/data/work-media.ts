@@ -64,6 +64,6 @@ export const homeHeroMedia: WorkMedia = {
   },
   caption: {
     en: "Indy7 digital twin · a PLC start signal accepted, in simulation",
-    ko: "Indy7 디지털 트윈 · 시뮬레이션에서 PLC 시작 신호가 수락된 화면",
+    ko: "Indy7 디지털 트윈 · PLC 시작 신호를 받아 작업이 시작된 화면 (시뮬레이션)",
   },
 };

@@ -26,7 +26,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("Sean Choi");
-      expect(html).toContain("An engineer expanding web software expertise into Physical AI.");
+      expect(html).toContain("An engineer expanding web software skills into Physical AI.");
       // The intro paragraph was removed; the work grid carries the detail
       expect(html).not.toContain("My background is in web applications and API integration.");
       expect(html).toContain('href="#selected-work"');
