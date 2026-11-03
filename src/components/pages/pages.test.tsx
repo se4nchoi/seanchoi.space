@@ -451,6 +451,20 @@ describe("PortfolioPrintView", () => {
   });
 });
 
+describe("PortfolioPrintViewKo", () => {
+  it("renders the Korean PDF source with every project page and only approved contact data", async () => {
+    const { PortfolioPrintViewKo } = await import("./portfolio-print-view-ko");
+    const html = renderToStaticMarkup(<PortfolioPrintViewKo generatedOn="2026-11-03" />);
+    expect(html).toContain("최예현");
+    expect(html).toContain("se4n.choi@gmail.com");
+    expect(html).toContain("대한민국");
+    expect(html).toContain("PROJECT 5");
+    expect(html).toContain("Indy7 팔레타이징 셀 디지털 트윈");
+    expect(html).toContain("2026-11-03 기준");
+    expect(html).not.toMatch(/\+82|010-\d{3,4}-\d{4}|\bCGPA\b|2\.22|-gu\b|-dong\b|Yehyun/);
+  });
+});
+
 describe("preview channel (dev.seanchoi.space)", () => {
   afterEach(() => vi.unstubAllEnvs());
 

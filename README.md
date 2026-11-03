@@ -47,3 +47,6 @@ pnpm check
 The switch is `isPreviewChannel()` in `src/lib/release-channel.ts` (`NODE_ENV=development` or `VERCEL_ENV=preview`).
 To publish a case study, set `approved: true` in `src/data/case-studies.ts`. To publish a post, set its `publicationStatus` to `public` and `claimState` to `verified`, and add `reviewedOn`.
 Korean drafts render on preview only; production shows Korean once a field is marked `koReview: "reviewed"`.
+
+### Portfolio PDF
+`seanchoi.space/portfolio` (the QR code target) redirects to `public/portfolio.pdf`. To update it: run `pnpm dev`, then `pnpm portfolio:pdf --ko --public`, review the PDF, and commit it. The QR code never changes. Without `--public` the script writes a private copy to `private/portfolio/`.

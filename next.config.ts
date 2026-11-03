@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
     return [
       { source: "/work", destination: "/experience", permanent: true },
       { source: "/ko/work", destination: "/ko/experience", permanent: true },
+      // Stable QR-code target for the portfolio PDF. Temporary on purpose so the
+      // destination can change later without browsers caching the old one.
+      { source: "/portfolio", destination: "/portfolio.pdf", permanent: false },
+      { source: "/ko/portfolio", destination: "/portfolio.pdf", permanent: false },
     ];
   },
 };

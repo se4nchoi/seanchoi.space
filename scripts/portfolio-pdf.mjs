@@ -1,15 +1,20 @@
-// Prints the development-only /_print/portfolio page to a private PDF.
+// Prints the development-only /_print/portfolio page to a PDF.
 //
-// Usage: start `pnpm dev`, then run `pnpm portfolio:pdf [baseUrl]`.
-// Output goes to private/portfolio/ (git-ignored). The PDF is an application
-// artifact to attach privately; it is never served by the site.
+// Usage: start `pnpm dev`, then run `pnpm portfolio:pdf [baseUrl] [--ko] [--public]`.
+//   --ko      print the Korean page (/ko/_print/portfolio) instead of the English one
+//   --public  write public/portfolio.pdf, served at /portfolio.pdf and via the
+//             /portfolio redirect (the QR code target). Review the PDF first.
+// Without --public, output goes to private/portfolio/ (git-ignored).
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const baseUrl = process.argv[2] ?? "http://localhost:3000";
-const url = `${baseUrl.replace(/\/$/, "")}/_print/portfolio`;
+const args = process.argv.slice(2);
+const korean = args.includes("--ko");
+const publish = args.includes("--public");
+const baseUrl = args.find((arg) => !arg.startsWith("--")) ?? "http://localhost:3000";
+const url = `${baseUrl.replace(/\/$/, "")}${korean ? "/ko" : ""}/_print/portfolio`;
 
 const chromeCandidates = [
   process.env.CHROME_PATH,
@@ -34,7 +39,14 @@ if (!page || page.status !== 200) {
 const port = 9300 + Math.floor(Math.random() * 500);
 const browser = spawn(
   chrome,
-  ["--headless=new", `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), "pdf-"))}`, "about:blank"],
+  [
+    "--headless=new",
+    // Chrome refuses to start as root (containers, CI) unless the sandbox is off.
+    ...(process.getuid?.() === 0 ? ["--no-sandbox"] : []),
+    `--remote-debugging-port=${port}`,
+    `--user-data-dir=${mkdtempSync(join(tmpdir(), "pdf-"))}`,
+    "about:blank",
+  ],
   { stdio: "ignore" }
 );
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -71,9 +83,10 @@ try {
   const result = await send("Page.printToPDF", { printBackground: true, preferCSSPageSize: true });
   if (!result.result?.data) throw new Error(`printToPDF failed: ${JSON.stringify(result.error)}`);
 
-  const outDir = join(process.cwd(), "private", "portfolio");
+  const outDir = publish ? join(process.cwd(), "public") : join(process.cwd(), "private", "portfolio");
   mkdirSync(outDir, { recursive: true });
-  const outFile = join(outDir, `sean-choi-portfolio-${new Date().toISOString().slice(0, 10)}.pdf`);
+  const date = new Date().toISOString().slice(0, 10);
+  const outFile = join(outDir, publish ? "portfolio.pdf" : `sean-choi-portfolio-${korean ? "ko-" : ""}${date}.pdf`);
   writeFileSync(outFile, Buffer.from(result.result.data, "base64"));
   console.log(`Wrote ${outFile}`);
   ws.close();
