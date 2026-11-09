@@ -458,8 +458,10 @@ describe("PortfolioPrintViewKo", () => {
     expect(html).toContain("최예현");
     expect(html).toContain("se4n.choi@gmail.com");
     expect(html).toContain("대한민국");
-    expect(html).toContain("PROJECT 5");
+    expect(html).toContain("05/05");
+    expect(html).toContain("RUTA40 전기 캠핑카 스마트키 앱");
     expect(html).toContain("Indy7 팔레타이징 셀 디지털 트윈");
+    expect(html).toContain("Madi (마디)");
     expect(html).toContain("2026-11-03 기준");
     expect(html).not.toMatch(/\+82|010-\d{3,4}-\d{4}|\bCGPA\b|2\.22|-gu\b|-dong\b|Yehyun/);
   });
