@@ -51,3 +51,19 @@ export const workMedia: Record<string, WorkMedia> = {
     },
   },
 };
+
+// Homepage hero (2026-10-22): replaces the CC-Link bench photo, which Sean declined for public use.
+// Korean alt/caption are drafts pending Sean's review.
+export const homeHeroMedia: WorkMedia = {
+  src: "/work/digital-twin/signal-accepted.png",
+  width: 1340,
+  height: 560,
+  alt: {
+    en: "Indy7 digital twin signal panel: robot, industrial PC, and PLC linked, then four steps from part ready and command accepted to robot motion and a recorded run.",
+    ko: "Indy7 디지털 트윈 신호 패널. 로봇·산업용 PC·PLC 연결 상태와 함께 부품 준비, 명령 수락, 로봇 동작, 실행 이력 기록까지 네 단계가 표시됨.",
+  },
+  caption: {
+    en: "Indy7 digital twin · a PLC start signal accepted, in simulation",
+    ko: "Indy7 디지털 트윈 · PLC 시작 신호를 받아 작업이 시작된 화면 (시뮬레이션)",
+  },
+};

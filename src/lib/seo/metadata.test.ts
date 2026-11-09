@@ -3,7 +3,7 @@ import { createPageMetadata, SITE_URL } from "./metadata";
 
 describe("SEO Metadata Helpers", () => {
   it("enforces constant SITE_URL and scoped alternates without OpenGraph/Twitter/Robots expansion", () => {
-    expect(SITE_URL).toBe("https://seanchoi.space");
+    expect(SITE_URL).toBe("https://www.seanchoi.space");
 
     const meta = createPageMetadata({
       locale: "en",

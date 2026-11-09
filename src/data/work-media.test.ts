@@ -2,7 +2,7 @@ import { existsSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { canonicalSupportingProjects } from "./content";
-import { workMedia } from "./work-media";
+import { homeHeroMedia, workMedia } from "./work-media";
 
 describe("Approved project media", () => {
   it("references existing local assets and real records with bilingual image descriptions", () => {
@@ -18,6 +18,17 @@ describe("Approved project media", () => {
         expect(media.alt[locale].length).toBeGreaterThan(15);
         expect(media.caption[locale].length).toBeGreaterThan(5);
       }
+    }
+  });
+
+  it("gives the homepage hero an existing local asset with bilingual descriptions", () => {
+    expect(homeHeroMedia.src).toMatch(/^\/work\/[a-z0-9-]+(\/[a-z0-9-]+)?\.(jpg|png)$/);
+    const file = path.join(process.cwd(), "public", homeHeroMedia.src);
+    expect(existsSync(file)).toBe(true);
+    expect(statSync(file).size).toBeLessThan(650_000);
+    for (const locale of ["en", "ko"] as const) {
+      expect(homeHeroMedia.alt[locale].length).toBeGreaterThan(15);
+      expect(homeHeroMedia.caption[locale].length).toBeGreaterThan(5);
     }
   });
 });
