@@ -10,7 +10,9 @@
 
 **Current status:** WP6D career positioning and engineering-evidence realignment implemented for review; executable checks, rendered EN/KO review, final bilingual editorial approval, LinkedIn consistency, and remaining publication checks are still pending
 
-**Last reviewed:** 2026-09-17
+**Last reviewed:** 2026-11-19
+
+> **Canonical source since 2026-11-19.** Sean designated the Korean portfolio PDF (`public/portfolio.pdf`, printed from `src/components/pages/portfolio-print-view-ko.tsx`) as the most recent canonical record. Where this contract and the PDF disagree, the PDF wins; the superseded boundaries are listed in Section 16. Site copy was realigned to the PDF on 2026-11-19.
 
 ## 1. Authority and use
 
@@ -144,6 +146,8 @@ Training records require accurate `planned`, `in-progress`, or `completed` statu
 
 ## 7. Professional experience ledger
 
+> Superseded in part on 2026-11-19 (see Section 16): Hoek title `개발자 · 풀스택` / `Developer — Full-Stack` with full-stack development and operation of 몰입도 and its usage; EMG title `연구원 · SW 개발` and the RUTA40 smart key app scope and outcome; military Korean display `국군정보사령부` and the 30 → 10 minute figure. The tables below keep the earlier wording for history.
+
 ### Hoek Agency (획기획)
 
 | Field | Approved value | State/boundary |
@@ -181,7 +185,9 @@ Training records require accurate `planned`, `in-progress`, or `completed` statu
 
 No WP7 flagship is approved. WP6D may publish a grouped engineering-evidence index containing bounded professional systems work, self-directed projects, training exercises, and current work. These records are not flagship case studies and do not receive fabricated detail routes.
 
-`ROS2 Industrial Robot Cell Integration` / `ROS2 산업용 로봇 셀 통합` is the approved current working title. Completed starting evidence is limited to PLC ↔ Neuromeka real-hardware integration, CC-Link handshake reasoning, and multi-dock/servo-loading-dock coordination. ROS2 control, orchestration/state-machine behavior, timeout/fault/recovery handling, and later perception/edge AI remain planned.
+> Superseded on 2026-11-19 (see Section 16): the ROS2 current-work card is retired because the canonical PDF does not include it. The Indy7 digital twin and Madi case studies are approved for publication, and BambooChat is displayed as `Madi` / `Madi (마디)` (route slug unchanged).
+
+`ROS2 Industrial Robot Cell Integration` / `ROS2 산업용 로봇 셀 통합` was the approved current working title until 2026-11-19. Completed starting evidence is limited to PLC ↔ Neuromeka real-hardware integration, CC-Link handshake reasoning, and multi-dock/servo-loading-dock coordination. ROS2 control, orchestration/state-machine behavior, timeout/fault/recovery handling, and later perception/edge AI remain planned.
 
 Detailed case studies require separate approved specifications with context, contribution boundaries, artifact-grounded decisions, verification, limitations, disclosure-safe evidence, actual technologies, and localization status.
 
@@ -327,6 +333,13 @@ Record consequential approvals here:
 | 2026-09-17 | WP6D career positioning | prior verified lead | `verified`, superseding | Approved exact English/Korean computer-engineer leads; software/integration experience remains the foundation and physical systems are an expansion | Sean |
 | 2026-09-17 | WP6D engineering evidence | `pending`/not modeled | `verified`, bounded | Approved public names and contribution boundaries for RUTA40, Daegu Smart City, 몰입도, guided PLC/CC-Link/Neuromeka work, and self-directed ROS2 robot-cell current work | Sean |
 | 2026-09-17 | ROS2 project maturity | learning/planned | `verified` current work with split scope | Publish completed PLC/CC-Link/multi-dock foundation separately from planned ROS2, orchestration, recovery, perception, and edge-AI work | Sean |
+| 2026-11-19 | Canonical source | this contract | Korean portfolio PDF | The PDF (`portfolio-print-view-ko.tsx`) is the most recent canonical record; site copy follows it where they differ | Sean |
+| 2026-11-19 | Homepage lead | 2026-09-17 leads | `verified`, superseding | `IT 시스템과 제조 설비를 연결하는 엔지니어` / `An engineer connecting IT systems and manufacturing equipment`, with the PDF introduction as supporting copy | Sean |
+| 2026-11-19 | Hoek role and 몰입도 | frontend-to-full-stack contribution; metrics `prohibited` | `verified` | `개발자 · 풀스택`; full-stack development and operation (Next.js, Koa, MySQL, AWS, Docker); alpha on 2023-04-01; about 20 daily users; tests and DB-copy verification added after live issues | Sean |
+| 2026-11-19 | EMG role and RUTA40 | `Software Developer`; React UI/API only; satisfaction metrics `prohibited` | `verified` | `연구원 · SW 개발`; React web app, API integration, Android WebView app, and real-vehicle checks; embedded and backend boundaries kept; 20 owners, about 17–18 positive | Sean |
+| 2026-11-19 | Military display and metric | `KDIC (국군정보사령부)`; time metric `prohibited` | `verified` | Korean `국군정보사령부`; English role `English Linguist`; JavaScript/VBA automation cut a repetitive document task from about 30 to 10 minutes | Sean |
+| 2026-11-19 | Case studies | unapproved (preview only) | `verified`, published | Indy7 digital twin (palletizing ran on the real Indy7; no hardware measurements yet) and Madi (22 users; adoption across three floors, about 200 people, under discussion) | Sean |
+| 2026-11-19 | ROS2 current work | `verified` current work | retired | Not in the canonical PDF; removed from the site | Sean |
 
 | 2026-09-21 | Three portfolio images | disclosure pending | approved public assets | Sean explicitly approved RUTA40.jpeg, molipdo-project-banner.png, and intel7_wiring_plc_crop.jpg for public use. Screenshots illustrate products, not sole ownership; the PLC photo is labeled a wiring exercise, not proof of completed ROS2 work. This supersedes the earlier September 21 no-private-assets authorization boundary for these three files only. | Sean |
 | 2026-10-01 | Public copy voice (M1) | third-person boundary statements | first-person, same scope | Contribution boundaries rewritten in first person and stated positively (who built what); separate "Contribution Boundaries & Disclosure Safeguards" section and preview-copy footers removed; no claim scope added. Requested by Sean; exact wording awaits his read-through | Sean (requested) |

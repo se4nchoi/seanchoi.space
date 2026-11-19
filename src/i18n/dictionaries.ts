@@ -142,7 +142,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "opens in a new tab",
     homeTitle: "Sean Choi",
     homeStatus:
-      "Building software that connects the web and the physical world.",
+      "An engineer connecting IT systems and manufacturing equipment.",
     experienceStatus:
       "Where I've worked, what I studied, and what I'm learning now.",
     projectsStatus:
@@ -159,9 +159,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       "Sean Choi’s portfolio: web applications and API integration, extending into PLCs and robots.",
     careerUI: {
       homeHeadline:
-        "Building software that connects the web and the physical world.",
+        "An engineer connecting IT systems and manufacturing equipment.",
       homePositioning:
-        "My background is in web applications and API integration. I’m now extending that work to PLCs and robots.",
+        "I developed and operated web services for two years. Now I work hands-on with PLCs, collaborative robots, and machine vision to connect IT systems, AI included, with manufacturing equipment.",
       viewExperience: "View experience",
       viewProjects: "View projects",
       verifiedExperience: "Verified Experience",
@@ -277,7 +277,7 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
     openInNewTab: "새 탭에서 열림",
     homeTitle: "최예현",
     homeStatus:
-      "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
+      "IT 시스템과 제조 설비를 연결하는 엔지니어",
     experienceStatus: "일해 온 곳, 공부한 것, 지금 배우고 있는 것입니다.",
     projectsStatus:
       "웹 애플리케이션, 장비 연동, 그리고 그 과정에서 만든 실험들.",
@@ -291,9 +291,9 @@ export const dictionaries: Record<AppLocale, UIDictionary> = {
       "웹 애플리케이션과 API 연동에서 PLC와 로봇으로 작업을 확장하는 최예현의 포트폴리오입니다.",
     careerUI: {
       homeHeadline:
-        "웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.",
+        "IT 시스템과 제조 설비를 연결하는 엔지니어",
       homePositioning:
-        "웹 애플리케이션과 API 연동 경험을 바탕으로, 지금은 PLC와 로봇을 연결하는 작업을 하고 있습니다.",
+        "2년간 웹 서비스를 개발·운영했고, 지금은 PLC·협동로봇·머신비전을 직접 다루며 AI를 포함한 IT 시스템과 제조 설비의 연결점을 만들고 있습니다.",
       viewExperience: "경력 보기",
       viewProjects: "프로젝트 보기",
       verifiedExperience: "검증된 실무 경력",

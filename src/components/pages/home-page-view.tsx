@@ -81,10 +81,11 @@ export function HomePageView({ locale }: HomePageViewProps) {
           <h2 className="text-2xl font-semibold tracking-tight">{dict.careerUI.selectedEngineeringEvidence}</h2>
           <Link href={localizePathname("/projects", locale)} className={textLink}>{dict.careerUI.viewProjects} <span aria-hidden="true" className="ml-2">→</span></Link>
         </div>
+        {/* Career projects lead, matching the canonical portfolio PDF order. */}
+        <div className="grid gap-6 md:grid-cols-2">{selected.map((item) => renderWork(item, true))}</div>
         {visibleCaseStudies.map((study) => (
           <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} />
         ))}
-        <div className="grid gap-6 md:grid-cols-2">{selected.map((item) => renderWork(item, true))}</div>
       </section>
 
       {current && <section className="space-y-6">

@@ -47,17 +47,21 @@ export interface CaseStudy {
 }
 
 const draft = (en: string, ko: string): LocalizedText => ({ en, ko, koReview: "draft" });
+/** Korean taken verbatim from the canonical portfolio PDF (Sean, 2026-11-19). */
+const fromPdf = (en: string, ko: string): LocalizedText => ({ en, ko, koReview: "reviewed" });
 
-// Facts below come from the neuromeka-digitaltwin repository (README, docs/, tests)
-// and a simulation walkthrough recorded on 2026-10-01. Nothing here claims hardware validation.
+// Facts below come from the neuromeka-digitaltwin repository (README, docs/, tests),
+// a simulation walkthrough recorded on 2026-10-01, and the Korean portfolio PDF, which
+// Sean made canonical on 2026-11-19: palletizing ran on the real Indy7 after jog
+// debugging, with an iPad as the teach pendant. No hardware measurements exist yet.
 export const indy7DigitalTwin: CaseStudy = {
   slug: "indy7-digital-twin",
   diagram: "indy7-twin",
-  approved: false,
-  title: draft("Indy7 Palletizing Cell Digital Twin", "Indy7 팔레타이징 셀 디지털 트윈"),
-  summary: draft(
-    "A simulation-first control and evidence application for a Neuromeka Indy7 palletizing cell. A PLC signal starts a job, the robot moves in 3D, and every run, fault, and recovery is recorded.",
-    "Neuromeka Indy7 팔레타이징 셀을 시뮬레이션으로 먼저 구현한 제어·이력 관리 애플리케이션입니다. PLC 신호로 작업을 시작하면 로봇이 3D 화면에서 움직이고, 실행·고장·복구 이력이 모두 남습니다."
+  approved: true,
+  title: fromPdf("Indy7 Palletizing Cell Digital Twin", "Indy7 팔레타이징 셀 디지털 트윈"),
+  summary: fromPdf(
+    "A control and run-history app for a Neuromeka Indy7 palletizing cell. I built it in simulation first, then ran palletizing on the real Indy7.",
+    "Neuromeka Indy7 팔레타이징 셀의 제어·이력 관리 앱입니다. 시뮬레이션으로 먼저 만들고 실제 Indy7에서 팔레타이징까지 실행했습니다."
   ),
   context: draft(
     "Personal project, alongside the Physical AI & Smart Factory Training Program",
@@ -65,8 +69,8 @@ export const indy7DigitalTwin: CaseStudy = {
   ),
   period: draft("Sep 2026 – present", "2026.09 – 현재"),
   status: draft(
-    "Runs end to end in simulation; not yet validated on hardware",
-    "시뮬레이션에서 전 과정 동작 확인 · 실장비 검증 전"
+    "Ran palletizing on the real Indy7; no hardware measurements yet",
+    "실제 Indy7에서 팔레타이징 실행 · 실장비 측정 결과는 아직 없음"
   ),
   stack: ["Python", "FastAPI", "WebSocket", "SQLite", "Three.js", "IndyDCP3", "Modbus TCP"],
   repositoryHref: "https://github.com/se4nchoi/neuromeka-digitaltwin",
@@ -218,14 +222,18 @@ export const indy7DigitalTwin: CaseStudy = {
     ),
     draft("The architecture boundary check passes.", "아키텍처 계층 검사 통과"),
     draft(
+      "After several rounds of jog debugging, palletizing ran on the real Indy7, with an iPad used as a teach pendant for the app.",
+      "여러 차례 조그 디버깅 후 실제 Indy7에서 팔레타이징 실행. iPad로 앱을 티칭 펜던트처럼 사용"
+    ),
+    draft(
       "The Modbus TCP client's framing, reads, writes, failures, and reconnects are tested against a fake transport.",
       "Modbus TCP 클라이언트의 프레임 처리, 읽기·쓰기, 오류, 재연결을 가상 통신 계층으로 테스트"
     ),
   ],
   limits: [
     draft(
-      "Everything on this page ran in simulation. The IndyDCP3 hardware mode and the Modbus TCP gateway exist, but PLC commissioning, real addresses, timing, and safety behavior have not been validated on the classroom cell.",
-      "이 페이지의 내용은 모두 시뮬레이션 결과입니다. IndyDCP3 하드웨어 모드와 Modbus TCP 게이트웨이는 구현되어 있지만, PLC 시운전·실제 주소·타이밍·안전 동작은 아직 실습 셀에서 검증하지 않았습니다."
+      "The walkthrough above was recorded in simulation. Palletizing has run on the real Indy7, but I have no measurements from hardware runs yet, such as cycle time.",
+      "위 흐름은 시뮬레이션에서 기록했습니다. 실제 Indy7에서도 팔레타이징을 실행했지만, 사이클 타임 같은 실장비 측정 결과는 아직 없습니다."
     ),
     draft(
       "The kinematic simulation has no collision checking, dynamics, or gripper contact model.",
@@ -238,8 +246,8 @@ export const indy7DigitalTwin: CaseStudy = {
   ],
   next: [
     draft(
-      "Validate the signal path on the real cell: actual addresses, a normal run, and a blocked run.",
-      "실습 셀에서 신호 경로 검증: 실제 주소, 정상 실행, 차단 상황"
+      "Record measurements from hardware runs, such as cycle time.",
+      "실장비 실행의 측정 결과(사이클 타임 등) 기록"
     ),
     draft(
       "Turn “start requested, but the robot didn't move” into a guided diagnosis timeline.",
@@ -250,25 +258,29 @@ export const indy7DigitalTwin: CaseStudy = {
 };
 
 // Facts from the intel7-chat repository (README, docs, 273 passing tests on 2026-10-01)
-// and Sean's confirmation on 2026-10-01: in daily use by the class for chat, DMs, files,
+// and Sean's confirmation on 2026-10-01 (name and adoption status from the portfolio
+// PDF, canonical since 2026-11-19): in daily use by the class for chat, DMs, files,
 // quizzes, and games; chess began as a classmate's pull request. Screenshots use a
 // throwaway instance with fictional users; the real chat history is never published.
 export const bambooChat: CaseStudy = {
   slug: "bamboochat",
   diagram: "bamboochat",
   supportingRecordId: "project-lan-chat",
-  approved: false,
-  title: draft("BambooChat: a chat and study app for my class", "BambooChat: 우리 반 채팅·학습 앱"),
-  summary: draft(
-    "A self-hosted chat and learning app my training-program class uses every day: channels, direct messages, file sharing, and daily quizzes on PLC and automation topics, running on a classroom PC over the local network.",
-    "교육 과정 동기들이 매일 쓰는 채팅·학습 앱입니다. 채널, 1:1 대화, 파일 공유, PLC·자동화 데일리 퀴즈를 교실 PC 한 대에 직접 띄워 로컬 네트워크로 운영합니다."
+  approved: true,
+  title: fromPdf("Madi: a classroom LAN chat and study app", "Madi (마디): 교실 LAN 채팅·학습 앱"),
+  summary: fromPdf(
+    "A chat and study app my training-program classmates use every day, running on one classroom PC over the local network.",
+    "교육 과정 동기들이 매일 쓰는 채팅·학습 앱입니다. 교실 PC 한 대에서 로컬 네트워크로 운영합니다."
   ),
   context: draft(
     "Personal project, built outside the curriculum during the Physical AI & Smart Factory Training Program",
     "개인 프로젝트 · AI 융합 DX 마스터클래스 기간 중, 정규 수업과 별개로 진행"
   ),
   period: draft("Aug 2026 – present", "2026.08 – 현재"),
-  status: draft("In daily use by my class of 22", "동기 22명이 매일 사용 중"),
+  status: draft(
+    "In use by my class of 22; adoption across three floors of the training center (about 200 people) under discussion",
+    "우리 반 22명 사용 중 · 개발원 3개 층(약 200명) 도입 논의 중"
+  ),
   stack: ["Python", "FastAPI", "WebSocket", "SQLite", "Jinja2", "JavaScript", "Gemini API"],
   repositoryHref: "https://github.com/se4nchoi/intel7-chat",
   howBuilt: draft(
@@ -280,8 +292,8 @@ export const bambooChat: CaseStudy = {
     width: 1440,
     height: 900,
     alt: draft(
-      "BambooChat in a PLC practice channel: one student asks why output Y0 turns off when X0 is released, and another answers to add Y0 in parallel as a self-holding contact.",
-      "BambooChat PLC 실습 채널. 한 학생이 X0를 떼면 Y0가 꺼지는 이유를 묻고, 다른 학생이 Y0 a접점을 병렬로 넣어 자기유지를 걸라고 답하는 장면."
+      "Madi in a PLC practice channel: one student asks why output Y0 turns off when X0 is released, and another answers to add Y0 in parallel as a self-holding contact.",
+      "Madi PLC 실습 채널. 한 학생이 X0를 떼면 Y0가 꺼지는 이유를 묻고, 다른 학생이 Y0 a접점을 병렬로 넣어 자기유지를 걸라고 답하는 장면."
     ),
     caption: draft(
       "Demo instance with fictional classmates. The real class history stays private.",

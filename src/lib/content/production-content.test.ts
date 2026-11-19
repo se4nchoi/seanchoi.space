@@ -76,7 +76,7 @@ describe("Production Content Publication Guard", () => {
       expect(record.publicationStatus).toBe("public");
       expect(record.claimState).toBe("verified");
       expect(record.syntheticPlaceholder).toBe(false);
-      expect(record.reviewedOn).toMatch(/^2026-(08-31|09-17)$/);
+      expect(record.reviewedOn).toMatch(/^2026-(08-31|09-17|11-19)$/);
     }
   });
 
@@ -153,7 +153,7 @@ describe("Production Content Publication Guard", () => {
   });
 
   it("keeps professional, project, training, and current-work evidence distinct and safeguarded", () => {
-    expect(canonicalSupportingProjects.length).toBeGreaterThanOrEqual(8);
+    expect(canonicalSupportingProjects.length).toBeGreaterThanOrEqual(7);
 
     const professional = canonicalSupportingProjects.filter(
       (p) => p.context === "professional"
@@ -171,7 +171,8 @@ describe("Production Content Publication Guard", () => {
     expect(professional).toHaveLength(3);
     expect(selfDirected).toHaveLength(2);
     expect(exercises).toHaveLength(2);
-    expect(currentWork).toHaveLength(1);
+    // The ROS2 current-work card was retired with the canonical PDF (2026-11-19).
+    expect(currentWork).toHaveLength(0);
 
     for (const p of professional) {
       expect(p.evidenceLevel).toBe("professional");
@@ -193,17 +194,6 @@ describe("Production Content Publication Guard", () => {
       expect(ex.syntheticPlaceholder).toBe(false);
     }
 
-    const robotCell = currentWork[0];
-    expect(robotCell.status).toBe("in-progress");
-    expect(robotCell.evidenceLevel).toBe("project");
-    expect(robotCell.completedScope.length).toBeGreaterThan(0);
-    expect(robotCell.plannedScope.length).toBeGreaterThan(0);
-    expect(robotCell.plannedScope.map((item) => item.en)).toContain(
-      "ROS2 control layer"
-    );
-    expect(robotCell.contributionBoundary.en).toContain("shared hardware");
-    expect(robotCell.contributionBoundary.en).toContain("still ahead");
-
     const publishedSkillNames = canonicalContentRegistry.skills
       .map((skill) => skill.name.en)
       .join(" ");
@@ -220,7 +210,7 @@ describe("Production Content Publication Guard", () => {
       (item) => item.id === "evidence-item-smart-city"
     );
 
-    expect(ruta40?.contributionBoundary.en).toContain("I built the React UI and its API integration");
+    expect(ruta40?.contributionBoundary.en).toContain("I built the React web app, its API integration, and the Android app");
     expect(ruta40?.contributionBoundary.en).toContain("The embedded team built the door-lock module");
     expect(ruta40?.contributionBoundary.en).toContain("the backend team built the HTTPS control API");
     expect(smartCity?.contributionBoundary.en).toContain("I built the frontend integration");

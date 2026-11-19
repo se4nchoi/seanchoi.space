@@ -3,7 +3,7 @@ import type { AppLocale } from "@/i18n/config";
 
 const labels = {
   en: {
-    title: "BambooChat deployment on a classroom network",
+    title: "Madi deployment on a classroom network",
     browsers: "Classroom browsers",
     browsersSub: "22 students · admin",
     lan: "HTTP · WebSocket over the classroom LAN",
@@ -25,7 +25,7 @@ const labels = {
       "Everything runs on one classroom PC. Only optional quiz drafting leaves the network.",
   },
   ko: {
-    title: "교실 네트워크에 배포된 BambooChat",
+    title: "교실 네트워크에 배포된 Madi",
     browsers: "교실 브라우저",
     browsersSub: "학생 22명 · 관리자",
     lan: "교실 LAN의 HTTP · WebSocket",

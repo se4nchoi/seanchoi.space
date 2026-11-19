@@ -26,8 +26,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const h1Matches = html.match(/<h1/g) || [];
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("Sean Choi");
-      expect(html).toContain("Building software that connects the web and the physical world.");
-      expect(html).toContain("My background is in web applications and API integration.");
+      expect(html).toContain("An engineer connecting IT systems and manufacturing equipment.");
+      expect(html).toContain("I developed and operated web services for two years.");
       expect(html).toContain('href="#selected-work"');
       expect(html).toContain('id="selected-work"');
       expect(html).toContain("PLC wiring exercise");
@@ -63,23 +63,22 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Selected evidence replaces the résumé-style employment snapshot
       expect(html).toContain("Selected work");
-      expect(html).toContain("RUTA40 Vehicle Control Interface");
-      expect(html).toContain("Internal Attendance / HR Product (몰입도)");
+      expect(html).toContain("RUTA40 Electric Camper Smart Key App");
+      expect(html).toContain("몰입도: Internal Attendance Service");
       expect(html).not.toContain("Classroom LAN Chat");
-      // Unapproved case studies stay off the production home page
-      expect(html).not.toContain("Read the case study");
+      // Approved case studies (canonical PDF, 2026-11-19) are featured
+      expect(html).toContain("Read the case study");
+      expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
+      expect(html).toContain("Madi: a classroom LAN chat and study app");
       expect(html).not.toContain("Verified Experience Snapshot");
 
-      // Current work distinguishes completed and planned scope
-      expect(html).toContain("Currently Building");
-      expect(html).toContain("ROS2 Industrial Robot Cell Integration");
-      expect(html).toContain("Completed foundation");
-      expect(html).toContain("Planned next");
-      expect(html).toContain("ROS2 control layer");
+      // The ROS2 current-work card was retired with the canonical PDF
+      expect(html).not.toContain("Currently Building");
+      expect(html).not.toContain("ROS2");
 
       // Skills stay on Experience; the homepage is curated around work.
       expect(html).not.toContain("Capabilities Across System Layers");
-      expect(html).toContain("I built the React UI and its API integration");
+      expect(html).toContain("I built the React web app, its API integration, and the Android app");
       expect(html).toContain("The embedded team built the door-lock module");
       // Contact & Profiles section
       expect(html).toContain("Contact &amp; Public Profiles");
@@ -88,14 +87,16 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       // Strict Section Order Verification
       const idxHero = html.indexOf("Sean Choi");
       const idxEvidence = html.indexOf("Selected work");
-      const idxCurrent = html.indexOf("Currently Building");
-
+      const idxCareer = html.indexOf("RUTA40 Electric Camper Smart Key App");
+      const idxCaseStudy = html.indexOf("Indy7 Palletizing Cell Digital Twin");
       const idxContact = html.indexOf("Contact &amp; Public Profiles");
 
       expect(idxHero).toBeGreaterThan(-1);
       expect(idxEvidence).toBeGreaterThan(idxHero);
-      expect(idxCurrent).toBeGreaterThan(idxEvidence);
-      expect(idxContact).toBeGreaterThan(idxCurrent);
+      // Career projects lead, as in the PDF
+      expect(idxCareer).toBeGreaterThan(idxEvidence);
+      expect(idxCaseStudy).toBeGreaterThan(idxCareer);
+      expect(idxContact).toBeGreaterThan(idxCaseStudy);
     });
 
     it("renders Korean Home hierarchy with verified Korean copy, single h1, and zero English leakages", () => {
@@ -106,7 +107,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(h1Matches.length).toBe(1);
       expect(html).toContain("최예현");
       expect(html).not.toContain("주요 엔지니어링 근거");
-      expect(html).toContain("웹에서 시작해, 물리 시스템으로 이어지는 소프트웨어를 만듭니다.");
+      expect(html).toContain("IT 시스템과 제조 설비를 연결하는 엔지니어");
       expect(html).toContain('id="selected-work"');
 
       // Action links
@@ -118,11 +119,12 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("만든 것들");
       expect(html).toContain("PLC 배선 실습");
       expect(html).toContain("RUTA40 앱의 시작");
-      expect(html).toContain("RUTA40 차량 제어 인터페이스");
-      expect(html).toContain("현재 만들고 있는 것");
-      expect(html).toContain("ROS2 산업용 로봇 셀 통합");
-      expect(html).toContain("완료한 기반");
-      expect(html).toContain("다음 계획");
+      expect(html).toContain("RUTA40 전기 캠핑카 스마트키 앱");
+      expect(html).toContain("사내 근태관리 서비스 「몰입도」");
+      expect(html).toContain("Indy7 팔레타이징 셀 디지털 트윈");
+      expect(html).toContain("Madi (마디): 교실 LAN 채팅·학습 앱");
+      expect(html).not.toContain("현재 만들고 있는 것");
+      expect(html).not.toContain("ROS2");
 
       // Skills & contact
       expect(html).not.toContain("시스템 계층별 역량");
@@ -150,21 +152,22 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       // Professional experience records
       expect(html).toContain("Professional Experience");
       expect(html).toContain("Hoek Agency");
-      expect(html).toContain("Software Developer — Frontend to Full-Stack");
+      expect(html).toContain("Developer — Full-Stack");
       expect(html).toContain("Sep 2022 – Aug 2023");
 
       expect(html).toContain("EMG Global");
-      expect(html).toContain("Software Developer");
+      expect(html).toContain("Researcher — Software Development");
       expect(html).toContain("Jul 2021 – Jul 2022");
 
       expect(html).toContain("Korea Defense Intelligence Command");
-      expect(html).toContain("Sergeant / English Interpreter");
+      expect(html).toContain("English Linguist");
       expect(html).toContain("Oct 2016 – Jul 2018");
 
       // Factual & boundary checks in military copy
       expect(html).toContain("JavaScript utilities for Hangul text decomposition");
       expect(html).toContain("VBA utilities for file renaming");
       expect(html).toContain("PowerShell was prohibited");
+      expect(html).toContain("from about 30 minutes to about 10");
 
       // Education & Training
       expect(html).toContain("Education &amp; Training");
@@ -175,7 +178,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Self-directed projects
       expect(html).toContain("Self-Directed Projects");
-      expect(html).toContain("BambooChat");
+      expect(html).toContain("Madi");
+      expect(html).not.toContain("BambooChat");
       expect(html).toContain("Classroom Q&amp;A Board");
       expect(html).toContain("In-Class Implementation Exercises");
 
@@ -201,10 +205,11 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("경력");
       expect(html).toContain("실무 경력");
       expect(html).toContain("Hoek Agency (획기획)");
-      expect(html).toContain("개발자 | 프론트엔드·풀스택 개발");
+      expect(html).toContain("개발자 · 풀스택");
       expect(html).toContain("EMG Global");
-      expect(html).toContain("소프트웨어 개발자");
-      expect(html).toContain("KDIC (국군정보사령부)");
+      expect(html).toContain("연구원 · SW 개발");
+      expect(html).toContain("국군정보사령부");
+      expect(html).not.toContain("KDIC");
       expect(html).toContain("영어어학병");
 
       expect(html).toContain("학력 및 교육");
@@ -214,7 +219,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("AI 융합 DX 마스터클래스");
 
       expect(html).toContain("사이드 프로젝트");
-      expect(html).toContain("BambooChat");
+      expect(html).toContain("Madi (마디)");
       expect(html).toContain("수업 내 구현 실습");
 
       expect(html).toContain("2022.09 – 2023.08");
@@ -227,26 +232,29 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       const enHtml = renderToStaticMarkup(<ProjectsIndexView locale="en" />);
       expect(enHtml).toContain("Projects");
       expect(enHtml).toContain(dictionaries.en.projectsStatus);
-      expect(enHtml).toContain("Currently Building");
+      expect(enHtml).not.toContain("Currently Building");
       expect(enHtml).toContain("Professional work");
       expect(enHtml).toContain("Side projects");
       expect(enHtml).toContain("Hardware explorations");
-      expect(enHtml).toContain("ROS2 Industrial Robot Cell Integration");
+      expect(enHtml).not.toContain("ROS2");
       expect(enHtml).toContain("Daegu Smart City Dashboard");
-      expect(enHtml).toContain("Planned next");
       expect(enHtml).not.toContain("<input");
       expect(enHtml).not.toContain("<select");
       expect(enHtml).not.toContain("<form");
       expect(enHtml).not.toContain("Example Project");
-      // Production: unapproved case studies are hidden, so no detail links
-      // appear and BambooChat stays a regular card.
-      expect(enHtml.match(/href="\/projects\/[^"]+"/g) ?? []).toEqual([]);
-      expect(enHtml).toContain(">BambooChat<");
+      // Production: approved case studies link to their pages, and Madi's
+      // case study replaces its regular card.
+      expect(new Set(enHtml.match(/href="\/projects\/[^"]+"/g) ?? [])).toEqual(
+        new Set(['href="/projects/indy7-digital-twin"', 'href="/projects/bamboochat"'])
+      );
+      expect(enHtml).not.toContain("In review");
+      expect(enHtml.split(">Madi<").length - 1).toBe(0);
 
       const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
       expect(koHtml).toContain("프로젝트");
       expect(koHtml).toContain(dictionaries.ko.projectsStatus);
-      expect(koHtml).toContain("ROS2 산업용 로봇 셀 통합");
+      expect(koHtml).toContain("Indy7 팔레타이징 셀 디지털 트윈");
+      expect(koHtml).not.toContain("ROS2");
       expect(koHtml).toContain("실무 프로젝트");
       expect(koHtml).not.toContain("예시 프로젝트");
     });
@@ -443,7 +451,7 @@ describe("PortfolioPrintView", () => {
     expect(html).toContain("se4n.choi@gmail.com");
     expect(html).toContain("South Korea");
     expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
-    expect(html).toContain("BambooChat");
+    expect(html).toContain("Madi");
     expect(html).toContain("Generated 2026-10-01");
     // No phone numbers, street addresses, or GPA
     // (city-level "Daegu" appears legitimately in "Daegu Smart City Dashboard")
@@ -470,15 +478,15 @@ describe("PortfolioPrintViewKo", () => {
 describe("preview channel (dev.seanchoi.space)", () => {
   afterEach(() => vi.unstubAllEnvs());
 
-  it("shows unapproved case studies with an in-review badge and replaces their cards", () => {
+  it("shows the same case studies as production, with no in-review badge once approved", () => {
     vi.stubEnv("VERCEL_ENV", "preview");
     const enHtml = renderToStaticMarkup(<ProjectsIndexView locale="en" />);
     const detailLinks = enHtml.match(/href="\/projects\/[^"]+"/g) ?? [];
     expect(new Set(detailLinks)).toEqual(
       new Set(['href="/projects/indy7-digital-twin"', 'href="/projects/bamboochat"'])
     );
-    expect(enHtml).toContain("In review");
-    expect(enHtml.split(">BambooChat<").length - 1).toBe(0);
+    expect(enHtml).not.toContain("In review");
+    expect(enHtml.split(">Madi<").length - 1).toBe(0);
     // The section heading is not repeated as each card's eyebrow
     const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
     expect(koHtml.split("사례 연구</").length - 1).toBe(1);
@@ -491,7 +499,6 @@ describe("work labels are consistent across pages", () => {
     const projects = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
     for (const html of [home, projects]) {
       expect(html).toContain("실무 프로젝트");
-      expect(html).toContain("개인 프로젝트");
     }
   });
 });

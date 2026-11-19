@@ -33,8 +33,9 @@ describe("case studies", () => {
   it("keep the digital twin's simulation boundary and AI-assisted authorship explicit", () => {
     const twin = caseStudies.find((study) => study.slug === "indy7-digital-twin");
     expect(twin).toBeDefined();
-    expect(twin!.status.en).toContain("not yet validated on hardware");
-    expect(twin!.limits.map((item) => item.en).join(" ")).toContain("ran in simulation");
+    // Canonical PDF (2026-11-19): palletizing ran on the real Indy7, unmeasured.
+    expect(twin!.status.en).toContain("no hardware measurements yet");
+    expect(twin!.limits.map((item) => item.en).join(" ")).toContain("recorded in simulation");
     expect(twin!.limits.map((item) => item.en).join(" ")).toContain("synthetic estimates");
     expect(twin!.howBuilt.en).toContain("AI coding agent");
 

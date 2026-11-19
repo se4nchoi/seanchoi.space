@@ -86,17 +86,19 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
         </section>
       )}
 
-      <section className="space-y-6">
-        <div className="space-y-2 border-b border-line pb-3">
-          <h2 className="text-heading-2 font-semibold tracking-display text-foreground">
-            {dict.careerUI.currentlyBuilding}
-          </h2>
-          <p className="text-body text-muted">
-            {dict.careerUI.currentlyBuildingIntro}
-          </p>
-        </div>
-        {renderCards(currentWork)}
-      </section>
+      {currentWork.length > 0 && (
+        <section className="space-y-6">
+          <div className="space-y-2 border-b border-line pb-3">
+            <h2 className="text-heading-2 font-semibold tracking-display text-foreground">
+              {dict.careerUI.currentlyBuilding}
+            </h2>
+            <p className="text-body text-muted">
+              {dict.careerUI.currentlyBuildingIntro}
+            </p>
+          </div>
+          {renderCards(currentWork)}
+        </section>
+      )}
 
       <section className="space-y-6">
         <h2 className="border-b border-line pb-3 text-heading-2 font-semibold tracking-display text-foreground">
