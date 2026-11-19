@@ -4,6 +4,54 @@ import { localizePathname } from "@/i18n/routing";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export const SITE_URL = "https://seanchoi.space";
+export const SITE_NAME = "seanchoi.space";
+
+const OG_LOCALES: Record<AppLocale, string> = { en: "en_US", ko: "ko_KR" };
+
+/** Shared social card rendered by src/app/og-card.png/route.ts. */
+export const OG_CARD = {
+  path: "/og-card.png",
+  width: 1200,
+  height: 630,
+  alt: `${getDictionary("en").homeTitle} — ${SITE_NAME}`,
+} as const;
+
+/**
+ * Social-card metadata. Next.js merges metadata shallowly, so each page must
+ * emit its own `openGraph`/`twitter` objects (image included) for its title
+ * and URL to reach the card.
+ */
+function createSocialMetadata(
+  locale: AppLocale,
+  title: string,
+  description: string,
+  url: string,
+): Pick<Metadata, "openGraph" | "twitter"> {
+  const image = {
+    url: OG_CARD.path,
+    width: OG_CARD.width,
+    height: OG_CARD.height,
+    alt: OG_CARD.alt,
+  };
+
+  return {
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      title,
+      description,
+      url,
+      locale: OG_LOCALES[locale],
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
 export interface PageMetadataOptions {
   locale: AppLocale;
@@ -66,6 +114,7 @@ export function createPageMetadata({
     metadataBase: new URL(SITE_URL),
     title,
     description,
+    ...createSocialMetadata(locale, title, description, canonicalUrl),
     alternates: {
       canonical: canonicalUrl,
       languages,
@@ -86,12 +135,20 @@ export function createPageMetadata({
 }
 
 export function createRootMetadata(locale: AppLocale): Metadata {
+  const description = getDictionary(locale).siteDescription;
+
   return {
     metadataBase: new URL(SITE_URL),
     title: {
-      default: "seanchoi.space",
-      template: "%s — seanchoi.space",
+      default: SITE_NAME,
+      template: `%s — ${SITE_NAME}`,
     },
-    description: getDictionary(locale).siteDescription,
+    description,
+    ...createSocialMetadata(
+      locale,
+      SITE_NAME,
+      description,
+      toAbsoluteUrl(localizePathname("/", locale)),
+    ),
   };
 }

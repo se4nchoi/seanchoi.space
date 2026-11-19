@@ -28,9 +28,23 @@ describe("SEO Metadata Helpers", () => {
       },
     ]);
 
-    // Scoped metadata: no newly added global openGraph, twitter, or robots index
-    expect(meta.openGraph).toBeUndefined();
-    expect(meta.twitter).toBeUndefined();
+    // Social cards carry the page's own title, description and canonical URL
+    expect(meta.openGraph).toMatchObject({
+      type: "website",
+      siteName: "seanchoi.space",
+      title: "Portfolio preview",
+      description: "English preview description",
+      url: SITE_URL,
+      locale: "en_US",
+      images: [{ url: "/og-card.png", width: 1200, height: 630 }],
+    });
+    expect(meta.twitter).toMatchObject({
+      card: "summary_large_image",
+      title: "Portfolio preview",
+      description: "English preview description",
+    });
+
+    // Robots stay global (robots.ts / preview X-Robots-Tag), not per page
     expect(meta.robots).toBeUndefined();
   });
 
@@ -44,6 +58,7 @@ describe("SEO Metadata Helpers", () => {
 
     expect(meta.title).toBe("포트폴리오 미리보기");
     expect(meta.alternates?.canonical).toBe(`${SITE_URL}/ko`);
+    expect(meta.openGraph).toMatchObject({ url: `${SITE_URL}/ko`, locale: "ko_KR" });
     expect(meta.alternates?.languages?.en).toBe(SITE_URL);
     expect(meta.alternates?.languages?.ko).toBe(`${SITE_URL}/ko`);
     expect(meta.alternates?.languages?.["x-default"]).toBe(SITE_URL);
