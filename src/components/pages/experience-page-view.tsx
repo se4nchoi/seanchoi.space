@@ -37,10 +37,7 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
   return (
     <Container size="default" className="space-y-16 pb-16">
       {/* 1. Page Header */}
-      <PageIntro
-        title={dict.careerUI.experienceTitle}
-        summary={dict.careerUI.experienceIntro}
-      />
+      <PageIntro title={dict.careerUI.experienceTitle} />
 
       {/* 2. Professional Experience Section */}
       <section className="space-y-6">
@@ -140,9 +137,6 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
         <h2 className="text-heading-2 font-semibold tracking-display text-foreground border-b border-line pb-2">
           {dict.careerUI.sideProjects}
         </h2>
-        <p className="text-body text-muted">
-          {dict.careerUI.sideProjectsIntro}
-        </p>
 
         {/* Self-Directed Projects Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -151,12 +145,9 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
               key={proj.id}
               className="rounded-[var(--radius-md)] border border-line bg-surface p-6 space-y-3"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h3 className="text-heading-3 font-semibold text-foreground">
-                  {getLocalizedText(proj.title, locale)}
-                </h3>
-                <Tag variant="accent">{dict.careerUI.projectLevel}</Tag>
-              </div>
+              <h3 className="text-heading-3 font-semibold text-foreground">
+                {getLocalizedText(proj.title, locale)}
+              </h3>
               {proj.role && (
                 <p className="text-small font-mono text-muted">
                   {getLocalizedText(proj.role, locale)}
@@ -182,20 +173,14 @@ export function ExperiencePageView({ locale }: ExperiencePageViewProps) {
             <h3 className="text-heading-3 font-semibold text-foreground">
               {dict.careerUI.trainingExercises}
             </h3>
-            <p className="text-small text-muted">
-              {dict.careerUI.trainingExercisesSummary}
-            </p>
             {inClassExercises.map((ex) => (
               <div
                 key={ex.id}
                 className="rounded-[var(--radius-md)] border border-line bg-surface p-5 space-y-2"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-semibold text-body text-foreground">
-                    {getLocalizedText(ex.title, locale)}
-                  </span>
-                  <Tag variant="muted">{dict.careerUI.trainingLevel}</Tag>
-                </div>
+                <span className="block font-semibold text-body text-foreground">
+                  {getLocalizedText(ex.title, locale)}
+                </span>
                 <p className="text-body leading-relaxed text-muted">
                   {getLocalizedText(ex.summary, locale)}
                 </p>

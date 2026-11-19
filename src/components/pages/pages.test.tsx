@@ -28,7 +28,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("Sean Choi");
       expect(html).toContain("An engineer connecting IT systems and manufacturing equipment.");
       expect(html).toContain("I developed and operated web services for two years.");
-      expect(html).toContain('href="#selected-work"');
+      // No in-page "view projects" jump link; the section follows the hero
+      expect(html).not.toContain('href="#selected-work"');
       expect(html).toContain('id="selected-work"');
       expect(html).toContain("PLC wiring exercise");
       expect(html).toContain("RUTA40 mobile app screens");
@@ -54,7 +55,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain('href="/experience"');
       expect(html).toContain("View experience");
       expect(html).toContain('href="/projects"');
-      expect(html).toContain("View projects");
+      expect(html).toContain("All projects");
 
       // Public profile links
       expect(html).toContain("mailto:se4n.choi@gmail.com");
@@ -62,12 +63,13 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("https://www.linkedin.com/in/se4nchoi/");
 
       // Selected evidence replaces the résumé-style employment snapshot
-      expect(html).toContain("Selected work");
+      expect(html).toContain(">Projects</h2>");
+      expect(html).not.toContain("Selected work");
       expect(html).toContain("RUTA40 Electric Camper Smart Key App");
       expect(html).toContain("몰입도: Internal Attendance Service");
       expect(html).not.toContain("Classroom LAN Chat");
       // Approved case studies (canonical PDF, 2026-11-19) are featured
-      expect(html).toContain("Read the case study");
+      expect(html).toContain("Details");
       expect(html).toContain("Indy7 Palletizing Cell Digital Twin");
       expect(html).toContain("Madi: a classroom LAN chat and study app");
       expect(html).not.toContain("Verified Experience Snapshot");
@@ -81,15 +83,15 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("I built the React web app, its API integration, and the Android app");
       expect(html).toContain("The embedded team built the door-lock module");
       // Contact & Profiles section
-      expect(html).toContain("Contact &amp; Public Profiles");
+      expect(html).toContain(">Contact</h2>");
       expect(html).toContain("Based in South Korea");
 
       // Strict Section Order Verification
       const idxHero = html.indexOf("Sean Choi");
-      const idxEvidence = html.indexOf("Selected work");
+      const idxEvidence = html.indexOf(">Projects</h2>");
       const idxCareer = html.indexOf("RUTA40 Electric Camper Smart Key App");
       const idxCaseStudy = html.indexOf("Indy7 Palletizing Cell Digital Twin");
-      const idxContact = html.indexOf("Contact &amp; Public Profiles");
+      const idxContact = html.indexOf(">Contact</h2>");
 
       expect(idxHero).toBeGreaterThan(-1);
       expect(idxEvidence).toBeGreaterThan(idxHero);
@@ -114,9 +116,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain('href="/ko/experience"');
       expect(html).toContain("경력 보기");
       expect(html).toContain('href="/ko/projects"');
-      expect(html).toContain("프로젝트 보기");
+      expect(html).toContain("전체 프로젝트");
 
-      expect(html).toContain("만든 것들");
+      expect(html).toContain(">프로젝트</h2>");
+      expect(html).not.toContain("만든 것들");
       expect(html).toContain("PLC 배선 실습");
       expect(html).toContain("RUTA40 앱의 시작");
       expect(html).toContain("RUTA40 전기 캠핑카 스마트키 앱");
@@ -128,8 +131,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Skills & contact
       expect(html).not.toContain("시스템 계층별 역량");
-      expect(html).toContain("실무 프로젝트");
-      expect(html).toContain("연락처 및 프로필");
+      expect(html).toContain("경력 프로젝트");
+      expect(html).toContain(">연락처</h2>");
       expect(html).toContain("대한민국 거주");
 
       // No synthetic notices or English leaks
@@ -147,7 +150,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       // Page Title
       expect(html).toContain("Experience");
-      expect(html).toContain("Where I&#x27;ve worked, what I studied, and what I&#x27;m learning now.");
+      // No explanatory intro under the page title
+      expect(html).not.toContain("Where I&#x27;ve worked");
 
       // Professional experience records
       expect(html).toContain("Professional Experience");
@@ -177,7 +181,7 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("Physical AI &amp; Smart Factory Training Program");
 
       // Self-directed projects
-      expect(html).toContain("Self-Directed Projects");
+      expect(html).toContain("Personal Projects");
       expect(html).toContain("Madi");
       expect(html).not.toContain("BambooChat");
       expect(html).toContain("Classroom Q&amp;A Board");
@@ -191,8 +195,8 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       // Strict Section Order Verification
       const idxProf = html.indexOf("Professional Experience");
       const idxEdu = html.indexOf("Education &amp; Training");
-      const idxSideProj = html.indexOf("Self-Directed Projects");
-      const idxSkills = html.indexOf("Capabilities Across System Layers");
+      const idxSideProj = html.indexOf("Personal Projects");
+      const idxSkills = html.indexOf(">Skills</h2>");
 
       expect(idxProf).toBeGreaterThan(-1);
       expect(idxEdu).toBeGreaterThan(idxProf);
@@ -218,7 +222,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
       expect(html).toContain("부산인력개발원 - Intel");
       expect(html).toContain("AI 융합 DX 마스터클래스");
 
-      expect(html).toContain("사이드 프로젝트");
+      expect(html).toContain("개인 프로젝트");
+      expect(html).toContain("교육 실습");
+      expect(html).toContain("기술사항");
+      expect(html).not.toContain("일해 온 곳");
       expect(html).toContain("Madi (마디)");
       expect(html).toContain("수업 내 구현 실습");
 
@@ -231,11 +238,18 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
     it("renders a grouped engineering-evidence index without fabricated flagship links or controls", () => {
       const enHtml = renderToStaticMarkup(<ProjectsIndexView locale="en" />);
       expect(enHtml).toContain("Projects");
-      expect(enHtml).toContain(dictionaries.en.projectsStatus);
+      expect(enHtml).not.toContain(dictionaries.en.projectsStatus);
       expect(enHtml).not.toContain("Currently Building");
-      expect(enHtml).toContain("Professional work");
-      expect(enHtml).toContain("Side projects");
-      expect(enHtml).toContain("Hardware explorations");
+      // PDF section names, career first
+      const idxCareer = enHtml.indexOf("Career projects");
+      const idxPersonal = enHtml.indexOf("Personal projects");
+      const idxTraining = enHtml.indexOf(">Training</h2>");
+      expect(idxCareer).toBeGreaterThan(-1);
+      expect(idxPersonal).toBeGreaterThan(idxCareer);
+      expect(idxTraining).toBeGreaterThan(idxPersonal);
+      expect(enHtml).not.toContain("Case studies");
+      // The PLC wiring photo belongs to the in-class exercises
+      expect(enHtml.indexOf("PLC wiring exercise")).toBeGreaterThan(idxTraining);
       expect(enHtml).not.toContain("ROS2");
       expect(enHtml).toContain("Daegu Smart City Dashboard");
       expect(enHtml).not.toContain("<input");
@@ -252,10 +266,10 @@ describe("Page Components Server Rendering & Semantic Structure", () => {
 
       const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
       expect(koHtml).toContain("프로젝트");
-      expect(koHtml).toContain(dictionaries.ko.projectsStatus);
+      expect(koHtml).not.toContain(dictionaries.ko.projectsStatus);
       expect(koHtml).toContain("Indy7 팔레타이징 셀 디지털 트윈");
       expect(koHtml).not.toContain("ROS2");
-      expect(koHtml).toContain("실무 프로젝트");
+      expect(koHtml).toContain("경력 프로젝트");
       expect(koHtml).not.toContain("예시 프로젝트");
     });
 
@@ -487,9 +501,9 @@ describe("preview channel (dev.seanchoi.space)", () => {
     );
     expect(enHtml).not.toContain("In review");
     expect(enHtml.split(">Madi<").length - 1).toBe(0);
-    // The section heading is not repeated as each card's eyebrow
+    // Case studies sit under the personal-projects heading, without an eyebrow
     const koHtml = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
-    expect(koHtml.split("사례 연구</").length - 1).toBe(1);
+    expect(koHtml).not.toContain("사례 연구");
   });
 });
 
@@ -498,7 +512,7 @@ describe("work labels are consistent across pages", () => {
     const home = renderToStaticMarkup(<HomePageView locale="ko" />);
     const projects = renderToStaticMarkup(<ProjectsIndexView locale="ko" />);
     for (const html of [home, projects]) {
-      expect(html).toContain("실무 프로젝트");
+      expect(html).toContain("경력 프로젝트");
     }
   });
 });

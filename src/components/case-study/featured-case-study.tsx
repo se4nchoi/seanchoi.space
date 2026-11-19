@@ -6,8 +6,8 @@ import type { CaseStudy } from "@/data/case-studies";
 import { isPreviewChannel } from "@/lib/release-channel";
 
 const ui = {
-  en: { eyebrow: "Case study", read: "Read the case study", inReview: "In review" },
-  ko: { eyebrow: "사례 연구", read: "사례 연구 보기", inReview: "검토 중" },
+  en: { eyebrow: "Personal project", read: "Details", inReview: "In review" },
+  ko: { eyebrow: "개인 프로젝트", read: "자세히 보기", inReview: "검토 중" },
 } as const;
 
 /** Homepage/projects teaser. Copy stays English until the Korean case study is reviewed. */

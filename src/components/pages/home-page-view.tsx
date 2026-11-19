@@ -67,12 +67,11 @@ export function HomePageView({ locale }: HomePageViewProps) {
           {dict.careerUI.homePositioning}
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
-          <a href="#selected-work" className={textLink}>{dict.careerUI.viewProjects} <span aria-hidden="true" className="ml-2">↓</span></a>
           {email && <a href={email.href} className={textLink}>{dict.careerUI.emailLabel}</a>}
         </div>
         </div>
         <div className="mx-auto w-full max-w-[25rem] md:justify-self-end">
-          <WorkImage media={workMedia["project-plc-robot-cell-integration"]} locale={locale} portrait />
+          <WorkImage media={workMedia["project-training-exercises"]} locale={locale} portrait />
         </div>
       </section>
 

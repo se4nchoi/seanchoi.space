@@ -20,8 +20,8 @@ export function getWorkContextLabel(context: SupportingProjectContext, locale: A
   const labels: Record<SupportingProjectContext, string> = {
     professional: careerUI.professionalWorkLabel,
     "current-work": careerUI.personalProjectLabel,
-    "self-directed": careerUI.projectLevel,
-    "training-exercise": careerUI.trainingLevel,
+    "self-directed": careerUI.personalProjectLabel,
+    "training-exercise": careerUI.trainingExercises,
   };
   return labels[context];
 }

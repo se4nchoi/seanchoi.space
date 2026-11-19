@@ -20,8 +20,8 @@ export const workMedia: Record<string, WorkMedia> = {
       ko: "RUTA40 앱의 시작, 로그인, 차량 등록, 충전소 지도, 설정 화면 다섯 개.",
     },
     caption: {
-      en: "RUTA40 · mobile web interface",
-      ko: "RUTA40 · 모바일 웹 인터페이스",
+      en: "RUTA40 app screens",
+      ko: "RUTA40 앱 화면",
     },
   },
   "evidence-item-hoek-immersion": {
@@ -33,11 +33,12 @@ export const workMedia: Record<string, WorkMedia> = {
       ko: "배 위의 캐릭터 일러스트가 있는 몰입도 로그인 화면.",
     },
     caption: {
-      en: "몰입도 · internal attendance application",
-      ko: "몰입도 · 사내 근태관리 애플리케이션",
+      en: "Sign-in screen",
+      ko: "로그인 화면",
     },
   },
-  "project-plc-robot-cell-integration": {
+  // From the in-class implementation exercises, not the PLC/robot-cell exercise.
+  "project-training-exercises": {
     src: "/work/plc-wiring.jpg",
     width: 1080,
     height: 1165,
@@ -46,8 +47,8 @@ export const workMedia: Record<string, WorkMedia> = {
       ko: "나무판에 PLC, 릴레이, 단자대, 시작·정지 버튼을 배선한 실습 작업.",
     },
     caption: {
-      en: "At the workbench · PLC wiring exercise",
-      ko: "작업대에서 · PLC 배선 실습",
+      en: "PLC wiring exercise",
+      ko: "PLC 배선 실습",
     },
   },
 };

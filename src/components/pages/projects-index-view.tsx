@@ -73,18 +73,7 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
 
   return (
     <Container size="default" className={`space-y-14 pb-16 ${isKo ? "break-keep" : ""}`}>
-      <PageIntro title={dict.projects} summary={dict.projectsStatus} />
-
-      {visibleCaseStudies.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="border-b border-[var(--border)] pb-3 text-[length:var(--text-heading-2)] font-semibold tracking-[var(--tracking-display)] text-[var(--foreground)]">
-            {isKo ? "사례 연구" : "Case studies"}
-          </h2>
-          {visibleCaseStudies.map((study) => (
-            <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} showEyebrow={false} />
-          ))}
-        </section>
-      )}
+      <PageIntro title={dict.projects} />
 
       {currentWork.length > 0 && (
         <section className="space-y-6">
@@ -111,6 +100,9 @@ export function ProjectsIndexView({ locale }: ProjectsIndexViewProps) {
         <h2 className="border-b border-line pb-3 text-heading-2 font-semibold tracking-display text-foreground">
           {dict.careerUI.projectEvidence}
         </h2>
+        {visibleCaseStudies.map((study) => (
+          <FeaturedCaseStudy key={study.slug} study={study} locale={locale} headingLevel={3} showEyebrow={false} />
+        ))}
         {renderCards(projectEvidence)}
       </section>
 
